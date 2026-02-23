@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каракалпакская экзогамия - Проверка браков</title>
+    <style>
+        :root {
+            --primary-bg: #0f1419;
+            --secondary-bg: #1a1f2e;
+            --accent-red: #e74c3c;
+            --accent-orange: #e67e22;
+            --accent-yellow: #f1c40f;
+            --gold: #f1c40f;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --accent-purple: #9b59b6;
+            --accent-cyan: #1abc9c;
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --border-color: #34495e;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10,12,16,0.95);
+            border-bottom: 2px solid var(--gold);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        
+        .logo a { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: var(--gold); 
+            font-size: 1.4rem; 
+            margin: 0;
+            text-decoration: none;
+        }
+        
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .burger-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .burger-bar:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .burger-menu.active .burger-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .view-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.25rem;
+            border-radius: 20px;
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 16px;
+            border: none;
+            background: transparent;
+            color: #8892b0;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .view-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .view-btn.active {
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            
+            
+            .view-switch {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10,12,16,0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                border-bottom: 2px solid var(--gold);
+                border-radius: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            .view-switch.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .view-btn {
+                width: 160px;
+                text-align: center;
+                padding: 0.6rem;
+                border-radius:50px;
+            }
+        } 
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .title-section h2 {
+            color: var(--accent-yellow);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .title-section p {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+
+        .exogamy-checker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+
+            .burger-menu {
+                display: flex;
+            }
+            .exogamy-checker {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .selector-panel {
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .selector-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-yellow));
+        }
+
+        .panel-title {
+            font-size: 1.3em;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selected-display {
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--accent-blue);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: var(--accent-yellow);
+            transition: all 0.3s;
+        }
+
+        .selected-display.empty {
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+            font-style: italic;
+        }
+
+        .clear-btn {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            display: none;
+        }
+
+        .clear-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .clear-btn.visible {
+            display: inline-block;
+        }
+
+        .tree-selector {
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .tree-node {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .tree-item {
+            padding: 8px 12px;
+            margin: 3px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+
+        .tree-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .tree-item.selected {
+            background: rgba(46, 204, 113, 0.2);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .tree-item.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .tree-toggle {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--accent-yellow);
+            font-size: 0.8em;
+        }
+
+        .node-level-0 { margin-left: 0; }
+        .node-level-1 { margin-left: 15px; }
+        .node-level-2 { margin-left: 30px; }
+        .node-level-3 { margin-left: 45px; }
+        .node-level-4 { margin-left: 60px; }
+        .node-level-5 { margin-left: 75px; }
+
+        .level-badge {
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .result-panel {
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+
+        .result-panel.allowed::before {
+            background: linear-gradient(90deg, var(--accent-green), #2ecc71);
+        }
+
+        .result-panel.forbidden::before {
+            background: linear-gradient(90deg, var(--accent-red), #e74c3c);
+        }
+
+        .result-panel.pending::before {
+            background: linear-gradient(90deg, var(--warning), #f1c40f);
+        }
+
+        .result-panel.exception::before {
+            background: linear-gradient(90deg, var(--info), #3498db);
+        }
+
+        .result-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .result-description {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .result-details {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-details h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
+        .result-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .result-details li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .result-details li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-yellow);
+        }
+
+        .exception-note {
+            background: rgba(52, 152, 219, 0.15);
+            border: 2px solid var(--accent-blue);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .exception-note h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
+        .allowed .result-icon { color: var(--accent-green); }
+        .allowed .result-title { color: var(--accent-green); }
+        
+        .forbidden .result-icon { color: var(--accent-red); }
+        .forbidden .result-title { color: var(--accent-red); }
+        
+        .pending .result-icon { color: var(--warning); }
+        .pending .result-title { color: var(--warning); }
+
+        .exception .result-icon { color: var(--info); }
+        .exception .result-title { color: var(--info); }
+
+        .info-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-section h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .rule-card {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .rule-card h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .rule-card p {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .rule-card.allowed { border-left-color: var(--accent-green); }
+        .rule-card.forbidden { border-left-color: var(--accent-red); }
+        .rule-card.warning { border-left-color: var(--warning); }
+        .rule-card.exception { border-left-color: var(--info); }
+
+        .collapse-all, .expand-all {
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 6px 8px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+
+        .collapse-all:hover, .expand-all:hover {
+            background: #8e44ad;
+        }
+
+        .tree-selector::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tree-selector::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        .tree-selector::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid rgba(212,175,55,0.3);
+        }
+
+           .lang-btn1 {
+    padding: 0.4rem 0.4rem;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-btn1 img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.lang-btn img {
+    width: 3rem;
+    height: 3rem;
+    /* margin-bottom: 4px; */
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.lang-btn {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+     width: 2.9rem;
+    height: 2.9rem;
+}
+.lang-btn:hover {
+    border: 1px solid var(--gold);
+    width: 3rem;
+    height: 3rem;
+}
+
+
+.lang-btn1:hover {
+    border: 1px solid var(--gold);
+    width: 3rem;
+    height: 3rem;
+}
+
+.lang-btn1.active img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.lang-btn1.active {
+    border: 1px solid var(--accent-red);
+     border-radius: 8px;
+     width: 3rem;
+    height: 3rem;
+}
+
+@media (max-width: 768px) {
+    .lang-switch {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(212,175,55,0.3);
+        justify-content: center;
+    }
+
+    .search-box input {
+        display: none;
+    }
+     
+    .logo a {
+        font-size: 1rem;
+    
+    }
+        
+    }
+
+
+
+        @media (max-width: 768px) {
+            .lang-switch {
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid rgba(212,175,55,0.3);
+                padding-top: 0.5rem;
+                margin-top: 0.5rem;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+   <header>
+        <div class="logo">
+            <span style="font-size: 2rem;">💑</span>
+            <a target="_blank" href="./images/uru.jpg">Экзогамия</a>
+        </div>
+        
+        <button class="burger-menu" id="burgerMenu" aria-label="Открыть меню">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+        </button>
+        
+        <div class="view-switch" id="viewSwitch">
+            <a href="indexRU.html" class="view-btn" target="_self">🏠 Главная</a>
+            <a href="listsRU.html" class="view-btn" target="_self">📋 Списки</a>
+            <a href="schemeRU.html" class="view-btn" target="_self">🌳 Схема</a>
+            <a href="exogamyRU.html" class="view-btn active" target="_self">💑 Экзогамия</a>
+        </div>
+
+        <div class="lang-switch">
+            <a target="_self" href="exogamyRU.html" class="lang-btn1 active"><img src="./images/RU.jpg" alt="RU"></a>
+            <a target="_self" href="exogamyQQ.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
+            <a target="_self" href="exogamyKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
+        </div>
+    </header>
+
+
+            <!-- Бегущая строка для мобильных устройств -->
+    <div class="mobile-warning-marquee" id="mobileMarquee">
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+         /* Бегущая строка - только для мобильных */
+        .mobile-warning-marquee {
+            display: none;
+            position: fixed;
+            top: 103px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 99;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee-scroll 20s linear infinite;
+        }
+
+        .marquee-content span {
+            padding-right: 50px;
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-25%);
+            }
+        }
+
+        @media (max-width: 1200px) {
+    .legend-tree {
+        display: none;
+    
+    }
+}
+    @media (max-width: 1200px) {
+    .legend-tree {
+        display: none;
+    }
+    
+    }
+
+
+
+        /* Показываем на экранах меньше 967px */
+        @media (max-width: 967px) {
+          
+            }
+            
+            
+            body {
+                padding-top: 115px !important;
+            }
+        
+
+        @media (max-width: 768px) {
+             
+                
+            .mobile-warning-marquee {
+                display: block;
+                top: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .marquee-content {
+                animation-duration: 15s;
+            }
+            
+             .mobile-warning-marquee {
+       font-size: 0.5em;
+            font-weight: 400;
+                padding: 5px 0;
+       top: 100px;
+    }
+            }
+
+              @media (max-width: 400px) {
+                .logo a {
+                    display: none;
+                }
+           
+            }
+            
+           
+            
+
+             
+    </style>
+
+    <div class="container">
+        <div class="title-section">
+            <h2>Каракалпакская родовая экзогамия</h2>
+            <p>Проверка родовых браков</p>
+        </div>
+
+        <div class="exogamy-checker">
+            <div class="selector-panel">
+                <div class="panel-title">
+                    🤵 Жених
+                    <button class="collapse-all" onclick="collapseAll('groom')">Свернуть</button>
+                    <button class="expand-all" onclick="expandAll('groom')">Развернуть</button>
+                </div>
+                <div id="groomDisplay" class="selected-display empty">Выберите род</div>
+                <button class="clear-btn" id="groomClear" onclick="clearSelection('groom')">❌ Очистить</button>
+                <div id="groomTree" class="tree-selector"></div>
+            </div>
+
+            <div class="selector-panel">
+                <div class="panel-title">
+                    👰 Невеста
+                    <button class="collapse-all" onclick="collapseAll('bride')">Свернуть</button>
+                    <button class="expand-all" onclick="expandAll('bride')">Развернуть</button>
+                </div>
+                <div id="brideDisplay" class="selected-display empty">Выберите род</div>
+                <button class="clear-btn" id="brideClear" onclick="clearSelection('bride')">❌ Очистить</button>
+                <div id="brideTree" class="tree-selector"></div>
+            </div>
+        </div>
+
+        <div id="resultPanel" class="result-panel pending">
+            <div class="result-icon">⏳</div>
+            <div class="result-title">Ожидание выбора</div>
+            <div class="result-description">
+                После выбора обеих сторон будет проверена возможность брака
+            </div>
+            <div class="result-details" id="resultDetails" style="display: none;"></div>
+        </div>
+
+        <div class="info-section">
+            <h3>📚 Правила экзогамии</h3>
+            <div class="rules-grid">
+                <div class="rule-card forbidden">
+                    <h4>❌ Запрещено</h4>
+                    <p>Бракосочетание внутри одного рода, коша или тире считается инцестом.</p>
+                </div>
+                <div class="rule-card exception">
+                    <h4>💡 Особый случай</h4>
+                    <p>Род Муйтен: разрешены браки между родами Кентау, Тели, Самат, Абыз.</p>
+                </div>
+                <div class="rule-card warning">
+                    <h4>❌ Запрещено</h4>
+                    <p>В других родах: бракосочетание внутри одного рода запрещено.</p>
+                </div>
+                <div class="rule-card allowed">
+                    <h4>✅ Разрешено</h4>
+                    <p>Из разных родов, арыс или отдельных подразделений.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        const tribeData = {
+            id: "root", name: "КАРАКАЛПАКИ", level: 0, type: "народ",
+            children: [
+                {
+                    id: "conyrat", name: "АРЫС КОНЫРАТ", level: 1, type: "арыс", tamga: "П (порог)", uran: "Какпа",
+                    children: [
+                        {
+                            id: "shulyk", name: "ШУЛЫКСКОЕ ПОДРАЗДЕЛЕНИЕ", level: 2, type: "подразделение",
+                            children: [
+                                {
+                                    id: "kyat", name: "КЫЯТ", level: 3, type: "большой род", tamga: "Три знака", urан: "Алатау",
+                                    children: [
+                                        {
+                                            id: "ush-tambaly", name: "Уштанбалы", level: 4, type: "тире",
+                                            children: [
+                                                { id: "sanmurun-k", name: "Санмурын", level: 5, type: "кош" },
+                                                { id: "aryq-kyat", name: "Арыккият", level: 5, type: "кош" },
+                                                { id: "tartuly", name: "Тартулу", level: 5, type: "кош" },
+                                                { id: "qanzhygaly-k", name: "Канжыгалы", level: 5, type: "кош" },
+                                                { id: "qatagan", name: "Катаган", level: 5, type: "кош" },
+                                                { id: "qara-kyat", name: "Каракият", level: 5, type: "кош" }
+                                            ]
+                                        },
+                                        {
+                                            id: "taraqty", name: "Таракты", level: 4, type: "тире",
+                                            children: [
+                                                { id: "togyzaq", name: "Тогызак", level: 5, type: "кош" },
+                                                { id: "abas-kyat", name: "Абас", level: 5, type: "кош" },
+                                                { id: "jaltyrshy", name: "Жалтыршы", level: 5, type: "кош" },
+                                                { id: "aqunqaragan", name: "Акункаранган", level: 5, type: "кош" },
+                                                { id: "taqay", name: "Такай", level: 5, type: "кош" },
+                                                { id: "qarzhaubaras", name: "Каржаубарас", level: 5, type: "кош" }
+                                            ]
+                                        },
+                                        {
+                                            id: "balgaly-kyat", name: "Балгалы Кият", level: 4, type: "тире",
+                                            children: [
+                                                { id: "bespishaq", name: "Беспышак", level: 5, type: "кош" },
+                                                { id: "etekshi", name: "Етекши", level: 5, type: "кош" },
+                                                { id: "sanmurun-bk", name: "Санмурын", level: 5, type: "кош" },
+                                                { id: "qozhaqaragan", name: "Кожакаранган", level: 5, type: "кош" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "ashamayly", name: "АШАМАЙЛЫ", level: 3, type: "род", tamga: "АШ", urан: "Шулык",
+                                    children: [
+                                        { id: "saqu", name: "Саку", level: 4, type: "тире" },
+                                        { id: "qaraqoja", name: "Каракожа", level: 4, type: "тире" },
+                                        { id: "jalangayaq", name: "Жалангаяк", level: 4, type: "тире" },
+                                        { id: "ajyldy", name: "Айылды", level: 4, type: "тире" },
+                                        {
+                                            id: "qobasan", name: "Кобасан", level: 4, type: "тире",
+                                            children: [
+                                                { id: "aqnazar", name: "Акназар", level: 5, type: "кош" },
+                                                { id: "jansary", name: "Жансары", level: 5, type: "кош" },
+                                                { id: "otemis-q", name: "Отемис", level: 5, type: "кош" },
+                                                { id: "esen", name: "Есен", level: 5, type: "кош" },
+                                                { id: "tampysh", name: "Тампыш", level: 5, type: "кош" }
+                                            ]
+                                        },
+                                        { id: "turkmenqara", name: "Туркменкара", level: 4, type: "тире" },
+                                        { id: "jappar", name: "Жаппар", level: 4, type: "тире" },
+                                        { id: "sary-ash", name: "Сары", level: 4, type: "тире" },
+                                        { id: "abyz-ash", name: "Абыз", level: 4, type: "тире" },
+                                        { id: "aqay", name: "Акай", level: 4, type: "тире" },
+                                        { id: "pangqara", name: "Панкара", level: 4, type: "тире" },
+                                        {
+                                            id: "ush-bas", name: "Уш бас", level: 4, type: "тире",
+                                            children: [{ id: "jaman-ub", name: "Жаман", level: 5, type: "кош" }]
+                                        },
+                                        { id: "qurama", name: "Курама", level: 4, type: "тире" }
+                                    ]
+                                },
+                                {
+                                    id: "koldauli", name: "КОЛДАУЛЫ", level: 3, type: "род", tamga: "КЛД", urан: "Колдау",
+                                    children: [
+                                        { id: "beskempir", name: "Бескемпир", level: 4, type: "тире" },
+                                        { id: "maishyshaly", name: "Майшычалы", level: 4, type: "тире" },
+                                        { id: "qalqaman", name: "Калкаман", level: 4, type: "тире" },
+                                        { id: "ghajypqaragan", name: "Гайыпкаранган", level: 4, type: "тире" },
+                                        { id: "sarytan-k", name: "Сарытан", level: 4, type: "тире" },
+                                        { id: "kulkiqozhaq", name: "Кулкикожак", level: 4, type: "тире" },
+                                        { id: "jarymbet", name: "Жарымбет", level: 4, type: "тире" },
+                                        { id: "qyzylayaq", name: "Кызылаяк", level: 4, type: "тире" },
+                                        { id: "karasiraq-k", name: "Карасирак", level: 4, type: "тире" },
+                                        { id: "jelqaragan", name: "Желкаранган", level: 4, type: "тире" },
+                                        { id: "ulkenborik", name: "Улкенбори", level: 4, type: "тире" },
+                                        { id: "shylzhuyt", name: "Шылжуют", level: 4, type: "тире" },
+                                        { id: "jamanqonyrat", name: "Жаманконырат", level: 4, type: "тире" },
+                                        {
+                                            id: "kalmaq", name: "Калмак", level: 4, type: "тире",
+                                            children: [
+                                                { id: "adil", name: "Адил", level: 5, type: "кош" },
+                                                { id: "ereke", name: "Ереке", level: 5, type: "кош" }
+                                            ]
+                                        },
+                                        { id: "jaman-aul", name: "Жаман аул", level: 4, type: "тире" }
+                                    ]
+                                },
+                                {
+                                    id: "kostambali", name: "КОСТАНБАЛЫ", level: 3, type: "род", tamga: "II", urан: "Коска",
+                                    children: [
+                                        { id: "jangildi-k", name: "Жангелди", level: 4, type: "тире" },
+                                        { id: "shirzhegen", name: "Ширжеген", level: 4, type: "тире" },
+                                        { id: "aghabegli", name: "Агабегли", level: 4, type: "тире" },
+                                        { id: "qarynzhuan", name: "Карынжуан", level: 4, type: "тире" },
+                                        { id: "kostambali-k", name: "Костанбалы", level: 4, type: "тире" },
+                                        { id: "qaraqursaq-k", name: "Каракурсак", level: 4, type: "тире" },
+                                        { id: "qazaqy-k", name: "Казахы", level: 4, type: "тире" }
+                                    ]
+                                },
+                                {
+                                    id: "balgali", name: "БАЛГАЛЫ", level: 3, type: "род", tamga: "Б", urан: "Балга",
+                                    children: [
+                                        { id: "aqbalgali", name: "Акбалгалы", level: 4, type: "тире" },
+                                        { id: "nurbalgali", name: "Нурбалгалы", level: 4, type: "тире" },
+                                        { id: "turkmen-b", name: "Туркмен", level: 4, type: "тире" },
+                                        { id: "jamanaul-b", name: "Жаманауыл", level: 4, type: "тире" },
+                                        { id: "shomishti", name: "Шомишти", level: 4, type: "тире" },
+                                        { id: "toqymbet", name: "Токымбет", level: 4, type: "тире" },
+                                        { id: "tazbalgali", name: "Тазбалгалы", level: 4, type: "тире" },
+                                        { id: "kostamgali-b", name: "Костамгалы", level: 4, type: "тире" },
+                                        { id: "qaratalshy", name: "Караталшы", level: 4, type: "тире" },
+                                        { id: "asan", name: "Асан", level: 4, type: "тире" },
+                                        { id: "arzyqul", name: "Арзыкул", level: 4, type: "тире" }
+                                    ]
+                                },
+                                {
+                                    id: "kandekli", name: "КАНДЕКЛИ", level: 3, type: "род", tamga: "Г", urан: "Конdek",
+                                    children: [
+                                        { id: "qarama-kan", name: "Карама", level: 4, type: "тире" },
+                                        { id: "kiikshi", name: "Кийкши", level: 4, type: "тире" },
+                                        { id: "toqbolat-kan", name: "Токболат", level: 4, type: "тире" },
+                                        { id: "qyryqsadaq", name: "Кырыксадак", level: 4, type: "тире" }
+                                    ]
+                                },
+                                {
+                                    id: "karamoiyn", name: "КАРАМОЙЫН", level: 3, type: "род", tamga: "ТМ", urан: "Мойын",
+                                    children: [
+                                        { id: "annakhoja", name: "Аннахожа", level: 4, type: "тире" },
+                                        { id: "sabalaq", name: "Сабалак", level: 4, type: "тире" },
+                                        { id: "kotelek", name: "Котелек", level: 4, type: "тире" },
+                                        { id: "qarlymaral", name: "Карлымарал", level: 4, type: "тире" },
+                                        { id: "bulkildek", name: "Булкилдек", level: 4, type: "тире" }
+                                    ]
+                                },
+                                {
+                                    id: "muyten", name: "МУЙТЕН", level: 3, type: "род", tamga: "Три вилки", urан: "Акшолпан",
+                                    children: [
+                                        {
+                                            id: "samat", name: "Самат (5)", level: 4, type: "тире",
+                                            children: [
+                                                { id: "baibishe", name: "Байбишe", level: 5, type: "кош" },
+                                                { id: "toqqaragan", name: "Токалкаранган", level: 5, type: "кош" },
+                                                { id: "baimurat", name: "Баймурат", level: 5, type: "кош" },
+                                                { id: "jolan", name: "Жолан", level: 5, type: "кош" },
+                                                { id: "bekau", name: "Бекаy", level: 5, type: "кош" }
+                                            ]
+                                        },
+                                        {
+                                            id: "teli", name: "Тели (5)", level: 4, type: "тире",
+                                            children: [
+                                                { id: "tileuberdi", name: "Тилеуберди", level: 5, type: "кош" },
+                                                { id: "allaberdi", name: "Аллаберди", level: 5, type: "кош" },
+                                                { id: "tangirberdi", name: "Тангирберди", level: 5, type: "кош" },
+                                                { id: "mantyqaragan", name: "Мантыккаранган", level: 5, type: "кош" },
+                                                { id: "molloqaragan", name: "Моллакаранган", level: 5, type: "кош" }
+                                            ]
+                                        },
+                                        {
+                                            id: "abyz-m", name: "Абыз", level: 4, type: "тире",
+                                            children: [{ id: "ady", name: "Ады", level: 5, type: "кош" }]
+                                        },
+                                        {
+                                            id: "kentanau", name: "Кентау (3)", level: 4, type: "тире",
+                                            children: [
+                                                { id: "barn", name: "Барн", level: 5, type: "кош" },
+                                                { id: "itaq", name: "Итак", level: 5, type: "кош" },
+                                                { id: "jekensal", name: "Жекенсал", level: 5, type: "кош" }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "jauyngyr", name: "ЖАУЫНГЫРСКОЕ ПОДРАЗДЕЛЕНИЕ", level: 2, type: "подразделение",
+                            children: [
+                                { id: "teristambaly", name: "ТЕРИСТАНБАЛЫ", level: 3, type: "род", tamga: "Т", urан: "Жауынгыр", children: [{id:"shomak",name:"Шомак",level:4,type:"тире"},{id:"hangildi",name:"Хангелди",level:4,type:"тире"},{id:"baiqaragan",name:"Байкаранган",level:4,type:"тире"},{id:"elshibai",name:"Елшибай",level:4,type:"тире"},{id:"qurban-t",name:"Курбан",level:4,type:"тире"},{id:"togai",name:"Тогыз",level:4,type:"тире"},{id:"tyle",name:"Тиле",level:4,type:"тире"},{id:"tebegen",name:"Тебеген",level:4,type:"тире"},{id:"tum",name:"Тум",level:4,type:"тире"},{id:"tyrk",name:"Туркистан",level:4,type:"тире"}] },
+                                { id: "bakanly", name: "БАКАНЛЫ", level: 3, type: "род", tamga: "Б", urан: "Жауынгыр", children: [{id:"tanmail-b",name:"Танмайыл",level:4,type:"тире"},{id:"zhananai",name:"Жаканай",level:4,type:"тире"},{id:"naiman-b",name:"Найман",level:4,type:"тире"},{id:"aiys-b",name:"Айыс",level:4,type:"тире"}] },
+                                { id: "tyekli", name: "ТИЕКТИ", level: 3, type: "род", tamga: "ТК", urан: "Жауынгыр", children: [{id:"shishi-t",name:"Шиши",level:4,type:"тире",children:[{id:"shishi-kosh",name:"Шиши",level:5,type:"кош"}]},{id:"tumanai-t",name:"Туманай",level:4,type:"тире",children:[{id:"tumanai-kosh",name:"Туманай",level:5,type:"кош"}]},{id:"maulik-t",name:"Маулик",level:4,type:"тире",children:[{id:"maulik-kosh",name:"Маулик",level:5,type:"кош"}]},{id:"bairam-t",name:"Байрам",level:4,type:"тире",children:[{id:"bairam-kosh",name:"Байрам",level:5,type:"кош"}]}] },
+                                { id: "yrgaqty", name: "ЫРГАКТЫ", level: 3, type: "род", tamga: "Ы", urан: "Жауынгыр", children: [{id:"atanai-y",name:"Атанай",level:4,type:"тире",children:[{id:"atanai-kosh",name:"Атанай",level:5,type:"кош"}]},{id:"eshkili-y",name:"Ешкили",level:4,type:"тире",children:[{id:"eshkili-kosh",name:"Ешкили",level:5,type:"кош"}]},{id:"baibura-y",name:"Байбура",level:4,type:"тире",children:[{id:"baibura-kosh",name:"Байбура",level:5,type:"кош"}]},{id:"sarytan-y",name:"Сарытан",level:4,type:"тире",children:[{id:"sarytan-kosh",name:"Сарытан",level:5,type:"кош"}]}] },
+                                { id: "baimaqty", name: "БАЙМАКТЫ", level: 3, type: "род", tamga: "БМ", urан: "Жауынгыр", children: [{id:"saspaq",name:"Саспак",level:4,type:"тире"},{id:"uies",name:"Уйес",level:4,type:"тире"},{id:"tanmail-bm",name:"Танмайыл",level:4,type:"тире"},{id:"zhananai-bm",name:"Жаканай",level:4,type:"тире"},{id:"naiman-bm",name:"Найман",level:4,type:"тире"},{id:"aiys-bm",name:"Айыс",level:4,type:"тире"}] },
+                                { id: "kazayakty", name: "КАЗАЯКТЫ", level: 3, type: "род", tamga: "КЗ", urан: "Жауынгыр", children: [{id:"anetai",name:"Анетай",level:4,type:"тире"},{id:"zharimbet-k",name:"Жаримбет",level:4,type:"тире"},{id:"zhundi",name:"Жунди",level:4,type:"тире"},{id:"sadaq",name:"Садак",level:4,type:"тире"}] },
+                                { id: "uygyr", name: "УЙГЫР", level: 3, type: "род", tamga: "У", urан: "Жауынгыр", children: [{id:"shishi-u",name:"Шиши",level:4,type:"тире"},{id:"tumanai-u",name:"Туманай",level:4,type:"тире"},{id:"sabalaq-u",name:"Сабалак",level:4,type:"тире"},{id:"maulik-u",name:"Маулик",level:4,type:"тире"},{id:"bairam-u",name:"Байрам",level:4,type:"тире"},{id:"syrgaly",name:"Сыргалы",level:4,type:"тире"}] }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "onTort", name: "АРЫС ОН ТОРТ РУ", level: 1, type: "арыс",
+                    children: [
+                        {
+                            id: "kytaı", name: "КЫТАЙ", level: 2, type: "большой род", tamga: "Q", urан: "Уллы тау",
+                            children: [
+                                { id: "bessary", name: "БЕССАРЫ", level: 3, type: "род", tamga: "БС", urан: "Уллы тау", children: [{id:"zhunli",name:"Жунли",level:4,type:"тире"},{id:"qoyly",name:"Койлы",level:4,type:"тире"}] },
+                                { id: "beksyyk", name: "БЕКСЫЙЫК", level: 3, type: "род", tamga: "БС", urан: "Уллы тау", children: [{id:"zherger",name:"Зергер",level:4,type:"тире"},{id:"masai",name:"Масай",level:4,type:"тире"},{id:"shyghyrshy",name:"Шыгыршы",level:4,type:"тире"},{id:"malay",name: "Малай",level:4,type:"тире"}] },
+                                { id: "kazayakly-k", name: "КАЗАЯКЛЫ", level: 3, type: "род", tamga: "КЗ", urан: "Уллы тау", children: [{id:"kalsen",name:"Калсен",level:4,type:"тире"},{id:"kuyik",name:"Куйик",level:4,type:"тире"},{id:"myrzai",name:"Мырзай",level:4,type:"тире"},{id:"qylymoiyn",name:"Кылмойын",level:4,type:"тире"},{id:"zhylkybai",name:"Жылкбай",level:4,type:"тире"},{id:"baibishe-kz",name:"Байбишe",level:4,type:"тире",children:[{id:"baibishe-kosh",name:"Байбишe",level:5,type:"кош"}]}] },
+                                { id: "kaishyly", name: "КАЙШЫЛЫ", level: 3, type: "род", tamga: "КШ", urан: "Уллы тау", children: [{id:"aqymbet",name:"Акымбет",level:4,type:"тире"},{id:"zhuansan",name:"Жувансан",level:4,type:"тире"},{id:"koterehoja",name:"Котерехожа",level:4,type:"тире"},{id:"tanamyrza",name:"Танамырза",level:4,type:"тире"},{id:"baqy",name:"Бакы",level:4,type:"тире"},{id:"sybyl",name:"Сыбыл",level:4,type:"тире"},{id:"basar",name:"Басар",level:4,type:"тире"},{id:"tolyq",name:"Толык",level:4,type:"тире"},{id:"yaby",name:"Ябы",level:4,type:"тире"}] },
+                                { id: "aitereke", name: "АЙТЕКЕ", level: 3, type: "род", tamga: "АТ", urан: "Уллы тау", children: [{id:"zhadyq",name:"Жадык",level:4,type:"тире"},{id:"yrsymbek",name:"Ырсымбек",level:4,type:"тире"},{id:"orazymbet",name:"Оразымбет",level:4,type:"тире"},{id:"tangirkul",name:"Тангиркул",level:4,type:"тире"},{id:"bektes",name:"Бектес",level:4,type:"тире",children:[{id:"bektes-kosh",name:"Бектес",level:5,type:"кош"}]},{id:"nauriz",name:"Наурыз",level:4,type:"тире",children:[{id:"nauriz-kosh",name:"Наурыз",level:5,type:"кош"}]},{id:"maniuwli-a",name:"Манжули",level:4,type:"тире",children:[{id:"maniuwli-kosh",name:"Манжули",level:5,type:"кош"}]},{id:"tazshylyq",name:"Тазшылык",level:4,type:"тире",children:[{id:"tazshylyq-kosh",name:"Тазшылык",level:5,type:"кош"}]}] },
+                                { id: "manjuwli-k", name: "МАНЖУЛИ", level: 3, type: "род", tamga: "МН", urан: "Уллы тау", children: [{id:"eki-shyiq",name:"Еки шыык",level:4,type:"тире"},{id:"qaramanjuwli",name:"Караманжули",level:4,type:"тире"},{id:"aiiereke",name:"Айереке",level:4,type:"тире"}] },
+                                { id: "aralbai", name: "АРАЛБАЙ", level: 3, type: "род", tamga: "АР", urан: "Уллы тау", children: [{id:"aqqala",name:"Аккала",level:4,type:"тире"},{id:"qalmuart-ar",name:"Калмурат",level:4,type:"тире"},{id:"ogizbaishy",name:"Огизбайшы",level:4,type:"тире"},{id:"baibishe-ar",name:"Байбишe",level:4,type:"тире"},{id:"tile-qusshy",name:"Тилеу кушши",level:4,type:"тире"}] }
+                            ]
+                        },
+                        {
+                            id: "kypshak", name: "КЫПШАК", level: 2, type: "большой род", tamga: "I", urан: "Токсаба",
+                            children: [
+                                { id: "kangly", name: "КАНГЛЫ", level: 3, type: "род", tamga: "КН", urан: "Токсаба", children: [{id:"tram",name:"Трам",level:4,type:"тире"},{id:"qatqangly",name:"Катканглы",level:4,type:"тире"},{id:"yrghaqly",name:"Ыргаклы",level:4,type:"тире"},{id:"ashamaily-k",name:"Ашамайлы",level:4,type:"тире"},{id:"taraqty-k",name:"Таракты",level:4,type:"тире"},{id:"baspak",name:"Баспак",level:4,type:"тире"},{id:"aiat",name:"Айят",level:4,type:"тире"},{id:"bosyn",name:"Босын",level:4,type:"тире"},{id:"basapat",name:"Баспат",level:4,type:"тире"},{id:"konyrqazy",name:"Конырказы",level:4,type:"тире"},{id:"kenes",name:"Кенес",level:4,type:"тире"},{id:"tashkent",name:"Ташкент",level:4,type:"тире"}] },
+                                { id: "sanmuryn", name: "САНМУРЫН", level: 3, type: "род", tamga: "СМ", urан: "Токсаба", children: [{id:"konshi",name:"Конши",level:4,type:"тире"},{id:"tubai",name:"Тубай",level:4,type:"тире"},{id:"eshkili",name:"Ешкили",level:4,type:"тире"},{id:"zhaipaq-shek",name:"Жайпак шек",level:4,type:"тире"},{id:"tolebai",name:"Толебай",level:4,type:"тире"},{id:"zhabashy",name:"Жабашы",level:4,type:"тире"}] },
+                                { id: "estek", name: "ЕСТЕК", level: 3, type: "род", tamga: "ЕС", urан: "Токсаба", children: [{id:"manqanai",name:"Манканай",level:4,type:"тире"},{id:"qaiypnazar",name:"Кайыпназар",level:4,type:"тире"},{id:"karaterenshi",name:"Каратеренши",level:4,type:"тире"},{id:"qalmuart-es",name:"Калмурат",level:4,type:"тире"}] },
+                                { id: "qanzhygaly", name: "КАНЖЫГАЛЫ", level: 3, type: "род", tamga: "КЖ", urан: "Токсаба", children: [{id:"shanyshpai",name:"Шанышпай",level:4,type:"тире"},{id:"sambet-q",name:"Самбет",level:4,type:"тире"},{id:"zhaghaltai",name:"Жагалтай",level:4,type:"тире"},{id:"baibishe-q",name:"Байбишe",level:4,type:"тире",children:[{id:"baibishe-q-kosh",name:"Байбишe",level:5,type:"кош"}]}] },
+                                { id: "saltyr", name: "САЛТЫР", level: 3, type: "род", tamga: "СЛ", urан: "Токсаба", children: [{id:"baibishe-s",name:"Байбишe",level:4,type:"тире"},{id:"sart",name:"Сарт",level:4,type:"тире"},{id:"orazymbet-s",name:"Оразымбет",level:4,type:"тире"},{id:"shuyghan",name:"Шуйган",level:4,type:"тире"}] }
+                            ]
+                        },
+                        {
+                            id: "keneges", name: "КЕНЕГЕС", level: 2, type: "большой род", tamga: "Х", urан: "Шаулы-Шаухай",
+                            children: [
+                                { id: "aranshy", name: "АРАНШЫ", level: 3, type: "род", tamga: "АР", urан: "Шаулы-Шаухай", children: [{id:"annaqul",name:"Аннакул",level:4,type:"тире"},{id:"abas-k",name:"Абас",level:4,type:"тире",children:[{id:"seitimbet",name:"Сейтимбет",level:5,type:"кош"}]},{id:"suiin",name:"Суйин",level:4,type:"тире"},{id:"zhuas",name:"Жуас",level:4,type:"тире"},{id:"dauletqargha",name:"Даулеткарга",level:4,type:"тире"},{id:"qaipbergen",name:"Кайыпберген",level:4,type:"тире"}] },
+                                { id: "aktogyn", name: "АКТОГЫН", level: 3, type: "род", tamga: "АТ", urан: "Шаулы-Шаухай", children: [{id:"nanzhemes",name:"Нанжемес",level:4,type:"тире"},{id:"kosher",name:"Кошер",level:4,type:"тире"}] },
+                                { id: "omir", name: "ОМИР", level: 3, type: "род", tamga: "ОМ", urан: "Шаулы-Шаухай", children: [{id:"aqpyshaq",name:"Акпышаk",level:4,type:"тире"},{id:"usaq",name:"Усак",level:4,type:"тире"},{id:"zhel",name:"Жел",level:4,type:"тире"},{id:"mynzhyr",name:"Мынжыр",level:4,type:"тире"},{id:"otemis-o",name:"Отемис",level:4,type:"тире"}] },
+                                { id: "taraqly-ken", name: "ТАРАКЛЫ", level: 3, type: "род", tamga: "ТР", urан: "Шаулы-Шаухай", children: [{id:"zhetiqaraghaz",name:"Жетикараказахы",level:4,type:"тире",children:[{id:"zheti-kosh",name:"Жетикара",level:5,type:"кош"}]}] },
+                                { id: "dobal", name: "ДОБАЛ", level: 3, type: "род", tamga: "ДБ", urан: "Шаулы-Шаухай" },
+                                { id: "oymauyt", name: "ОЙМАУЫТ", level: 3, type: "род", tamga: "ОЙ", urан: "Шаулы-Шаухай", children: [{id:"qara-o",name:"Кара",level:4,type:"тире"},{id:"sary-o",name:"Сары",level:4,type:"тире",children:[{id:"zhiydeli",name:"Жийдели",level:5,type:"кош"}]},{id:"aq-o",name:"Ак",level:4,type:"тире"}] },
+                                { id: "dombazqaq", name: "ДОМБАЗКАК", level: 3, type: "род", tamga: "ДМ", urан: "Шаулы-Шаухай" },
+                                { id: "nokis", name: "НОКИС", level: 3, type: "род", tamga: "НК", urан: "Шаулы-Шаухай", children: [{id:"zhamanzhak",name:"Жаманжак",level:4,type:"тире"},{id:"bozaq",name:"Бозак",level:4,type:"тире"},{id:"altynpyshaq",name:"Алтынпышаk",level:4,type:"тире"},{id:"ghobdir",name:"Гобдир",level:4,type:"тире"}] }
+                            ]
+                        },
+                        {
+                            id: "mangyt", name: "МАНГЫТ", level: 2, type: "большой род", tamga: "f", urан: "Шаулы-Шаухай",
+                            children: [
+                                { id: "qaratay", name: "КАРАТАЙ (Кара)", level: 3, type: "топар", tamga: "КТ", urан: "Шаулы-Шаухай", children: [{id:"qaramangyt",name:"Карамангыt",level:4,type:"тире",children:[{id:"ushbas",name:"Ушбас",level:5,type:"кош"},{id:"karasiraq-m",name:"Карасирак",level:5,type:"кош"},{id:"aqmangyt",name:"Акмангыt",level:5,type:"кош"}]},{id:"mamyqshy",name:"Мамыкшы",level:4,type:"род",children:[{id:"zhetiqurt",name:"Жетикурт",level:5,type:"кош"}]},{id:"kosar-m",name:"Косар",level:4,type:"род",children:[{id:"gubidin",name:"Губидин",level:5,type:"кош"}]},{id:"qylqaly",name:"Кылкалы",level:4,type:"тире"}] },
+                                { id: "sarytay", name: "САРЫТАЙ (Сары)", level: 3, type: "топар", tamga: "СТ", urан: "Шаулы-Шаухай", children: [{id:"arshyn",name:"Аршын",level:4,type:"тире"},{id:"zhailyk",name:"Жайлык",level:4,type:"тире"},{id:"toqmangyt",name:"Токмангыt",level:4,type:"тире"},{id:"arsary",name:"Арсары",level:4,type:"тире"},{id:"tazhzhanlyk",name:"Тазжанлык",level:4,type:"тире"},{id:"shuyt",name:"Шуйт",level:4,type:"тире"},{id:"zhamansha",name:"Жаманша",level:4,type:"тире"},{id:"esebii",name:"Есебий",level:4,type:"тире"},{id:"tamgaly-m",name:"Тамгалы",level:4,type:"тире"},{id:"toqmoiyin",name:"Токмойын",level:4,type:"тире"},{id:"temirhoja",name:"Темирхожа",level:4,type:"тире"}] },
+                                { id: "boztay", name: "БОЗТАЙ (Боз)", level: 3, type: "топар", tamga: "БТ", urан: "Шаулы-Шаухай", children: [{id:"bozta",name:"Бозта",level:4,type:"тире",children:[{id:"bozta-kosh",name:"Бозта",level:5,type:"кош"}]}] },
+                                { id: "jetimtay", name: "ЖЕТИМТАЙ (Жетим)", level: 3, type: "топар", tamga: "ЖТ", urан: "Шаулы-Шаухай", children: [{id:"eshbuga",name:"Ешбуга",level:4,type:"тире",children:[{id:"eshbuga-kosh",name:"Ешбуга",level:5,type:"кош"}]}] }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // ИСКЛЮЧЕНИЕ: Род Муйтен и его тире
+        const MUYTEN_EXCEPTION = {
+            uruuId: 'muyten',
+            tiyreIds: ['samat', 'teli', 'abyz-m', 'kentanau'],
+            description: 'Тире рода Муйтен: Кентау, Тели, Самат, Абыз'
+        };
+
+        // Хранение выбранных значений
+        let selections = {
+            groom: null,
+            bride: null
+        };
+
+        // Получить путь к узлу
+        function getNodePath(nodeId, node = tribeData, path = []) {
+            if (node.id === nodeId) {
+                return [...path, node];
+            }
+            if (node.children) {
+                for (let child of node.children) {
+                    const result = getNodePath(nodeId, child, [...path, node]);
+                    if (result) return result;
+                }
+            }
+            return null;
+        }
+
+        // Найти ближайшего общего предка
+        function findCommonAncestor(path1, path2) {
+            let common = null;
+            let minLength = Math.min(path1.length, path2.length);
+            for (let i = 0; i < minLength; i++) {
+                if (path1[i].id === path2[i].id) {
+                    common = path1[i];
+                } else {
+                    break;
+                }
+            }
+            return common;
+        }
+
+        // Проверить, относится ли узел к исключению Муйтен
+        function isMuytenException(nodeId) {
+            return MUYTEN_EXCEPTION.tiyreIds.includes(nodeId);
+        }
+
+        // Проверить, является ли узел родом Муйтен
+        function isMuytenUruu(nodeId) {
+            return nodeId === MUYTEN_EXCEPTION.uruuId;
+        }
+
+        // Проверить экзогамию
+        function checkExogamy() {
+            if (!selections.groom || !selections.bride) {
+                updateResult('pending');
+                return;
+            }
+
+            const groomPath = getNodePath(selections.groom);
+            const bridePath = getNodePath(selections.bride);
+
+            if (!groomPath || !bridePath) return;
+
+            // Проверяем, не один и тот же узел
+            if (selections.groom === selections.bride) {
+                updateResult('forbidden', 'same');
+                return;
+            }
+
+            // Находим уровни для обоих
+            const groomLevel = groomPath[groomPath.length - 1].level;
+            const brideLevel = bridePath[bridePath.length - 1].level;
+            const groomId = groomPath[groomPath.length - 1].id;
+            const brideId = bridePath[bridePath.length - 1].id;
+
+            // Проверяем исключение для Муйтен
+            const groomInMuyten = isMuytenException(groomId);
+            const brideInMuyten = isMuytenException(brideId);
+
+            if (groomInMuyten && brideInMuyten) {
+                updateResult('allowed', 'muyten_exception');
+                return;
+            }
+
+            // Находим общего предка
+            const commonAncestor = findCommonAncestor(groomPath, bridePath);
+
+            if (!commonAncestor) {
+                updateResult('allowed', 'different');
+                return;
+            }
+
+            // Проверяем уровень общего предка
+            const commonLevel = commonAncestor.level;
+            
+            if (commonLevel === 5) { // Кош
+                updateResult('forbidden', 'koshe');
+            } else if (commonLevel === 4) { // Тире
+                updateResult('forbidden', 'tiyre');
+            } else if (commonLevel === 3) { // Род
+                if (isMuytenUruu(commonAncestor.id)) {
+                    if (groomInMuyten || brideInMuyten) {
+                        updateResult('allowed', 'muyten_exception');
+                    } else {
+                        updateResult('forbidden', 'uruu');
+                    }
+                } else {
+                    updateResult('forbidden', 'uruu');
+                }
+            } else if (commonLevel === 2) { // Подразделение
+                updateResult('warning', 'bolim');
+            } else if (commonLevel === 1) { // Арыс
+                updateResult('allowed', 'arys');
+            } else {
+                updateResult('allowed', 'nation');
+            }
+        }
+
+        // Обновить результат
+        function updateResult(status, reason) {
+            const panel = document.getElementById('resultPanel');
+            const icon = panel.querySelector('.result-icon');
+            const title = panel.querySelector('.result-title');
+            const desc = panel.querySelector('.result-description');
+            const details = document.getElementById('resultDetails');
+
+            panel.className = 'result-panel ' + status;
+
+            const messages = {
+                pending: {
+                    icon: '⏳',
+                    title: 'Ожидание выбора',
+                    desc: 'После выбора обеих сторон будет проверена возможность брака'
+                },
+                allowed: {
+                    icon: '✅',
+                    title: 'БРАК РАЗРЕШЕН',
+                    desc: 'Между этими родами бракосочетание разрешено!'
+                },
+                forbidden: {
+                    icon: '❌',
+                    title: 'БРАК ЗАПРЕЩЕН!',
+                    desc: 'Между этими родами бракосочетание запрещено! (инцест)'
+                },
+                warning: {
+                    icon: '✅',
+                    title: 'БРАК РАЗРЕШЕН',
+                    desc: 'Между этими родами бракосочетание разрешено!'
+                }
+            };
+
+            const msg = messages[status];
+            icon.textContent = msg.icon;
+            title.textContent = msg.title;
+            desc.innerHTML = msg.desc;
+
+            // Детали
+            if (status !== 'pending') {
+                details.style.display = 'block';
+                let detailsHTML = '<h4>📋 Анализ:</h4><ul>';
+                
+                const groomPath = getNodePath(selections.groom);
+                const bridePath = getNodePath(selections.bride);
+                
+                // Путь жениха
+                detailsHTML += '<li><strong>Жених:</strong> ';
+                detailsHTML += groomPath.map(n => n.name).join(' → ');
+                detailsHTML += '</li>';
+                
+                // Путь невесты
+                detailsHTML += '<li><strong>Невеста:</strong> ';
+                detailsHTML += bridePath.map(n => n.name).join(' → ');
+                detailsHTML += '</li>';
+
+                // Общий предок
+                const common = findCommonAncestor(groomPath, bridePath);
+                if (common && reason !== 'muyten_exception') {
+                    detailsHTML += '<li><strong>Общий предок:</strong> ' + common.name + ' (' + common.type + ')</li>';
+                }
+
+                // Причина
+                const reasons = {
+                    same: 'Выбраны одинаковые роды',
+                    koshe: 'Внутри одного коша (инцест)',
+                    tiyre: 'Внутри одного тире (инцест)',
+                    uruu: 'Внутри одного рода (инцест)',
+                    bolim: 'Внутри одного подразделения (Шулук/Жауынгыр)',
+                    arys: 'Внутри одного арыса, но разные роды',
+                    different: 'Полностью разные роды',
+                    nation: 'Внутри одного народа',
+                    muyten_exception: 'Тире рода Муйтен (особый случай)'
+                };
+                
+                if (reason) {
+                    detailsHTML += '<li><strong>Причина:</strong> ' + reasons[reason] + '</li>';
+                }
+
+                // Добавляем пояснение об исключении Муйтен
+                if (reason === 'muyten_exception') {
+                    detailsHTML += '</ul>';
+                    detailsHTML += '<div class="exception-note">';
+                    detailsHTML += '<h4>💡 Особый случай рода Муйтен:</h4>';
+                    detailsHTML += '<p>Внутри рода Муйтен браки между тире Кентау, Тели, Самат и Абыз разрешены. Это является особым случаем в каракалпакской традиции.</p>';
+                    detailsHTML += '<p><strong>Запрещено:</strong> Бракосочетание внутри одного тире (например, Самат-Самат, Тели-Тели, Абыз-Абыз, Кентау-Кентау).</p>';
+                    detailsHTML += '</div>';
+                    detailsHTML += '<h4>💡 Рекомендация:</h4><ul>';
+                    detailsHTML += '<li>✅ Брак разрешен</li>';
+                    detailsHTML += '<li>ℹ️ Бракосочетание между тире рода Муйтен традиционно принимается</li>';
+                } else {
+                    // Рекомендации для обычных случаев
+                    detailsHTML += '</ul><h4>💡 Рекомендация:</h4><ul>';
+                    if (status === 'allowed') {
+                        detailsHTML += '<li>✅ Брак разрешен</li>';
+                        if (reason === 'arys') {
+                            detailsHTML += '<li>ℹ️ Традиционно лучше бракосочетаться между разными арысами</li>';
+                        }
+                    } else if (status === 'forbidden') {
+                        detailsHTML += '<li>❌ Этот брак запрещен по исламскому закону и традиции</li>';
+                        detailsHTML += '<li>⚠️ Необходимо искать пару из другого рода</li>';
+                    } else if (status === 'warning') {
+                        detailsHTML += '<li>✅ Брак возможен.</li>';
+                        detailsHTML += '<li>💭 Лучше выбирать из разных арысов или больших родов</li>';
+                    }
+                }
+                detailsHTML += '</ul>';
+
+                details.innerHTML = detailsHTML;
+            } else {
+                details.style.display = 'none';
+            }
+        }
+
+        // Создать дерево селектора
+        function createTreeSelector(containerId, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            function createNodeElement(node, level = 0) {
+                const div = document.createElement('div');
+                div.className = 'tree-node';
+                
+                const item = document.createElement('div');
+                item.className = 'tree-item node-level-' + level;
+                item.dataset.id = node.id;
+                item.dataset.type = type;
+                
+                // Иконка раскрытия для родителей
+                let toggleIcon = '';
+                if (node.children && node.children.length > 0) {
+                    toggleIcon = '<span class="tree-toggle" onclick="toggleNode(event, \'' + node.id + '_' + type + '\')">▼</span>';
+                } else {
+                    toggleIcon = '<span style="width:20px;"></span>';
+                }
+                
+                // Значок уровня
+                const levelBadges = ['Народ', 'Арыс', 'Подразделение', 'Род', 'Тире', 'Кош'];
+                const badge = level > 0 ? '<span class="level-badge">' + levelBadges[level] + '</span>' : '';
+                
+                // Отмечаем тире Муйтен особым образом
+                let specialMark = '';
+                if (isMuytenException(node.id)) {
+                    specialMark = ' 💡';
+                }
+                
+                item.innerHTML = toggleIcon + badge + node.name + specialMark;
+                
+                // Клик по элементу
+                item.onclick = function(e) {
+                    if (e.target.classList.contains('tree-toggle')) return;
+                    selectNode(node, type);
+                };
+                
+                div.appendChild(item);
+                
+                // Дети
+                if (node.children && node.children.length > 0) {
+                    const childrenDiv = document.createElement('div');
+                    childrenDiv.id = 'children_' + node.id + '_' + type;
+                    childrenDiv.style.display = level < 2 ? 'block' : 'none';
+                    
+                    node.children.forEach(child => {
+                        childrenDiv.appendChild(createNodeElement(child, level + 1));
+                    });
+                    
+                    div.appendChild(childrenDiv);
+                }
+                
+                return div;
+            }
+            
+            container.appendChild(createNodeElement(tribeData));
+        }
+
+        // Переключить узел
+        function toggleNode(event, id) {
+            event.stopPropagation();
+            const children = document.getElementById('children_' + id);
+            const toggle = event.target;
+            
+            if (children.style.display === 'none') {
+                children.style.display = 'block';
+                toggle.textContent = '▼';
+            } else {
+                children.style.display = 'none';
+                toggle.textContent = '▶';
+            }
+        }
+
+        // Выбрать узел
+        function selectNode(node, type) {
+            // Сохраняем выбор
+            selections[type] = node.id;
+            
+            // Обновляем отображение
+            const display = document.getElementById(type + 'Display');
+            let displayText = node.name + ' (' + node.type + ')';
+            if (isMuytenException(node.id)) {
+                displayText += ' [Тире Муйтен]';
+            }
+            display.textContent = displayText;
+            display.classList.remove('empty');
+            
+            // Показываем кнопку очистки
+            document.getElementById(type + 'Clear').classList.add('visible');
+            
+            // Обновляем выделение в дереве
+            document.querySelectorAll('.tree-item[data-type="' + type + '"]').forEach(item => {
+                item.classList.remove('selected');
+                if (item.dataset.id === node.id) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // Проверяем экзогамию
+            checkExogamy();
+        }
+
+        // Очистить выбор
+        function clearSelection(type) {
+            selections[type] = null;
+            
+            const display = document.getElementById(type + 'Display');
+            display.textContent = 'Выберите род';
+            display.classList.add('empty');
+            
+            document.getElementById(type + 'Clear').classList.remove('visible');
+            
+            document.querySelectorAll('.tree-item[data-type="' + type + '"]').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            checkExogamy();
+        }
+
+        // Свернуть все
+        function collapseAll(type) {
+            document.querySelectorAll('#' + type + 'Tree [id^="children_"]').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('#' + type + 'Tree .tree-toggle').forEach(el => {
+                el.textContent = '▶';
+            });
+        }
+
+        // Развернуть все
+        function expandAll(type) {
+            document.querySelectorAll('#' + type + 'Tree [id^="children_"]').forEach(el => {
+                el.style.display = 'block';
+            });
+            document.querySelectorAll('#' + type + 'Tree .tree-toggle').forEach(el => {
+                el.textContent = '▼';
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            createTreeSelector('groomTree', 'groom');
+            createTreeSelector('brideTree', 'bride');
+            
+            // Разворачиваем первые уровни
+            expandAll('groom');
+            expandAll('bride');
+            
+            // Добавляем обработчик для бургер меню
+            document.getElementById('burgerMenu').addEventListener('click', function() {
+                const burger = document.getElementById('burgerMenu');
+                const viewSwitch = document.getElementById('viewSwitch');
+                
+                burger.classList.toggle('active');
+                viewSwitch.classList.toggle('active');
+            });
+            
+            // Закрываем меню при клике на ссылку (мобильные)
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('burgerMenu').classList.remove('active');
+                        document.getElementById('viewSwitch').classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
+
+    <!-- Информационный блок об экзогамии -->
+    <div class="info-section" style="margin-top: 40px; background: linear-gradient(135deg, rgba(26,31,46,0.9) 0%, rgba(15,20,29,0.95) 100%); border: 2px solid var(--accent-cyan);">
+        <h3 style="color: var(--accent-cyan); font-size: 1.4em; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+            <span>📖</span> 
+            <span id="exogamyInfoTitle">Почему нельзя вступать в брак внутри рода?</span>
+        </h3>
+        
+        <div style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05em;">
+            <p style="margin-bottom: 15px;">
+                <span id="exogamyIntro">Это связано с традиционной родовой экзогамией — важным элементом каракалпакской этнической культуры и социальной организации.</span>
+            </p>
+            
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
+                <span id="reason1Title">1. Предотвращение инцеста и генетических рисков</span>
+            </h4>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li id="reason1Item1">Брак внутри одного рода считался инцестом (карымсак)</li>
+                <li id="reason1Item2">Это создавало биологические риски для потомства</li>
+                <li id="reason1Item3">Даже брак между родственниками на расстоянии 7 поколений был запрещен</li>
+            </ul>
+            
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
+                <span id="reason2Title">2. Социально-политическая структура</span>
+            </h4>
+            <div style="overflow-x: auto; margin-bottom: 15px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95em; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr style="background: var(--accent-blue); color: white;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);" id="tableLevel">Уровень</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);" id="tableName">Название</th>
+                            <th style="padding: 10px; text-align: center; border-bottom: 2px solid var(--border-color);" id="tableMarriage">Брак внутри</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 10px;">1</td>
+                            <td style="padding: 8px 10px;">Кош (подрод)</td>
+                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-red); font-weight: bold;">❌ Запрет</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 10px;">2</td>
+                            <td style="padding: 8px 10px;">Тире (ветвь рода)</td>
+                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-red); font-weight: bold;">❌ Запрет</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 10px;">3</td>
+                            <td style="padding: 8px 10px;">Род (большой род)</td>
+                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-red); font-weight: bold;">❌ Запрет</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 10px;">4</td>
+                            <td style="padding: 8px 10px;">Арыс (рус)</td>
+                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-green); font-weight: bold;">✅ Возможен</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 10px;">5</td>
+                            <td style="padding: 8px 10px;">Подразделение (разделение)</td>
+                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-green); font-weight: bold;">✅ Возможен</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
+                <span id="reason3Title">3. Сохранение социальных связей</span>
+            </h4>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li id="reason3Item1">Экзогамия <strong>расширяла социальную сеть</strong> — создавала союзы между родами</li>
+                <li id="reason3Item2">Брачные альянсы укрепляли мир внутри рода</li>
+                <li id="reason3Item3">Предотвращали споры за ресурсы внутри одного рода</li>
+            </ul>
+            
+            <!-- <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
+                <span id="reason4Title">4. Особый случай: род Муйтен</span>
+            </h4> -->
+            <!-- <div style="background: rgba(52, 152, 219, 0.15); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="margin-bottom: 10px;" id="exceptionText">
+                    Уникальный особый случай — <strong>род Муйтен внутри арыса Конырат</strong>:
+                </p>
+                <ul style="margin-left: 20px;">
+                    <li id="exceptionItem1"><strong>Кентау, Тели, Самат, Абыз</strong> тире могут вступать в брак друг с другом</li>
+                    <li id="exceptionItem2">Это связано с их историческим происхождением и численностью</li>
+                    <li id="exceptionItem3">Но <strong>внутри одного тире</strong> (например, Самат-Самат) брак все еще <span style="color: var(--accent-red);">запрещен</span></li>
+                </ul>
+            </div> -->
+            
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
+                <span id="reason5Title">4. Религиозно-правовые нормы</span>
+            </h4>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li id="reason5Item1">Ислам также запрещает брак с близкими родственниками</li>
+                <li id="reason5Item2">Каракалпакское обычное право (<em>касиет</em>) закрепило эти нормы</li>
+                <li id="reason5Item3">Нарушение влекло социальное осуждение (оширилу)</li>
+            </ul>
+            
+            <div style="background: rgba(241, 196, 15, 0.1); border: 1px solid var(--accent-yellow); border-radius: 10px; padding: 15px; margin-top: 20px;">
+                <h4 style="color: var(--accent-yellow); margin-bottom: 10px; font-size: 1.05em;">
+                    <span id="modernTitle">Современное значение</span>
+                </h4>
+                <p id="modernText">
+                    Современные каракалпаки часто используют такие инструменты, как этот сайт:
+                </p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li id="modernItem1">Для проверки родового происхождения потенциального партнера</li>
+                    <li id="modernItem2">Для предотвращения умышленного инцеста</li>
+                    <li id="modernItem3">Для сохранения культурной идентичности</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Переводы для разных языковых версий
+        const exogamyTranslations = {
+            ru: {
+                exogamyInfoTitle: "Почему нельзя вступать в брак внутри рода?",
+                exogamyIntro: "Это связано с традиционной родовой экзогамией — важным элементом каракалпакской этнической культуры и социальной организации.",
+                reason1Title: "1. Предотвращение инцеста и генетических рисков",
+                reason1Item1: "Брак внутри одного рода считался инцестом (карымсак)",
+                reason1Item2: "Это создавало биологические риски для потомства",
+                reason1Item3: "Даже брак между родственниками на расстоянии 7 поколений был запрещен",
+                reason2Title: "2. Социально-политическая структура",
+                tableLevel: "Уровень",
+                tableName: "Название",
+                tableMarriage: "Брак внутри",
+                reason3Title: "3. Сохранение социальных связей",
+                reason3Item1: "Экзогамия <strong>расширяла социальную сеть</strong> — создавала союзы между родами",
+                reason3Item2: "Брачные альянсы укрепляли мир внутри рода",
+                reason3Item3: "Предотвращали споры за ресурсы внутри одного рода",
+                reason4Title: "4. Особый случай: род Муйтен",
+                exceptionText: "Уникальный особый случай — <strong>род Муйтен внутри арыса Конырат</strong>:",
+                exceptionItem1: "<strong>Кентау, Тели, Самат, Абыз</strong> тире могут вступать в брак друг с другом",
+                exceptionItem2: "Это связано с их историческим происхождением и численностью",
+                exceptionItem3: "Но <strong>внутри одного тире</strong> (например, Самат-Самат) брак все еще <span style=\"color: var(--accent-red);\">запрещен</span>",
+                reason5Title: "4. Религиозно-правовые нормы",
+                reason5Item1: "Ислам также запрещает брак с близкими родственниками",
+                reason5Item2: "Каракалпакское обычное право (<em>касиет</em>) закрепило эти нормы",
+                reason5Item3: "Нарушение влекло социальное осуждение (оширилу)",
+                modernTitle: "Современное значение",
+                modernText: "Современные каракалпаки часто используют такие инструменты, как этот сайт:",
+                modernItem1: "Для проверки родового происхождения потенциального партнера",
+                modernItem2: "Для предотвращения умышленного инцеста",
+                modernItem3: "Для сохранения культурной идентичности"
+            }
+        };
+
+        // Определяем язык по URL и применяем перевод
+        function applyExogamyTranslations() {
+            const currentUrl = window.location.href;
+            const lang = currentUrl.includes('RU') ? 'ru' : 'ru';
+            const texts = exogamyTranslations[lang];
+            
+            if (texts) {
+                Object.keys(texts).forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = texts[id];
+                    }
+                });
+            }
+        }
+
+        // Применяем переводы при загрузке
+        document.addEventListener('DOMContentLoaded', applyExogamyTranslations);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Қарақалпақ рулары - Тізімдер</title>
+    <style>
+        :root {
+            --primary-bg: #0f1419;
+            --secondary-bg: #1a1f2e;
+            --accent-red: #e74c3c;
+            --accent-orange: #e67e22;
+            --accent-yellow: #f1c40f;
+            --gold: #f1c40f;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --accent-purple: #9b59b6;
+            --accent-cyan: #1abc9c;
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --border-color: #34495e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        /* HEADER STYLES */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10,12,16,0.95);
+            border-bottom: 2px solid var(--gold);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            height: 70px;
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        
+        .logo a { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: var(--gold); 
+            font-size: 1.8rem; 
+            margin: 0;
+            text-decoration: none;
+        }
+        
+        /* Бургер меню кнопка */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        
+        .burger-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .burger-menu.active .burger-bar:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .burger-menu.active .burger-bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .view-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.25rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Мобильное меню */
+        @media (max-width: 968px) {
+            .burger-menu {
+                display: flex;
+            }
+            
+            .view-switch {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10,12,16,0.98);
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 2px solid var(--gold);
+                border-radius: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            .view-switch.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .view-btn {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+            }
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 16px;
+            border: none;
+            background: transparent;
+            color: #8892b0;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .view-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .view-btn.active {
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+            max-width: 170px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .container { 
+            display: flex; 
+            height: calc(100vh - 80px);
+            overflow: hidden; 
+            position: relative;
+        }
+        
+        .list-panel { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 15px; 
+            background: rgba(15, 20, 25, 0.98); 
+            transition: width 0.3s ease;
+        }
+        
+        /* Правая панель с возможностью сворачивания */
+        .info-panel {
+            width: 450px; 
+            background: var(--secondary-bg); 
+            border-left: 3px solid var(--accent-orange);
+            padding: 20px; 
+            overflow-y: auto; 
+            box-shadow: -5px 0 25px rgba(0,0,0,0.4);
+            position: relative;
+            transition: transform 0.3s ease, width 0.3s ease;
+            transform: translateX(0);
+        }
+        
+        /* Скрытая панель на десктопе */
+        .info-panel.collapsed {
+            transform: translateX(100%);
+            width: 0;
+            padding: 0;
+            overflow: hidden;
+            border-left: none;
+        }
+        
+        /* Кнопка закрытия панели */
+        .close-panel-btn {
+            position: sticky;
+            top: 10px;
+            left: 400px;
+            background: var(--accent-red);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .close-panel-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        /* Кнопка открытия панели (плавающая) */
+        .open-panel-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .open-panel-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
+        }
+        
+        .open-panel-btn.visible {
+            display: flex;
+        }
+
+        /* Стили списков */
+        .hierarchical-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .list-item {
+            margin: 4px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .list-header:hover {
+            transform: translateX(5px);
+            border-color: var(--accent-yellow);
+        }
+
+        .list-header.active {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.3);
+        }
+
+        .expand-btn {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.8em;
+            color: var(--accent-yellow);
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .expand-btn.expanded {
+            transform: rotate(90deg);
+        }
+
+        .list-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .list-title {
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        .list-subtitle {
+            font-size: 0.75em;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .list-meta {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+            font-size: 0.75em;
+            opacity: 0.7;
+        }
+
+        .children-container {
+            margin-left: 20px;
+            padding-left: 15px;
+            border-left: 2px solid var(--border-color);
+            display: none;
+        }
+
+        .children-container.expanded {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Цветовые уровни */
+        .level-0 .list-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .level-1 .list-header { background: linear-gradient(135deg, #e67e22, #d35400); }
+        .level-2 .list-header { background: linear-gradient(135deg, #f1c40f, #f39c12); color: #2c3e50; }
+        .level-3 .list-header { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .level-4 .list-header { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .level-5 .list-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .level-6 .list-header { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+        h1 { text-align: center; color: var(--accent-yellow); margin-bottom: 5px; font-size: 1.8em; }
+        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 15px; font-size: 0.8em; }
+        
+        .info-header { border-bottom: 2px solid var(--accent-orange); padding-bottom: 10px; margin-bottom: 12px; }
+        .info-title { font-size: 1.4em; color: var(--accent-yellow); margin-bottom: 5px; }
+        .info-type { color: var(--accent-orange); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }
+        .info-section { margin-bottom: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 5px; border-left: 3px solid var(--accent-blue); }
+        .info-section h3 { color: var(--accent-cyan); margin-bottom: 8px; font-size: 0.9em; display: flex; align-items: center; gap: 8px; }
+        .info-section p { color: var(--text-secondary); line-height: 1.5; font-size: 0.9em; text-align: justify; }
+        .tamga-box { background: rgba(231, 76, 60, 0.15); border: 2px solid var(--accent-red); border-radius: 8px; padding: 15px; text-align: center; margin: 12px 0; }
+        .tamga-symbol { font-size: 2em; color: var(--accent-yellow); font-weight: bold; margin-bottom: 5px; }
+        .tamga-label { font-size: 0.8em; color: var(--text-secondary); text-transform: uppercase; }
+        .uran-box { background: rgba(46, 204, 113, 0.15); border: 2px solid var(--accent-green); border-radius: 8px; padding: 15px; text-align: center; margin: 12px 0; }
+        .uran-text { font-size: 1.4em; color: var(--accent-green); font-weight: bold; font-style: italic; margin-bottom: 5px; }
+        .uran-label { font-size: 0.8em; color: var(--text-secondary); text-transform: uppercase; }
+        .stats-box { background: rgba(52, 152, 219, 0.1); border: 1px solid var(--accent-blue); border-radius: 6px; padding: 10px; margin: 10px 0; text-align: center; }
+        .stats-number { font-size: 1.3em; color: var(--accent-yellow); font-weight: bold; }
+        .legend { position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.9); padding: 10px; border-radius: 6px; font-size: 0.75em; z-index: 100; }
+        .legend-item { display: flex; align-items: center; gap: 5px; margin: 2px 0; }
+        .legend-color { width: 12px; height: 12px; border-radius: 2px; }
+        .stats { position: fixed; top: 90px; right: 475px; background: rgba(0,0,0,0.9); padding: 10px; border-radius: 6px; font-size: 0.8em; z-index: 100; transition: right 0.3s ease; }
+        
+        /* Адаптация для планшетов */
+        @media (max-width: 1024px) {
+            .stats { right: 10px; top: 90px; }
+
+        }
+        
+        /* Адаптация для мобильных */
+        @media (max-width: 968px) { 
+            .stats { 
+              display: none;
+            } 
+
+            .legend  {
+                display: none;
+            }
+            
+            .info-panel { 
+                width: 100%; 
+                position: fixed; 
+                bottom: 0; 
+                left: 0; 
+                height: 60vh; 
+                transform: translateY(100%); 
+                transition: transform 0.3s ease;
+                z-index: 1000;
+                border-left: none;
+                border-top: 3px solid var(--accent-orange);
+            } 
+            
+            .info-panel.active { 
+                transform: translateY(0); 
+            }
+            
+            .info-panel.collapsed {
+                transform: translateY(100%);
+            }
+            
+            header { 
+                padding: 0.5rem 1rem; 
+            }
+            
+            body { padding-top: 70px; }
+            .container { height: calc(100vh - 70px); }
+            
+            .open-panel-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .children-container {
+                margin-left: 10px;
+                padding-left: 10px;
+            }
+        }
+
+        @media (max-width: 765px) {
+            .stats { display: none; }
+        }
+        
+        .search-box { position: fixed; top: 72px; left: 10px; z-index: 100; }
+        .search-box input { padding: 6px 10px; border-radius: 15px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.9); color: white; width: 180px; font-size: 0.85em; }
+        .highlight { 
+            animation: pulse 1.5s infinite;
+            border-color: var(--accent-yellow) !important;
+            border: solid 3px var(--accent-yellow) !important;
+        }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(241, 196, 15, 0); } 100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); } }
+        
+        /* Hierarchy styles */
+        .hierarchy-chain {
+            background: linear-gradient(135deg, rgba(241, 196, 15, 0.1), rgba(230, 126, 34, 0.1));
+            border: 2px solid var(--accent-yellow);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+        .hierarchy-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(241, 196, 15, 0.3);
+        }
+        .hierarchy-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            color: var(--accent-yellow);
+        }
+        .hierarchy-arrow {
+            margin: 0 10px;
+            color: var(--accent-orange);
+        }
+        .hierarchy-level {
+            background: var(--accent-yellow);
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            margin-right: 8px;
+            min-width: 60px;
+            text-align: center;
+        }
+        .descendants-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .descendant-group {
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .descendant-parent {
+            font-weight: bold;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+        .descendant-children {
+            padding-left: 15px;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+        .descendant-child {
+            padding: 2px 0;
+            display: flex;
+            align-items: center;
+        }
+        .descendant-bullet {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        /* Путь навигации (хлебные крошки) */
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            font-size: 0.8em;
+        }
+
+        .breadcrumb-item {
+            color: var(--accent-yellow);
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .breadcrumb-item:hover {
+            background: rgba(241, 196, 15, 0.2);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-secondary);
+            cursor: default;
+        }
+
+        .breadcrumb-item.active:hover {
+            background: none;
+        }
+
+        /* Кнопка "Развернуть все" */
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: var(--accent-yellow);
+            color: #000;
+            border-color: var(--accent-yellow);
+        }
+
+        .lang-switch {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(212,175,55,0.3);
+}
+
+.lang-btn1 {
+    padding: 0.4rem 0.4rem;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-btn1 img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.lang-btn img {
+    width: 3rem;
+    height: 3rem;
+    /* margin-bottom: 4px; */
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.lang-btn {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+     width: 2.9rem;
+    height: 2.9rem;
+}
+.lang-btn:hover {
+    border: 1px solid var(--gold);
+    width: 3rem;
+    height: 3rem;
+}
+
+
+.lang-btn1:hover {
+    border: 1px solid var(--gold);
+    width: 3rem;
+    height: 3rem;
+}
+
+.lang-btn1.active img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.lang-btn1.active {
+    border: 1px solid var(--accent-red);
+     border-radius: 8px;
+     width: 3rem;
+    height: 3rem;
+}
+
+@media (max-width: 768px) {
+    .lang-switch {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(212,175,55,0.3);
+        justify-content: center;
+    }
+
+    .search-box input {
+        display: none;
+    }
+     
+    .logo a {
+        font-size: 1.4rem;
+    
+    }
+        
+    }
+
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span style="font-size: 2rem;">📋</span>
+            <a target="_blank" href="./images/uru.jpg">Шежіре</a>
+        </div>
+        
+        <!-- Бургер меню кнопка -->
+        <button class="burger-menu" id="burgerMenu" aria-label="Открыть меню">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+        </button>
+        
+        <div class="view-switch" id="viewSwitch">
+            <a href="indexKZ.html" class="view-btn" target="_self">🏠 Басты бет</a>
+            <a href="listsKZ.html" class="view-btn active" target="_self">📋 Тізімдер</a>
+            <a href="schemeKZ.html" class="view-btn" target="_self">🌳 Схема</a>
+            <a href="exogamyKZ.html" class="view-btn" target="_self">💑 Экзогамия</a>
+        </div>
+
+    <div class="lang-switch">
+        <a target="_self" href="listsRU.html" class="lang-btn1 "><img src="./images/RU.jpg" alt="RU"></a>
+        <a target="_self" href="listsQQ.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
+        <a target="_self" href="listsKZ.html" class="lang-btn1 active"><img src="./images/KZ.webp" alt="KZ"></a>
+    </div>
+    </header>
+
+
+               <!-- Бегущая строка для мобильных устройств -->
+    <div class="mobile-warning-marquee" id="mobileMarquee">
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Бегущая строка - только для мобильных */
+        .mobile-warning-marquee {
+            display: none;
+            position: fixed;
+            top: 103px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 99;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee-scroll 20s linear infinite;
+        }
+
+        .marquee-content span {
+            padding-right: 50px;
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-25%);
+            }
+        }
+
+        /* Показываем на экранах меньше 967px */
+        @media (max-width: 967px) {
+          
+            }
+            
+            
+            body {
+                padding-top: 115px !important;
+            }
+        
+
+        @media (max-width: 768px) {
+             
+                
+            .mobile-warning-marquee {
+                display: block;
+                top: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .marquee-content {
+                animation-duration: 15s;
+            }
+            
+             .mobile-warning-marquee {
+       font-size: 0.5em;
+            font-weight: 400;
+                padding: 5px 0;
+       top: 70px;
+    }
+            }
+        
+    </style>
+
+    <div class="search-box"><input type="text" id="searchInput" placeholder="Іздеу..." onkeyup="searchNode()"></div>
+    <div class="stats" id="statsBox"><div><strong>Статистика:</strong></div><div>Арис: 2</div><div>Бөлім: 2</div><div>Уруу: 50+</div><div>тире/коше: 300+</div></div>
+    
+    <div class="container">
+        <div class="list-panel" id="listPanel">
+            <h1 style="margin-top: 10px;">Қарақалпақ рулары</h1>
+            <div class="subtitle">Тізім түрінде / В виде списка</div>
+            
+            <div class="controls">
+                <button class="control-btn" onclick="expandAll()">📂 Барлығын ашыңыз/Раскрыть</button>
+                <button class="control-btn" onclick="collapseAll()">📁 Барлығын жабыңыз/Скрыть</button>
+            </div>
+
+            <div class="breadcrumb" id="breadcrumb">
+                <span class="breadcrumb-item active">Барлық рулар / Все русы</span>
+            </div>
+
+            <div class="hierarchical-list" id="hierarchicalList"></div>
+        </div>
+        <div class="info-panel" id="infoPanel">
+            <button class="close-panel-btn" id="closePanelBtn" title="Закрыть панель">×</button>
+            <div id="infoContent">
+                <div class="info-header"><div class="info-title">Элементті таңдаңыз/Выберите элемент</div><div class="info-type">Тамга, уран, тарих туралы ақпаратты басыңыз/Нажмите для информации о тамге, уране, истории</div></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Кнопка открытия панели -->
+    <button class="open-panel-btn" id="openPanelBtn" title="Открыть информационную панель">ℹ️</button>
+    
+    <div class="legend">
+        <div><strong>Иерархия:</strong></div>
+        <div class="legend-item"><div class="legend-color" style="background: #e74c3c;"></div> Халық</div>
+        <div class="legend-item"><div class="legend-color" style="background: #e67e22;"></div> Арис</div>
+        <div class="legend-item"><div class="legend-color" style="background: #f1c40f;"></div> Бөлім/Үлкен уруу</div>
+        <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Урын</div>
+        <div class="legend-item"><div class="legend-color" style="background: #3498db;"></div> Тіре</div>
+        <div class="legend-item"><div class="legend-color" style="background: #9b59b6;"></div> Көше</div>
+        
+    </div>
+
+    <script>
+const levelsMap = ['Халық / Народ', 'Арис', 'Бөлім', 'Үлкен уруу', 'Тіре', 'Көше'];
+
+// Флаг состояния панели
+let isPanelOpen = false;
+let currentSelectedNode = null;
+let currentExpandedNodes = new Set();
+
+const treeData = {
+    id: "root", name: "Қарақалпақлар", level: 0, type: "Халық",
+    info: {
+        history: "Қарақалпақтар - Орта Азиядағы түркі тілдес халық. XVI-XVIII ғасырларда қалыптасқан.",
+        origin: "Негізі Ноғай ордасы, Қыпшақ, Қарлұқ тайпаларынан.",
+        legend: "Аңызға сәйкес, алғашқы көшпенділері Ұлы тау өңірінен Арал маңына көшіп келген.",
+        tamga: "Әр рудың өз тамғасы",
+        uran: "Әр рудың өз ұраны",
+        population: "800 мың адам",
+        language: "Қарақалпақ тілі - түркі тілдерінің қыпшақ тармағы"
+    },
+    children: [
+        {
+            id: "conyrat", name: "АРЫС ҚОҢЫРАТ", level: 1, type: "арыс", tamga: "П (босаға)", urан: "Қақпа",
+            info: {
+                history: "Қоңырат - екі ірі арысының бірі. Ноғай ордасынан.",
+                origin: "Ноғайлық, Қыпшақ тайпаларының қосындысы.",
+                legend: "Қоңырат - 'қанды қарақалпақ' мағынасында.",
+                tamga: "П әрпі - босаға (есік)",
+                urан: "Қақпа - қорған",
+                population: "9520 кибиток (40%)",
+                structure: "Шулык (8 ру) және Жауынгыр (7 ру)"
+            },
+            children: [
+                {
+                    id: "shulyk", name: "ШУЛЛЫЛ БӨЛИМИ", level: 2, type: "бөлим",
+                    info: { history: "Шулык - 8 рудан тұрады.", origin: "Шулык жерінің атауынан.", population: "5860 кибиток" },
+                    children: [
+                        {
+                            id: "kyat", name: "ҚЫЯТ", level: 3, type: "үлкен уруу",
+                            info: { history: "Қыят - Шулыктың ең ірі руы.", origin: "Қыят батырдан.", legend: "Үш ұлы: Үштаңбалы, Тарақты, Балғалы.", population: "870 кибиток", tamga: "Үш таңба", urан: "Алатау" },
+                            children: [
+                                {
+                                    id: "ush-tambaly", name: "Үштаңбалы", level: 4, type: "тийре",
+                                    info: { history: "Үш таңбалы - үш белгі.", tamga: "Үш сызық", urан: "Алатау!", population: "350-400 отбасы" },
+                                    children: [
+                                        { id: "sanmurun-k", name: "Саңмұрын", level: 5, type: "көше", info: { tamga: "СМ", urан: "Алатау!", history: "Саң мұрындық малдан" } },
+                                        { id: "aryq-kyat", name: "Арыққият", level: 5, type: "көше", info: { tamga: "АҚ", urан: "Алатау!", history: "Арық денелі" } },
+                                        { id: "tartuly", name: "Тартулы", level: 5, type: "көше", info: { tamga: "ТР", urан: "Алатау!", history: "Тартымды, қайсар" } },
+                                        { id: "qanzhygaly-k", name: "Қанжығалы", level: 5, type: "көше", info: { tamga: "ҚЖ", urан: "Алатау!", history: "Жебе саптығы" } },
+                                        { id: "qatagan", name: "Қатаған", level: 5, type: "көше", info: { tamga: "ҚТ", urан: "Алатау!", history: "Солтүстік Жетісу" } },
+                                        { id: "qara-kyat", name: "Қарақият", level: 5, type: "көше", info: { tamga: "ҚҚ", urан: "Алатау!", history: "Қараңғы түсті" } }
+                                    ]
+                                },
+                                {
+                                    id: "taraqty", name: "Тарақты", level: 4, type: "тийре",
+                                    info: { history: "Шашақты, өрнекті", tamga: "ТБ", urан: "Алатау!" },
+                                    children: [
+                                        { id: "togyzaq", name: "Тоғызақ", level: 5, type: "көше", info: { tamga: "Т9", urан: "Тоғысқан!", history: "Тоғыз ұрпақтан кейін" } },
+                                        { id: "abas-kyat", name: "Абас", level: 5, type: "көше", info: { tamga: "АБ", urан: "Алатау!", history: "Абас батыр" } },
+                                        { id: "jaltyrshy", name: "Жалтыршы", level: 5, type: "көше", info: { tamga: "ЖЛ", urан: "Алатау!", history: "Жарқын" } },
+                                        { id: "aqunqaragan", name: "Ақұнқараған", level: 5, type: "көше", info: { tamga: "АҚҚ", urан: "Алатау!", history: "Ақ құндықты" } },
+                                        { id: "taqay", name: "Тақай", level: 5, type: "көше", info: { tamga: "ТҚ", urан: "Алатау!" } },
+                                        { id: "qarzhaubaras", name: "Қаржаубарас", level: 5, type: "көше", info: { tamga: "ҚЖБ", urан: "Алатау!" } }
+                                    ]
+                                },
+                                {
+                                    id: "balgaly-kyat", name: "Балғалы Қият", level: 4, type: "тийре",
+                                    info: { history: "Балға ұстаған", tamga: "Б", urан: "Алатау!", legend: "Теміршілер' термині" },
+                                    children: [
+                                        { id: "bespishaq", name: "Беспышақ", level: 5, type: "көше", info: { tamga: "Б5", urан: "Алатау!", history: "Бес пышақ" } },
+                                        { id: "etekshi", name: "Етекші", level: 5, type: "көше", info: { tamga: "ЕТ", urан: "Алатау!", history: "Етек - қолтырауын" } },
+                                        { id: "sanmurun-bk", name: "Саңмұрын", level: 5, type: "көше", info: { tamga: "СМБ", urан: "Алатау!" } },
+                                        { id: "qozhaqaragan", name: "Қожақараған", level: 5, type: "көше", info: { tamga: "ҚЖҚ", urан: "Алатау!", history: "Қожа ата" } }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "ashamayly", name: "АШАМАЙЛЫ", level: 3, type: "үлкен уруу",
+                            info: { history: "Ашамай - көзі нашар көретін.", tamga: "АШ", urан: "Шулык!", population: "870 кибиток" },
+                            children: [
+                                { id: "saqu", name: "Сақу", level: 4, type: "тийре", info: { tamga: "СҚ", urан: "Шулык!", history: "Сақшылар" } },
+                                { id: "qaraqoja", name: "Қарақожа", level: 4, type: "тийре", info: { tamga: "ҚҚ", urан: "Шулык!", history: "Қара қожа" } },
+                                { id: "jalangayaq", name: "Жалаңаяқ", level: 4, type: "тийре", info: { tamga: "ЖА", urан: "Шулык!", history: "Тез жүгіруші" } },
+                                { id: "ajyldy", name: "Айылды", level: 4, type: "тийре", info: { tamga: "АЙ", urан: "Шулык!", history: "Айыл - отар" } },
+                                {
+                                    id: "qobasan", name: "Қобасан", level: 4, type: "тийре",
+                                    info: { tamga: "ҚБС", urан: "Шулык!", history: "Қоба - құз" },
+                                    children: [
+                                        { id: "aqnazar", name: "Ақназар", level: 5, type: "көше", info: { tamga: "АН", urан: "Шулык!" } },
+                                        { id: "jansary", name: "Жансары", level: 5, type: "көше", info: { tamga: "ЖС", urан: "Шулык!" } },
+                                        { id: "otemis-q", name: "Өтеміс", level: 5, type: "көше", info: { tamga: "ӨТ", urан: "Шулык!" } },
+                                        { id: "esen", name: "Есен", level: 5, type: "көше", info: { tamga: "ЕС", urан: "Шулык!" } },
+                                        { id: "tampysh", name: "Тампыш", level: 5, type: "көше", info: { tamga: "ТМ", urан: "Шулык!" } }
+                                    ]
+                                },
+                                { id: "turkmenqara", name: "Түркіменқара", level: 4, type: "тийре", info: { tamga: "ТҚ", urан: "Шулык!", history: "Түрікмендермен араласқан" } },
+                                { id: "jappar", name: "Жаппар", level: 4, type: "тийре", info: { tamga: "ЖП", urан: "Шулык!" } },
+                                { id: "sary-ash", name: "Сары", level: 4, type: "тийре", info: { tamga: "СР", urан: "Шулык!" } },
+                                { id: "abyz-ash", name: "Абыз", level: 4, type: "тийре", info: { tamga: "АБ", urан: "Шулык!" } },
+                                { id: "aqay", name: "Ақай", level: 4, type: "тийре", info: { tamga: "АҚ", urан: "Шулык!" } },
+                                { id: "pangqara", name: "Паңқара", level: 4, type: "тийре", info: { tamga: "ПҒ", urан: "Шулык!" } },
+                                {
+                                    id: "ush-bas", name: "Үш бас", level: 4, type: "тийре",
+                                    info: { tamga: "ҮБ", urан: "Шулык!", history: "Үш басты тоқыған" },
+                                    children: [{ id: "jaman-ub", name: "Жаман", level: 5, type: "көше", info: { tamga: "ЖМ", urан: "Шулык!" } }]
+                                },
+                                { id: "qurama", name: "Құрама", level: 4, type: "тийре", info: { tamga: "ҚР", urан: "Шулык!" } }
+                            ]
+                        },
+                        {
+                            id: "koldauli", name: "ҚОЛДАУЛЫ", level: 3, type: "үлкен уруу",
+                            info: { history: "Қолдау - опора.", tamga: "ҚЛД", urан: "Қолдау!", population: "1140 кибиток" },
+                            children: [
+                                { id: "beskempir", name: "Бескемпір", level: 4, type: "тийре", info: { tamga: "Б5", urан: "Қолдау!", history: "Бес кемпір" } },
+                                { id: "maishyshaly", name: "Майшышалы", level: 4, type: "тийре", info: { tamga: "МШ", urан: "Қолдау!", history: "Майлы шыша" } },
+                                { id: "qalqaman", name: "Қалқаман", level: 4, type: "тийре", info: { tamga: "ҚЛҚ", urан: "Қолдау!" } },
+                                { id: "ghajypqaragan", name: "Ғайыпқараған", level: 4, type: "тийре", info: { tamga: "ҒҚ", urан: "Қолдау!", history: "Ғайып болған ата" } },
+                                { id: "sarytan-k", name: "Сарытан", level: 4, type: "тийре", info: { tamga: "СРТ", urан: "Қолдау!" } },
+                                { id: "kulkiqozhaq", name: "Күлкіқожақ", level: 4, type: "тийре", info: { tamga: "КҚ", urан: "Қолдау!" } },
+                                { id: "jarymbet", name: "Жарымбет", level: 4, type: "тийре", info: { tamga: "ЖБ", urан: "Қолдау!" } },
+                                { id: "qyzylayaq", name: "Қызылаяқ", level: 4, type: "тийре", info: { tamga: "ҚЗ", urан: "Қолдау!" } },
+                                { id: "karasiraq-k", name: "Қарасирақ", level: 4, type: "тийре", info: { tamga: "ҚСР", urан: "Қолдау!" } },
+                                { id: "jelqaragan", name: "Желқараған", level: 4, type: "тийре", info: { tamga: "ЖҚ", urан: "Қолдау!" } },
+                                { id: "ulkenborik", name: "Үлкенбөрік", level: 4, type: "тийре", info: { tamga: "ҮБ", urан: "Қолдау!" } },
+                                { id: "shylzhuyt", name: "Шылжуыт", level: 4, type: "тийре", info: { tamga: "ШЖ", urан: "Қолдау!" } },
+                                { id: "jamanqonyrat", name: "Жаманқоңырат", level: 4, type: "тийре", info: { tamga: "ЖҚ", urан: "Қолдау!" } },
+                                {
+                                    id: "kalmaq", name: "Қалмақ", level: 4, type: "тийре",
+                                    info: { tamga: "ҚМ", urан: "Қолдау!", history: "Калмақтармен араласқан" },
+                                    children: [
+                                        { id: "adil", name: "Әділ", level: 5, type: "көше", info: { tamga: "ӘД", urан: "Қолдау!" } },
+                                        { id: "ereke", name: "Ереке", level: 5, type: "көше", info: { tamga: "ЕР", urан: "Қолдау!" } }
+                                    ]
+                                },
+                                { id: "jaman-aul", name: "Жаман ауыл", level: 4, type: "тийре", info: { tamga: "ЖА", urан: "Қолдау!" } }
+                            ]
+                        },
+                        {
+                            id: "kostambali", name: "ҚОСТАҢБАЛЫ", level: 3, type: "үлкен уруу", tamga: "II",
+                            info: { history: "Екі тамғалы.", tamga: "II", urан: "Қосқа!", population: "590 кибиток" },
+                            children: [
+                                { id: "jangildi-k", name: "Жангелді", level: 4, type: "тийре", info: { tamga: "ЖГ", urан: "Қосқа!" } },
+                                { id: "shirzhegen", name: "Шіржеген", level: 4, type: "тийре", info: { tamga: "ШЖ", urан: "Қосқа!" } },
+                                { id: "aghabegli", name: "Ағабеглі", level: 4, type: "тийре", info: { tamga: "АБ", urан: "Қосқа!" } },
+                                { id: "qarynzhuan", name: "Қарынжуан", level: 4, type: "тийре", info: { tamga: "ҚЖ", urан: "Қосқа!" } },
+                                { id: "kostambali-k", name: "Қостаңбалы", level: 4, type: "тийре", info: { tamga: "ҚТ", urан: "Қосқа!" } },
+                                { id: "qaraqursaq-k", name: "Қарақұрсақ", level: 4, type: "тийре", info: { tamga: "ҚҚ", urан: "Қосқа!" } },
+                                { id: "qazaqy-k", name: "Қазақы", level: 4, type: "тийре", info: { tamga: "ҚЗ", urан: "Қосқа!" } }
+                            ]
+                        },
+                        {
+                            id: "balgali", name: "БАЛҒАЛЫ", level: 3, type: "үлкен уруу",
+                            info: { history: "Балға ұстаған. Теміршілер.", tamga: "Б", urан: "Балға!", legend: "Теміршілер ұрпағы", population: "560 кибиток" },
+                            children: [
+                                { id: "aqbalgali", name: "Ақбалғалы", level: 4, type: "тийре", info: { tamga: "АБ", urан: "Балға!" } },
+                                { id: "nurbalgali", name: "Нұрбалғалы", level: 4, type: "тийре", info: { tamga: "НБ", urан: "Балға!" } },
+                                { id: "turkmen-b", name: "Түркімен", level: 4, type: "тийре", info: { tamga: "ТБ", urан: "Балға!" } },
+                                { id: "jamanaul-b", name: "Жаманауыл", level: 4, type: "тийре", info: { tamga: "ЖА", urан: "Балға!" } },
+                                { id: "shomishti", name: "Шөмішті", level: 4, type: "тийре", info: { tamga: "ШМ", urан: "Балға!" } },
+                                { id: "toqymbet", name: "Тоқымбет", level: 4, type: "тийре", info: { tamga: "ТҚ", urан: "Балға!" } },
+                                { id: "tazbalgali", name: "Тазбалғалы", level: 4, type: "тийре", info: { tamga: "ТБ", urан: "Балға!" } },
+                                { id: "kostamgali-b", name: "Қостамғалы", level: 4, type: "тийре", info: { tamga: "ҚС", urан: "Балға!" } },
+                                { id: "qaratalshy", name: "Қараталшы", level: 4, type: "тийре", info: { tamga: "ҚТ", urан: "Балға!" } },
+                                { id: "asan", name: "Асан", level: 4, type: "тийре", info: { tamga: "АС", urан: "Балға!" } },
+                                { id: "arzyqul", name: "Арзықұл", level: 4, type: "тийре", info: { tamga: "АР", urан: "Балға!" } }
+                            ]
+                        },
+                        {
+                            id: "kandekli", name: "ҚӘНДЕКЛІ", level: 3, type: "үлкен уруу", tamga: "Г",
+                            info: { history: "Көндек - қора.", tamga: "Г", urан: "Көндек!", population: "730 кибиток" },
+                            children: [
+                                { id: "qarama-kan", name: "Қарама", level: 4, type: "тийре", info: { tamga: "ҚР", urан: "Көндек!" } },
+                                { id: "kiikshi", name: "Киікші", level: 4, type: "тийре", info: { tamga: "КШ", urан: "Көндек!", history: "Киік сақшы" } },
+                                { id: "toqbolat-kan", name: "Тоқболат", level: 4, type: "тийре", info: { tamga: "ТБ", urан: "Көндек!" } },
+                                { id: "qyryqsadaq", name: "Қырықсадақ", level: 4, type: "тийре", info: { tamga: "ҚС", urан: "Көндек!", history: "40 садақ" } }
+                            ]
+                        },
+                        {
+                            id: "karamoiyn", name: "ҚАРАМОЙЫН", level: 3, type: "үлкен уруу", tamga: "ТМ",
+                            info: { history: "Қара мойын.", tamga: "ТМ", urан: "Мойын!", population: "560 кибиток" },
+                            children: [
+                                { id: "annakhoja", name: "Аннахожа", level: 4, type: "тийре", info: { tamga: "АН", urан: "Мойын!", history: "Анна әулие" } },
+                                { id: "sabalaq", name: "Сабалақ", level: 4, type: "тийре", info: { tamga: "СБ", urан: "Мойын!", history: "Саба - бала" } },
+                                { id: "kotelek", name: "Көтелек", level: 4, type: "тийре", info: { tamga: "КТ", urан: "Мойын!", history: "Торлау" } },
+                                { id: "qarlymaral", name: "Қарлымарал", level: 4, type: "тийре", info: { tamga: "ҚМ", urан: "Мойын!" } },
+                                { id: "bulkildek", name: "Бүлкілдек", level: 4, type: "тийре", info: { tamga: "БҮ", urан: "Мойын!", history: "Күлу" } }
+                            ]
+                        },
+                        {
+                            id: "muyten", name: "МҮЙТЕН", level: 3, type: "үлкен уруу", tamga: "Үш шанышқы", urан: "Ақшолпан",
+                            info: { history: "Мұйын - мойын.", origin: "Мүйтен батыр", tamga: "Үш шанышқы", urан: "Ақшолпан", population: "540 кибиток", legend: "Мүйтеннің үш ұлы: Самат, Тели, Абыз" },
+                            children: [
+                                {
+                                    id: "samat", name: "Самат (5)", level: 4, type: "тийре",
+                                    info: { tamga: "СМ", urан: "Ақшолпан!" },
+                                    children: [
+                                        { id: "baibishe", name: "Бәйбіше", level: 5, type: "көше", info: { tamga: "ББ", urан: "Ақшолпан!" } },
+                                        { id: "toqqaragan", name: "Тоқалқараған", level: 5, type: "көше", info: { tamga: "ТҚ", urан: "Ақшолпан!" } },
+                                        { id: "baimurat", name: "Баймұрат", level: 5, type: "көше", info: { tamga: "БМ", urан: "Ақшолпан!" } },
+                                        { id: "jolan", name: "Жолан", level: 5, type: "көше", info: { tamga: "ЖЛ", urан: "Ақшолпан!" } },
+                                        { id: "bekau", name: "Бекау", level: 5, type: "көше", info: { tamga: "БК", urан: "Ақшолпан!" } }
+                                    ]
+                                },
+                                {
+                                    id: "teli", name: "Тели (5)", level: 4, type: "тийре",
+                                    info: { tamga: "ТЛ", urан: "Ақшолпан!" },
+                                    children: [
+                                        { id: "tileuberdi", name: "Тілеуберді", level: 5, type: "көше", info: { tamga: "ТБ", urан: "Ақшолпан!" } },
+                                        { id: "allaberdi", name: "Аллаберді", level: 5, type: "көше", info: { tamga: "АБ", urан: "Ақшолпан!" } },
+                                        { id: "tangirberdi", name: "Тəңірберді", level: 5, type: "көше", info: { tamga: "ТБ", urан: "Ақшолпан!" } },
+                                        { id: "mantyqaragan", name: "Мантыққараған", level: 5, type: "көше", info: { tamga: "МҚ", urан: "Ақшолпан!" } },
+                                        { id: "molloqaragan", name: "Моллақараған", level: 5, type: "көше", info: { tamga: "МҚ", urан: "Ақшолпан!" } }
+                                    ]
+                                },
+                                {
+                                    id: "abyz-m", name: "Абыз", level: 4, type: "тийре",
+                                    info: { tamga: "АБ", urан: "Ақшолпан!", history: "Ақсақал, әулие" },
+                                    children: [{ id: "ady", name: "Ады", level: 5, type: "көше", info: { tamga: "АД", urан: "Ақшолпан!" } }]
+                                },
+                                {
+                                    id: "kentanau", name: "Кеңтанаў (3)", level: 4, type: "тийре",
+                                    info: { tamga: "КТ", urан: "Ақшолпан!" },
+                                    children: [
+                                        { id: "barn", name: "Барн", level: 5, type: "көше", info: { tamga: "БР", urан: "Ақшолпан!" } },
+                                        { id: "itaq", name: "Итақ", level: 5, type: "көше", info: { tamga: "ИТ", urан: "Ақшолпан!" } },
+                                        { id: "jekensal", name: "Жекенсал", level: 5, type: "көше", info: { tamga: "ЖС", urан: "Ақшолпан!" } }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "jauyngyr", name: "ЖАУЫНГЫР БӨЛИМИ", level: 2, type: "бөлим",
+                    info: { history: "Жауынгыр - 7 ру.", population: "3660 кибиток" },
+                    children: [
+                        { id: "teristambaly", name: "ТЕРIСТАҢБАЛЫ", level: 3, type: "уруу", children: [{id:"shomak",name:"Шомақ",level:4,type:"тийре"},{id:"hangildi",name:"Хангелді",level:4,type:"тийре"},{id:"baiqaragan",name:"Байқараған",level:4,type:"тийре"},{id:"elshibai",name:"Елшібай",level:4,type:"тийре"},{id:"qurban-t",name:"Құрбан",level:4,type:"тийре"},{id:"togai",name:"Тоғыз",level:4,type:"тийре"},{id:"tyle",name:"Тіле",level:4,type:"тийре"},{id:"tebegen",name:"Тебеген",level:4,type:"тийре"},{id:"tum",name:"Тум",level:4,type:"тийре"},{id:"tyrk",name:"Түркістан",level:4,type:"тийре"}] },
+                        { id: "bakanly", name: "БАҚАНЛЫ", level: 3, type: "уруу", children: [{id:"tanmail-b",name:"Таңмайыл",level:4,type:"тийре"},{id:"zhananai",name:"Жақанай",level:4,type:"тийре"},{id:"naiman-b",name:"Найман",level:4,type:"тийре"},{id:"aiys-b",name:"Айыс",level:4,type:"тийре"}] },
+                        { id: "tyekli", name: "ТIЕКТI", level: 3, type: "уруу", children: [{id:"shishi-t",name:"Шиші",level:4,type:"тийре",children:[{id:"shishi-kosh",name:"Шиші",level:5,type:"көше"}]},{id:"tumanai-t",name:"Туманай",level:4,type:"тийре",children:[{id:"tumanai-kosh",name:"Туманай",level:5,type:"көше"}]},{id:"maulik-t",name:"Мәулик",level:4,type:"тийре",children:[{id:"maulik-kosh",name:"Мәулик",level:5,type:"көше"}]},{id:"bairam-t",name:"Байрам",level:4,type:"тийре",children:[{id:"bairam-kosh",name:"Байрам",level:5,type:"көше"}]}] },
+                        { id: "yrgaqty", name: "ЫРҒАҚТЫ", level: 3, type: "уруу", children: [{id:"atanai-y",name:"Атанай",level:4,type:"тийре",children:[{id:"atanai-kosh",name:"Атанай",level:5,type:"көше"}]},{id:"eshkili-y",name:"Ешкілі",level:4,type:"тийре",children:[{id:"eshkili-kosh",name:"Ешкілі",level:5,type:"көше"}]},{id:"baibura-y",name:"Байбура",level:4,type:"тийре",children:[{id:"baibura-kosh",name:"Байбура",level:5,type:"көше"}]},{id:"sarytan-y",name:"Сарытан",level:4,type:"тийре",children:[{id:"sarytan-kosh",name:"Сарытан",level:5,type:"көше"}]}] },
+                        { id: "baimaqty", name: "БАЙМАҚТЫ", level: 3, type: "уруу", children: [{id:"saspaq",name:"Саспақ",level:4,type:"тийре"},{id:"uies",name:"Үйес",level:4,type:"тийре"},{id:"tanmail-bm",name:"Таңмайыл",level:4,type:"тийре"},{id:"zhananai-bm",name:"Жақанай",level:4,type:"тийре"},{id:"naiman-bm",name:"Найман",level:4,type:"тийре"},{id:"aiys-bm",name:"Айыс",level:4,type:"тийре"}] },
+                        { id: "kazayakty", name: "ҚАЗАЯҚТЫ", level: 3, type: "уруу", children: [{id:"anetai",name:"Әнетай",level:4,type:"тийре"},{id:"zharimbet-k",name:"Жәрімбет",level:4,type:"тийре"},{id:"zhundi",name:"Жүнді",level:4,type:"тийре"},{id:"sadaq",name:"Садақ",level:4,type:"тийре"}] },
+                        { id: "uygyr", name: "ҰЙҒЫР", level: 3, type: "уруу", children: [{id:"shishi-u",name:"Шиші",level:4,type:"тийре"},{id:"tumanai-u",name:"Туманай",level:4,type:"тийре"},{id:"sabalaq-u",name:"Сабалақ",level:4,type:"тийре"},{id:"maulik-u",name:"Мәулик",level:4,type:"тийре"},{id:"bairam-u",name:"Байрам",level:4,type:"тийре"},{id:"syrgaly",name:"Сырғалы",level:4,type:"тийре"}] }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "onTort", name: "АРЫС ОН ТӨРТ РУУ", level: 1, type: "арыс",
+            info: { history: "Он төрт руу - 14 ру.", population: "10260 кибиток (60%)" },
+            children: [
+                {
+                    id: "kytaı", name: "ҚЫТАЙ", level: 2, type: "үлкен уруу", tamga: "Q", уран: "Уллы таў",
+                    
+                    info: { history: "Ең ірі ру.", tamga: "Q", уран: "Уллы таў", population: "4320 кибиток" },
+                    children: [
+                        { id: "bessary", name: "БЕССАРЫ", level: 3, type: "уруу", children: [{id:"zhunli",name:"Жүнли",level:4,type:"тийре"},{id:"qoyly",name:"Қойлы",level:4,type:"тийре"}] },
+                        { id: "beksyyk", name: "БЕКСЫЙЫҚ", level: 3, type: "уруу", children: [{id:"zherger",name:"Зергер",level:4,type:"тийре"},{id:"masai",name:"Масай",level:4,type:"тийре"},{id:"shyghyrshy",name:"Шығыршы",level:4,type:"тийре"},{id:"malay",name: "Малай",level:4,type:"тийре"}] },
+                        { id: "kazayakly-k", name: "ҚАЗАЯҚЛЫ", level: 3, type: "уруу", children: [{id:"kalsen",name:"Кәлсен",level:4,type:"тийре"},{id:"kuyik",name:"Күйік",level:4,type:"тийре"},{id:"myrzai",name:"Мырзай",level:4,type:"тийре"},{id:"qylymoiyn",name:"Қылмойын",level:4,type:"тийре"},{id:"zhylkybai",name:"Жылқбай",level:4,type:"тийре"},{id:"baibishe-kz",name:"Бәйбіше",level:4,type:"тийре",children:[{id:"baibishe-kosh",name:"Бәйбіше",level:5,type:"көше"}]}] },
+                        { id: "kaishyly", name: "ҚАЙШЫЛЫ", level: 3, type: "уруу", children: [{id:"aqymbet",name:"Ақымбет",level:4,type:"тийре"},{id:"zhuansan",name:"Жувансан",level:4,type:"тийре"},{id:"koterehoja",name:"Көтерехожа",level:4,type:"тийре"},{id:"tanamyrza",name:"Танамырза",level:4,type:"тийре"},{id:"baqy",name:"Бақи",level:4,type:"тийре"},{id:"sybyl",name:"Сыбыл",level:4,type:"тийре"},{id:"basar",name:"Басар",level:4,type:"тийре"},{id:"tolyq",name:"Толық",level:4,type:"тийре"},{id:"yaby",name:"Ябы",level:4,type:"тийре"}] },
+                        { id: "aitereke", name: "ӘЙТЕКЕ", level: 3, type: "уруу", children: [{id:"zhadyq",name:"Жәдік",level:4,type:"тийре"},{id:"yrsymbek",name:"Ырсымбек",level:4,type:"тийре"},{id:"orazymbet",name:"Оразымбет",level:4,type:"тийре"},{id:"tangirkul",name:"Тəңірқұл",level:4,type:"тийре"},{id:"bektes",name:"Бектес",level:4,type:"тийре",children:[{id:"bektes-kosh",name:"Бектес",level:5,type:"көше"}]},{id:"nauriz",name:"Наурыз",level:4,type:"тийре",children:[{id:"nauriz-kosh",name:"Наурыз",level:5,type:"көше"}]},{id:"maniuwli-a",name:"Мәнжүўлі",level:4,type:"тийре",children:[{id:"maniuwli-kosh",name:"Мәнжүўлі",level:5,type:"көше"}]},{id:"tazshylyq",name:"Тазшылық",level:4,type:"тийре",children:[{id:"tazshylyq-kosh",name:"Тазшылық",level:5,type:"көше"}]}] },
+                        { id: "manjuwli-k", name: "МАҢЖҮУЛI", level: 3, type: "уруу", children: [{id:"eki-shyiq",name:"Екі шыйық",level:4,type:"тийре"},{id:"qaramanjuwli",name:"Қараманжүўлі",level:4,type:"тийре"},{id:"aiiereke",name:"Әйереке",level:4,type:"тийре"}] },
+                        { id: "aralbai", name: "АРАЛБАЙ", level: 3, type: "уруу", children: [{id:"aqqala",name:"Аққала",level:4,type:"тийре"},{id:"qalmuart-ar",name:"Қалмурат",level:4,type:"тийре"},{id:"ogizbaishy",name:"Өгизбайшы",level:4,type:"тийре"},{id:"baibishe-ar",name:"Бәйбіше",level:4,type:"тийре"},{id:"tile-qusshy",name:"Тілеу қусшы",level:4,type:"тийре"}] }
+                    ]
+                },
+                {
+                    id: "kypshak", name: "ҚЫПШАҚ", level: 2, type: "үлкен уруу", tamga: "I", уран: "Тоқсаба",
+                    info: { history: "Көне ру.", tamga: "I", уран: "Тоқсаба", population: "2240 кибиток" },
+                    children: [
+                        { id: "kangly", name: "ҚАҢЛЫ", level: 3, type: "уруу", children: [{id:"tram",name:"Трам",level:4,type:"тийре"},{id:"qatqangly",name:"Қатқаңлы",level:4,type:"тийре"},{id:"yrghaqly",name:"Ырғақлы",level:4,type:"тийре"},{id:"ashamaily-k",name:"Ашамайлы",level:4,type:"тийре"},{id:"taraqty-k",name:"Тарақты",level:4,type:"тийре"},{id:"baspak",name:"Баспақ",level:4,type:"тийре"},{id:"aiat",name:"Айят",level:4,type:"тийре"},{id:"bosyn",name:"Босын",level:4,type:"тийре"},{id:"basapat",name:"Баспат",level:4,type:"тийре"},{id:"konyrqazy",name:"Қоңырқазы",level:4,type:"тийре"},{id:"kenes",name:"Кенес",level:4,type:"тийре"},{id:"tashkent",name:"Ташкент",level:4,type:"тийре"}] },
+                        { id: "sanmuryn", name: "САҢМҰРЫН", level: 3, type: "уруу", children: [{id:"konshi",name:"Көнші",level:4,type:"тийре"},{id:"tubai",name:"Тұбай",level:4,type:"тийре"},{id:"eshkili",name:"Ешкілі",level:4,type:"тийре"},{id:"zhaipaq-shek",name:"Жалпақ шек",level:4,type:"тийре"},{id:"tolebai",name:"Төлебай",level:4,type:"тийре"},{id:"zhabashy",name:"Жабашы",level:4,type:"тийре"}] },
+                        { id: "estek", name: "ЕСТЕК", level: 3, type: "уруу", children: [{id:"manqanai",name:"Маңқанай",level:4,type:"тийре"},{id:"qaiypnazar",name:"Қайыпназар",level:4,type:"тийре"},{id:"karaterenshi",name:"Қаратереңші",level:4,type:"тийре"},{id:"qalmuart-es",name:"Қалмурат",level:4,type:"тийре"}] },
+                        { id: "qanzhygaly", name: "ҚАНЖЫҒАЛЫ", level: 3, type: "уруу", children: [{id:"shanyshpai",name:"Шанышпай",level:4,type:"тийре"},{id:"sambet-q",name:"Самбет",level:4,type:"тийре"},{id:"zhaghaltai",name:"Жағалтай",level:4,type:"тийре"},{id:"baibishe-q",name:"Бәйбіше",level:4,type:"тийре",children:[{id:"baibishe-q-kosh",name:"Бәйбіше",level:5,type:"көше"}]}] },
+                        { id: "saltyr", name: "САЛТЫР", level: 3, type: "уруу", children: [{id:"baibishe-s",name:"Бәйбіше",level:4,type:"тийре"},{id:"sart",name:"Сарт",level:4,type:"тийре"},{id:"orazymbet-s",name:"Оразымбет",level:4,type:"тийре"},{id:"shuyghan",name:"Шуылған",level:4,type:"тийре"}] }
+                    ]
+                },
+                {
+                    id: "keneges", name: "КЕНЕГЕС", level: 2, type: "үлкен уруу", tamga: "Х", уран: "Шаўлы-Шаўхай",
+                    info: { history: "Кеңгес.", tamga: "Х", уран: "Шаўлы-Шаўхай", population: "1480 кибиток" },
+                    children: [
+                        { id: "aranshy", name: "АРАНШЫ", level: 3, type: "уруу", children: [{id:"annaqul",name:"Аннақұл",level:4,type:"тийре"},{id:"abas-k",name:"Абас",level:4,type:"тийре",children:[{id:"seitimbet",name:"Сейтімбет",level:5,type:"көше"}]},{id:"suiin",name:"Сүйін",level:4,type:"тийре"},{id:"zhuas",name:"Жуас",level:4,type:"тийре"},{id:"dauletqargha",name:"Дәулетқарға",level:4,type:"тийре"},{id:"qaipbergen",name:"Қайыпберген",level:4,type:"тийре"}] },
+                        { id: "aktogyn", name: "АҚТОҒЫН", level: 3, type: "уруу", children: [{id:"nanzhemes",name:"Нанжемес",level:4,type:"тийре"},{id:"kosher",name:"Көшер",level:4,type:"тийре"}] },
+                        { id: "omir", name: "ӨМIР", level: 3, type: "уруу", children: [{id:"aqpyshaq",name:"Ақпышақ",level:4,type:"тийре"},{id:"usaq",name:"Усақ",level:4,type:"тийре"},{id:"zhel",name:"Жел",level:4,type:"тийре"},{id:"mynzhyr",name:"Мынжыр",level:4,type:"тийре"},{id:"otemis-o",name:"Өтеміс",level:4,type:"тийре"}] },
+                        { id: "taraqly-ken", name: "ТАРАҚЛЫ", level: 3, type: "уруу", children: [{id:"zhetiqaraghaz",name:"Жетіқарақазақы",level:4,type:"тийре",children:[{id:"zheti-kosh",name:"Жетіқара",level:5,type:"көше"}]}] },
+                        { id: "dobal", name: "ДОБАЛ", level: 3, type: "уруу" },
+                        { id: "oymauyt", name: "ОЙМАЎЫТ", level: 3, type: "уруу", children: [{id:"qara-o",name:"Қара",level:4,type:"тийре"},{id:"sary-o",name:"Сары",level:4,type:"тийре",children:[{id:"zhiydeli",name:"Жийдели",level:5,type:"көше"}]},{id:"aq-o",name:"Ақ",level:4,type:"тийре"}] },
+                        { id: "dombazqaq", name: "ДОМБАЗҚАҚ", level: 3, type: "уруу" },
+                        { id: "nokis", name: "НӨКИС", level: 3, type: "уруу", children: [{id:"zhamanzhak",name:"Жаманжақ",level:4,type:"тийре"},{id:"bozaq",name:"Бозақ",level:4,type:"тийре"},{id:"altynpyshaq",name:"Алтынпышақ",level:4,type:"тийре"},{id:"ghobdir",name:"Гобдир",level:4,type:"тийре"}] }
+                    ]
+                },
+                {
+                    id: "mangyt", name: "МАҢҒЫТ", level: 2, type: "үлкен уруу", tamga: "f", уран: "Шаўлы-Шаўхай",
+                    info: { history: "Соғысқор ру.", tamga: "f", уран: "Шаўлы-Шаўхай", population: "2220 кибиток" },
+                    children: [
+                        { id: "qaratay", name: "ҚАРАТАЙ (Қара)", level: 3, type: "топар", children: [{id:"qaramangyt",name:"Қараманғыт",level:4,type:"тийре",children:[{id:"ushbas",name:"Үшбас",level:5,type:"көше"},{id:"karasiraq-m",name:"Қарасыйрақ",level:5,type:"көше"},{id:"aqmangyt",name:"Ақманғыт",level:5,type:"көше"}]},{id:"mamyqshy",name:"Мамықшы",level:4,type:"уруу",children:[{id:"zhetiqurt",name:"Жетіқурт",level:5,type:"көше"}]},{id:"kosar-m",name:"Қосар",level:4,type:"уруу",children:[{id:"gubidin",name:"Гүбидин",level:5,type:"көше"}]},{id:"qylqaly",name:"Қылқалы",level:4,type:"тийре"}] },
+                        { id: "sarytay", name: "САРЫТАЙ (Сары)", level: 3, type: "топар", children: [{id:"arshyn",name:"Аршын",level:4,type:"тийре"},{id:"zhailyk",name:"Жайлық",level:4,type:"тийре"},{id:"toqmangyt",name:"Тоқманғыт",level:4,type:"тийре"},{id:"arsary",name:"Арсары",level:4,type:"тийре"},{id:"tazhzhanlyk",name:"Тазжанлық",level:4,type:"тийре"},{id:"shuyt",name:"Шүйт",level:4,type:"тийре"},{id:"zhamansha",name:"Жаманша",level:4,type:"тийре"},{id:"esebii",name:"Есебий",level:4,type:"тийре"},{id:"tamgaly-m",name:"Тамғалы",level:4,type:"тийре"},{id:"toqmoiyin",name:"Тоқмойын",level:4,type:"тийре"},{id:"temirhoja",name:"Темирхожа",level:4,type:"тийре"}] },
+                        { id: "boztay", name: "БОЗТАЙ (Боз)", level: 3, type: "топар", children: [{id:"bozta",name:"Бозта",level:4,type:"тийре",children:[{id:"bozta-kosh",name:"Бозта",level:5,type:"көше"}]}] },
+                        { id: "jetimtay", name: "ЖЕТИМТАЙ (Жетим)", level: 3, type: "топар", children: [{id:"eshbuga",name:"Ешбуға",level:4,type:"тийре",children:[{id:"eshbuga-kosh",name:"Ешбуға",level:5,type:"көше"}]}] }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+// Найти узел по ID в дереве
+function findNodeById(node, id) {
+    if (node.id === id) return node;
+    if (node.children) {
+        for (let child of node.children) {
+            const found = findNodeById(child, id);
+            if (found) return found;
+        }
+    }
+    return null;
+}
+
+// Получить полную цепочку родителей до корня
+function getParentChain(node, current = treeData, chain = []) {
+    if (current.id === node.id) {
+        return [current, ...chain];
+    }
+    if (current.children) {
+        for (let child of current.children) {
+            const result = getParentChain(node, child, [current, ...chain]);
+            if (result) return result;
+        }
+    }
+    return null;
+}
+
+// Получить всех потомков узла
+function getAllDescendants(node) {
+    const descendants = [];
+    if (node.children) {
+        for (let child of node.children) {
+            descendants.push(child);
+            descendants.push(...getAllDescendants(child));
+        }
+    }
+    return descendants;
+}
+
+// Построить дерево группировки потомков по родителям
+function buildDescendantsTree(node) {
+    if (!node.children || node.children.length === 0) return null;
+    
+    const result = [];
+    for (let child of node.children) {
+        const item = {
+            node: child,
+            children: child.children || []
+        };
+        result.push(item);
+    }
+    return result;
+}
+
+// Управление панелью
+function openPanel() {
+    const panel = document.getElementById('infoPanel');
+    const openBtn = document.getElementById('openPanelBtn');
+    const statsBox = document.getElementById('statsBox');
+    
+    panel.classList.remove('collapsed');
+    panel.classList.add('active');
+    openBtn.classList.remove('visible');
+    isPanelOpen = true;
+    
+    // На десктопе сдвигаем статистику
+    if (window.innerWidth > 968) {
+        statsBox.style.right = '470px';
+    }
+}
+
+function closePanel() {
+    const panel = document.getElementById('infoPanel');
+    const openBtn = document.getElementById('openPanelBtn');
+    const statsBox = document.getElementById('statsBox');
+    
+    panel.classList.add('collapsed');
+    panel.classList.remove('active');
+    openBtn.classList.add('visible');
+    isPanelOpen = false;
+    
+    // На десктопе возвращаем статистику
+    if (window.innerWidth > 968) {
+        statsBox.style.right = '10px';
+    }
+}
+
+function togglePanel() {
+    if (isPanelOpen) {
+        closePanel();
+    } else {
+        openPanel();
+    }
+}
+
+// Бургер меню
+function toggleBurgerMenu() {
+    const burger = document.getElementById('burgerMenu');
+    const viewSwitch = document.getElementById('viewSwitch');
+    
+    burger.classList.toggle('active');
+    viewSwitch.classList.toggle('active');
+}
+
+// Развернуть/свернуть элемент списка
+function toggleListItem(id) {
+    const childrenContainer = document.getElementById('children-' + id);
+    const expandBtn = document.getElementById('expand-' + id);
+    
+    if (childrenContainer) {
+        const isExpanded = childrenContainer.classList.contains('expanded');
+        
+        if (isExpanded) {
+            childrenContainer.classList.remove('expanded');
+            expandBtn.classList.remove('expanded');
+            currentExpandedNodes.delete(id);
+        } else {
+            childrenContainer.classList.add('expanded');
+            expandBtn.classList.add('expanded');
+            currentExpandedNodes.add(id);
+        }
+    }
+}
+
+// Выбрать элемент (показать информацию)
+function selectNode(node) {
+    currentSelectedNode = node;
+    
+    // Убрать выделение со всех элементов
+    document.querySelectorAll('.list-header').forEach(el => el.classList.remove('active'));
+    
+    // Выделить текущий элемент
+    const currentEl = document.getElementById('header-' + node.id);
+    if (currentEl) currentEl.classList.add('active');
+    
+    // Показать информацию
+    showInfo(node);
+    
+    // Обновить хлебные крошки
+    updateBreadcrumb(node);
+}
+
+// Обновить хлебные крошки
+function updateBreadcrumb(node) {
+    const chain = getParentChain(node);
+    const breadcrumb = document.getElementById('breadcrumb');
+    
+    if (!chain) return;
+    
+    let html = '';
+    chain.reverse().forEach((item, index) => {
+        const isLast = index === chain.length - 1;
+        if (!isLast) {
+            html += `<span class="breadcrumb-item" onclick="navigateToNode('${item.id}')">${item.name}</span>`;
+            html += `<span class="breadcrumb-separator">➜</span>`;
+        } else {
+            html += `<span class="breadcrumb-item active">${item.name}</span>`;
+        }
+    });
+    
+    breadcrumb.innerHTML = html;
+}
+
+// Навигация к узлу
+function navigateToNode(id) {
+    const node = findNodeById(treeData, id);
+    if (node) {
+        selectNode(node);
+        // Развернуть все родителей
+        const chain = getParentChain(node);
+        if (chain) {
+            chain.forEach(parent => {
+                if (parent.id !== id) {
+                    const childrenContainer = document.getElementById('children-' + parent.id);
+                    const expandBtn = document.getElementById('expand-' + parent.id);
+                    if (childrenContainer && !childrenContainer.classList.contains('expanded')) {
+                        childrenContainer.classList.add('expanded');
+                        expandBtn.classList.add('expanded');
+                        currentExpandedNodes.add(parent.id);
+                    }
+                }
+            });
+        }
+        // Прокрутить к элементу
+        const element = document.getElementById('item-' + id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+}
+
+// Построить иерархический список
+function buildList(node, container) {
+    const item = document.createElement('div');
+    item.className = 'list-item level-' + node.level;
+    item.id = 'item-' + node.id;
+    
+    const hasChildren = node.children && node.children.length > 0;
+    const childCount = hasChildren ? node.children.length : 0;
+    const descendantCount = hasChildren ? getAllDescendants(node).length : 0;
+    
+    let html = '<div class="list-header" id="header-' + node.id + '" onclick="handleItemClick(\'' + node.id + '\', event)">';
+    
+    // Кнопка разворачивания (если есть дети)
+    if (hasChildren) {
+        html += '<span class="expand-btn" id="expand-' + node.id + '">▶</span>';
+    } else {
+        html += '<span class="expand-btn" style="visibility: hidden;">▶</span>';
+    }
+    
+    // Контент
+    html += '<div class="list-content">';
+    html += '<span class="list-title">' + node.name + '</span>';
+    if (node.type) {
+        html += '<span class="list-subtitle">' + node.type + '</span>';
+    }
+    html += '</div>';
+    
+    // Мета-информация
+    html += '<div class="list-meta">';
+    if (node.tamga) html += '<span>🏷️ ' + node.tamga + '</span>';
+    if (node.уран) html += '<span>📢 ' + node.уран + '</span>';
+    if (hasChildren) {
+        html += '<span>👇 ' + childCount + '/' + descendantCount + '</span>';
+    }
+    html += '</div>';
+    
+    html += '</div>';
+    
+    // Контейнер для детей
+    if (hasChildren) {
+        html += '<div class="children-container" id="children-' + node.id + '">';
+    }
+    
+    item.innerHTML = html;
+    container.appendChild(item);
+    
+    // Рекурсивно добавляем детей
+    if (hasChildren) {
+        const childrenContainer = item.querySelector('.children-container');
+        node.children.forEach(child => {
+            buildList(child, childrenContainer);
+        });
+    }
+}
+
+// Обработчик клика по элементу
+function handleItemClick(id, event) {
+    // Если кликнули на кнопку разворачивания - только развернуть/свернуть
+    if (event.target.classList.contains('expand-btn')) {
+        toggleListItem(id);
+    } else {
+        // Иначе - выбрать элемент и развернуть/свернуть
+        const node = findNodeById(treeData, id);
+        if (node) {
+            selectNode(node);
+            toggleListItem(id);
+        }
+    }
+}
+
+// Развернуть все
+function expandAll() {
+    document.querySelectorAll('.children-container').forEach(el => {
+        el.classList.add('expanded');
+    });
+    document.querySelectorAll('.expand-btn').forEach(el => {
+        if (el.style.visibility !== 'hidden') {
+            el.classList.add('expanded');
+        }
+    });
+}
+
+// Свернуть все
+function collapseAll() {
+    document.querySelectorAll('.children-container').forEach(el => {
+        el.classList.remove('expanded');
+    });
+    document.querySelectorAll('.expand-btn').forEach(el => {
+        el.classList.remove('expanded');
+    });
+}
+
+function showInfo(node) {
+    const panel = document.getElementById('infoPanel');
+    const content = document.getElementById('infoContent');
+    
+    // Открываем панель при клике на элемент
+    openPanel();
+    
+    let html = '<div class="info-header"><div class="info-title">' + node.name + '</div><div class="info-type">' + (node.type || 'Род') + '</div></div>';
+    
+    // Иерархическая цепочка
+    const chain = getParentChain(node);
+    if (chain && chain.length > 0) {
+        html += '<div class="info-section"><h3>🔗Толиқ шежіре / Полная цепочка</h3><div class="hierarchy-chain">';
+        chain.reverse().forEach((item, index) => {
+            const isLast = index === chain.length - 1;
+            html += '<div class="hierarchy-item ' + (isLast ? 'current' : '') + '">';
+            html += '<span class="hierarchy-level">' + levelsMap[item.level] + '</span>';
+            html += '<span>' + item.name + '</span>';
+            if (!isLast) html += '<span class="hierarchy-arrow">⬇</span>';
+            html += '</div>';
+        });
+        html += '</div></div>';
+    }
+    
+    const tamga = node.tamga || (node.info && node.info.tamga);
+    if (tamga) {
+        html += '<div class="tamga-box"><div class="tamga-symbol">' + tamga + '</div><div class="tamga-label">ТАМГА (Родовой знак)</div></div>';
+    }
+    
+    const уран = node.уран || (node.info && node.info.уран);
+    if (уран) {
+        html += '<div class="uran-box"><div class="uran-text">' + уран + '</div><div class="uran-label">УРАН (Боевой клич)</div></div>';
+    }
+    
+    if (node.info) {
+        const fields = [
+            { key: 'history', icon: '📜', title: 'Тарих / История' },
+            { key: 'origin', icon: '🧬', title: 'Келіп шығыуы / Происхождение' },
+            { key: 'legend', icon: '🌟', title: 'Аңыз / Легенда' },
+            { key: 'population', icon: '👥', title: 'Саны / Численность' },
+            { key: 'structure', icon: '🏗️', title: 'Құрылымы / Структура' },
+            { key: 'warrior', icon: '⚔️', title: 'Батырлары / Воины' },
+            { key: 'region', icon: '🌍', title: 'Жері / Регион' },
+            { key: 'language', icon: '🗣️', title: 'Тілі / Язык' }
+        ];
+        
+        fields.forEach(field => {
+            if (node.info[field.key]) {
+                html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + node.info[field.key] + '</p></div>';
+            }
+        });
+    }
+    
+    // Список всех потомков
+    if (node.children && node.children.length > 0) {
+        const descendantsTree = buildDescendantsTree(node);
+        html += '<div class="stats-box"><div class="stats-number">' + getAllDescendants(node).length + '</div><div> Бүкіл тұқым/Весь род </div></div>';
+        
+        html += '<div class="info-section"><h3>👇Бағынышты топтар / Подчиненные группы</h3>';
+        html += '<div class="descendants-list">';
+        
+        descendantsTree.forEach(group => {
+            html += '<div class="descendant-group">';
+            html += '<div class="descendant-parent">';
+            html += '<span style="color: var(--accent-yellow);">' + group.node.name + '</span>';
+            html += ' <span style="font-size: 0.8em; opacity: 0.7;">(' + levelsMap[group.node.level] + ')</span>';
+            html += '</div>';
+            
+            if (group.children.length > 0) {
+                html += '<div class="descendant-children">';
+                group.children.forEach(child => {
+                    html += '<div class="descendant-child">';
+                    html += '<span class="descendant-bullet"></span>';
+                    html += '<span>' + child.name + '</span>';
+                    if (child.children && child.children.length > 0) {
+                        html += ' <span style="font-size: 0.75em; color: var(--accent-orange);">+' + getAllDescendants(child).length + '</span>';
+                    }
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+        });
+        
+        html += '</div></div>';
+    }
+    
+    html += '<div class="info-section"><h3>📊 Деңгей / Уровень</h3><p>' + levelsMap[node.level] + ' (' + node.level + ')</p></div>';
+    
+    content.innerHTML = html;
+}
+
+function searchNode() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const headers = document.querySelectorAll('.list-header');
+    
+    headers.forEach(header => {
+        const text = header.textContent.toLowerCase();
+        const item = header.closest('.list-item');
+        
+        if (text.includes(input) && input.length > 0) {
+            header.classList.add('highlight');
+            // Развернуть родителей
+            let parent = item.parentElement;
+            while (parent) {
+                if (parent.classList.contains('children-container')) {
+                    parent.classList.add('expanded');
+                    const parentId = parent.id.replace('children-', '');
+                    const expandBtn = document.getElementById('expand-' + parentId);
+                    if (expandBtn) expandBtn.classList.add('expanded');
+                }
+                parent = parent.parentElement;
+            }
+            // Прокрутить к первому найденному
+            if (!window.searchScrolled) {
+                header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                window.searchScrolled = true;
+                setTimeout(() => window.searchScrolled = false, 1000);
+            }
+        } else {
+            header.classList.remove('highlight');
+        }
+    });
+}
+
+// Обработчики событий
+document.addEventListener('DOMContentLoaded', function() {
+    buildList(treeData, document.getElementById('hierarchicalList'));
+    
+    // Кнопка закрытия панели
+    document.getElementById('closePanelBtn').addEventListener('click', closePanel);
+    
+    // Кнопка открытия панели
+    document.getElementById('openPanelBtn').addEventListener('click', function() {
+        if (currentSelectedNode) {
+            openPanel();
+        } else {
+            alert('Алдымен тұқымды таңдаңыз / Сначала выберите род');
+        }
+    });
+    
+    // Бургер меню
+    document.getElementById('burgerMenu').addEventListener('click', toggleBurgerMenu);
+    
+    // Закрытие бургер меню при клике на ссылку
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                toggleBurgerMenu();
+            }
+        });
+    });
+    
+    // Обработка изменения размера окна
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 968) {
+            if (!isPanelOpen) {
+                document.getElementById('openPanelBtn').classList.add('visible');
+            }
+        } else {
+            document.getElementById('openPanelBtn').classList.remove('visible');
+        }
+    });
+});
+    </script>
+</body>
+</html>

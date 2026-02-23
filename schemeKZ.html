@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Қарақалпақ рулары | Схема</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #0a0c10;
+            --bg-card: #151923;
+            --text: #ffffff;
+
+            --primary-bg: #0f1419;
+            --secondary-bg: #1a1f2e;
+            --primary-bg: #0f1419;
+            --secondary-bg: #1a1f2e;
+            --accent-red: #e74c3c;
+            --accent-orange: #e67e22;
+            --accent-yellow: #f1c40f;
+            --gold: #f1c40f;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --accent-purple: #9b59b6;
+            --accent-cyan: #1abc9c;
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --border-color: #34495e;
+            
+            /* Дәреже түстері */
+            --tust-xaliq: #e74c3c;
+            --tust-aris: #e67e22;
+            --tust-bolim: #f1c40f;
+            --tust-ulken: #2ecc71;
+            --tust-uruw: #3498db;
+            --tust-tiyre: #9b59b6;
+            --tust-koshe: #1abc9c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+        
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10,12,16,0.95);
+            border-bottom: 2px solid var(--gold);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            height: 70px;
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        
+        .logo a { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: var(--gold); 
+            font-size: 1.8rem; 
+            margin: 0;
+            text-decoration: none;
+        }
+        
+        /* Burger меню */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        
+        .burger-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .burger-menu.active .burger-bar:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .burger-menu.active .burger-bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .view-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.25rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 968px) {
+            .burger-menu {
+                display: flex;
+            }
+            
+            .view-switch {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10,12,16,0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                border-bottom: 2px solid var(--gold);
+                border-radius: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            .view-switch.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .view-btn {
+                /* max-width: 150px; */
+                text-align: center;
+                padding: 1rem;
+            }
+        }
+        
+        .view-btn {
+            /* width: 53px;
+            height: 53px; */
+            padding: 0.5rem 1.5rem;
+            border-radius: 16px;
+            border: none;
+            background: transparent;
+            color: #8892b0;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .view-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+        .view-btn.active { background: var(--gold); color: #000; font-weight: 600; }
+
+        main {
+            margin-top: 70px;
+            height: calc(100vh - 70px);
+            display: flex;
+            position: relative;
+        }
+
+        #treeArea {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.05) 0%, transparent 70%);
+            cursor: grab;
+        }
+        
+        #treeArea:active { cursor: grabbing; }
+
+        .node rect {
+            cursor: pointer;
+            transition: all 0.3s;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+        }
+
+        .node:hover rect {
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6)) brightness(1.2);
+            stroke: #fff;
+            stroke-width: 3px;
+        }
+
+        .node text {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            fill: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
+        
+        .node .tamga-text {
+            font-size: 14px;
+            fill: #d4af37;
+            font-weight: bold;
+        }
+
+        .link {
+            fill: none;
+            stroke: #4a5568;
+            stroke-width: 2px;
+            opacity: 0.6;
+        }
+
+        /* Оң панель */
+        .detail-panel {
+            background: var(--bg-card);
+            border-left: 1px solid #2d3548;
+            padding: 2rem;
+            overflow-y: auto;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s, width 0.3s ease;
+            width: 400px;
+            flex-shrink: 0;
+            will-change: transform, opacity, visibility;
+        }
+        
+        .detail-panel.collapsed {
+            transform: translateX(100%);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            width: 0;
+            padding: 0;
+            border: none;
+            overflow: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s, width 0.3s ease, padding 0.3s ease;
+        }
+        
+        .close-panel-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--tust-xaliq);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .close-panel-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .open-panel-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .open-panel-btn.visible {
+            display: flex;
+        }
+        
+        .open-panel-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
+        }
+
+        .detail-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #2d3548;
+        }
+
+        .detail-tamga {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.1));
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 0 30px rgba(212,175,55,0.3);
+        }
+
+        .detail-title { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 0.5rem; line-height: 1.2; }
+        .detail-subtitle { color: #8892b0; font-size: 0.9rem; margin-bottom: 1rem; }
+        
+        .info-block {
+            background: rgba(0,0,0,0.3);
+            border-left: 4px solid var(--gold);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        .info-block:hover { transform: translateX(5px); }
+
+        .info-label { font-size: 0.75rem; color: #8892b0; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: bold; letter-spacing: 0.5px; }
+        .info-content { color: #e2e8f0; line-height: 1.5; font-size: 0.95rem; }
+        
+        /* Дәреже бойынша түстер - негізгі түстер */
+        .node-xaliq rect { fill: var(--tust-xaliq); stroke: #c0392b; }
+        .node-aris rect { fill: var(--tust-aris); stroke: #d35400; }
+        .node-bolim rect { fill: var(--tust-bolim); stroke: #f39c12; }
+        .node-ulken rect { fill: var(--tust-ulken); stroke: #27ae60; }
+        .node-uruw rect { fill: var(--tust-uruw); stroke: #2980b9; }
+        .node-tiyre rect { fill: var(--tust-tiyre); stroke: #8e44ad; }
+        .node-koshe rect { fill: var(--tust-koshe); stroke: #16a085; }
+        
+        /* Бөлім және Көше үшін қара текст */
+        .node-bolim text,
+        .node-koshe text { 
+            fill: #000; 
+            text-shadow: none; 
+            font-weight: 700; 
+        }
+        
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .controls button {
+            background: #2d3748;
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        
+        .controls button:hover { background: var(--gold); color: black; }
+        
+        .legend-tree {
+            position: absolute;
+            bottom: 100px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            font-size: 0.8rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .legend-item { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+        .legend-color { width: 12px; height: 12px; border-radius: 3px; }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid rgba(212,175,55,0.3);
+        }
+
+        /* Иерархия тізімі */
+        .hierarchy-chain {
+            background: linear-gradient(135deg, rgba(241, 196, 15, 0.1), rgba(230, 126, 34, 0.1));
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+        .hierarchy-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(241, 196, 15, 0.3);
+        }
+        .hierarchy-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        .hierarchy-arrow {
+            margin: 0 10px;
+            color: var(--tust-aris);
+        }
+        .hierarchy-level {
+            background: var(--gold);
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            margin-right: 8px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+      .lang-btn1 {
+    padding: 0.4rem 0.4rem;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-btn1 img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.lang-btn img {
+    width: 3rem;
+    height: 3rem;
+    /* margin-bottom: 4px; */
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.lang-btn {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+     width: 2.9rem;
+    height: 2.9rem;
+}
+.lang-btn:hover {
+    border: 1px solid var(--gold);
+    width: 3rem;
+    height: 3rem;
+}
+
+
+.lang-btn1:hover {
+    border: 1px solid var(--gold);
+    width: 3rem;
+    height: 3rem;
+}
+
+.lang-btn1.active img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.lang-btn1.active {
+    border: 1px solid var(--accent-red);
+     border-radius: 8px;
+     width: 3rem;
+    height: 3rem;
+}
+
+@media (max-width: 768px) {
+    .lang-switch {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(212,175,55,0.3);
+        justify-content: center;
+    }
+
+    .search-box input {
+        display: none;
+    }
+     
+    .logo a {
+        font-size: 1rem;
+    
+    }
+        
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span style="font-size: 2rem;">🌳</span>
+            <a target="_blank" href="./images/uru.jpg">Шежіре</a>
+        </div>
+        
+        <!-- Бургер меню кнопка -->
+        <button class="burger-menu" id="burgerMenu" aria-label="Менюді ашу">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+        </button>
+        
+        <div class="view-switch" id="viewSwitch">
+            <a href="indexKZ.html" class="view-btn" target="_self">🏠 Басты бет</a>
+            <a href="listsKZ.html" class="view-btn" target="_self">📋 Тізімдер</a>
+            <a href="schemeKZ.html" class="view-btn active" target="_self">🌳 Схема</a>
+            <a href="exogamyKZ.html" class="view-btn" target="_self">💑 Экзогамия</a>
+        </div>
+
+        <div class="lang-switch">
+            <a target="_self" href="schemeRU.html" class="lang-btn1"><img src="./images/RU.jpg" alt="RU"></a>
+            <a target="_self" href="schemeQQ.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
+            <a target="_self" href="schemeKZ.html" class="lang-btn1 active"><img src="./images/KZ.webp" alt="KZ"></a>
+        </div>
+    </header>
+
+            <!-- Бегущая строка для мобильных устройств -->
+    <div class="mobile-warning-marquee" id="mobileMarquee">
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+                <span>📱 Бұл бетті үлкен экранда қарау ұсынылады 🖥️  Бұл бетті үлкен экранда қарау ұсынылады </span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+       
+        /* Бегущая строка - только для мобильных */
+        .mobile-warning-marquee {
+            display: none;
+            position: fixed;
+            top: 103px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 99;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee-scroll 20s linear infinite;
+        }
+
+        .marquee-content span {
+            padding-right: 50px;
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-25%);
+            }
+        }
+
+        @media (max-width: 1200px) {
+    .legend-tree {
+        display: none;
+    
+    }
+}
+    @media (max-width: 1200px) {
+    .legend-tree {
+        display: none;
+    }
+    
+    }
+
+
+
+        /* Показываем на экранах меньше 967px */
+        @media (max-width: 967px) {
+          
+            }
+            
+            
+            body {
+                padding-top: 115px !important;
+            }
+        
+
+        @media (max-width: 768px) {
+             
+                
+            .mobile-warning-marquee {
+                display: block;
+                top: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .marquee-content {
+                animation-duration: 15s;
+            }
+            
+             .mobile-warning-marquee {
+       font-size: 0.5em;
+            font-weight: 400;
+                padding: 5px 0;
+       top: 70px;
+    }
+            }
+        
+    </style>
+
+
+    <main>
+        <div id="treeArea">
+            <svg id="treeSvg"></svg>
+            <div class="legend-tree">
+                <div style="color: var(--gold); margin-bottom: 8px; font-weight: bold;">Легенда:</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-xaliq);"></div> Халық</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-aris);"></div> Арыс (Қоңырат/Он төрт)</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-bolim);"></div> Бөлім/Үлкен ру</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-ulken);"></div> Ру</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-uruw);"></div> Тире</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-tiyre);"></div> Көше</div>             
+            </div>
+            <div class="controls">
+                <button onclick="ulıwlastırıw()" title="Жақындау">+</button>
+                <button onclick="qaıtaOrnatıw()" title="Қайта орнату">⟲</button>
+                <button onclick="alqıstırıw()" title="Алыстату">-</button>
+            </div>
+        </div>
+
+        <aside class="detail-panel collapsed" id="details">
+            <button class="close-panel-btn" id="closePanelBtn" title="Панельді жабу">×</button>
+            <div class="detail-header">
+                <div class="detail-tamga" id="dTamga">🏛️</div>
+                <div class="detail-title" id="dName">Қарақалпақтар</div>
+                <div class="detail-subtitle" id="dSubtitle">Орта Азиядағы түрік халық</div>
+            </div>
+            <div id="dContent">
+                <div class="info-block">
+                    <div class="info-label">Навигация</div>
+                    <div class="info-content">
+                        🖱️ <strong>Сырғыту</strong> — масштаб<br>
+                        ✋ <strong>Тарту</strong> — жылжыту<br>
+                        👆 <strong>Руға басу</strong> — мәлімет<br>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+    
+    <button class="open-panel-btn" id="openPanelBtn" title="Мәлімет панелін ашу">ℹ️</button>
+
+    <script>
+        // ТОЛЫҚ ҚАРАҚАЛПАҚ РУЛАРЫ МӘЛІМЕТТЕРІ
+        const terekMaǵlıwmatları = {
+            at: "Қарақалпақтар",
+            túri: "xaliq",
+            tamga: "🏛️",
+            maǵlıwmat: {
+                tariyx: "Қарақалпақтар - Орта Азиядағы түрік тілдес халық. XVI-XIII ғасырларда қалыптасқан.",
+                túbegi: "Негізі Ноғай ордасы, Қыпшақ, Қарлық тайпаларынан.",
+                qalaqı: "800 мың адам",
+                tili: "Қарақалпақ тілі - түрік тілдерінің қыпшақ тармағы"
+            },
+            ballar: [
+                {
+                    at: "Арыс Қоңырат",
+                    túri: "aris",
+                    tamga: "P",
+                    uran: "Қақпа!",
+                    maǵlıwmat: {
+                        tariyx: "Екі ірі арыстың бірі. Ноғай ордасынан.",
+                        túbegi: "Ноғайлық, Қыпшақ тайпаларының қосындысы.",
+                        qalaqı: "9520 кибиток (40%)",
+                        qurilimi: "Шұлық (8 ру) және Жауыңгыр (7 ру)"
+                    },
+                    ballar: [
+                        {
+                            at: "Шұлық бөлімі",
+                            túri: "bolim",
+                            tamga: "Sh",
+                            maǵlıwmat: { tariyx: "Шұлық - 8 рудан тұрады.", qalaqı: "5860 кибиток" },
+                            ballar: [
+                                {
+                                    at: "Қият",
+                                    túri: "ulken",
+                                    tamga: "Ψ",
+                                    uran: "Алатау!",
+                                    maǵlıwmat: {
+                                        tariyx: "Қият - Шұлықтың ең ірі руы.",
+                                        anız: "Үш ұл: Үштаңбалы, Тарақты, Балғалы.",
+                                        qalaqı: "870 кибиток"
+                                    },
+                                    ballar: [
+                                        {
+                                            at: "Үштаңбалы",
+                                            túri: "uruw",
+                                            tamga: "|||",
+                                            maǵlıwmat: { tariyx: "Үш таңбалы - үш белгі." },
+                                            ballar: [
+                                                { at: "Саңмұрын", túri: "tiyre", maǵlıwmat: { tariyx: "Саң мұрындық малдан" } },
+                                                { at: "Арыққият", túri: "tiyre", maǵlıwmat: { tariyx: "Арық денелі" } },
+                                                { at: "Тартулы", túri: "tiyre" },
+                                                { at: "Қанжығалы", túri: "tiyre" },
+                                                { at: "Қатаған", túri: "tiyre" },
+                                                { 
+                                                    at: "Қарақият", 
+                                                    túri: "tiyre",
+                                                    ballar: [
+                                                        { at: "Болат", túri: "koshe" },
+                                                        { at: "Қарабас", túri: "koshe" }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            at: "Тарақты",
+                                            túri: "uruw",
+                                            maǵlıwmat: { tariyx: "Шашақты, өрнекті" },
+                                            ballar: [
+                                                { at: "Тоғызақ", túri: "tiyre", maǵlıwmat: { tariyx: "Тоғыз ұрпақтан кейін" } },
+                                                { at: "Абас", túri: "tiyre" },
+                                                { at: "Жалтыршы", túri: "tiyre" },
+                                                { at: "Ақұнқараған", túri: "tiyre" },
+                                                { at: "Тақай", túri: "tiyre" },
+                                                { at: "Қаржаубарас", túri: "tiyre" }
+                                            ]
+                                        },
+                                        {
+                                            at: "Балғалы Қият",
+                                            túri: "uruw",
+                                            tamga: "B",
+                                            maǵlıwmat: { tariyx: "Балға ұстаған. Теміршілер." },
+                                            ballar: [
+                                                { at: "Беспышақ", túri: "tiyre" },
+                                                { at: "Етекші", túri: "tiyre" },
+                                                { at: "Саңмұрын", túri: "tiyre" },
+                                                { at: "Қожақараған", túri: "tiyre" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    at: "Ашамайлы",
+                                    túri: "ulken",
+                                    tamga: "✕",
+                                    uran: "Шұлық!",
+                                    maǵlıwmat: { tariyx: "Ашамай - көзі нашар көретін.", qalaqı: "870 кибиток" },
+                                    ballar: [
+                                        { at: "Сақу", túri: "uruw", maǵlıwmat: { tariyx: "Сақшылар" } },
+                                        { at: "Қарақожа", túri: "uruw" },
+                                        { at: "Жалаңаяқ", túri: "uruw", maǵlıwmat: { tariyx: "Тез жүгіргіш" } },
+                                        { 
+                                            at: "Қобасан", 
+                                            túri: "uruw",
+                                            ballar: [
+                                                { at: "Ақназар", túri: "tiyre" },
+                                                { at: "Жансары", túri: "tiyre" },
+                                                { at: "Өтеміс", túri: "tiyre" },
+                                                { at: "Есен", túri: "tiyre" },
+                                                { at: "Тампыш", túri: "tiyre" }
+                                            ]
+                                        },
+                                        { at: "Түркіменқара", túri: "uruw", maǵlıwmat: { tariyx: "Түркімендермен араласыққан" } },
+                                        { at: "Жаппар", túri: "uruw" },
+                                        { at: "Сары", túri: "uruw" },
+                                        { at: "Абыз", túri: "uruw" },
+                                        { at: "Ақай", túri: "uruw" },
+                                        { at: "Паңқара", túri: "uruw" },
+                                        { at: "Үш бас", túri: "uruw" },
+                                        { at: "Құрама", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Қолдаулы",
+                                    túri: "ulken",
+                                    tamga: "Q",
+                                    uran: "Қолдау!",
+                                    maǵlıwmat: { tariyx: "Қолдау - тірек.", qalaqı: "1140 кибиток" },
+                                    ballar: [
+                                        { at: "Бескемпір", túri: "uruw", maǵlıwmat: { tariyx: "Бес кемпір" } },
+                                        { at: "Майшышалы", túri: "uruw" },
+                                        { at: "Қалқаман", túri: "uruw" },
+                                        { at: "Ғайыпқараған", túri: "uruw", maǵlıwmat: { tariyx: "Ғайып болған ата" } },
+                                        { at: "Сарытан", túri: "uruw" },
+                                        { at: "Күлкіқожақ", túri: "uruw" },
+                                        { at: "Жарымбет", túri: "uruw" },
+                                        { at: "Қызылаяқ", túri: "uruw" },
+                                        { at: "Қарасирақ", túri: "uruw" },
+                                        { at: "Желқараған", túri: "uruw" },
+                                        { at: "Үлкенбөрі", túri: "uruw" },
+                                        { at: "Шылжуыт", túri: "uruw" },
+                                        { at: "Жаманқоңырат", túri: "uruw" },
+                                        { 
+                                            at: "Қалмақ", 
+                                            túri: "uruw",
+                                            ballar: [
+                                                { at: "Әділ", túri: "tiyre" },
+                                                { at: "Ереке", túri: "tiyre" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    at: "Қостаңбалы",
+                                    túri: "ulken",
+                                    tamga: "⧉",
+                                    uran: "Қосқа!",
+                                    maǵlıwmat: { tariyx: "Екі тамғалы." },
+                                    ballar: [
+                                        { at: "Жангелді", túri: "uruw" },
+                                        { at: "Шіржеген", túri: "uruw" },
+                                        { at: "Ағабеглі", túri: "uruw" },
+                                        { at: "Қарынжуан", túri: "uruw" },
+                                        { at: "Қостаңбалы", túri: "uruw" },
+                                        { at: "Қарақұрсақ", túri: "uruw" },
+                                        { at: "Қазақы", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Балғалы",
+                                    túri: "ulken",
+                                    tamga: "B",
+                                    uran: "Балға!",
+                                    maǵlıwmat: { tariyx: "Теміршілер.", qalaqı: "560 кибиток" },
+                                    ballar: [
+                                        { at: "Ақбалғалы", túri: "uruw" },
+                                        { at: "Нұрбалғалы", túri: "uruw" },
+                                        { at: "Түркімен", túri: "uruw" },
+                                        { at: "Жаман ауыл", túri: "uruw" },
+                                        { at: "Шөмішті", túri: "uruw" },
+                                        { at: "Тоқымбет", túri: "uruw" },
+                                        { at: "Тазбалғалы", túri: "uruw" },
+                                        { at: "Қостамғалы", túri: "uruw" },
+                                        { at: "Қараталшы", túri: "uruw" },
+                                        { at: "Асан", túri: "uruw" },
+                                        { at: "Арзықұл", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Көндеклі",
+                                    túri: "ulken",
+                                    tamga: "G",
+                                    uran: "Көндек!",
+                                    maǵlıwmat: { tariyx: "Көндек - қора.", qalaqı: "730 кибиток" },
+                                    ballar: [
+                                        { at: "Қарама", túri: "uruw" },
+                                        { at: "Киікші", túri: "uruw", maǵlıwmat: { tariyx: "Киік сақшы" } },
+                                        { at: "Тоқболат", túri: "uruw" },
+                                        { at: "Қырықсадақ", túri: "uruw", maǵlıwmat: { tariyx: "40 садақ" } }
+                                    ]
+                                },
+                                {
+                                    at: "Қарамойын",
+                                    túri: "ulken",
+                                    tamga: "TM",
+                                    uran: "Мойын!",
+                                    maǵlıwmat: { tariyx: "Қара мойын.", qalaqı: "560 кибиток" },
+                                    ballar: [
+                                        { at: "Аннахожа", túri: "uruw", maǵlıwmat: { tariyx: "Анна әулие" } },
+                                        { at: "Сабалақ", túri: "uruw", maǵlıwmat: { tariyx: "Саба - бала" } },
+                                        { at: "Көтелек", túri: "uruw" },
+                                        { at: "Қарлымарал", túri: "uruw" },
+                                        { at: "Бүлкілдек", túri: "uruw", maǵlıwmat: { tariyx: "Күлкі" } }
+                                    ]
+                                },
+                                {
+                                    at: "Мүйтен",
+                                    túri: "ulken",
+                                    tamga: "ψ",
+                                    uran: "Ақшолпан!",
+                                    maǵlıwmat: { 
+                                        tariyx: "Мойын - мойын.", 
+                                        anız: "Мүйтеннің үш ұлы: Самат, Тели, Абыз",
+                                        qalaqı: "540 кибиток"
+                                    },
+                                    ballar: [
+                                        { 
+                                            at: "Самат", 
+                                            túri: "uruw",
+                                            ballar: [
+                                                { at: "Бәйбіше", túri: "tiyre" },
+                                                { at: "Тоққараған", túri: "tiyre" },
+                                                { at: "Баймұрат", túri: "tiyre" },
+                                                { at: "Жолан", túri: "tiyre" },
+                                                { at: "Бекау", túri: "tiyre" }
+                                            ]
+                                        },
+                                        { 
+                                            at: "Тели", 
+                                            túri: "uruw",
+                                            ballar: [
+                                                { at: "Тілеуберді", túri: "tiyre" },
+                                                { at: "Аллаберді", túri: "tiyre" },
+                                                { at: "Тәңірберді", túri: "tiyre" },
+                                                { at: "Мантыққараған", túri: "tiyre" },
+                                                { at: "Моллақараған", túri: "tiyre" }
+                                            ]
+                                        },
+                                        { 
+                                            at: "Абыз", 
+                                            túri: "uruw",
+                                            maǵlıwmat: { tariyx: "Ақсақал, әулие" },
+                                            ballar: [
+                                                { at: "Ады", túri: "tiyre" }
+                                            ]
+                                        },
+                                        { 
+                                            at: "Кеңтанау", 
+                                            túri: "uruw",
+                                            ballar: [
+                                                { at: "Барн", túri: "tiyre" },
+                                                { at: "Итақ", túri: "tiyre" },
+                                                { at: "Жекенсал", túri: "tiyre" }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            at: "Жауыңгыр бөлімі",
+                            túri: "bolim",
+                            maǵlıwmat: { tariyx: "Жауыңгыр - 7 ру.", qalaqı: "3660 кибиток" },
+                            ballar: [
+                                {
+                                    at: "Терістаңбалы",
+                                    túri: "ulken",
+                                    ballar: [
+                                        { at: "Шомақ", túri: "uruw" },
+                                        { at: "Хангелді", túri: "uruw" },
+                                        { at: "Байқараған", túri: "uruw" },
+                                        { at: "Елшібай", túri: "uruw" },
+                                        { at: "Құрбан", túri: "uruw" },
+                                        { at: "Тоғыз", túri: "uruw" },
+                                        { at: "Тіле", túri: "uruw" },
+                                        { at: "Тебеген", túri: "uruw" },
+                                        { at: "Тум", túri: "uruw" },
+                                        { at: "Түркістан", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Бақанлы",
+                                    túri: "ulken",
+                                    ballar: [
+                                        { at: "Таңмайыл", túri: "uruw" },
+                                        { at: "Жақанай", túri: "uruw" },
+                                        { at: "Найман", túri: "uruw" },
+                                        { at: "Айыс", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Тіекті",
+                                    túri: "ulken",
+                                    ballar: [
+                                        { at: "Шиші", túri: "uruw", ballar: [{at:"Шиші Арна",túri:"tiyre"}] },
+                                        { at: "Туманай", túri: "uruw" },
+                                        { at: "Мәулік", túri: "uruw" },
+                                        { at: "Байрам", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Ырғақты",
+                                    túri: "ulken",
+                                    maǵlıwmat: { eskertpe: "Екі арыста да бар!" },
+                                    ballar: [
+                                        { at: "Атанай", túri: "uruw" },
+                                        { at: "Ешкілі", túri: "uruw" },
+                                        { at: "Байбура", túri: "uruw" },
+                                        { at: "Сарытан", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Баймақты",
+                                    túri: "ulken",
+                                    ballar: [
+                                        { at: "Саспақ", túri: "uruw" },
+                                        { at: "Үйес", túri: "uruw" },
+                                        { at: "Таңмайыл", túri: "uruw" },
+                                        { at: "Жақанай", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Қазаяқты",
+                                    túri: "ulken",
+                                    ballar: [
+                                        { at: "Әнетай", túri: "uruw" },
+                                        { at: "Жарымбет", túri: "uruw" },
+                                        { at: "Жүнді", túri: "uruw" },
+                                        { at: "Садақ", túri: "uruw" }
+                                    ]
+                                },
+                                {
+                                    at: "Ұйғыр",
+                                    túri: "ulken",
+                                    ballar: [
+                                        { at: "Шиші", túri: "uruw" },
+                                        { at: "Туманай", túri: "uruw" },
+                                        { at: "Сабалақ", túri: "uruw" },
+                                        { at: "Мәулік", túri: "uruw" },
+                                        { at: "Байрам", túri: "uruw" },
+                                        { at: "Сырғалы", túri: "uruw" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    at: "Арыс Он төрт",
+                    túri: "aris",
+                    tamga: "14",
+                    uran: "Тоқсаба!",
+                    maǵlıwmat: {
+                        tariyx: "14 рудан тұратын ірі арыс. Көп санлы.",
+                        qalaqı: "10260 кибиток (60%)",
+                        qurilimi: "4 үлкен ру: Қытай, Қыпшақ, Кенегес, Маңғыт"
+                    },
+                    ballar: [
+                        {
+                            at: "Қытай",
+                            túri: "ulken",
+                            tamga: "Q",
+                            uran: "Ұллы тау!",
+                            jup: "Қыпшақпен",
+                            maǵlıwmat: { tariyx: "Ең ірі ру.", qalaqı: "4320 кибиток" },
+                            ballar: [
+                                { at: "Бессары", túri: "uruw", ballar: [{at:"Жүнлі",túri:"tiyre"},{at:"Қойлы",túri:"tiyre"}] },
+                                { at: "Бексыйық", túri: "uruw", ballar: [{at:"Зергер",túri:"tiyre"},{at:"Масай",túri:"tiyre"},{at:"Шығыршы",túri:"tiyre"},{at:"Малай",túri:"tiyre"}] },
+                                { at: "Қазаяқты", túri: "uruw", ballar: [{at:"Кәлсен",túri:"tiyre"},{at:"Күйік",túri:"tiyre"},{at:"Мырзай",túri:"tiyre"},{at:"Қылмойын",túri:"tiyre"},{at:"Жылқбай",túri:"tiyre"}] },
+                                { 
+                                    at: "Қайшылы", 
+                                    túri: "uruw",
+                                    ballar: [
+                                        {at:"Ақымбет",túri:"tiyre"},
+                                        {at:"Жувансан",túri:"tiyre"},
+                                        {at:"Көтерехожа",túri:"tiyre"},
+                                        {at:"Танамырза",túri:"tiyre"},
+                                        {at:"Бақи",túri:"tiyre"},
+                                        {at:"Сыбыл",túri:"tiyre"},
+                                        {at:"Басар",túri:"tiyre"},
+                                        {at:"Толық",túri:"tiyre"},
+                                        {at:"Ябы",túri:"tiyre"}
+                                    ]
+                                },
+                                { 
+                                    at: "Әйтеке", 
+                                    túri: "uruw",
+                                    ballar: [
+                                        {at:"Жәдік",túri:"tiyre"},
+                                        {at:"Ырсымбек",túri:"tiyre"},
+                                        {at:"Оразымбет",túri:"tiyre"},
+                                        {at:"Тәңірқұл",túri:"tiyre"},
+                                        {at:"Бектес",túri:"tiyre",ballar:[{at:"Бектес Төре",túri:"koshe"}]},
+                                        {at:"Наурыз",túri:"tiyre"},
+                                        {at:"Мәнжүлі",túri:"tiyre"},
+                                        {at:"Тазшылық",túri:"tiyre"}
+                                    ]
+                                },
+                                { at: "Мәнжүлі", túri: "uruw", ballar: [{at:"Екі шыйық",túri:"tiyre"},{at:"Қараманжүлі",túri:"tiyre"},{at:"Әйереке",túri:"tiyre"}] },
+                                { at: "Аралбай", túri: "uruw", ballar: [{at:"Аққала",túri:"tiyre"},{at:"Қалмурат",túri:"tiyre"},{at:"Өгизбайшы",túri:"tiyre"},{at:"Бәйбіше",túri:"tiyre"},{at:"Тілеу қушы",túri:"tiyre"}] }
+                            ]
+                        },
+                        {
+                            at: "Қыпшақ",
+                            túri: "ulken",
+                            tamga: "I",
+                            uran: "Тоқсаба!",
+                            jup: "Қытаймен",
+                            maǵlıwmat: { tariyx: "Көне қыпшақ руы.", qalaqı: "2240 кибиток" },
+                            ballar: [
+                                { 
+                                    at: "Қаңлы", 
+                                    túri: "uruw",
+                                    ballar: [
+                                        {at:"Трам",túri:"tiyre"},
+                                        {at:"Қатқаңлы",túri:"tiyre"},
+                                        {at:"Ырғақты",túri:"tiyre"},
+                                        {at:"Ашамайлы",túri:"tiyre"},
+                                        {at:"Тарақты",túri:"tiyre"},
+                                        {at:"Баспақ",túri:"tiyre"},
+                                        {at:"Айят",túri:"tiyre"},
+                                        {at:"Босын",túri:"tiyre"},
+                                        {at:"Баспат",túri:"tiyre"},
+                                        {at:"Қоңырқазы",túri:"tiyre"},
+                                        {at:"Кенес",túri:"tiyre"},
+                                        {at:"Ташкент",túri:"tiyre"}
+                                    ]
+                                },
+                                { at: "Саңмұрын", túri: "uruw", ballar: [{at:"Көнші",túri:"tiyre"},{at:"Тұбай",túri:"tiyre"},{at:"Ешкілі",túri:"tiyre"},{at:"Жалпақ шек",túri:"tiyre"},{at:"Төлебай",túri:"tiyre"},{at:"Жабашы",túri:"tiyre"}] },
+                                { at: "Естек", túri: "uruw", ballar: [{at:"Маңқанай",túri:"tiyre"},{at:"Қайыпназар",túri:"tiyre"},{at:"Қаратереңші",túri:"tiyre"},{at:"Қалмурат",túri:"tiyre"}] },
+                                { at: "Қанжығалы", túri: "uruw", ballar: [{at:"Шанышпай",túri:"tiyre"},{at:"Самбет",túri:"tiyre"},{at:"Жағалтай",túri:"tiyre"},{at:"Бәйбіше",túri:"tiyre"}] },
+                                { at: "Салтыр", túri: "uruw", ballar: [{at:"Бәйбіше",túri:"tiyre"},{at:"Сарт",túri:"tiyre"},{at:"Оразымбет",túri:"tiyre"},{at:"Шуылған",túri:"tiyre"}] }
+                            ]
+                        },
+                        {
+                            at: "Кенегес",
+                            túri: "ulken",
+                            tamga: "X",
+                            uran: "Шаулы-Шаухай!",
+                            jup: "Маңғытпен",
+                            maǵlıwmat: { tariyx: "Кенегес.", qalaqı: "1480 кибиток" },
+                            ballar: [
+                                { 
+                                    at: "Араншы", 
+                                    túri: "uruw",
+                                    ballar: [
+                                        {at:"Аннақұл",túri:"tiyre"},
+                                        {at:"Абас",túri:"tiyre",ballar:[{at:"Сейтімбет",túri:"koshe"}]},
+                                        {at:"Сүйін",túri:"tiyre"},
+                                        {at:"Жуас",túri:"tiyre"},
+                                        {at:"Дәулетқарға",túri:"tiyre"},
+                                        {at:"Қайыпберген",túri:"tiyre"}
+                                    ]
+                                },
+                                { at: "Ақтоғын", túri: "uruw", ballar: [{at:"Нанжемес",túri:"tiyre"},{at:"Көшек",túri:"tiyre"}] },
+                                { at: "Өмір", túri: "uruw", ballar: [{at:"Ақпышақ",túri:"tiyre"},{at:"Усақ",túri:"tiyre"},{at:"Жел",túri:"tiyre"},{at:"Мынжыр",túri:"tiyre"},{at:"Өтеміс",túri:"tiyre"}] },
+                                { at: "Тарақты", túri: "uruw", ballar: [{at:"Жетіқараған",túri:"tiyre",ballar:[{at:"Жетіқара",túri:"koshe"}]}] },
+                                { at: "Добал", túri: "uruw" },
+                                { 
+                                    at: "Оймауыт", 
+                                    túri: "uruw",
+                                    ballar: [
+                                        {at:"Қара",túri:"tiyre"},
+                                        {at:"Сары",túri:"tiyre",ballar:[{at:"Жийдели",túri:"koshe"}]},
+                                        {at:"Ақ",túri:"tiyre"}
+                                    ]
+                                },
+                                { at: "Домбазқақ", túri: "uruw" },
+                                { at: "Нөкіс", túri: "uruw", maǵlıwmat: { eskertpe: "Қарақалпақстан астанасы!" }, ballar: [{at:"Жаманжақ",túri:"tiyre"},{at:"Бозақ",túri:"tiyre"},{at:"Алтынпышақ",túri:"tiyre"},{at:"Гобдир",túri:"tiyre"}] }
+                            ]
+                        },
+                        {
+                            at: "Маңғыт",
+                            túri: "ulken",
+                            tamga: "f",
+                            uran: "Шаулы-Шаухай!",
+                            jup: "Кенегеспен",
+                            maǵlıwmat: { tariyx: "Соғысқор ру. Едіге ұрпақтары.", qalaqı: "2220 кибиток" },
+                            ballar: [
+                                { 
+                                    at: "Қаратай", 
+                                    túri: "uruw",
+                                    maǵlıwmat: { topar: "Қара (Қаралар)" },
+                                    ballar: [
+                                        {at:"Қараманғыт",túri:"tiyre",ballar:[{at:"Үшбас",túri:"koshe"},{at:"Қарасирақ",túri:"koshe"},{at:"Ақманғыт",túri:"koshe"}]},
+                                        {at:"Мамықшы",túri:"tiyre",ballar:[{at:"Жетіқұрт",túri:"koshe"}]},
+                                        {at:"Қосар",túri:"tiyre",ballar:[{at:"Гүбидин",túri:"koshe"}]},
+                                        {at:"Қылқалы",túri:"tiyre"}
+                                    ]
+                                },
+                                { 
+                                    at: "Сарытай", 
+                                    túri: "uruw",
+                                    maǵlıwmat: { topar: "Сары (Сарылар)" },
+                                    ballar: [
+                                        {at:"Аршын",túri:"tiyre"},
+                                        {at:"Жайлық",túri:"tiyre"},
+                                        {at:"Тоқманғыт",túri:"tiyre"},
+                                        {at:"Арсары",túri:"tiyre"},
+                                        {at:"Тазжанлық",túri:"tiyre"},
+                                        {at:"Шүйт",túri:"tiyre"},
+                                        {at:"Жаманша",túri:"tiyre"},
+                                        {at:"Есебий",túri:"tiyre"},
+                                        {at:"Тамғалы",túri:"tiyre"},
+                                        {at:"Тоқмойын",túri:"tiyre"},
+                                        {at:"Темірхожа",túri:"tiyre"}
+                                    ]
+                                },
+                                { at: "Бозтай", túri: "uruw", maǵlıwmat: { topar: "Боз (Боздар)" }, ballar: [{at:"Бозта",túri:"tiyre",ballar:[{at:"Бозта баба",túri:"koshe"}]}] },
+                                { at: "Жетімтай", túri: "uruw", maǵlıwmat: { topar: "Жетім (Жетімдер)" }, ballar: [{at:"Ешбуға",túri:"tiyre",ballar:[{at:"Еш буға",túri:"koshe"}]}] }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let svg, g, zoom;
+        let ámeldegiMasshtab = d3.zoomIdentity;
+        let panelAshıq = false;
+
+        function terektiBaslaw() {
+            const qorap = document.getElementById('treeArea');
+            const keńlik = qorap.clientWidth;
+            const biyiklik = qorap.clientHeight;
+
+            svg = d3.select("#treeSvg")
+                .attr("width", keńlik)
+                .attr("height", biyiklik);
+
+            // Тазалау
+            svg.selectAll("*").remove();
+
+            zoom = d3.zoom()
+                .scaleExtent([0.05, 3])
+                .on("zoom", (e) => {
+                    g.attr("transform", e.transform);
+                    ámeldegiMasshtab = e.transform;
+                });
+
+            svg.call(zoom);
+
+            g = svg.append("g");
+
+            const támır = d3.hierarchy(terekMaǵlıwmatları, d => d.ballar);
+            
+            const japrakSanaqı = támır.leaves().length;
+            const terenlik = támır.height;
+                    
+            // Керек өлшем
+            const eńAzamattıqKeńlik = Math.max(keńlik, japrakSanaqı * 25);
+            const eńAzamattıqBiyiklik = Math.max(biyiklik, (terenlik + 1) * 100);
+            
+            const terekQurılmı = d3.tree()
+                .size([eńAzamattıqKeńlik, eńAzamattıqBiyiklik])
+                .separation((a, b) => {
+                    if (a.parent === b.parent) return 1;
+                    return 1.2;
+                });
+            
+            terekQurılmı(támır);
+
+            // Бастапқы көрініс - ортада
+            const baslanǵıshMasshtab = Math.min(
+                (keńlik - 100) / eńAzamattıqKeńlik,
+                (biyiklik - 150) / eńAzamattıqBiyiklik,
+                0.9
+            );
+            
+            const baslanǵıshX = (keńlik - eńAzamattıqKeńlik * baslanǵıshMasshtab) / 2;
+            const baslanǵıshY = 50;
+
+            g.attr("transform", `translate(${baslanǵıshX}, ${baslanǵıshY}) scale(${baslanǵıshMasshtab})`);
+            
+            ámeldegiMasshtab = d3.zoomIdentity
+                .translate(baslanǵıshX, baslanǵıshY)
+                .scale(baslanǵıshMasshtab);
+
+            svg.call(zoom.transform, ámeldegiMasshtab);
+
+            // Байланыс сызықтары
+            g.selectAll(".link")
+                .data(támır.links())
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", d3.linkVertical()
+                    .x(d => d.x)
+                    .y(d => d.y));
+
+            // Бөліктер
+            const bólek = g.selectAll(".node")
+                .data(támır.descendants())
+                .enter().append("g")
+                .attr("class", d => `node node-${d.data.túri}`)
+                .attr("transform", d => `translate(${d.x},${d.y})`)
+                .on("click", (e, d) => maǵlıwmatKórsetiw(d.data));
+
+            // Төртбұрыштар - көлемі дәреже бойынша өзгереді
+            bólek.append("rect")
+                .attr("width", d => {
+                    const uzınlıq = Math.max(d.data.at.length * 7 + 16, 50);
+                    return d.data.túri === 'koshe' ? uzınlıq * 0.8 : uzınlıq;
+                })
+                .attr("height", d => d.data.túri === 'koshe' ? 22 : 28)
+                .attr("x", d => {
+                    const uzınlıq = Math.max(d.data.at.length * 7 + 16, 50);
+                    const haqıqıyUzınlıq = d.data.túri === 'koshe' ? uzınlıq * 0.8 : uzınlıq;
+                    return -haqıqıyUzınlıq / 2;
+                })
+                .attr("y", d => d.data.túri === 'koshe' ? -11 : -14)
+                .attr("rx", 6)
+                .attr("stroke-width", d => d.data.túri === 'xaliq' ? 3 : 2);
+
+            // Атау мәтіні
+            bólek.append("text")
+                .attr("dy", ".35em")
+                .attr("text-anchor", "middle")
+                .style("font-size", d => {
+                    if (d.data.túri === 'koshe') return "9px";
+                    if (d.data.túri === 'tiyre') return "10px";
+                    return "11px";
+                })
+                .text(d => d.data.at);
+
+            // Тамға (жоғарыда)
+            bólek.filter(d => d.data.tamga && d.data.túri !== 'koshe' && d.data.túri !== 'tiyre')
+                .append("text")
+                .attr("class", "tamga-text")
+                .attr("dy", -22)
+                .attr("text-anchor", "middle")
+                .text(d => d.data.tamga);
+                
+            // Уран (төменде)
+            bólek.filter(d => d.data.uran && (d.data.túri === 'aris' || d.data.túri === 'ulken'))
+                .append("text")
+                .attr("dy", 28)
+                .attr("text-anchor", "middle")
+                .style("font-size", "9px")
+                .style("fill", "#d4af37")
+                .style("font-weight", "bold")
+                .text(d => d.data.uran);
+        }
+
+        function maǵlıwmatKórsetiw(maǵlıwmat) {
+            paneldiAshıw();
+            
+            document.getElementById('dTamga').textContent = maǵlıwmat.tamga || (maǵlıwmat.túri === 'aris' ? '🏛️' : '🏹');
+            document.getElementById('dName').textContent = maǵlıwmat.at;
+            
+            let qospa = "";
+            const túrler = {
+                'xaliq': 'Халық',
+                'aris': 'Арыс (племенное объединение)',
+                'bolim': 'Бөлім (бөлме)',
+                'ulken': 'Үлкен ру (үлкен ру)',
+                'uruw': 'Ру (ру)',
+                'tiyre': 'Тире (тире)',
+                'koshe': 'Көше (бутик)'
+            };
+            qospa = túrler[maǵlıwmat.túri] || 'Рулық бірлік';
+            if (maǵlıwmat.maǵlıwmat && maǵlıwmat.maǵlıwmat.qalaqı) qospa += ` • ${maǵlıwmat.maǵlıwmat.qalaqı}`;
+            document.getElementById('dSubtitle').textContent = qospa;
+            
+            let html = '';
+            
+            if (maǵlıwmat.uran) {
+                html += `<div class="info-block" style="border-color:#e74c3c; background:rgba(231,76,60,0.1)">
+                    <div class="info-label">Соғыс ұраны (Уран)</div>
+                    <div class="info-content" style="color:#ff8a80; font-size:1.3rem; font-weight:bold; text-align:center">${maǵlıwmat.uran}</div>
+                </div>`;
+            }
+            
+            if (maǵlıwmat.maǵlıwmat) {
+                if (maǵlıwmat.maǵlıwmat.tariyx) {
+                    html += `<div class="info-block">
+                        <div class="info-label">Тарихы</div>
+                        <div class="info-content">${maǵlıwmat.maǵlıwmat.tariyx}</div>
+                    </div>`;
+                }
+                if (maǵlıwmat.maǵlıwmat.túbegi) {
+                    html += `<div class="info-block" style="border-color:#3498db">
+                        <div class="info-label">Келіп шығуы</div>
+                        <div class="info-content">${maǵlıwmat.maǵlıwmat.túbegi}</div>
+                    </div>`;
+                }
+                if (maǵlıwmat.maǵlıwmat.anız) {
+                    html += `<div class="info-block" style="border-color:#f39c12; background:rgba(243,156,18,0.1)">
+                        <div class="info-label">Аңыз</div>
+                        <div class="info-content"><em>${maǵlıwmat.maǵlıwmat.anız}</em></div>
+                    </div>`;
+                }
+                if (maǵlıwmat.maǵlıwmat.qurilimi) {
+                    html += `<div class="info-block" style="border-color:#27ae60">
+                        <div class="info-label">Құрылымы</div>
+                        <div class="info-content">${maǵlıwmat.maǵlıwmat.qurilimi}</div>
+                    </div>`;
+                }
+                if (maǵlıwmat.maǵlıwmat.qalaqı) {
+                    html += `<div class="info-block" style="border-color:#9b59b6">
+                        <div class="info-label">Қалағы</div>
+                        <div class="info-content">${maǵlıwmat.maǵlıwmat.qalaqı}</div>
+                    </div>`;
+                }
+                if (maǵlıwmat.maǵlıwmat.tili) {
+                    html += `<div class="info-block">
+                        <div class="info-label">Тілі</div>
+                        <div class="info-content">${maǵlıwmat.maǵlıwmat.tili}</div>
+                    </div>`;
+                }
+                if (maǵlıwmat.maǵlıwmat.eskertpe) {
+                    html += `<div class="info-block" style="border-color:#e67e22">
+                        <div class="info-label">Ескерту</div>
+                        <div class="info-content">${maǵlıwmat.maǵlıwmat.eskertpe}</div>
+                    </div>`;
+                }
+            }
+            
+            if (maǵlıwmat.ballar && maǵlıwmat.ballar.length > 0) {
+                html += `<div class="info-block" style="border-color:#d4af37; text-align:center">
+                    <div class="info-label">Топтар саны</div>
+                    <div class="info-content" style="font-size:1.5rem; color:var(--gold); font-weight:bold">${maǵlıwmat.ballar.length}</div>
+                </div>`;
+            }
+            
+            if (maǵlıwmat.jup) {
+                html += `<div class="info-block" style="border-color:#3498db; background:rgba(52,152,219,0.1)">
+                    <div class="info-label">Жұпар ру</div>
+                    <div class="info-content">${maǵlıwmat.jup}</div>
+                </div>`;
+            }
+            
+            document.getElementById('dContent').innerHTML = html || '<div class="info-block"><div class="info-label">Мәлімет</div><div class="info-content">Басқа бөліктерді көру үшін басыңыз</div></div>';
+        }
+
+        function paneldiAshıw() {
+            const panel = document.getElementById('details');
+            const ashıwKnopkası = document.getElementById('openPanelBtn');
+            
+            if (window.innerWidth <= 1200) {
+                panel.style.display = 'block';
+                setTimeout(() => {
+                    panel.classList.remove('collapsed');
+                    panel.classList.add('active');
+                }, 10);
+            } else {
+                panel.classList.remove('collapsed');
+                panel.classList.add('active');
+            }
+            
+            ashıwKnopkası.classList.remove('visible');
+            panelAshıq = true;
+        }
+
+        function paneldiJabıw() {
+            const panel = document.getElementById('details');
+            const ashıwKnopkası = document.getElementById('openPanelBtn');
+            
+            panel.classList.add('collapsed');
+            panel.classList.remove('active');
+            ashıwKnopkası.classList.add('visible');
+            panelAshıq = false;
+            
+            if (window.innerWidth <= 1200) {
+                setTimeout(() => {
+                    if (!panelAshıq) {
+                        panel.style.display = 'none';
+                    }
+                }, 300);
+            }
+        }
+
+        function ulıwlastırıw() {
+            svg.transition().duration(300).call(zoom.scaleBy, 1.3);
+        }
+
+        function alqıstırıw() {
+            svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+        }
+
+        function qaıtaOrnatıw() {
+            terektiBaslaw();
+        }
+
+        function burgerMenyunıAynalıstırıw() {
+            const burger = document.getElementById('burgerMenu');
+            const kórinisAlmastırǵısh = document.getElementById('viewSwitch');
+            
+            burger.classList.toggle('active');
+            kórinisAlmastırǵısh.classList.toggle('active');
+        }
+
+        window.onload = function() {
+            terektiBaslaw();
+            
+            document.getElementById('burgerMenu').addEventListener('click', burgerMenyunıAynalıstırıw);
+            
+            document.querySelectorAll('.view-btn').forEach(knopka => {
+                knopka.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        burgerMenyunıAynalıstırıw();
+                    }
+                });
+            });
+            
+            document.getElementById('closePanelBtn').addEventListener('click', paneldiJabıw);
+            
+            document.getElementById('openPanelBtn').addEventListener('click', paneldiAshıw);
+            
+            let keń = window.innerWidth;
+            window.addEventListener('resize', function() {
+                if (window.innerWidth !== keń) {
+                    keń = window.innerWidth;
+                    setTimeout(terektiBaslaw, 100);
+                }
+            });
+        };
+    </script>
+</body>
+</html>
