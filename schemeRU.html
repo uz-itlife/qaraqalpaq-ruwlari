@@ -6,6 +6,7 @@
     <title>Каракалпакские роды | Схема</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./images/naqsh.jpg" type="image/x-icon">
     <style>
         :root {
             --gold: #d4af37;
@@ -169,7 +170,6 @@
             position: relative;
             background: radial-gradient(circle at center, rgba(212,175,55,0.05) 0%, transparent 70%);
             cursor: grab;
-            
         }
         
         #treeArea:active { cursor: grabbing; }
@@ -231,12 +231,11 @@
             padding: 0;
             border: none;
             overflow: hidden;
-            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s, width 0.3s ease, padding 0.3s ease;
         }
         
         .close-panel-btn {
             position: fixed;
-            top: 10px;
+            top: 80px;
             right: 10px;
             background: var(--tust-xaliq);
             border: none;
@@ -426,139 +425,192 @@
             text-align: center;
         }
 
-       .lang-btn1 {
-    padding: 0.4rem 0.4rem;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--gold);
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.3s;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.lang-btn1 img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    vertical-align: middle;
-}
-
-.lang-btn img {
-    width: 3rem;
-    height: 3rem;
-    /* margin-bottom: 4px; */
-    border-radius: 50%;
-    vertical-align: middle;
-}
-
-.lang-btn {
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-     width: 2.9rem;
-    height: 2.9rem;
-}
-.lang-btn:hover {
-    border: 1px solid var(--gold);
-    width: 3rem;
-    height: 3rem;
-}
-
-
-.lang-btn1:hover {
-    border: 1px solid var(--gold);
-    width: 3rem;
-    height: 3rem;
-}
-
-.lang-btn1.active img {
-    width: 2rem;
-    height: 2rem;
-}
-
-.lang-btn1.active {
-    border: 1px solid var(--accent-red);
-     border-radius: 8px;
-     width: 3rem;
-    height: 3rem;
-}
-
-@media (max-width: 768px) {
-    .lang-switch {
-        margin-left: 0;
-        padding-left: 0;
-        border-left: none;
-        border-top: 1px solid rgba(212,175,55,0.3);
-        justify-content: center;
-    }
-
-    .search-box input {
-        display: none;
-    }
-     
-    .logo a {
-        font-size: 1.4rem;
-    
-    }
+        /* Tamga box */
+        .tamga-box {
+            background: rgba(231, 76, 60, 0.15);
+            border: 2px solid var(--accent-red);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 12px 0;
+        }
+        .tamga-symbol {
+            font-size: 2em;
+            color: var(--accent-yellow);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .tamga-label {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
         
-    }
+        /* Uran box */
+        .uran-box {
+            background: rgba(46, 204, 113, 0.15);
+            border: 2px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 12px 0;
+        }
+        .uran-text {
+            font-size: 1.4em;
+            color: var(--accent-green);
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        .uran-label {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
 
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <span style="font-size: 2rem;">🌳</span>
-            <a target="_blank" href="./images/uru.jpg">Род</a>
-        </div>
-        
-        <!-- Кнопка бургер-меню -->
-        <button class="burger-menu" id="burgerMenu" aria-label="Открыть меню">
-            <span class="burger-bar"></span>
-            <span class="burger-bar"></span>
-            <span class="burger-bar"></span>
-        </button>
-        
-        <div class="view-switch" id="viewSwitch">
-            <a href="indexRU.html" class="view-btn" target="_self">🏠 Главная</a>
-            <a href="listsRU.html" class="view-btn" target="_self">📋 Списки</a>
-            <a href="schemeRU.html" class="view-btn active" target="_self">🌳 Схема</a>
-            <a href="exogamyRU.html" class="view-btn" target="_self">💑 Экзогамия</a>
-        </div>
+        .lang-btn1 {
+            padding: 0.4rem 0.4rem;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        <div class="lang-switch">
-            <a target="_self" href="schemeRU.html" class="lang-btn1 active"><img src="./images/RU.jpg" alt="RU"></a>
-            <a target="_self" href="schemeQQ.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
-            <a target="_self" href="schemeKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
-        </div>
-    </header>
+        .lang-btn1 img {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
 
-    <!-- Бегущая строка для мобильных устройств -->
-    <div class="mobile-warning-marquee" id="mobileMarquee">
-        <div class="marquee-wrapper">
-            <div class="marquee-content">
-                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
-                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
-                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
-                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
-            </div>
-        </div>
-    </div>
+        .lang-btn img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
 
-    <style>
-        /* Бегущая строка - только для мобильных */
-        /* Бегущая строка - только для мобильных */
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            width: 2.9rem;
+            height: 2.9rem;
+        }
+        .lang-btn:hover {
+            border: 1px solid var(--gold);
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .lang-btn1:hover {
+            border: 1px solid var(--gold);
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .lang-btn1.active img {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .lang-btn1.active {
+            border: 1px solid var(--accent-red);
+            border-radius: 8px;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        /* Descendants list */
+        .descendants-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .descendant-group {
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .descendant-parent {
+            font-weight: bold;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+        .descendant-children {
+            padding-left: 15px;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+        .descendant-child {
+            padding: 2px 0;
+            display: flex;
+            align-items: center;
+        }
+        .descendant-bullet {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .lang-switch {
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid rgba(212,175,55,0.3);
+                justify-content: center;
+            }
+
+            .search-box input {
+                display: none;
+            }
+             
+            .logo a {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .legend-tree {
+                display: none;
+            }
+            
+            .detail-panel {
+                position: fixed;
+                top: 70px;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 400px;
+                z-index: 100;
+                transform: translateX(100%);
+            }
+            
+            .detail-panel.active {
+                transform: translateX(0);
+            }
+        }
+
+      
+
+        /* Mobile warning marquee */
         .mobile-warning-marquee {
             display: none;
             position: fixed;
-            top: 103px;
+            top: 70px;
             left: 0;
             right: 0;
             background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
@@ -593,41 +645,23 @@
         }
 
         @keyframes marquee-scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-25%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-25%); }
         }
 
-        @media (max-width: 1200px) {
-    .legend-tree {
-        display: none;
-    }
-    
-    }
-
-
-
-
-        /* Показываем на экранах меньше 967px */
         @media (max-width: 967px) {
-          
-            }
-            
-            
-            body {
-                padding-top: 115px !important;
-            }
-        
-
-        @media (max-width: 768px) {
-             
-                
             .mobile-warning-marquee {
                 display: block;
-                top: 70px;
+            }
+            
+            /* body {
+                padding-top: 115px !important;
+            } */
+        }
+
+        @media (max-width: 768px) {
+            .mobile-warning-marquee {
+                top: 70px; 
             }
         }
 
@@ -636,15 +670,52 @@
                 animation-duration: 15s;
             }
             
-             .mobile-warning-marquee {
-       font-size: 0.5em;
-            font-weight: 400;
+            .mobile-warning-marquee {
+                font-size: 0.5em;
+                font-weight: 400;
                 padding: 5px 0;
-       top: 70px;
-    }
+                top: 70px; 
             }
-        
+        }
     </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span style="font-size: 2rem;">🌳</span>
+            <a target="_blank" href="./images/uru.jpg">Род</a>
+        </div>
+        
+        <button class="burger-menu" id="burgerMenu" aria-label="Открыть меню">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+        </button>
+        
+        <div class="view-switch" id="viewSwitch">
+            <a href="indexRU.html" class="view-btn" target="_self">🏠 Главная</a>
+            <a href="listsRU.html" class="view-btn" target="_self">📋 Списки</a>
+            <a href="schemeRU.html" class="view-btn active" target="_self">🌳 Схема</a>
+            <a href="exogamyRU.html" class="view-btn" target="_self">💑 Экзогамия</a>
+        </div>
+
+        <div class="lang-switch">
+            <a target="_self" href="schemeRU.html" class="lang-btn1 active"><img src="./images/RU.jpg" alt="RU"></a>
+            <a target="_self" href="schemeQQ.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
+            <a target="_self" href="schemeKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
+        </div>
+    </header>
+
+    <div class="mobile-warning-marquee" id="mobileMarquee">
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+                <span>📱 Рекомендуется просматривать эту страницу на большом экране 🖥️  Рекомендуется просматривать эту страницу на большом экране </span>
+            </div>
+        </div>
+    </div>
 
     <main>
         <div id="treeArea">
@@ -654,9 +725,9 @@
                 <div class="legend-item"><div class="legend-color" style="background: var(--tust-xaliq);"></div> Народ</div>
                 <div class="legend-item"><div class="legend-color" style="background: var(--tust-aris);"></div> Арыс (Кунграт/Он төрт)</div>
                 <div class="legend-item"><div class="legend-color" style="background: var(--tust-bolim);"></div> Отдел/Большой род</div>
-                <div class="legend-item"><div class="legend-color" style="background: var(--tust-ulken);"></div> Род</div>
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-ulken);"></div> Улкен уруу/Уруу</div>
                 <div class="legend-item"><div class="legend-color" style="background: var(--tust-uruw);"></div> Тире</div>
-                <div class="legend-item"><div class="legend-color" style="background: var(--tust-tiyre);"></div> Коша</div>             
+                <div class="legend-item"><div class="legend-color" style="background: var(--tust-tiyre);"></div> Коше</div>             
             </div>
             <div class="controls">
                 <button onclick="zoomIn()" title="Приблизить">+</button>
@@ -688,267 +759,1021 @@
     <button class="open-panel-btn" id="openPanelBtn" title="Открыть панель информации">ℹ️</button>
 
     <script>
-        // ПОЛНЫЕ ДАННЫЕ О КАРАКАЛПАКСКИХ РОДАХ
+        // === ОБНОВЛЁННЫЕ ДАННЫЕ ИЗ listsRU.html ===
+        const levelsMap = ['Народ', 'Арыс', 'Болим/Улкен уруу', 'Улкен уруу/уруу', 'Тире', 'Коше'];
+        
         const treeData = {
-            name: "Каракалпаки",
+            id: "root",
+            name: "КАРАКАЛПАКИ",
+            level: 0,
             type: "xaliq",
-            tamga: "🏛️",
             info: {
-                history: "Каракалпаки - тюркоязычный народ Средней Азии. Сложился в XVI-XVII веках.",
-                origin: "Основа - Ногайская орда, кыпчакские, карлукские племена.",
+                history: "Каракалпаки - тюркоязычный народ Средней Азии. Сформировался в XVI-XVIII веках.",
+                origin: "Происхождение из Ногайской орды, кыпчаков, карлуков.",
+                legend: "Согласно легенде, первые кочевники переселились из района Великой горы к Аральскому морю.",
+                tamga: "У каждого рода своя тамга",
+                uran: "У каждого рода свой уран",
                 population: "800 тысяч человек",
-                language: "Каракалпакский язык - кыпчакская ветвь тюркских языков"
+                language: "Каракалпакский язык - кыпчакская группа тюркских языков"
             },
             children: [
                 {
-                    name: "Арыс Кунграт",
+                    id: "conyrat",
+                    name: "АРЫС КОНЫРАТ",
+                    level: 1,
                     type: "aris",
-                    tamga: "P",
-                    battleCry: "Какпа!",
+                    tamga: "П (босага)",
+                    uran: "Какпа",
                     info: {
-                        history: "Один из двух крупных арысов. Из Ногайской орды.",
-                        origin: "Объединение ногайских, кыпчакских племен.",
+                        history: "Конырат - один из двух крупных арысов. Из Ногайской орды.",
+                        origin: "Смешение ногайских и кыпчакских племен.",
+                        legend: "Конырат - означает 'кровные каракалпаки'.",
+                        tamga: "Буква П - босага (дверной косяк)",
+                        uran: "Какпа - защита",
                         population: "9520 кибиток (40%)",
-                        structure: "Шулюк (8 родов) и Жаунгыр (7 родов)"
+                        structure: "Шулик (8 родов) и Жауынгыр (7 родов)"
                     },
                     children: [
                         {
-                            name: "Шулюк отдел",
+                            id: "shulyk",
+                            name: "ШУЛИК БОЛИМИ",
+                            level: 2,
                             type: "bolim",
-                            tamga: "Sh",
-                            info: { history: "Шулюк - состоит из 8 родов.", population: "5860 кибиток" },
+                            info: {
+                                history: "Шулик - состоит из 8 родов.",
+                                origin: "От названия земли Шулик.",
+                                population: "5860 кибиток"
+                            },
                             children: [
                                 {
-                                    name: "Кият",
+                                    id: "kyat",
+                                    name: "КЫЯТ",
+                                    level: 3,
                                     type: "ulken",
-                                    tamga: "Ψ",
-                                    battleCry: "Алатау!",
                                     info: {
-                                        history: "Кият - крупнейший род Шулюка.",
-                                        legend: "Три сына: Уштанбалы, Таракты, Балгалы.",
-                                        population: "870 кибиток"
+                                        history: "Кыят - крупнейший род Шулика.",
+                                        origin: "От батыра Кыят.",
+                                        legend: "Три сына: Уштамбалы, Таракты, Балгалы.",
+                                        population: "870 кибиток",
+                                        tamga: "Три знака",
+                                        uran: "Алатау"
                                     },
                                     children: [
                                         {
-                                            name: "Уштанбалы",
+                                            id: "ush-tambaly",
+                                            name: "Уштамбалы",
+                                            level: 4,
                                             type: "uruw",
-                                            tamga: "|||",
-                                            info: { history: "Уш танбалы - три знака." },
+                                            info: {
+                                                history: "Уш тамбалы - три знака.",
+                                                tamga: "Три линии",
+                                                uran: "Алатау!",
+                                                population: "350-400 семей"
+                                            },
                                             children: [
-                                                { name: "Санмурын", type: "tiyre", info: { history: "От сана мурын (морда)" } },
-                                                { name: "Арыккият", type: "tiyre", info: { history: "Худощавый" } },
-                                                { name: "Тартулы", type: "tiyre" },
-                                                { name: "Канжыгалы", type: "tiyre" },
-                                                { name: "Катаган", type: "tiyre" },
-                                                { 
-                                                    name: "Каракият", 
+                                                {
+                                                    id: "sumuryn",
+                                                    name: "Сумурын",
+                                                    level: 5,
                                                     type: "tiyre",
-                                                    children: [
-                                                        { name: "Болат", type: "koshe" },
-                                                        { name: "Карабас", type: "koshe" }
-                                                    ]
+                                                    info: {
+                                                        tamga: "СМ",
+                                                        uran: "Алатау!",
+                                                        history: "От скота санг мурындык"
+                                                    }
+                                                },
+                                                {
+                                                    id: "ush-tambaly-t",
+                                                    name: "Уштамбалы",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "УТ", uran: "Алатау!" }
+                                                },
+                                                {
+                                                    id: "aryq-kyat",
+                                                    name: "Арыккыят",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "АК",
+                                                        uran: "Алатау!",
+                                                        history: "Худощавое телосложение"
+                                                    }
+                                                },
+                                                {
+                                                    id: "tartuly",
+                                                    name: "Тартылы",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "ТР",
+                                                        uran: "Алатау!",
+                                                        history: "Тягучий, упрямый"
+                                                    }
+                                                },
+                                                {
+                                                    id: "qatagan",
+                                                    name: "Катаган",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "КТ",
+                                                        uran: "Алатау!",
+                                                        history: "Северный Жетысу"
+                                                    }
+                                                },
+                                                {
+                                                    id: "qanzhygaly-k",
+                                                    name: "Канжигалы",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "КЖ",
+                                                        uran: "Алатау!",
+                                                        history: "Носители колчана"
+                                                    }
                                                 }
                                             ]
                                         },
                                         {
+                                            id: "taraqty",
                                             name: "Таракты",
+                                            level: 4,
                                             type: "uruw",
-                                            info: { history: "Кисточка, украшение" },
+                                            info: {
+                                                history: "Кисточка, украшение",
+                                                tamga: "ТБ",
+                                                uran: "Алатау!"
+                                            },
                                             children: [
-                                                { name: "Тогузак", type: "tiyre", info: { history: "После девяти поколений" } },
-                                                { name: "Абас", type: "tiyre" },
-                                                { name: "Жалтыршы", type: "tiyre" },
-                                                { name: "Акункараган", type: "tiyre" },
-                                                { name: "Такай", type: "tiyre" },
-                                                { name: "Каржаубарас", type: "tiyre" }
+                                                {
+                                                    id: "togyzaq",
+                                                    name: "Тогызак",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "Т9",
+                                                        uran: "Тогыскан!",
+                                                        history: "Через девять поколений"
+                                                    }
+                                                },
+                                                {
+                                                    id: "abas-kyat",
+                                                    name: "Абас",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "АБ",
+                                                        uran: "Алатау!",
+                                                        history: "Батыр Абас"
+                                                    }
+                                                },
+                                                {
+                                                    id: "jaltyrshy",
+                                                    name: "Жалтыршы",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "ЖЛ",
+                                                        uran: "Алатау!",
+                                                        history: "Яркий"
+                                                    }
+                                                },
+                                                {
+                                                    id: "aqunqaragan",
+                                                    name: "Акункаран",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "АКК",
+                                                        uran: "Алатау!",
+                                                        history: "Белая кундуз"
+                                                    }
+                                                },
+                                                {
+                                                    id: "taqay",
+                                                    name: "Такай",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ТК", uran: "Алатау!" }
+                                                },
+                                                {
+                                                    id: "qarzhaubaras",
+                                                    name: "Каржаубарас",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "КЖБ", uran: "Алатау!" }
+                                                }
                                             ]
                                         },
                                         {
-                                            name: "Балгалы Кият",
+                                            id: "balgaly-kyat",
+                                            name: "Балгалы Кыят",
+                                            level: 4,
                                             type: "uruw",
-                                            tamga: "B",
-                                            info: { history: "Владелец молота. Кузнецы." },
+                                            info: {
+                                                history: "Держащий молот",
+                                                tamga: "Б",
+                                                uran: "Алатау!",
+                                                legend: "Термин кузнецов"
+                                            },
                                             children: [
-                                                { name: "Беспышак", type: "tiyre" },
-                                                { name: "Етекши", type: "tiyre" },
-                                                { name: "Санмурын", type: "tiyre" },
-                                                { name: "Кожакараган", type: "tiyre" }
+                                                {
+                                                    id: "bespishaq",
+                                                    name: "Беспышак",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "Б5",
+                                                        uran: "Алатау!",
+                                                        history: "Пять ножей"
+                                                    }
+                                                },
+                                                {
+                                                    id: "etekshi",
+                                                    name: "Этекши",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "ЭТ",
+                                                        uran: "Алатау!",
+                                                        history: "Этек - подол"
+                                                    }
+                                                },
+                                                {
+                                                    id: "sanmurun-bk",
+                                                    name: "Сангмурын",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "СМБ", uran: "Алатау!" }
+                                                },
+                                                {
+                                                    id: "qozhaqaragan",
+                                                    name: "Кожакаран",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: {
+                                                        tamga: "КЖК",
+                                                        uran: "Алатау!",
+                                                        history: "Ата Кожа"
+                                                    }
+                                                }
                                             ]
                                         }
                                     ]
                                 },
                                 {
-                                    name: "Ашамайлы",
+                                    id: "ashamayly",
+                                    name: "АШАМАЙЛЫ",
+                                    level: 3,
                                     type: "ulken",
-                                    tamga: "✕",
-                                    battleCry: "Шулюк!",
-                                    info: { history: "Ашамай - плохо видящий.", population: "870 кибиток" },
-                                    children: [
-                                        { name: "Саку", type: "uruw", info: { history: "Сторожевые" } },
-                                        { name: "Каракожа", type: "uruw" },
-                                        { name: "Жаланаяк", type: "uruw", info: { history: "Быстро бегающий" } },
-                                        { 
-                                            name: "Кобасан", 
-                                            type: "uruw",
-                                            children: [
-                                                { name: "Акназар", type: "tiyre" },
-                                                { name: "Жансары", type: "tiyre" },
-                                                { name: "Отемис", type: "tiyre" },
-                                                { name: "Есен", type: "tiyre" },
-                                                { name: "Тампыш", type: "tiyre" }
-                                            ]
-                                        },
-                                        { name: "Туркменкара", type: "uruw", info: { history: "Смешанные с туркменами" } },
-                                        { name: "Жаппар", type: "uruw" },
-                                        { name: "Сары", type: "uruw" },
-                                        { name: "Абыз", type: "uruw" },
-                                        { name: "Акай", type: "uruw" },
-                                        { name: "Панкара", type: "uruw" },
-                                        { name: "Уш бас", type: "uruw" },
-                                        { name: "Курама", type: "uruw" }
-                                    ]
-                                },
-                                {
-                                    name: "Колдаулы",
-                                    type: "ulken",
-                                    tamga: "Q",
-                                    battleCry: "Колдау!",
-                                    info: { history: "Колдау - опора.", population: "1140 кибиток" },
-                                    children: [
-                                        { name: "Бескемпир", type: "uruw", info: { history: "Пять старух" } },
-                                        { name: "Майшыгалы", type: "uruw" },
-                                        { name: "Калкаман", type: "uruw" },
-                                        { name: "Гайыпкараган", type: "uruw", info: { history: "Исчезнувший предок" } },
-                                        { name: "Сарытан", type: "uruw" },
-                                        { name: "Кулкикожак", type: "uruw" },
-                                        { name: "Жарымбет", type: "uruw" },
-                                        { name: "Кызылаяк", type: "uruw" },
-                                        { name: "Карасирак", type: "uruw" },
-                                        { name: "Желкараган", type: "uruw" },
-                                        { name: "Улкенбури", type: "uruw" },
-                                        { name: "Шылжуыт", type: "uruw" },
-                                        { name: "Жаманконырат", type: "uruw" },
-                                        { 
-                                            name: "Калмак", 
-                                            type: "uruw",
-                                            children: [
-                                                { name: "Адил", type: "tiyre" },
-                                                { name: "Ереке", type: "tiyre" }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    name: "Костанбалы",
-                                    type: "ulken",
-                                    tamga: "⧉",
-                                    battleCry: "Коска!",
-                                    info: { history: "С двумя тамгами." },
-                                    children: [
-                                        { name: "Жангелди", type: "uruw" },
-                                        { name: "Ширжеген", type: "uruw" },
-                                        { name: "Агабегли", type: "uruw" },
-                                        { name: "Карынжуан", type: "uruw" },
-                                        { name: "Костанбалы", type: "uruw" },
-                                        { name: "Каракурсак", type: "uruw" },
-                                        { name: "Казахы", type: "uruw" }
-                                    ]
-                                },
-                                {
-                                    name: "Балгалы",
-                                    type: "ulken",
-                                    tamga: "B",
-                                    battleCry: "Балга!",
-                                    info: { history: "Кузнецы.", population: "560 кибиток" },
-                                    children: [
-                                        { name: "Акбалгалы", type: "uruw" },
-                                        { name: "Нурбалгалы", type: "uruw" },
-                                        { name: "Туркмен", type: "uruw" },
-                                        { name: "Жаман ауыл", type: "uruw" },
-                                        { name: "Шомишти", type: "uruw" },
-                                        { name: "Токымбет", type: "uruw" },
-                                        { name: "Тазбалгалы", type: "uruw" },
-                                        { name: "Костамгалы", type: "uruw" },
-                                        { name: "Караталшы", type: "uruw" },
-                                        { name: "Асан", type: "uruw" },
-                                        { name: "Арзыкул", type: "uruw" }
-                                    ]
-                                },
-                                {
-                                    name: "Конdekли",
-                                    type: "ulken",
-                                    tamga: "G",
-                                    battleCry: "Конdek!",
-                                    info: { history: "Конdek - загон.", population: "730 кибиток" },
-                                    children: [
-                                        { name: "Карама", type: "uruw" },
-                                        { name: "Кийикши", type: "uruw", info: { history: "Сторож сайгаков" } },
-                                        { name: "Токболат", type: "uruw" },
-                                        { name: "Кырыксадак", type: "uruw", info: { history: "40 садков" } }
-                                    ]
-                                },
-                                {
-                                    name: "Карамойын",
-                                    type: "ulken",
-                                    tamga: "TM",
-                                    battleCry: "Мойын!",
-                                    info: { history: "Черная шея.", population: "560 кибиток" },
-                                    children: [
-                                        { name: "Аннахожа", type: "uruw", info: { history: "Анна святой" } },
-                                        { name: "Сабалак", type: "uruw", info: { history: "Саба - ребенок" } },
-                                        { name: "Котелек", type: "uruw" },
-                                        { name: "Карлымарал", type: "uruw" },
-                                        { name: "Булкилдек", type: "uruw", info: { history: "Смех" } }
-                                    ]
-                                },
-                                {
-                                    name: "Муйтен",
-                                    type: "ulken",
-                                    tamga: "ψ",
-                                    battleCry: "Акшолпан!",
-                                    info: { 
-                                        history: "Мойын - шея.", 
-                                        legend: "Три сына Муйтена: Самат, Тели, Абыз",
-                                        population: "540 кибиток"
+                                    info: {
+                                        history: "Ашамай - плохо видящий.",
+                                        tamga: "АШ",
+                                        uran: "Шулик!",
+                                        population: "870 кибиток"
                                     },
                                     children: [
-                                        { 
-                                            name: "Самат", 
+                                        {
+                                            id: "saqu",
+                                            name: "Саку",
+                                            level: 4,
                                             type: "uruw",
+                                            info: {
+                                                tamga: "СК",
+                                                uran: "Шулик!",
+                                                history: "Сторожевые"
+                                            }
+                                        },
+                                        {
+                                            id: "qaraqoja",
+                                            name: "Каракожа",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "КК",
+                                                uran: "Шулик!",
+                                                history: "Черный ходжа"
+                                            }
+                                        },
+                                        {
+                                            id: "jalangayaq",
+                                            name: "Жалангаяк",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "ЖА",
+                                                uran: "Шулик!",
+                                                history: "Быстро бегущий"
+                                            }
+                                        },
+                                        {
+                                            id: "ajyldy",
+                                            name: "Айылды",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "АЙ",
+                                                uran: "Шулик!",
+                                                history: "Айыл - стадо"
+                                            }
+                                        },
+                                        {
+                                            id: "qobasan",
+                                            name: "Кобасан",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "КБС",
+                                                uran: "Шулик!",
+                                                history: "Коба - утес"
+                                            },
                                             children: [
-                                                { name: "Байбише", type: "tiyre" },
-                                                { name: "Токкараган", type: "tiyre" },
-                                                { name: "Баймурат", type: "tiyre" },
-                                                { name: "Жолан", type: "tiyre" },
-                                                { name: "Бекау", type: "tiyre" }
+                                                {
+                                                    id: "aqnazar",
+                                                    name: "Акназар",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "АН", uran: "Шулик!" }
+                                                },
+                                                {
+                                                    id: "jansary",
+                                                    name: "Жансары",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ЖС", uran: "Шулик!" }
+                                                },
+                                                {
+                                                    id: "otemis-q",
+                                                    name: "Отемис",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ОТ", uran: "Шулик!" }
+                                                },
+                                                {
+                                                    id: "esen",
+                                                    name: "Есен",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ЕС", urан: "Шулик!" }
+                                                },
+                                                {
+                                                    id: "tampysh",
+                                                    name: "Тампыш",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ТМ", urан: "Шулик!" }
+                                                }
                                             ]
                                         },
-                                        { 
-                                            name: "Тели", 
+                                        {
+                                            id: "turkmenqara",
+                                            name: "Туркменкара",
+                                            level: 4,
                                             type: "uruw",
+                                            info: {
+                                                tamga: "ТК",
+                                                urан: "Шулик!",
+                                                history: "Смешанные с туркменами"
+                                            }
+                                        },
+                                        {
+                                            id: "jappar",
+                                            name: "Жаппар",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖП", urан: "Шулик!" }
+                                        },
+                                        {
+                                            id: "sary-ash",
+                                            name: "Сары",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "СР", urан: "Шулик!" }
+                                        },
+                                        {
+                                            id: "abyz-ash",
+                                            name: "Абыз",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "АБ", urан: "Шулик!" }
+                                        },
+                                        {
+                                            id: "aqay",
+                                            name: "Акай",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "АК", urан: "Шулик!" }
+                                        },
+                                        {
+                                            id: "pangqara",
+                                            name: "Пангара",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ПН", urан: "Шулик!" }
+                                        },
+                                        {
+                                            id: "ush-bas",
+                                            name: "Уш бас",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "УБ",
+                                                urан: "Шулик!",
+                                                history: "Ткавшие три головы"
+                                            },
                                             children: [
-                                                { name: "Тилеуберди", type: "tiyre" },
-                                                { name: "Аллаберди", type: "tiyre" },
-                                                { name: "Танирберди", type: "tiyre" },
-                                                { name: "Мантыккараган", type: "tiyre" },
-                                                { name: "Моллакараган", type: "tiyre" }
+                                                {
+                                                    id: "jaman-ub",
+                                                    name: "Жаман",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "ЖМ", urан: "Шулик!" }
+                                                }
                                             ]
                                         },
-                                        { 
-                                            name: "Абыз", 
+                                        {
+                                            id: "qurama",
+                                            name: "Курама",
+                                            level: 4,
                                             type: "uruw",
-                                            info: { history: "Аксакал, святой" },
+                                            info: { tamga: "КР", urан: "Шулик!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "koldauli",
+                                    name: "КОЛДАУЛЫ",
+                                    level: 3,
+                                    type: "ulken",
+                                    info: {
+                                        history: "Колдау - опора.",
+                                        tamga: "КЛД",
+                                        urан: "Колдау!",
+                                        population: "1140 кибиток"
+                                    },
+                                    children: [
+                                        {
+                                            id: "beskempir",
+                                            name: "Бескемпир",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "Б5",
+                                                urан: "Колдау!",
+                                                history: "Пять старух"
+                                            }
+                                        },
+                                        {
+                                            id: "maishyshaly",
+                                            name: "Майшышалы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "МШ",
+                                                urан: "Колдау!",
+                                                history: "Жирная шиша"
+                                            }
+                                        },
+                                        {
+                                            id: "qalqaman",
+                                            name: "Калкаман",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КЛК", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "ghajypqaragan",
+                                            name: "Гайыпкаран",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "ГК",
+                                                urан: "Колдау!",
+                                                history: "Исчезнувший дед"
+                                            }
+                                        },
+                                        {
+                                            id: "sarytan-k",
+                                            name: "Сарытан",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "СРТ", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "kulkiqozhaq",
+                                            name: "Кулкикожак",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КК", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "jarymbet",
+                                            name: "Жарымбет",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖБ", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "jamanqonyrat",
+                                            name: "Жаманконырат",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖК", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "zhuka",
+                                            name: "Жука",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖК", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "qyzylayaq",
+                                            name: "Кызылаяк",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КЗ", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "karasiraq-k",
+                                            name: "Карасирак",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КСР", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "jelqaragan",
+                                            name: "Желкаран",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖК", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "ulkenborik",
+                                            name: "Улкенборик",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "УБ", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "shylzhuyt",
+                                            name: "Шылжуыт",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ШЖ", urан: "Колдау!" }
+                                        },
+                                        {
+                                            id: "kalmaq",
+                                            name: "Калмак",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "КМ",
+                                                urан: "Колдау!",
+                                                history: "Смешанные с калмыками"
+                                            },
                                             children: [
-                                                { name: "Ады", type: "tiyre" }
+                                                {
+                                                    id: "adil",
+                                                    name: "Адиль",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "АД", urан: "Колдау!" }
+                                                },
+                                                {
+                                                    id: "ereke",
+                                                    name: "Ереке",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ЕР", urан: "Колдау!" }
+                                                }
                                             ]
                                         },
-                                        { 
-                                            name: "Кентанау", 
+                                        {
+                                            id: "jaman-aul",
+                                            name: "Жаман аул",
+                                            level: 4,
                                             type: "uruw",
+                                            info: { tamga: "ЖА", urан: "Колдау!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "kostambali",
+                                    name: "КОСТАМГАЛЫ",
+                                    level: 3,
+                                    type: "ulken",
+                                    tamga: "II",
+                                    info: {
+                                        history: "Две тамги.",
+                                        tamga: "II",
+                                        urан: "Коска!",
+                                        population: "590 кибиток"
+                                    },
+                                    children: [
+                                        {
+                                            id: "jangildi-k",
+                                            name: "Жангелди",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖГ", urан: "Коска!" }
+                                        },
+                                        {
+                                            id: "shirzhegen",
+                                            name: "Ширжеген",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ШЖ", urан: "Коска!" }
+                                        },
+                                        {
+                                            id: "aghabegli",
+                                            name: "Агабегли",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "АБ", urан: "Коска!" }
+                                        },
+                                        {
+                                            id: "qarynzhuan",
+                                            name: "Карынжуан",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КЖ", urан: "Коска!" }
+                                        },
+                                        {
+                                            id: "kostambali-k",
+                                            name: "Костамгалы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КТ", urан: "Коска!" }
+                                        },
+                                        {
+                                            id: "qaraqursaq-k",
+                                            name: "Каракурсак",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КК", urан: "Коска!" }
+                                        },
+                                        {
+                                            id: "qazaqy-k",
+                                            name: "Казакы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КЗ", urан: "Коска!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "balgali",
+                                    name: "БАЛГАЛЫ",
+                                    level: 3,
+                                    type: "ulken",
+                                    info: {
+                                        history: "Держащий молот. Кузнецы.",
+                                        tamga: "Б",
+                                        urан: "Балга!",
+                                        legend: "Потомки кузнецов",
+                                        population: "560 кибиток"
+                                    },
+                                    children: [
+                                        {
+                                            id: "aqbalgali",
+                                            name: "Акбалгалы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "АБ", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "nurbalgali",
+                                            name: "Нурбалгалы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "НБ", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "turkmen-b",
+                                            name: "Туркмен",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ТБ", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "jamanaul-b",
+                                            name: "Жаманаул",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ЖА", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "shomishti",
+                                            name: "Шомишти",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ШМ", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "toqymbet",
+                                            name: "Токымбет",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ТК", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "tazbalgali",
+                                            name: "Тазбалгалы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ТБ", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "kostamgali-balgali",
+                                            name: "Костамгалы(балгалы)",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КС", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "qaratalshy",
+                                            name: "Караталшы",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КТ", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "asan",
+                                            name: "Асан",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "АС", urан: "Балга!" }
+                                        },
+                                        {
+                                            id: "arzyqul",
+                                            name: "Арзыкул",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "АР", urан: "Балга!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "kandekli",
+                                    name: "КАНДЕКЛИ",
+                                    level: 3,
+                                    type: "ulken",
+                                    tamga: "Г",
+                                    info: {
+                                        history: "Конdek - загон.",
+                                        tamga: "Г",
+                                        urан: "Конdek!",
+                                        population: "730 кибиток"
+                                    },
+                                    children: [
+                                        {
+                                            id: "qarama-kan",
+                                            name: "Карама",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КР", urан: "Конdek!" }
+                                        },
+                                        {
+                                            id: "kiikshi",
+                                            name: "Киикши",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "КШ",
+                                                urан: "Конdek!",
+                                                history: "Охотники на сайгаков"
+                                            }
+                                        },
+                                        {
+                                            id: "toqbolat-kan",
+                                            name: "Токболат",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ТБ", urан: "Конdek!" }
+                                        },
+                                        {
+                                            id: "qyryqsadaq",
+                                            name: "Кырыксадак",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КС", urан: "Конdek!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "karamoiyn",
+                                    name: "КАРАМОЙЫН",
+                                    level: 3,
+                                    type: "ulken",
+                                    tamga: "ТМ",
+                                    info: {
+                                        history: "Черная шея.",
+                                        tamga: "ТМ",
+                                        urан: "Мойын!",
+                                        population: "560 кибиток"
+                                    },
+                                    children: [
+                                        {
+                                            id: "annakhoja",
+                                            name: "Аннахожа",
+                                            level: 4,
+                                            type: "tiyre",
+                                            info: {
+                                                tamga: "АН",
+                                                urан: "Мойын!",
+                                                history: "Анна святой"
+                                            }
+                                        },
+                                        {
+                                            id: "sabalaq",
+                                            name: "Сабалак",
+                                            level: 4,
+                                            type: "tiyre",
+                                            info: {
+                                                tamga: "СБ",
+                                                urан: "Мойын!",
+                                                history: "Саба - ребенок"
+                                            }
+                                        },
+                                        {
+                                            id: "kotelek",
+                                            name: "Котелек",
+                                            level: 4,
+                                            type: "tiyre",
+                                            info: {
+                                                tamga: "КТ",
+                                                urан: "Мойын!",
+                                                history: "Сетчатый"
+                                            }
+                                        },
+                                        {
+                                            id: "qareke",
+                                            name: "Кареке",
+                                            level: 4,
+                                            type: "tiyre",
+                                            info: { tamga: "КР", urан: "Мойын!" }
+                                        },
+                                        {
+                                            id: "qarlymaral",
+                                            name: "Карлымарал",
+                                            level: 4,
+                                            type: "tiyre",
+                                            info: { tamga: "КМ", urан: "Мойын!" }
+                                        },
+                                        {
+                                            id: "bulkildek",
+                                            name: "Булкилдек",
+                                            level: 4,
+                                            type: "tiyre",
+                                            info: { tamga: "БУ", urан: "Мойын!", history: "Смех" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "muyten",
+                                    name: "МУЙТЕН",
+                                    level: 3,
+                                    type: "ulken",
+                                    tamga: "Уш шанышкы",
+                                    urан: "Акшолпан",
+                                    info: {
+                                        history: "Муйын - шея.",
+                                        origin: "Батыр Муйтен",
+                                        tamga: "Уш шанышкы",
+                                        urан: "Акшолпан",
+                                        population: "540 кибиток",
+                                        legend: "Три сына Муйтена: Самат, Тели, Абыз"
+                                    },
+                                    children: [
+                                        {
+                                            id: "samat",
+                                            name: "Самат",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "СМ", urан: "Акшолпан!" },
                                             children: [
-                                                { name: "Барн", type: "tiyre" },
-                                                { name: "Итак", type: "tiyre" },
-                                                { name: "Жекенсал", type: "tiyre" }
+                                                {
+                                                    id: "baibishe",
+                                                    name: "Байбисе",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "ББ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "toqqaragan",
+                                                    name: "Токалкаран",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "ТК", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "baimurat",
+                                                    name: "Баймурат",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "БМ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "jolan",
+                                                    name: "Жолан",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "ЖЛ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "bekau",
+                                                    name: "Бекау",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "БК", urан: "Акшолпан!" }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id: "teli",
+                                            name: "Тели",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "ТЛ", urан: "Акшолпан!" },
+                                            children: [
+                                                {
+                                                    id: "tleuberdi",
+                                                    name: "Тлеуберди",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "ТБ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "allaberdi",
+                                                    name: "Аллаберди",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "АБ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "tangirberdi",
+                                                    name: "Тангирберди",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "ТБ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "mantyqaragan",
+                                                    name: "Мантыккаран",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "МК", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "molloqaragan",
+                                                    name: "Моллакаран",
+                                                    level: 5,
+                                                    type: "koshe",
+                                                    info: { tamga: "МК", urан: "Акшолпан!" }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id: "abyz-m",
+                                            name: "Абыз",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: {
+                                                tamga: "АБ",
+                                                urан: "Акшолпан!",
+                                                history: "Старейшина, святой"
+                                            }
+                                        },
+                                        {
+                                            id: "kentanau",
+                                            name: "Кентанау",
+                                            level: 4,
+                                            type: "uruw",
+                                            info: { tamga: "КТ", urан: "Акшолпан!" },
+                                            children: [
+                                                {
+                                                    id: "baryn",
+                                                    name: "Барын",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "БР", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "itak",
+                                                    name: "Итак",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ИТ", urан: "Акшолпан!" }
+                                                },
+                                                {
+                                                    id: "jekensal",
+                                                    name: "Жекенсал",
+                                                    level: 5,
+                                                    type: "tiyre",
+                                                    info: { tamga: "ЖС", urан: "Акшолпан!" }
+                                                }
                                             ]
                                         }
                                     ]
@@ -956,87 +1781,97 @@
                             ]
                         },
                         {
-                            name: "Жаунгыр отдел",
+                            id: "jauyngyr",
+                            name: "ЖАУЫНГЫР БОЛИМИ",
+                            level: 2,
                             type: "bolim",
-                            info: { history: "Жаунгыр - 7 родов.", population: "3660 кибиток" },
+                            info: {
+                                history: "Жауынгыр - 7 родов.",
+                                population: "3660 кибиток"
+                            },
                             children: [
                                 {
-                                    name: "Теристанбалы",
-                                    type: "ulken",
+                                    id: "teristambaly",
+                                    name: "ТЕРИСТАНБАЛЫ",
+                                    level: 3,
+                                    type: "uruw",
                                     children: [
-                                        { name: "Шомак", type: "uruw" },
-                                        { name: "Хангелди", type: "uruw" },
-                                        { name: "Байкараган", type: "uruw" },
-                                        { name: "Елшибай", type: "uruw" },
-                                        { name: "Курбан", type: "uruw" },
-                                        { name: "Тогуз", type: "uruw" },
-                                        { name: "Тиле", type: "uruw" },
-                                        { name: "Тебеген", type: "uruw" },
-                                        { name: "Тум", type: "uruw" },
-                                        { name: "Туркистан", type: "uruw" }
+                                        { id: "shomak", name: "Шомак", level: 4, type: "tiyre" },
+                                        { id: "hangildi", name: "Хангелди", level: 4, type: "koshe" },
+                                        { id: "baiqaragan", name: "Байкаран", level: 4, type: "koshe" },
+                                        { id: "elshibai", name: "Елшибай", level: 4, type: "koshe" },
+                                        { id: "qurban-t", name: "Курбан", level: 4, type: "koshe" },
+                                        { id: "togai", name: "Тогай", level: 4, type: "koshe" }
                                     ]
                                 },
                                 {
-                                    name: "Баканлы",
-                                    type: "ulken",
+                                    id: "bakanly-sheyjeyli",
+                                    name: "БАКАНЛЫ-шейжейли",
+                                    level: 3,
+                                    type: "uruw"
+                                },
+                                {
+                                    id: "tyekli",
+                                    name: "ТИЕКТИ",
+                                    level: 3,
+                                    type: "uruw",
                                     children: [
-                                        { name: "Танмайыл", type: "uruw" },
-                                        { name: "Жаканай", type: "uruw" },
-                                        { name: "Найман", type: "uruw" },
-                                        { name: "Айыс", type: "uruw" }
+                                        { id: "zhumagul", name: "Жумагул", level: 4, type: "koshe" },
+                                        { id: "aidarbek", name: "Айдарбек", level: 4, type: "koshe" },
+                                        { id: "kanjar", name: "Канжар", level: 4, type: "koshe" },
+                                        { id: "sarykempir", name: "Сарыкемпир", level: 4, type: "koshe" }
                                     ]
                                 },
                                 {
-                                    name: "Тиекти",
-                                    type: "ulken",
+                                    id: "yrgaqty",
+                                    name: "ЫРГАКТЫ",
+                                    level: 3,
+                                    type: "uruw",
                                     children: [
-                                        { name: "Шиши", type: "uruw", children: [{name:"Шиши Арна",type:"tiyre"}] },
-                                        { name: "Туманай", type: "uruw" },
-                                        { name: "Маулык", type: "uruw" },
-                                        { name: "Байрам", type: "uruw" }
+                                        { id: "atanai", name: "Атанай", level: 4, type: "tiyre" },
+                                        { id: "eshkili", name: "Ешкили", level: 4, type: "tiyre" },
+                                        { id: "baibura", name: "Байбура", level: 4, type: "tiyre" },
+                                        { id: "sarytan", name: "Сарытан", level: 4, type: "tiyre" }
                                     ]
                                 },
                                 {
-                                    name: "Ыргакты",
-                                    type: "ulken",
-                                    info: { note: "Есть в обоих арысах!" },
+                                    id: "baimaqty",
+                                    name: "БАЙМАКТЫ",
+                                    level: 3,
+                                    type: "uruw",
                                     children: [
-                                        { name: "Атанай", type: "uruw" },
-                                        { name: "Ешкили", type: "uruw" },
-                                        { name: "Байбура", type: "uruw" },
-                                        { name: "Сарытан", type: "uruw" }
+                                        { id: "sospaq", name: "Соспак", level: 4, type: "tiyre" },
+                                        { id: "uyes", name: "Уйес", level: 4, type: "tiyre" },
+                                        { id: "tanmayil", name: "Танмайыл", level: 4, type: "tiyre" },
+                                        { id: "jaqanay", name: "Жаканай", level: 4, type: "tiyre" },
+                                        { id: "nayman", name: "Найман", level: 4, type: "tiyre" },
+                                        { id: "ayis", name: "Айыс", level: 4, type: "tiyre" }
                                     ]
                                 },
                                 {
-                                    name: "Баймакты",
-                                    type: "ulken",
+                                    id: "kazayakty",
+                                    name: "КАЗАЯКТЫ",
+                                    level: 3,
+                                    type: "uruw",
                                     children: [
-                                        { name: "Саспак", type: "uruw" },
-                                        { name: "Уйес", type: "uruw" },
-                                        { name: "Танмайыл", type: "uruw" },
-                                        { name: "Жаканай", type: "uruw" }
+                                        { id: "anetai", name: "Анетай", level: 4, type: "koshe" },
+                                        { id: "zharimbet", name: "Жаримбет", level: 4, type: "koshe" },
+                                        { id: "zhunli", name: "Жунли", level: 4, type: "koshe" },
+                                        { id: "sadaq", name: "Садак", level: 4, type: "koshe" }
                                     ]
                                 },
                                 {
-                                    name: "Казаякты",
-                                    type: "ulken",
+                                    id: "uygyr",
+                                    name: "УЙГЫР",
+                                    level: 3,
+                                    type: "uruw",
                                     children: [
-                                        { name: "Анетай", type: "uruw" },
-                                        { name: "Жарымбет", type: "uruw" },
-                                        { name: "Жунди", type: "uruw" },
-                                        { name: "Садак", type: "uruw" }
-                                    ]
-                                },
-                                {
-                                    name: "Уйгыр",
-                                    type: "ulken",
-                                    children: [
-                                        { name: "Шиши", type: "uruw" },
-                                        { name: "Туманай", type: "uruw" },
-                                        { name: "Сабалак", type: "uruw" },
-                                        { name: "Маулык", type: "uruw" },
-                                        { name: "Байрам", type: "uruw" },
-                                        { name: "Сыргалы", type: "uruw" }
+                                        { id: "shishi", name: "Шиши", level: 4, type: "tiyre" },
+                                        { id: "tumanay", name: "Туманай", level: 4, type: "tiyre" },
+                                        { id: "maulik", name: "Маулик", level: 4, type: "tiyre" },
+                                        { id: "bayram", name: "Байрам", level: 4, type: "tiyre" },
+                                        { id: "sabalaq", name: "Сабалак", level: 4, type: "tiyre" },
+                                        { id: "syrgaly", name: "Сыргалы", level: 4, type: "tiyre" }
                                     ]
                                 }
                             ]
@@ -1044,168 +1879,472 @@
                     ]
                 },
                 {
-                    name: "Арыс Он төрт",
+                    id: "onTort",
+                    name: "АРЫС ОН ТОРТ РУУ",
+                    level: 1,
                     type: "aris",
-                    tamga: "14",
-                    battleCry: "Токсаба!",
                     info: {
-                        history: "Крупный арыс из 14 родов. Многочисленный.",
-                        population: "10260 кибиток (60%)",
-                        structure: "4 больших рода: Кытай, Кыпшак, Кенегес, Мангыт"
+                        history: "Он торт руу - 14 родов.",
+                        population: "10260 кибиток (60%)"
                     },
                     children: [
                         {
-                            name: "Кытай",
+                            id: "kytaı",
+                            name: "КЫТАЙ",
+                            level: 2,
                             type: "ulken",
-                            tamga: "Q",
-                            battleCry: "Уллы тау!",
-                            pair: "С Кыпшаком",
-                            info: { history: "Крупнейший род.", population: "4320 кибиток" },
+                            tamga: "К",
+                            urан: "Уллы тау",
+                            info: {
+                                history: "Самый крупный род.",
+                                tamga: "К",
+                                urан: "Уллы тау",
+                                population: "4320 кибиток"
+                            },
                             children: [
-                                { name: "Бессары", type: "uruw", children: [{name:"Жунли",type:"tiyre"},{name:"Койлы",type:"tiyre"}] },
-                                { name: "Бексийык", type: "uruw", children: [{name:"Зергер",type:"tiyre"},{name:"Масай",type:"tiyre"},{name:"Шыгыршы",type:"tiyre"},{name:"Малай",type:"tiyre"}] },
-                                { name: "Казаякты", type: "uruw", children: [{name:"Калсен",type:"tiyre"},{name:"Куйик",type:"tiyre"},{name:"Мырзай",type:"tiyre"},{name:"Кылмойын",type:"tiyre"},{name:"Жылкбай",type:"tiyre"}] },
-                                { 
-                                    name: "Кайшылы", 
+                                {
+                                    id: "bessary",
+                                    name: "БЕССАРЫ",
+                                    level: 3,
                                     type: "uruw",
                                     children: [
-                                        {name:"Акымбет",type:"tiyre"},
-                                        {name:"Жувансан",type:"tiyre"},
-                                        {name:"Котерехожа",type:"tiyre"},
-                                        {name:"Танамырза",type:"tiyre"},
-                                        {name:"Баки",type:"tiyre"},
-                                        {name:"Сыбыл",type:"tiyre"},
-                                        {name:"Басар",type:"tiyre"},
-                                        {name:"Толык",type:"tiyre"},
-                                        {name:"Ябы",type:"tiyre"}
+                                        { id: "zhunli", name: "Жунли", level: 4, type: "tiyre" },
+                                        { id: "qoyly", name: "Койлы", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { 
-                                    name: "Айтеке", 
+                                {
+                                    id: "beksyyk",
+                                    name: "БЕКСИЙЫК",
+                                    level: 3,
                                     type: "uruw",
                                     children: [
-                                        {name:"Жадик",type:"tiyre"},
-                                        {name:"Ырсымбек",type:"tiyre"},
-                                        {name:"Оразымбет",type:"tiyre"},
-                                        {name:"Таниркул",type:"tiyre"},
-                                        {name:"Бектес",type:"tiyre",children:[{name:"Бектес Торе",type:"koshe"}]},
-                                        {name:"Науруз",type:"tiyre"},
-                                        {name:"Манжули",type:"tiyre"},
-                                        {name:"Тазшылык",type:"tiyre"}
+                                        { id: "zherger", name: "Жергер", level: 4, type: "tiyre" },
+                                        { id: "masai", name: "Масай", level: 4, type: "tiyre" },
+                                        { id: "shyghyrshy", name: "Шыгыршы", level: 4, type: "tiyre" },
+                                        { id: "bekreshi", name: "Бекреши", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { name: "Манжули", type: "uruw", children: [{name:"Эки шыйык",type:"tiyre"},{name:"Караманжули",type:"tiyre"},{name:"Айереке",type:"tiyre"}] },
-                                { name: "Аралбай", type: "uruw", children: [{name:"Аккала",type:"tiyre"},{name:"Калмурат",type:"tiyre"},{name:"Огизбайшы",type:"tiyre"},{name:"Байбише",type:"tiyre"},{name:"Тиле кушы",type:"tiyre"}] }
+                                {
+                                    id: "kazayakly-k",
+                                    name: "КАЗАЯКЛЫ",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "kalsen", name: "Кальсен", level: 4, type: "tiyre" },
+                                        { id: "kuyik", name: "Куйик", level: 4, type: "tiyre" },
+                                        { id: "myrzai", name: "Мырзай", level: 4, type: "tiyre" },
+                                        { id: "qylymoiyn", name: "Кылмойын", level: 4, type: "tiyre" },
+                                        { id: "baqaragan", name: "Бакаран", level: 4, type: "tiyre" },
+                                        { id: "baqsiqaragan", name: "Баксикаран", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                {
+                                    id: "kaishyly",
+                                    name: "КАЙШЫЛЫ",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "aqymbet", name: "Акымбет", level: 4, type: "tiyre" },
+                                        { id: "zhuansan", name: "Жувансан", level: 4, type: "tiyre" },
+                                        { id: "koterehoja", name: "Котерехожа", level: 4, type: "tiyre" },
+                                        { id: "tanamyrza", name: "Танамырза", level: 4, type: "tiyre" },
+                                        { id: "baqy", name: "Бакы", level: 4, type: "tiyre" },
+                                        { id: "tore", name: "Торе", level: 4, type: "tiyre" },
+                                        { id: "korpe", name: "Корпе", level: 4, type: "tiyre" },
+                                        { id: "etpaq", name: "Етпак", level: 4, type: "tiyre" },
+                                        { id: "gijaq", name: "Гижак", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                { id: "anna", name: "Анна", level: 3, type: "uruw" },
+                                { id: "quyin", name: "Куйин", level: 3, type: "uruw" },
+                                { id: "sheriushi", name: "Шериуши", level: 3, type: "uruw" },
+                                { id: "baqliqtay", name: "Баклыкай", level: 3, type: "uruw" },
+                                {
+                                    id: "aitereke",
+                                    name: "АЙТЕКЕ",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "zhadyq", name: "Жадык", level: 4, type: "tiyre" },
+                                        { id: "yrsymbek", name: "Ырсымбек", level: 4, type: "tiyre" },
+                                        { id: "orazymbet", name: "Оразымбет", level: 4, type: "tiyre" },
+                                        { id: "tangirkul", name: "Тангиркуль", level: 4, type: "tiyre" },
+                                        { id: "bektay", name: "Бектас", level: 4, type: "tiyre" },
+                                        { id: "bektes", name: "Бектес", level: 4, type: "tiyre" },
+                                        { id: "besli", name: "Бесли", level: 4, type: "tiyre" },
+                                        { id: "umbetey", name: "Умбетей", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                {
+                                    id: "manjuwli-k",
+                                    name: "МАНЖУУЛИ",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        {
+                                            id: "eki-shyiq",
+                                            name: "Еки шыйык",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "qarashiyiq", name: "Карашыйык", level: 5, type: "koshe" }
+                                            ]
+                                        },
+                                        {
+                                            id: "qaramanjuli",
+                                            name: "Караманжуули",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "oqshiyiq", name: "Окшыйык", level: 5, type: "koshe" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "aralba",
+                                    name: "Аралба",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "aqqala", name: "Аккала", level: 4, type: "tiyre" },
+                                        { id: "qalmuart-aul", name: "Калмурат_аул", level: 4, type: "tiyre" },
+                                        { id: "ogizbaishy", name: "Огизбайшы", level: 4, type: "tiyre" },
+                                        { id: "baibishe-ar", name: "Байбисе", level: 4, type: "tiyre" },
+                                        { id: "tile-qusshy", name: "Тиле кушшы", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                {
+                                    id: "qiriq",
+                                    name: "Кириик",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "qilishli", name: "Килишли", level: 4, type: "tiyre" },
+                                        { id: "bayirqaragan", name: "Байыркаран", level: 4, type: "tiyre" },
+                                        { id: "qazaqli", name: "Казаклы", level: 4, type: "tiyre" }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            name: "Кыпшак",
+                            id: "kypshak",
+                            name: "КЫПШАК",
+                            level: 2,
                             type: "ulken",
                             tamga: "I",
-                            battleCry: "Токсаба!",
-                            pair: "С Кытаем",
-                            info: { history: "Древний кыпчакский род.", population: "2240 кибиток" },
+                            urан: "Токсаба",
+                            info: {
+                                history: "Древний род.",
+                                tamga: "I",
+                                urан: "Токсаба",
+                                population: "2240 кибиток"
+                            },
                             children: [
-                                { 
-                                    name: "Канлы", 
+                                {
+                                    id: "kangly",
+                                    name: "КАНЛЫ",
+                                    level: 3,
                                     type: "uruw",
                                     children: [
-                                        {name:"Трам",type:"tiyre"},
-                                        {name:"Катканлы",type:"tiyre"},
-                                        {name:"Ыргакты",type:"tiyre"},
-                                        {name:"Ашамайлы",type:"tiyre"},
-                                        {name:"Таракты",type:"tiyre"},
-                                        {name:"Баспак",type:"tiyre"},
-                                        {name:"Айят",type:"tiyre"},
-                                        {name:"Босын",type:"tiyre"},
-                                        {name:"Баспат",type:"tiyre"},
-                                        {name:"Конырказы",type:"tiyre"},
-                                        {name:"Кенес",type:"tiyre"},
-                                        {name:"Ташкент",type:"tiyre"}
+                                        { id: "juansan", name: "Жуансан", level: 4, type: "tiyre" },
+                                        { id: "qatqangly", name: "Катканлы", level: 4, type: "tiyre" },
+                                        { id: "yrghaqly", name: "Ыргаклы", level: 4, type: "tiyre" },
+                                        { id: "ashamaily-k", name: "Ашамайлы(канлы)", level: 4, type: "tiyre" },
+                                        { id: "taraqty-k", name: "Таракты", level: 4, type: "tiyre" },
+                                        { id: "shomishali", name: "Шомишали", level: 4, type: "tiyre" },
+                                        { id: "qashiular", name: "Кашиулар", level: 4, type: "tiyre" },
+                                        { id: "ormanshi", name: "Орманши", level: 4, type: "tiyre" },
+                                        { id: "aqilhoja", name: "Акилхожа", level: 4, type: "tiyre" },
+                                        { id: "altiortaq", name: "Алтиортаk", level: 4, type: "tiyre" },
+                                        { id: "tazaqanli", name: "Тазаканлы", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { name: "Санмурын", type: "uruw", children: [{name:"Конши",type:"tiyre"},{name:"Тубай",type:"tiyre"},{name:"Ешкили",type:"tiyre"},{name:"Жалпак шек",type:"tiyre"},{name:"Толебай",type:"tiyre"},{name:"Жабашы",type:"tiyre"}] },
-                                { name: "Естек", type: "uruw", children: [{name:"Манканай",type:"tiyre"},{name:"Кайыпназар",type:"tiyre"},{name:"Каратеренши",type:"tiyre"},{name:"Калмурат",type:"tiyre"}] },
-                                { name: "Канжыгалы", type: "uruw", children: [{name:"Шанышпай",type:"tiyre"},{name:"Самбет",type:"tiyre"},{name:"Жагалтай",type:"tiyre"},{name:"Байбише",type:"tiyre"}] },
-                                { name: "Салтыр", type: "uruw", children: [{name:"Байбише",type:"tiyre"},{name:"Сарт",type:"tiyre"},{name:"Оразымбет",type:"tiyre"},{name:"Шуылган",type:"tiyre"}] }
+                                {
+                                    id: "sanmuryn",
+                                    name: "САНМУРЫН",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "konshi", name: "Конши", level: 4, type: "tiyre" },
+                                        { id: "tubai", name: "Тубай", level: 4, type: "tiyre" },
+                                        { id: "eshkili", name: "Ешкили", level: 4, type: "tiyre" },
+                                        { id: "zhaipaq-shek", name: "Жайпак шек", level: 4, type: "tiyre" },
+                                        { id: "tolebai", name: "Толебай", level: 4, type: "tiyre" },
+                                        { id: "zhabashy", name: "Жабашы", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                {
+                                    id: "estek",
+                                    name: "ЕСТЕК",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "manqanai", name: "Манканай", level: 4, type: "tiyre" },
+                                        { id: "qaiypnazar", name: "Кайыпназар", level: 4, type: "tiyre" },
+                                        { id: "karaterenshi", name: "Каратеренши", level: 4, type: "tiyre" },
+                                        { id: "qalmuart-es", name: "Калмурат-аул", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                { id: "qanjigali", name: "Канжигали", level: 3, type: "uruw" },
+                                { id: "shunaq", name: "Шунак", level: 3, type: "uruw" },
+                                { id: "basar", name: "Басар", level: 3, type: "uruw" },
+                                { id: "toliq", name: "Толык", level: 3, type: "uruw" },
+                                { id: "jabi", name: "Жаби", level: 3, type: "uruw" },
+                                { id: "ariq", name: "Арык", level: 3, type: "uruw" },
+                                {
+                                    id: "jagaltay",
+                                    name: "Жагалтай",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "shanishbay", name: "Шанишбай", level: 4, type: "tiyre" },
+                                        { id: "sambet", name: "Самбет", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                {
+                                    id: "maylibalta",
+                                    name: "Майлыбалта",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "konsoqir", name: "Консокыр", level: 4, type: "tiyre" },
+                                        { id: "sumbil", name: "Сумбиль", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                { id: "baganali", name: "Баганали", level: 3, type: "uruw" },
+                                { id: "jadik", name: "Жадик", level: 3, type: "uruw" },
+                                {
+                                    id: "saltyr",
+                                    name: "САЛТЫР",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "baibishe-s", name: "Байбисе", level: 4, type: "tiyre" },
+                                        { id: "sart", name: "Сарт", level: 4, type: "tiyre" },
+                                        { id: "orazymbet-s", name: "Оразымбет", level: 4, type: "tiyre" },
+                                        { id: "shuyghan", name: "Шуылган", level: 4, type: "tiyre" }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            name: "Кенегес",
+                            id: "keneges",
+                            name: "КЕНЕГЕС",
+                            level: 2,
                             type: "ulken",
-                            tamga: "X",
-                            battleCry: "Шаулы-Шаухай!",
-                            pair: "С Мангытом",
-                            info: { history: "Кенегес.", population: "1480 кибиток" },
+                            tamga: "Х",
+                            urан: "Шаулы-Шаухай",
+                            info: {
+                                history: "Кенгес.",
+                                tamga: "Х",
+                                urан: "Шаулы-Шаухай",
+                                population: "1480 кибиток"
+                            },
                             children: [
-                                { 
-                                    name: "Араншы", 
+                                {
+                                    id: "aranshy",
+                                    name: "АРАНШЫ",
+                                    level: 3,
                                     type: "uruw",
                                     children: [
-                                        {name:"Аннакул",type:"tiyre"},
-                                        {name:"Абас",type:"tiyre",children:[{name:"Сейтимбет",type:"koshe"}]},
-                                        {name:"Суйин",type:"tiyre"},
-                                        {name:"Жуас",type:"tiyre"},
-                                        {name:"Даулеткарга",type:"tiyre"},
-                                        {name:"Кайыпберген",type:"tiyre"}
+                                        { id: "annaqul", name: "Аннакул", level: 4, type: "tiyre" },
+                                        {
+                                            id: "abas-k",
+                                            name: "Абас",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "seitimbet", name: "Сейтимбет", level: 5, type: "koshe" }
+                                            ]
+                                        },
+                                        { id: "suiin", name: "Суйин", level: 4, type: "tiyre" },
+                                        { id: "zhuas", name: "Жуас", level: 4, type: "tiyre" },
+                                        { id: "qulmaq", name: "Кулмак", level: 4, type: "tiyre" },
+                                        { id: "dauletqargha", name: "Даулеткарга", level: 4, type: "tiyre" },
+                                        { id: "qaipbergen", name: "Кайыпберген", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { name: "Актогын", type: "uruw", children: [{name:"Нанжемес",type:"tiyre"},{name:"Кошек",type:"tiyre"}] },
-                                { name: "Умир", type: "uruw", children: [{name:"Акпыжак",type:"tiyre"},{name:"Усак",type:"tiyre"},{name:"Жел",type:"tiyre"},{name:"Мынжыр",type:"tiyre"},{name:"Отемис",type:"tiyre"}] },
-                                { name: "Таракты", type: "uruw", children: [{name:"Жетикараган",type:"tiyre",children:[{name:"Жетикара",type:"koshe"}]}] },
-                                { name: "Добал", type: "uruw" },
-                                { 
-                                    name: "Оймауыт", 
+                                {
+                                    id: "aktogyn",
+                                    name: "АКТОГЫН",
+                                    level: 3,
                                     type: "uruw",
                                     children: [
-                                        {name:"Кара",type:"tiyre"},
-                                        {name:"Сары",type:"tiyre",children:[{name:"Жийдели",type:"koshe"}]},
-                                        {name:"Ак",type:"tiyre"}
+                                        { id: "nanzhemes", name: "Нанжемес", level: 4, type: "tiyre" },
+                                        { id: "kosher", name: "Кошер", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { name: "Домбазкак", type: "uruw" },
-                                { name: "Нокис", type: "uruw", info: { note: "Столица Каракалпакстана!" }, children: [{name:"Жаманжак",type:"tiyre"},{name:"Бозак",type:"tiyre"},{name:"Алтынпыжак",type:"tiyre"},{name:"Гобдир",type:"tiyre"}] }
+                                {
+                                    id: "omir",
+                                    name: "ОМИР",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "aqpyshaq", name: "Акпышаk", level: 4, type: "tiyre" },
+                                        { id: "usaq", name: "Усак", level: 4, type: "tiyre" },
+                                        { id: "zhel", name: "Жел", level: 4, type: "tiyre" },
+                                        { id: "mynzhyr", name: "Мынжыр", level: 4, type: "tiyre" },
+                                        { id: "otemis-o", name: "Отемис", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                {
+                                    id: "taraqly-ken",
+                                    name: "ТАРАКЛЫ",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        {
+                                            id: "zhetiqaraghaz",
+                                            name: "Жетикараказакы",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "zheti-kosh", name: "Жетикара", level: 5, type: "koshe" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                { id: "dobal", name: "ДОБАЛ", level: 3, type: "uruw" },
+                                {
+                                    id: "oymauyt",
+                                    name: "ОЙМАУЫТ",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "qara-o", name: "Кара", level: 4, type: "tiyre" },
+                                        {
+                                            id: "sary-o",
+                                            name: "Сары",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "zhiydeli", name: "Жийдели", level: 5, type: "koshe" }
+                                            ]
+                                        },
+                                        { id: "aq-o", name: "Ак", level: 4, type: "tiyre" }
+                                    ]
+                                },
+                                { id: "dombazqaq", name: "ДОМБАЗКАК", level: 3, type: "uruw" },
+                                {
+                                    id: "nokis",
+                                    name: "НОКИС",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        { id: "zhamanzhak", name: "Жаманжак", level: 4, type: "tiyre" },
+                                        { id: "bozaq", name: "Бозак", level: 4, type: "tiyre" },
+                                        { id: "altynpyshaq", name: "Алтынпышаk", level: 4, type: "tiyre" },
+                                        { id: "ghobdir", name: "Гобдир", level: 4, type: "tiyre" }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            name: "Мангыт",
+                            id: "mangyt",
+                            name: "МАНГЫТ",
+                            level: 2,
                             type: "ulken",
                             tamga: "f",
-                            battleCry: "Шаулы-Шаухай!",
-                            pair: "С Кенегесом",
-                            info: { history: "Воинственный род. Потомки Едиге.", population: "2220 кибиток" },
+                            urан: "Шаулы-Шаухай",
+                            info: {
+                                history: "Воинственный род.",
+                                tamga: "f",
+                                urан: "Шаулы-Шаухай",
+                                population: "2220 кибиток"
+                            },
                             children: [
-                                { 
-                                    name: "Каратай", 
+                                {
+                                    id: "qaratay",
+                                    name: "КАРАТАЙ (Кара)",
+                                    level: 3,
                                     type: "uruw",
-                                    info: { group: "Кара (Каралар)" },
                                     children: [
-                                        {name:"Карамангыд",type:"tiyre",children:[{name:"Ушбас",type:"koshe"},{name:"Карасирак",type:"koshe"},{name:"Акмангыд",type:"koshe"}]},
-                                        {name:"Мамыкшы",type:"tiyre",children:[{name:"Жетикурт",type:"koshe"}]},
-                                        {name:"Косар",type:"tiyre",children:[{name:"Губидин",type:"koshe"}]},
-                                        {name:"Кылкалы",type:"tiyre"}
+                                        {
+                                            id: "qaramangyt",
+                                            name: "Карамангыt",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "ushbas", name: "Ушбас", level: 5, type: "koshe" },
+                                                { id: "karasiraq-m", name: "Карасыраk", level: 5, type: "koshe" },
+                                                { id: "aqmangyt", name: "Акмангыt", level: 5, type: "koshe" }
+                                            ]
+                                        },
+                                        {
+                                            id: "mamyqshy",
+                                            name: "Мамыкшы",
+                                            level: 4,
+                                            type: "uruw",
+                                            children: [
+                                                { id: "zhetiqurt", name: "Жетикурт", level: 5, type: "koshe" }
+                                            ]
+                                        },
+                                        {
+                                            id: "kosar-m",
+                                            name: "Косар",
+                                            level: 4,
+                                            type: "uruw",
+                                            children: [
+                                                { id: "gubidin", name: "Губидин", level: 5, type: "koshe" }
+                                            ]
+                                        },
+                                        { id: "qylqaly", name: "Кылкалы", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { 
-                                    name: "Сарытай", 
+                                {
+                                    id: "sarytay",
+                                    name: "САРЫТАЙ (Сары)",
+                                    level: 3,
                                     type: "uruw",
-                                    info: { group: "Сары (Сарылар)" },
                                     children: [
-                                        {name:"Аршын",type:"tiyre"},
-                                        {name:"Жайлык",type:"tiyre"},
-                                        {name:"Токмангыд",type:"tiyre"},
-                                        {name:"Арсары",type:"tiyre"},
-                                        {name:"Тазжанлык",type:"tiyre"},
-                                        {name:"Шуйт",type:"tiyre"},
-                                        {name:"Жаманша",type:"tiyre"},
-                                        {name:"Есебий",type:"tiyre"},
-                                        {name:"Тамгалы",type:"tiyre"},
-                                        {name:"Токмойын",type:"tiyre"},
-                                        {name:"Темирхожа",type:"tiyre"}
+                                        { id: "arshyn", name: "Аршын", level: 4, type: "tiyre" },
+                                        { id: "zhailyk", name: "Жайлык", level: 4, type: "tiyre" },
+                                        { id: "toqmangyt", name: "Токмангыt", level: 4, type: "tiyre" },
+                                        { id: "arsary", name: "Арсары", level: 4, type: "tiyre" },
+                                        { id: "tazhzhanlyk", name: "Тазжанлык", level: 4, type: "tiyre" },
+                                        { id: "shuyt", name: "Шуйт", level: 4, type: "tiyre" },
+                                        { id: "zhamansha", name: "Жаманша", level: 4, type: "tiyre" },
+                                        { id: "esebii", name: "Есебий", level: 4, type: "tiyre" },
+                                        { id: "tamgaly-m", name: "Тамгалы", level: 4, type: "tiyre" },
+                                        { id: "toqmoiyin", name: "Токмойын", level: 4, type: "tiyre" },
+                                        { id: "temirhoja", name: "Темирхожа", level: 4, type: "tiyre" }
                                     ]
                                 },
-                                { name: "Бозтай", type: "uruw", info: { group: "Боз (Боздар)" }, children: [{name:"Бозта",type:"tiyre",children:[{name:"Бозта баба",type:"koshe"}]}] },
-                                { name: "Жетимтай", type: "uruw", info: { group: "Жетим (Жетимдер)" }, children: [{name:"Ешбуга",type:"tiyre",children:[{name:"Еш буга",type:"koshe"}]}] }
+                                {
+                                    id: "boztay",
+                                    name: "БОЗТАЙ (Боз)",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        {
+                                            id: "bozta",
+                                            name: "Бозта",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "bozta-kosh", name: "Бозта", level: 5, type: "koshe" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "jetimtay",
+                                    name: "ЖЕТИМТАЙ (Жетим)",
+                                    level: 3,
+                                    type: "uruw",
+                                    children: [
+                                        {
+                                            id: "eshbuga",
+                                            name: "Ешбуга",
+                                            level: 4,
+                                            type: "tiyre",
+                                            children: [
+                                                { id: "eshbuga-kosh", name: "Ешбуга", level: 5, type: "koshe" }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
@@ -1226,7 +2365,6 @@
                 .attr("width", width)
                 .attr("height", height);
 
-            // Очистка
             svg.selectAll("*").remove();
 
             zoom = d3.zoom()
@@ -1245,7 +2383,6 @@
             const leafCount = root.leaves().length;
             const depth = root.height;
                     
-            // Необходимые размеры
             const minWidth = Math.max(width, leafCount * 25);
             const minHeight = Math.max(height, (depth + 1) * 100);
             
@@ -1258,7 +2395,6 @@
             
             treeLayout(root);
 
-            // Начальный вид - по центру
             const initialScale = Math.min(
                 (width - 100) / minWidth,
                 (height - 150) / minHeight,
@@ -1276,7 +2412,6 @@
 
             svg.call(zoom.transform, currentTransform);
 
-            // Линии связей
             g.selectAll(".link")
                 .data(root.links())
                 .enter().append("path")
@@ -1285,7 +2420,6 @@
                     .x(d => d.x)
                     .y(d => d.y));
 
-            // Узлы
             const node = g.selectAll(".node")
                 .data(root.descendants())
                 .enter().append("g")
@@ -1293,7 +2427,6 @@
                 .attr("transform", d => `translate(${d.x},${d.y})`)
                 .on("click", (e, d) => showInfo(d.data));
 
-            // Прямоугольники - размер зависит от уровня
             node.append("rect")
                 .attr("width", d => {
                     const length = Math.max(d.data.name.length * 7 + 16, 50);
@@ -1309,7 +2442,6 @@
                 .attr("rx", 6)
                 .attr("stroke-width", d => d.data.type === 'xaliq' ? 3 : 2);
 
-            // Текст названия
             node.append("text")
                 .attr("dy", ".35em")
                 .attr("text-anchor", "middle")
@@ -1320,7 +2452,6 @@
                 })
                 .text(d => d.data.name);
 
-            // Тамга (сверху)
             node.filter(d => d.data.tamga && d.data.type !== 'koshe' && d.data.type !== 'tiyre')
                 .append("text")
                 .attr("class", "tamga-text")
@@ -1328,21 +2459,48 @@
                 .attr("text-anchor", "middle")
                 .text(d => d.data.tamga);
                 
-            // Боевой клич (снизу)
-            node.filter(d => d.data.battleCry && (d.data.type === 'aris' || d.data.type === 'ulken'))
+            node.filter(d => d.data.уран && (d.data.type === 'aris' || d.data.type === 'ulken'))
                 .append("text")
                 .attr("dy", 28)
                 .attr("text-anchor", "middle")
                 .style("font-size", "9px")
                 .style("fill", "#d4af37")
                 .style("font-weight", "bold")
-                .text(d => d.data.battleCry);
+                .text(d => d.data.уран);
+        }
+
+        function getAllDescendants(node) {
+            const descendants = [];
+            if (node.children) {
+                for (let child of node.children) {
+                    descendants.push(child);
+                    descendants.push(...getAllDescendants(child));
+                }
+            }
+            return descendants;
+        }
+
+        function buildDescendantsTree(node) {
+            if (!node.children || node.children.length === 0) return null;
+            
+            const result = [];
+            for (let child of node.children) {
+                const item = {
+                    node: child,
+                    children: child.children || []
+                };
+                result.push(item);
+            }
+            return result;
         }
 
         function showInfo(data) {
             openPanel();
             
-            document.getElementById('dTamga').textContent = data.tamga || (data.type === 'aris' ? '🏛️' : '🏹');
+            const tamga = data.tamga || (data.info && data.info.tamga);
+            const uran = data.уран || (data.info && data.info.уран);
+            
+            document.getElementById('dTamga').textContent = tamga || (data.type === 'aris' ? '🏛️' : '🏹');
             document.getElementById('dName').textContent = data.name;
             
             let subtitle = "";
@@ -1361,148 +2519,81 @@
             
             let html = '';
             
-            // Боевой клич
-            if (data.battleCry) {
-                html += `<div class="info-block" style="border-color:#e74c3c; background:rgba(231,76,60,0.1)">
-                    <div class="info-label">Боевой клич (Уран)</div>
-                    <div class="info-content" style="color:#ff8a80; font-size:1.3rem; font-weight:bold; text-align:center">${data.battleCry}</div>
-                </div>`;
+            if (uran) {
+                html += `<div class="uran-box"><div class="uran-text">${uran}</div><div class="uran-label">УРАН (Боевой клич)</div></div>`;
             }
             
-            // Парный род (для экзогамии)
-            if (data.pair) {
-                html += `<div class="info-block" style="border-color:#3498db; background:rgba(52,152,219,0.1)">
-                    <div class="info-label">Парный род (для брака)</div>
-                    <div class="info-content">${data.pair}</div>
-                </div>`;
+            if (tamga && data.type !== 'xaliq') {
+                html += `<div class="tamga-box"><div class="tamga-symbol">${tamga}</div><div class="tamga-label">ТАМГА (Родовой знак)</div></div>`;
             }
             
-            // Основная информация
             if (data.info) {
-                if (data.info.history) {
-                    html += `<div class="info-block">
-                        <div class="info-label">История</div>
-                        <div class="info-content">${data.info.history}</div>
-                    </div>`;
-                }
-                if (data.info.origin) {
-                    html += `<div class="info-block" style="border-color:#3498db">
-                        <div class="info-label">Происхождение</div>
-                        <div class="info-content">${data.info.origin}</div>
-                    </div>`;
-                }
-                if (data.info.legend) {
-                    html += `<div class="info-block" style="border-color:#f39c12; background:rgba(243,156,18,0.1)">
-                        <div class="info-label">Легенда</div>
-                        <div class="info-content"><em>${data.info.legend}</em></div>
-                    </div>`;
-                }
-                if (data.info.structure) {
-                    html += `<div class="info-block" style="border-color:#27ae60">
-                        <div class="info-label">Структура</div>
-                        <div class="info-content">${data.info.structure}</div>
-                    </div>`;
-                }
-                if (data.info.population) {
-                    html += `<div class="info-block" style="border-color:#9b59b6">
-                        <div class="info-label">Численность (кибитки)</div>
-                        <div class="info-content">${data.info.population}</div>
-                    </div>`;
-                }
-                if (data.info.language) {
-                    html += `<div class="info-block">
-                        <div class="info-label">Язык</div>
-                        <div class="info-content">${data.info.language}</div>
-                    </div>`;
-                }
-                if (data.info.note) {
-                    html += `<div class="info-block" style="border-color:#e67e22">
-                        <div class="info-label">Примечание</div>
-                        <div class="info-content">${data.info.note}</div>
-                    </div>`;
-                }
-                if (data.info.group) {
-                    html += `<div class="info-block" style="border-color:#1abc9c">
-                        <div class="info-label">Группа</div>
-                        <div class="info-content">${data.info.group}</div>
-                    </div>`;
-                }
+                const fields = [
+                    { key: 'history', icon: '📜', title: 'История', color: '' },
+                    { key: 'origin', icon: '🧬', title: 'Происхождение', color: '#3498db' },
+                    { key: 'legend', icon: '🌟', title: 'Легенда', color: '#f39c12' },
+                    { key: 'structure', icon: '🏗️', title: 'Структура', color: '#27ae60' },
+                    { key: 'population', icon: '👥', title: 'Численность', color: '#9b59b6' },
+                    { key: 'language', icon: '🗣️', title: 'Язык', color: '' }
+                ];
+                
+                fields.forEach(field => {
+                    if (data.info[field.key]) {
+                        const style = field.color ? `style="border-color:${field.color}"` : '';
+                        html += `<div class="info-block" ${style}>
+                            <div class="info-label">${field.icon} ${field.title}</div>
+                            <div class="info-content">${data.info[field.key]}</div>
+                        </div>`;
+                    }
+                });
             }
             
-            // Количество подгрупп
             if (data.children && data.children.length > 0) {
+                const descendantsCount = getAllDescendants(data).length;
                 html += `<div class="info-block" style="border-color:#d4af37; text-align:center">
                     <div class="info-label">Количество подгрупп</div>
-                    <div class="info-content" style="font-size:1.5rem; color:var(--gold); font-weight:bold">${data.children.length}</div>
+                    <div class="info-content" style="font-size:1.5rem; color:var(--gold); font-weight:bold">${data.children.length} (всего: ${descendantsCount})</div>
                 </div>`;
+                
+                const descendantsTree = buildDescendantsTree(data);
+                if (descendantsTree) {
+                    html += `<div class="info-block"><h3 style="color: var(--accent-cyan); margin-bottom: 10px; font-size: 0.9em;">👇 Подчиненные группы</h3>`;
+                    html += '<div class="descendants-list">';
+                    
+                    descendantsTree.forEach(group => {
+                        html += '<div class="descendant-group">';
+                        html += `<div class="descendant-parent">${group.node.name} <span style="font-size: 0.8em; opacity: 0.7;">(${levelsMap[group.node.level]})</span></div>`;
+                        
+                        if (group.children.length > 0) {
+                            html += '<div class="descendant-children">';
+                            group.children.forEach(child => {
+                                const childDescendants = getAllDescendants(child).length;
+                                html += `<div class="descendant-child">
+                                    <span class="descendant-bullet"></span>
+                                    <span>${child.name}</span>
+                                    ${childDescendants > 0 ? `<span style="font-size: 0.75em; color: var(--accent-orange); margin-left: 5px;">+${childDescendants}</span>` : ''}
+                                </div>`;
+                            });
+                            html += '</div>';
+                        }
+                        html += '</div>';
+                    });
+                    
+                    html += '</div></div>';
+                }
             }
             
-            // Иерархическая цепочка
-            html += buildHierarchyChain(data);
+            html += `<div class="info-block"><div class="info-label">📊 Уровень</div><div class="info-content">${levelsMap[data.level]} (${data.level})</div></div>`;
             
             document.getElementById('dContent').innerHTML = html || '<div class="info-block"><div class="info-label">Информация</div><div class="info-content">Нажмите на другие элементы для просмотра</div></div>';
-        }
-
-        function buildHierarchyChain(data) {
-            // Найти путь к текущему элементу в дереве
-            function findPath(node, target, path = []) {
-                if (node === target) return [...path, node];
-                if (!node.children) return null;
-                
-                for (let child of node.children) {
-                    const result = findPath(child, target, [...path, node]);
-                    if (result) return result;
-                }
-                return null;
-            }
-            
-            const path = findPath(treeData, data);
-            if (!path || path.length <= 1) return '';
-            
-            let html = `<div class="hierarchy-chain">
-                <div class="info-label" style="color: var(--gold); margin-bottom: 10px;">Иерархия</div>`;
-            
-            path.forEach((item, index) => {
-                const isLast = index === path.length - 1;
-                const levelNames = {
-                    'xaliq': 'Народ',
-                    'aris': 'Арыс',
-                    'bolim': 'Отдел',
-                    'ulken': 'Бол.род',
-                    'uruw': 'Род',
-                    'tiyre': 'Тире',
-                    'koshe': 'Коша'
-                };
-                
-                html += `<div class="hierarchy-item" style="${isLast ? 'background: rgba(241,196,15,0.1); border-radius: 4px; padding: 8px;' : ''}">
-                    <span class="hierarchy-level">${levelNames[item.type] || item.type}</span>
-                    <span style="${isLast ? 'color: var(--gold); font-weight: bold;' : ''}">${item.name}</span>
-                </div>`;
-                
-                if (!isLast) {
-                    html += `<div style="text-align: center; color: var(--gold); font-size: 1.2em;">↓</div>`;
-                }
-            });
-            
-            html += `</div>`;
-            return html;
         }
 
         function openPanel() {
             const panel = document.getElementById('details');
             const openBtn = document.getElementById('openPanelBtn');
             
-            if (window.innerWidth <= 1200) {
-                panel.style.display = 'block';
-                setTimeout(() => {
-                    panel.classList.remove('collapsed');
-                    panel.classList.add('active');
-                }, 10);
-            } else {
-                panel.classList.remove('collapsed');
-                panel.classList.add('active');
-            }
-            
+            panel.classList.remove('collapsed');
+            panel.classList.add('active');
             openBtn.classList.remove('visible');
             panelOpen = true;
         }
@@ -1515,14 +2606,6 @@
             panel.classList.remove('active');
             openBtn.classList.add('visible');
             panelOpen = false;
-            
-            if (window.innerWidth <= 1200) {
-                setTimeout(() => {
-                    if (!panelOpen) {
-                        panel.style.display = 'none';
-                    }
-                }, 300);
-            }
         }
 
         function zoomIn() {

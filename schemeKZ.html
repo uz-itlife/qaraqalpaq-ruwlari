@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="kz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Қарақалпақ рулары | Схема</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./images/naqsh.jpg" type="image/x-icon">
     <style>
         :root {
             --gold: #d4af37;
@@ -13,8 +14,6 @@
             --bg-card: #151923;
             --text: #ffffff;
 
-            --primary-bg: #0f1419;
-            --secondary-bg: #1a1f2e;
             --primary-bg: #0f1419;
             --secondary-bg: #1a1f2e;
             --accent-red: #e74c3c;
@@ -140,15 +139,12 @@
             }
             
             .view-btn {
-                /* max-width: 150px; */
                 text-align: center;
                 padding: 1rem;
             }
         }
         
         .view-btn {
-            /* width: 53px;
-            height: 53px; */
             padding: 0.5rem 1.5rem;
             border-radius: 16px;
             border: none;
@@ -223,7 +219,7 @@
             box-shadow: -10px 0 30px rgba(0,0,0,0.5);
             position: relative;
             transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s, width 0.3s ease;
-            width: 400px;
+            width: 450px;
             flex-shrink: 0;
             will-change: transform, opacity, visibility;
         }
@@ -241,10 +237,10 @@
         }
         
         .close-panel-btn {
-            position: absolute;
+            position: sticky;
             top: 10px;
-            right: 10px;
-            background: var(--tust-xaliq);
+            left: 400px;
+            background: var(--accent-red);
             border: none;
             color: white;
             width: 30px;
@@ -398,7 +394,7 @@
             border-left: 1px solid rgba(212,175,55,0.3);
         }
 
-        /* Иерархия тізімі */
+        /* Иерархия тізімі - listsKZ.html стилі бойынша */
         .hierarchy-chain {
             background: linear-gradient(135deg, rgba(241, 196, 15, 0.1), rgba(230, 126, 34, 0.1));
             border: 2px solid var(--gold);
@@ -432,6 +428,119 @@
             text-align: center;
         }
 
+        /* Тамға және уран блоктары */
+        .tamga-box {
+            background: rgba(231, 76, 60, 0.15);
+            border: 2px solid var(--accent-red);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 12px 0;
+        }
+        .tamga-symbol {
+            font-size: 2em;
+            color: var(--accent-yellow);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .tamga-label {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        .uran-box {
+            background: rgba(46, 204, 113, 0.15);
+            border: 2px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 12px 0;
+        }
+        .uran-text {
+            font-size: 1.4em;
+            color: var(--accent-green);
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        .uran-label {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        .stats-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .stats-number {
+            font-size: 1.3em;
+            color: var(--accent-yellow);
+            font-weight: bold;
+        }
+
+        /* Ұрпақтар тізімі */
+        .descendants-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .descendant-group {
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .descendant-parent {
+            font-weight: bold;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+        .descendant-children {
+            padding-left: 15px;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+        .descendant-child {
+            padding: 2px 0;
+            display: flex;
+            align-items: center;
+        }
+        .descendant-bullet {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        /* Ақпарат бөлімі */
+        .info-section {
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.03);
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 3px solid var(--accent-blue);
+        }
+        .info-section h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-section p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9em;
+            text-align: justify;
+        }
+
       .lang-btn1 {
     padding: 0.4rem 0.4rem;
     border-radius: 8px;
@@ -457,13 +566,11 @@
 .lang-btn img {
     width: 3rem;
     height: 3rem;
-    /* margin-bottom: 4px; */
     border-radius: 50%;
     vertical-align: middle;
 }
 
 .lang-btn {
-    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -511,9 +618,31 @@
      
     .logo a {
         font-size: 1rem;
-    
     }
         
+    }
+
+    @media (max-width: 968px) { 
+        .detail-panel { 
+            width: 100%; 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            height: 60vh; 
+            transform: translateY(100%); 
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            border-left: none;
+            border-top: 3px solid var(--accent-orange);
+        } 
+        
+        .detail-panel.active { 
+            transform: translateY(0); 
+        }
+        
+        .detail-panel.collapsed {
+            transform: translateY(100%);
+        }
     }
     </style>
 </head>
@@ -621,16 +750,9 @@
 
 
 
-        /* Показываем на экранах меньше 967px */
-        @media (max-width: 967px) {
-          
-            }
+       
             
-            
-            body {
-                padding-top: 115px !important;
-            }
-        
+           
 
         @media (max-width: 768px) {
              
@@ -699,267 +821,1135 @@
     <button class="open-panel-btn" id="openPanelBtn" title="Мәлімет панелін ашу">ℹ️</button>
 
     <script>
-        // ТОЛЫҚ ҚАРАҚАЛПАҚ РУЛАРЫ МӘЛІМЕТТЕРІ
+        // Дәреже атаулары
+        const levelsMap = ['Халық / Народ', 'Арыс', 'Бөлім/Үлкен ру', 'Үлкен ру/Ру', 'Тіре', 'Көше'];
+
+        // ТОЛЫҚ ҚАРАҚАЛПАҚ РУЛАРЫ МӘЛІМЕТТЕРІ - listsKZ.html негізінде жаңартылған
         const terekMaǵlıwmatları = {
-            at: "Қарақалпақтар",
+            id: "root",
+            at: "ҚАРАҚАЛПАҚТАР",
             túri: "xaliq",
+            level: 0,
+            type: "Халық",
             tamga: "🏛️",
             maǵlıwmat: {
-                tariyx: "Қарақалпақтар - Орта Азиядағы түрік тілдес халық. XVI-XIII ғасырларда қалыптасқан.",
-                túbegi: "Негізі Ноғай ордасы, Қыпшақ, Қарлық тайпаларынан.",
+                tariyx: "Қарақалпақтар - Орта Азиядағы түркі тілдес халық. XVI-XVIII ғасырларда қалыптасқан.",
+                túbegi: "Негізі Ноғай ордасы, Қыпшақ, Қарлұқ тайпаларынан.",
+                anız: "Аңызға сәйкес, алғашқы көшпенділері Ұлы тау өңірінен Арал маңына көшіп келген.",
+                tamga: "Әр рудың өз тамғасы",
+                uran: "Әр рудың өз ұраны",
                 qalaqı: "800 мың адам",
-                tili: "Қарақалпақ тілі - түрік тілдерінің қыпшақ тармағы"
+                tili: "Қарақалпақ тілі - түркі тілдерінің қыпшақ тармағы"
             },
             ballar: [
                 {
-                    at: "Арыс Қоңырат",
+                    id: "conyrat",
+                    at: "АРЫС ҚОҢЫРАТ",
                     túri: "aris",
-                    tamga: "P",
-                    uran: "Қақпа!",
+                    level: 1,
+                    type: "арыс",
+                    tamga: "П (босаға)",
+                    uran: "Қақпа",
                     maǵlıwmat: {
-                        tariyx: "Екі ірі арыстың бірі. Ноғай ордасынан.",
+                        tariyx: "Қоңырат - екі ірі арысының бірі. Ноғай ордасынан.",
                         túbegi: "Ноғайлық, Қыпшақ тайпаларының қосындысы.",
+                        anız: "Қоңырат - 'қанды қарақалпақ' мағынасында.",
+                        tamga: "П әрпі - босаға (есік)",
+                        uran: "Қақпа - қорған",
                         qalaqı: "9520 кибиток (40%)",
-                        qurilimi: "Шұлық (8 ру) және Жауыңгыр (7 ру)"
+                        qurilimi: "Шулык (8 ру) және Жауынгыр (7 ру)"
                     },
                     ballar: [
                         {
-                            at: "Шұлық бөлімі",
+                            id: "shulyk",
+                            at: "ШУЛЫҚ БӨЛІМІ",
                             túri: "bolim",
-                            tamga: "Sh",
-                            maǵlıwmat: { tariyx: "Шұлық - 8 рудан тұрады.", qalaqı: "5860 кибиток" },
+                            level: 2,
+                            type: "бөлім",
+                            maǵlıwmat: {
+                                tariyx: "Шулык - 8 рудан тұрады.",
+                                túbegi: "Шулык жерінің атауынан.",
+                                qalaqı: "5860 кибиток"
+                            },
                             ballar: [
                                 {
-                                    at: "Қият",
+                                    id: "kyat",
+                                    at: "ҚЫЯТ",
                                     túri: "ulken",
-                                    tamga: "Ψ",
-                                    uran: "Алатау!",
+                                    level: 3,
+                                    type: "үлкен ру",
                                     maǵlıwmat: {
-                                        tariyx: "Қият - Шұлықтың ең ірі руы.",
-                                        anız: "Үш ұл: Үштаңбалы, Тарақты, Балғалы.",
-                                        qalaqı: "870 кибиток"
+                                        tariyx: "Қыят - Шулыктың ең ірі руы.",
+                                        túbegi: "Қыят батырдан.",
+                                        anız: "Үш ұлы: Үштаңбалы, Тарақты, Балғалы.",
+                                        qalaqı: "870 кибиток",
+                                        tamga: "Үш таңба",
+                                        uran: "Алатау"
                                     },
                                     ballar: [
                                         {
+                                            id: "ush-tambaly",
                                             at: "Үштаңбалы",
                                             túri: "uruw",
-                                            tamga: "|||",
-                                            maǵlıwmat: { tariyx: "Үш таңбалы - үш белгі." },
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tariyx: "Үш таңбалы - үш белгі.",
+                                                tamga: "Үш сызық",
+                                                uran: "Алатау!",
+                                                qalaqı: "350-400 отбасы"
+                                            },
                                             ballar: [
-                                                { at: "Саңмұрын", túri: "tiyre", maǵlıwmat: { tariyx: "Саң мұрындық малдан" } },
-                                                { at: "Арыққият", túri: "tiyre", maǵlıwmat: { tariyx: "Арық денелі" } },
-                                                { at: "Тартулы", túri: "tiyre" },
-                                                { at: "Қанжығалы", túri: "tiyre" },
-                                                { at: "Қатаған", túri: "tiyre" },
-                                                { 
-                                                    at: "Қарақият", 
+                                                {
+                                                    id: "sumuryn",
+                                                    at: "Сұмұрын",
                                                     túri: "tiyre",
-                                                    ballar: [
-                                                        { at: "Болат", túri: "koshe" },
-                                                        { at: "Қарабас", túri: "koshe" }
-                                                    ]
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "СМ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Саң мұрындық малдан"
+                                                    }
+                                                },
+                                                {
+                                                    id: "ush-tambaly-t",
+                                                    at: "Үштаңбалы",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ҮТ", uran: "Алатау!" }
+                                                },
+                                                {
+                                                    id: "aryq-kyat",
+                                                    at: "Арыққият",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "АҚ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Арық денелі"
+                                                    }
+                                                },
+                                                {
+                                                    id: "tartuly",
+                                                    at: "Тартулы",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "ТР",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Тартымды, қайсар"
+                                                    }
+                                                },
+                                                {
+                                                    id: "qatagan",
+                                                    at: "Қатаған",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "ҚТ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Солтүстік Жетісу"
+                                                    }
+                                                },
+                                                {
+                                                    id: "qanzhygaly-k",
+                                                    at: "Қанжығалы",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "ҚЖ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Жебе саптығы"
+                                                    }
                                                 }
                                             ]
                                         },
                                         {
+                                            id: "taraqty",
                                             at: "Тарақты",
                                             túri: "uruw",
-                                            maǵlıwmat: { tariyx: "Шашақты, өрнекті" },
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tariyx: "Шашақты, өрнекті",
+                                                tamga: "ТБ",
+                                                uran: "Алатау!"
+                                            },
                                             ballar: [
-                                                { at: "Тоғызақ", túri: "tiyre", maǵlıwmat: { tariyx: "Тоғыз ұрпақтан кейін" } },
-                                                { at: "Абас", túri: "tiyre" },
-                                                { at: "Жалтыршы", túri: "tiyre" },
-                                                { at: "Ақұнқараған", túri: "tiyre" },
-                                                { at: "Тақай", túri: "tiyre" },
-                                                { at: "Қаржаубарас", túri: "tiyre" }
+                                                {
+                                                    id: "togyzaq",
+                                                    at: "Тоғызақ",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "Т9",
+                                                        uran: "Тоғысқан!",
+                                                        tariyx: "Тоғыз ұрпақтан кейін"
+                                                    }
+                                                },
+                                                {
+                                                    id: "abas-kyat",
+                                                    at: "Абас",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "АБ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Абас батыр"
+                                                    }
+                                                },
+                                                {
+                                                    id: "jaltyrshy",
+                                                    at: "Жалтыршы",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "ЖЛ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Жарқын"
+                                                    }
+                                                },
+                                                {
+                                                    id: "aqunqaragan",
+                                                    at: "Ақұнқараған",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "АҚҚ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Ақ құндықты"
+                                                    }
+                                                },
+                                                {
+                                                    id: "taqay",
+                                                    at: "Тақай",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ТҚ", uran: "Алатау!" }
+                                                },
+                                                {
+                                                    id: "qarzhaubaras",
+                                                    at: "Қаржаубарас",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ҚЖБ", uran: "Алатау!" }
+                                                }
                                             ]
                                         },
                                         {
-                                            at: "Балғалы Қият",
+                                            id: "balgaly-kyat",
+                                            at: "Балғалы Қыят",
                                             túri: "uruw",
-                                            tamga: "B",
-                                            maǵlıwmat: { tariyx: "Балға ұстаған. Теміршілер." },
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tariyx: "Балға ұстаған",
+                                                tamga: "Б",
+                                                uran: "Алатау!",
+                                                anız: "Теміршілер термині"
+                                            },
                                             ballar: [
-                                                { at: "Беспышақ", túri: "tiyre" },
-                                                { at: "Етекші", túri: "tiyre" },
-                                                { at: "Саңмұрын", túri: "tiyre" },
-                                                { at: "Қожақараған", túri: "tiyre" }
+                                                {
+                                                    id: "bespishaq",
+                                                    at: "Беспышақ",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "Б5",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Бес пышақ"
+                                                    }
+                                                },
+                                                {
+                                                    id: "etekshi",
+                                                    at: "Етекші",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "ЕТ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Етек - қолтырауын"
+                                                    }
+                                                },
+                                                {
+                                                    id: "sanmurun-bk",
+                                                    at: "Саңмұрын",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "СМБ", uran: "Алатау!" }
+                                                },
+                                                {
+                                                    id: "qozhaqaragan",
+                                                    at: "Қожақараған",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: {
+                                                        tamga: "ҚЖҚ",
+                                                        uran: "Алатау!",
+                                                        tariyx: "Қожа ата"
+                                                    }
+                                                }
                                             ]
                                         }
                                     ]
                                 },
                                 {
-                                    at: "Ашамайлы",
+                                    id: "ashamayly",
+                                    at: "АШАМАЙЛЫ",
                                     túri: "ulken",
-                                    tamga: "✕",
-                                    uran: "Шұлық!",
-                                    maǵlıwmat: { tariyx: "Ашамай - көзі нашар көретін.", qalaqı: "870 кибиток" },
-                                    ballar: [
-                                        { at: "Сақу", túri: "uruw", maǵlıwmat: { tariyx: "Сақшылар" } },
-                                        { at: "Қарақожа", túri: "uruw" },
-                                        { at: "Жалаңаяқ", túri: "uruw", maǵlıwmat: { tariyx: "Тез жүгіргіш" } },
-                                        { 
-                                            at: "Қобасан", 
-                                            túri: "uruw",
-                                            ballar: [
-                                                { at: "Ақназар", túri: "tiyre" },
-                                                { at: "Жансары", túri: "tiyre" },
-                                                { at: "Өтеміс", túri: "tiyre" },
-                                                { at: "Есен", túri: "tiyre" },
-                                                { at: "Тампыш", túri: "tiyre" }
-                                            ]
-                                        },
-                                        { at: "Түркіменқара", túri: "uruw", maǵlıwmat: { tariyx: "Түркімендермен араласыққан" } },
-                                        { at: "Жаппар", túri: "uruw" },
-                                        { at: "Сары", túri: "uruw" },
-                                        { at: "Абыз", túri: "uruw" },
-                                        { at: "Ақай", túri: "uruw" },
-                                        { at: "Паңқара", túri: "uruw" },
-                                        { at: "Үш бас", túri: "uruw" },
-                                        { at: "Құрама", túri: "uruw" }
-                                    ]
-                                },
-                                {
-                                    at: "Қолдаулы",
-                                    túri: "ulken",
-                                    tamga: "Q",
-                                    uran: "Қолдау!",
-                                    maǵlıwmat: { tariyx: "Қолдау - тірек.", qalaqı: "1140 кибиток" },
-                                    ballar: [
-                                        { at: "Бескемпір", túri: "uruw", maǵlıwmat: { tariyx: "Бес кемпір" } },
-                                        { at: "Майшышалы", túri: "uruw" },
-                                        { at: "Қалқаман", túri: "uruw" },
-                                        { at: "Ғайыпқараған", túri: "uruw", maǵlıwmat: { tariyx: "Ғайып болған ата" } },
-                                        { at: "Сарытан", túri: "uruw" },
-                                        { at: "Күлкіқожақ", túri: "uruw" },
-                                        { at: "Жарымбет", túri: "uruw" },
-                                        { at: "Қызылаяқ", túri: "uruw" },
-                                        { at: "Қарасирақ", túri: "uruw" },
-                                        { at: "Желқараған", túri: "uruw" },
-                                        { at: "Үлкенбөрі", túri: "uruw" },
-                                        { at: "Шылжуыт", túri: "uruw" },
-                                        { at: "Жаманқоңырат", túri: "uruw" },
-                                        { 
-                                            at: "Қалмақ", 
-                                            túri: "uruw",
-                                            ballar: [
-                                                { at: "Әділ", túri: "tiyre" },
-                                                { at: "Ереке", túri: "tiyre" }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    at: "Қостаңбалы",
-                                    túri: "ulken",
-                                    tamga: "⧉",
-                                    uran: "Қосқа!",
-                                    maǵlıwmat: { tariyx: "Екі тамғалы." },
-                                    ballar: [
-                                        { at: "Жангелді", túri: "uruw" },
-                                        { at: "Шіржеген", túri: "uruw" },
-                                        { at: "Ағабеглі", túri: "uruw" },
-                                        { at: "Қарынжуан", túri: "uruw" },
-                                        { at: "Қостаңбалы", túri: "uruw" },
-                                        { at: "Қарақұрсақ", túri: "uruw" },
-                                        { at: "Қазақы", túri: "uruw" }
-                                    ]
-                                },
-                                {
-                                    at: "Балғалы",
-                                    túri: "ulken",
-                                    tamga: "B",
-                                    uran: "Балға!",
-                                    maǵlıwmat: { tariyx: "Теміршілер.", qalaqı: "560 кибиток" },
-                                    ballar: [
-                                        { at: "Ақбалғалы", túri: "uruw" },
-                                        { at: "Нұрбалғалы", túri: "uruw" },
-                                        { at: "Түркімен", túri: "uruw" },
-                                        { at: "Жаман ауыл", túri: "uruw" },
-                                        { at: "Шөмішті", túri: "uruw" },
-                                        { at: "Тоқымбет", túri: "uruw" },
-                                        { at: "Тазбалғалы", túri: "uruw" },
-                                        { at: "Қостамғалы", túri: "uruw" },
-                                        { at: "Қараталшы", túri: "uruw" },
-                                        { at: "Асан", túri: "uruw" },
-                                        { at: "Арзықұл", túri: "uruw" }
-                                    ]
-                                },
-                                {
-                                    at: "Көндеклі",
-                                    túri: "ulken",
-                                    tamga: "G",
-                                    uran: "Көндек!",
-                                    maǵlıwmat: { tariyx: "Көндек - қора.", qalaqı: "730 кибиток" },
-                                    ballar: [
-                                        { at: "Қарама", túri: "uruw" },
-                                        { at: "Киікші", túri: "uruw", maǵlıwmat: { tariyx: "Киік сақшы" } },
-                                        { at: "Тоқболат", túri: "uruw" },
-                                        { at: "Қырықсадақ", túri: "uruw", maǵlıwmat: { tariyx: "40 садақ" } }
-                                    ]
-                                },
-                                {
-                                    at: "Қарамойын",
-                                    túri: "ulken",
-                                    tamga: "TM",
-                                    uran: "Мойын!",
-                                    maǵlıwmat: { tariyx: "Қара мойын.", qalaqı: "560 кибиток" },
-                                    ballar: [
-                                        { at: "Аннахожа", túri: "uruw", maǵlıwmat: { tariyx: "Анна әулие" } },
-                                        { at: "Сабалақ", túri: "uruw", maǵlıwmat: { tariyx: "Саба - бала" } },
-                                        { at: "Көтелек", túri: "uruw" },
-                                        { at: "Қарлымарал", túri: "uruw" },
-                                        { at: "Бүлкілдек", túri: "uruw", maǵlıwmat: { tariyx: "Күлкі" } }
-                                    ]
-                                },
-                                {
-                                    at: "Мүйтен",
-                                    túri: "ulken",
-                                    tamga: "ψ",
-                                    uran: "Ақшолпан!",
-                                    maǵlıwmat: { 
-                                        tariyx: "Мойын - мойын.", 
-                                        anız: "Мүйтеннің үш ұлы: Самат, Тели, Абыз",
-                                        qalaqı: "540 кибиток"
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    maǵlıwmat: {
+                                        tariyx: "Ашамай - көзі нашар көретін.",
+                                        tamga: "АШ",
+                                        uran: "Шулык!",
+                                        qalaqı: "870 кибиток"
                                     },
                                     ballar: [
-                                        { 
-                                            at: "Самат", 
+                                        {
+                                            id: "saqu",
+                                            at: "Сақу",
                                             túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "СҚ",
+                                                uran: "Шулык!",
+                                                tariyx: "Сақшылар"
+                                            }
+                                        },
+                                        {
+                                            id: "qaraqoja",
+                                            at: "Қарақожа",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ҚҚ",
+                                                uran: "Шулык!",
+                                                tariyx: "Қара қожа"
+                                            }
+                                        },
+                                        {
+                                            id: "jalangayaq",
+                                            at: "Жалаңаяқ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ЖА",
+                                                uran: "Шулык!",
+                                                tariyx: "Тез жүгіруші"
+                                            }
+                                        },
+                                        {
+                                            id: "ajyldy",
+                                            at: "Айылды",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "АЙ",
+                                                uran: "Шулык!",
+                                                tariyx: "Айыл - отар"
+                                            }
+                                        },
+                                        {
+                                            id: "qobasan",
+                                            at: "Қобасан",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ҚБС",
+                                                uran: "Шулык!",
+                                                tariyx: "Қоба - құз"
+                                            },
                                             ballar: [
-                                                { at: "Бәйбіше", túri: "tiyre" },
-                                                { at: "Тоққараған", túri: "tiyre" },
-                                                { at: "Баймұрат", túri: "tiyre" },
-                                                { at: "Жолан", túri: "tiyre" },
-                                                { at: "Бекау", túri: "tiyre" }
+                                                {
+                                                    id: "aqnazar",
+                                                    at: "Ақназар",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "АН", uran: "Шулык!" }
+                                                },
+                                                {
+                                                    id: "jansary",
+                                                    at: "Жансары",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ЖС", uran: "Шулык!" }
+                                                },
+                                                {
+                                                    id: "otemis-q",
+                                                    at: "Өтеміс",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ӨТ", uran: "Шулык!" }
+                                                },
+                                                {
+                                                    id: "esen",
+                                                    at: "Есен",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ЕС", uran: "Шулык!" }
+                                                },
+                                                {
+                                                    id: "tampysh",
+                                                    at: "Тампыш",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ТМ", uran: "Шулык!" }
+                                                }
                                             ]
                                         },
-                                        { 
-                                            at: "Тели", 
+                                        {
+                                            id: "turkmenqara",
+                                            at: "Түркіменқара",
                                             túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ТҚ",
+                                                uran: "Шулык!",
+                                                tariyx: "Түрікмендермен араласқан"
+                                            }
+                                        },
+                                        {
+                                            id: "jappar",
+                                            at: "Жаппар",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖП", uran: "Шулык!" }
+                                        },
+                                        {
+                                            id: "sary-ash",
+                                            at: "Сары",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "СР", uran: "Шулык!" }
+                                        },
+                                        {
+                                            id: "abyz-ash",
+                                            at: "Абыз",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "АБ", uran: "Шулык!" }
+                                        },
+                                        {
+                                            id: "aqay",
+                                            at: "Ақай",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "АҚ", uran: "Шулык!" }
+                                        },
+                                        {
+                                            id: "pangqara",
+                                            at: "Паңқара",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ПҒ", uran: "Шулык!" }
+                                        },
+                                        {
+                                            id: "ush-bas",
+                                            at: "Үш бас",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ҮБ",
+                                                uran: "Шулык!",
+                                                tariyx: "Үш басты тоқыған"
+                                            },
                                             ballar: [
-                                                { at: "Тілеуберді", túri: "tiyre" },
-                                                { at: "Аллаберді", túri: "tiyre" },
-                                                { at: "Тәңірберді", túri: "tiyre" },
-                                                { at: "Мантыққараған", túri: "tiyre" },
-                                                { at: "Моллақараған", túri: "tiyre" }
+                                                {
+                                                    id: "jaman-ub",
+                                                    at: "Жаман",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "ЖМ", uran: "Шулык!" }
+                                                }
                                             ]
                                         },
-                                        { 
-                                            at: "Абыз", 
+                                        {
+                                            id: "qurama",
+                                            at: "Құрама",
                                             túri: "uruw",
-                                            maǵlıwmat: { tariyx: "Ақсақал, әулие" },
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚР", uran: "Шулык!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "koldauli",
+                                    at: "ҚОЛДАУЛЫ",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    maǵlıwmat: {
+                                        tariyx: "Қолдау - опора.",
+                                        tamga: "ҚЛД",
+                                        uran: "Қолдау!",
+                                        qalaqı: "1140 кибиток"
+                                    },
+                                    ballar: [
+                                        {
+                                            id: "beskempir",
+                                            at: "Бескемпір",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "Б5",
+                                                uran: "Қолдау!",
+                                                tariyx: "Бес кемпір"
+                                            }
+                                        },
+                                        {
+                                            id: "maishyshaly",
+                                            at: "Майшышалы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "МШ",
+                                                uran: "Қолдау!",
+                                                tariyx: "Майлы шыша"
+                                            }
+                                        },
+                                        {
+                                            id: "qalqaman",
+                                            at: "Қалқаман",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚЛҚ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "ghajypqaragan",
+                                            at: "Ғайыпқараған",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ҒҚ",
+                                                uran: "Қолдау!",
+                                                tariyx: "Ғайып болған ата"
+                                            }
+                                        },
+                                        {
+                                            id: "sarytan-k",
+                                            at: "Сарытан",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "СРТ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "kulkiqozhaq",
+                                            at: "Күлкіқожақ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "КҚ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "jarymbet",
+                                            at: "Жарымбет",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖБ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "jamanqonyrat",
+                                            at: "Жаманқоңырат",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖҚ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "zhuka",
+                                            at: "Жука",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖК", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "qyzylayaq",
+                                            at: "Қызылаяқ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚЗ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "karasiraq-k",
+                                            at: "Қарасирақ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚСР", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "jelqaragan",
+                                            at: "Желқараған",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖҚ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "ulkenborik",
+                                            at: "Үлкенбөрік",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҮБ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "shylzhuyt",
+                                            at: "Шылжуыт",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ШЖ", uran: "Қолдау!" }
+                                        },
+                                        {
+                                            id: "kalmaq",
+                                            at: "Қалмақ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "ҚМ",
+                                                uran: "Қолдау!",
+                                                tariyx: "Қалмақтармен араласқан"
+                                            },
                                             ballar: [
-                                                { at: "Ады", túri: "tiyre" }
+                                                {
+                                                    id: "adil",
+                                                    at: "Әділ",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ӘД", uran: "Қолдау!" }
+                                                },
+                                                {
+                                                    id: "ereke",
+                                                    at: "Ереке",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ЕР", uran: "Қолдау!" }
+                                                }
                                             ]
                                         },
-                                        { 
-                                            at: "Кеңтанау", 
+                                        {
+                                            id: "jaman-aul",
+                                            at: "Жаман ауыл",
                                             túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖА", uran: "Қолдау!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "kostambali",
+                                    at: "ҚОСТАМГАЛЫ",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    tamga: "II",
+                                    maǵlıwmat: {
+                                        tariyx: "Екі тамғалы.",
+                                        tamga: "II",
+                                        uran: "Қосқа!",
+                                        qalaqı: "590 кибиток"
+                                    },
+                                    ballar: [
+                                        {
+                                            id: "jangildi-k",
+                                            at: "Жангелді",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖГ", urан: "Қосқа!" }
+                                        },
+                                        {
+                                            id: "shirzhegen",
+                                            at: "Шіржеген",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ШЖ", urан: "Қосқа!" }
+                                        },
+                                        {
+                                            id: "aghabegli",
+                                            at: "Ағабеглі",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "АБ", urан: "Қосқа!" }
+                                        },
+                                        {
+                                            id: "qarynzhuan",
+                                            at: "Қарынжуан",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚЖ", urан: "Қосқа!" }
+                                        },
+                                        {
+                                            id: "kostambali-k",
+                                            at: "Қостамғалы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚТ", urан: "Қосқа!" }
+                                        },
+                                        {
+                                            id: "qaraqursaq-k",
+                                            at: "Қарақұрсақ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚҚ", urан: "Қосқа!" }
+                                        },
+                                        {
+                                            id: "qazaqy-k",
+                                            at: "Қазақы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚЗ", urан: "Қосқа!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "balgali",
+                                    at: "БАЛҒАЛЫ",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    maǵlıwmat: {
+                                        tariyx: "Балға ұстаған. Теміршілер.",
+                                        tamga: "Б",
+                                        urан: "Балға!",
+                                        anız: "Теміршілер ұрпағы",
+                                        qalaqı: "560 кибиток"
+                                    },
+                                    ballar: [
+                                        {
+                                            id: "aqbalgali",
+                                            at: "Ақбалғалы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "АБ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "nurbalgali",
+                                            at: "Нұрбалғалы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "НБ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "turkmen-b",
+                                            at: "Түркімен",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ТБ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "jamanaul-b",
+                                            at: "Жаманауыл",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ЖА", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "shomishti",
+                                            at: "Шөмішті",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ШМ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "toqymbet",
+                                            at: "Тоқымбет",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ТҚ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "tazbalgali",
+                                            at: "Тазбалғалы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ТБ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "kostamgali-balgali",
+                                            at: "Қостамғалы(балғалы)",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚС", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "qaratalshy",
+                                            at: "Қараталшы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚТ", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "asan",
+                                            at: "Асан",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "АС", urан: "Балға!" }
+                                        },
+                                        {
+                                            id: "arzyqul",
+                                            at: "Арзықұл",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "АР", urан: "Балға!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "kandekli",
+                                    at: "ҚӘНДЕКЛІ",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    tamga: "Г",
+                                    maǵlıwmat: {
+                                        tariyx: "Көндек - қора.",
+                                        tamga: "Г",
+                                        urан: "Көндек!",
+                                        qalaqı: "730 кибиток"
+                                    },
+                                    ballar: [
+                                        {
+                                            id: "qarama-kan",
+                                            at: "Қарама",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚР", urан: "Көндек!" }
+                                        },
+                                        {
+                                            id: "kiikshi",
+                                            at: "Киікші",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "КШ",
+                                                urан: "Көндек!",
+                                                tariyx: "Киік сақшы"
+                                            }
+                                        },
+                                        {
+                                            id: "toqbolat-kan",
+                                            at: "Тоқболат",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ТБ", urан: "Көндек!" }
+                                        },
+                                        {
+                                            id: "qyryqsadaq",
+                                            at: "Қырықсадақ",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ҚС", urан: "Көндек!" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "karamoiyn",
+                                    at: "ҚАРАМОЙЫН",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    tamga: "ТМ",
+                                    maǵlıwmat: {
+                                        tariyx: "Қара мойын.",
+                                        tamga: "ТМ",
+                                        urан: "Мойын!",
+                                        qalaqı: "560 кибиток"
+                                    },
+                                    ballar: [
+                                        {
+                                            id: "annakhoja",
+                                            at: "Аннахожа",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            maǵlıwmat: {
+                                                tamga: "АН",
+                                                urан: "Мойын!",
+                                                tariyx: "Анна әулие"
+                                            }
+                                        },
+                                        {
+                                            id: "sabalaq",
+                                            at: "Сабалақ",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            maǵlıwmat: {
+                                                tamga: "СБ",
+                                                urан: "Мойын!",
+                                                tariyx: "Саба - бала"
+                                            }
+                                        },
+                                        {
+                                            id: "kotelek",
+                                            at: "Көтелек",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            maǵlıwmat: {
+                                                tamga: "КТ",
+                                                urан: "Мойын!",
+                                                tariyx: "Торлау"
+                                            }
+                                        },
+                                        {
+                                            id: "qareke",
+                                            at: "Қареке",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            maǵlıwmat: { tamga: "ҚР", urан: "Мойын!" }
+                                        },
+                                        {
+                                            id: "qarlymaral",
+                                            at: "Қарлымарал",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            maǵlıwmat: { tamga: "ҚМ", urан: "Мойын!" }
+                                        },
+                                        {
+                                            id: "bulkildek",
+                                            at: "Бүлкілдек",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            maǵlıwmat: { tamga: "БҮ", urан: "Мойын!", tariyx: "Күлу" }
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "muyten",
+                                    at: "МҮЙТЕН",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "үлкен ру",
+                                    tamga: "Үш шанышқы",
+                                    urан: "Ақшолпан",
+                                    maǵlıwmat: {
+                                        tariyx: "Мұйын - мойын.",
+                                        túbegi: "Мүйтен батыр",
+                                        tamga: "Үш шанышқы",
+                                        urан: "Ақшолпан",
+                                        qalaqı: "540 кибиток",
+                                        anız: "Мүйтеннің үш ұлы: Самат, Тели, Абыз"
+                                    },
+                                    ballar: [
+                                        {
+                                            id: "samat",
+                                            at: "Самат",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "СМ", urан: "Ақшолпан!" },
                                             ballar: [
-                                                { at: "Барн", túri: "tiyre" },
-                                                { at: "Итақ", túri: "tiyre" },
-                                                { at: "Жекенсал", túri: "tiyre" }
+                                                {
+                                                    id: "baibishe",
+                                                    at: "Бәйбіше",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "ББ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "toqqaragan",
+                                                    at: "Тоқалқараған",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "ТҚ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "baimurat",
+                                                    at: "Баймұрат",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "БМ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "jolan",
+                                                    at: "Жолан",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "ЖЛ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "bekau",
+                                                    at: "Бекау",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "БК", urан: "Ақшолпан!" }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id: "teli",
+                                            at: "Тели",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "ТЛ", urан: "Ақшолпан!" },
+                                            ballar: [
+                                                {
+                                                    id: "tleuberdi",
+                                                    at: "Тілеуберді",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "ТБ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "allaberdi",
+                                                    at: "Аллаберді",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "АБ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "tangirberdi",
+                                                    at: "Тəңірберді",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "ТБ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "mantyqaragan",
+                                                    at: "Мантыққараған",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "МҚ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "molloqaragan",
+                                                    at: "Моллақараған",
+                                                    túri: "koshe",
+                                                    level: 5,
+                                                    type: "көше",
+                                                    maǵlıwmat: { tamga: "МҚ", urан: "Ақшолпан!" }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id: "abyz-m",
+                                            at: "Абыз",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: {
+                                                tamga: "АБ",
+                                                urан: "Ақшолпан!",
+                                                tariyx: "Ақсақал, әулие"
+                                            }
+                                        },
+                                        {
+                                            id: "kentanau",
+                                            at: "Кеңтанау",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            maǵlıwmat: { tamga: "КТ", urан: "Ақшолпан!" },
+                                            ballar: [
+                                                {
+                                                    id: "baryn",
+                                                    at: "Барын",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "БР", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "itak",
+                                                    at: "Итак",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ИТ", urан: "Ақшолпан!" }
+                                                },
+                                                {
+                                                    id: "jekensal",
+                                                    at: "Жекенсал",
+                                                    túri: "tiyre",
+                                                    level: 5,
+                                                    type: "тіре",
+                                                    maǵlıwmat: { tamga: "ЖС", urан: "Ақшолпан!" }
+                                                }
                                             ]
                                         }
                                     ]
@@ -967,87 +1957,105 @@
                             ]
                         },
                         {
-                            at: "Жауыңгыр бөлімі",
+                            id: "jauyngyr",
+                            at: "ЖАУЫНГЫР БӨЛІМІ",
                             túri: "bolim",
-                            maǵlıwmat: { tariyx: "Жауыңгыр - 7 ру.", qalaqı: "3660 кибиток" },
+                            level: 2,
+                            type: "бөлім",
+                            maǵlıwmat: {
+                                tariyx: "Жауынгыр - 7 ру.",
+                                qalaqı: "3660 кибиток"
+                            },
                             ballar: [
                                 {
-                                    at: "Терістаңбалы",
+                                    id: "teristambaly",
+                                    at: "ТЕРІСТАҢБАЛЫ",
                                     túri: "ulken",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        { at: "Шомақ", túri: "uruw" },
-                                        { at: "Хангелді", túri: "uruw" },
-                                        { at: "Байқараған", túri: "uruw" },
-                                        { at: "Елшібай", túri: "uruw" },
-                                        { at: "Құрбан", túri: "uruw" },
-                                        { at: "Тоғыз", túri: "uruw" },
-                                        { at: "Тіле", túri: "uruw" },
-                                        { at: "Тебеген", túri: "uruw" },
-                                        { at: "Тум", túri: "uruw" },
-                                        { at: "Түркістан", túri: "uruw" }
+                                        { id: "shomak", at: "Шомақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "hangildi", at: "Хангелді", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "baiqaragan", at: "Байқараған", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "elshibai", at: "Елшібай", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "qurban-t", at: "Құрбан", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "togai", at: "Тоғыз", túri: "tiyre", level: 4, type: "көше" }
                                     ]
                                 },
                                 {
-                                    at: "Бақанлы",
+                                    id: "bakanly-sheyjeyli",
+                                    at: "БАҚАНЛЫ-шейжейлі",
                                     túri: "ulken",
+                                    level: 3,
+                                    type: "ру"
+                                },
+                                {
+                                    id: "tyekli",
+                                    at: "ТІЕКТІ",
+                                    túri: "ulken",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        { at: "Таңмайыл", túri: "uruw" },
-                                        { at: "Жақанай", túri: "uruw" },
-                                        { at: "Найман", túri: "uruw" },
-                                        { at: "Айыс", túri: "uruw" }
+                                        { id: "zhumagul", at: "Жумагул", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "aidarbek", at: "Айдарбек", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "kanjar", at: "Қанжар", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "sarykempir", at: "Сарыкемпір", túri: "tiyre", level: 4, type: "көше" }
                                     ]
                                 },
                                 {
-                                    at: "Тіекті",
+                                    id: "yrgaqty",
+                                    at: "ЫРҒАҚТЫ",
                                     túri: "ulken",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        { at: "Шиші", túri: "uruw", ballar: [{at:"Шиші Арна",túri:"tiyre"}] },
-                                        { at: "Туманай", túri: "uruw" },
-                                        { at: "Мәулік", túri: "uruw" },
-                                        { at: "Байрам", túri: "uruw" }
+                                        { id: "atanai", at: "Атанай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "eshkili", at: "Ешкілі", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "baibura", at: "Байбура", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "sarytan", at: "Сарытан", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
                                 {
-                                    at: "Ырғақты",
+                                    id: "baimaqty",
+                                    at: "БАЙМАҚТЫ",
                                     túri: "ulken",
-                                    maǵlıwmat: { eskertpe: "Екі арыста да бар!" },
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        { at: "Атанай", túri: "uruw" },
-                                        { at: "Ешкілі", túri: "uruw" },
-                                        { at: "Байбура", túri: "uruw" },
-                                        { at: "Сарытан", túri: "uruw" }
+                                        { id: "sospaq", at: "Соспақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "uyes", at: "Үйес", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tanmayil", at: "Таңмайыл", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "jaqanay", at: "Жақанай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "nayman", at: "Найман", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "ayis", at: "Айыс", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
                                 {
-                                    at: "Баймақты",
+                                    id: "kazayakty",
+                                    at: "ҚАЗАЯҚТЫ",
                                     túri: "ulken",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        { at: "Саспақ", túri: "uruw" },
-                                        { at: "Үйес", túri: "uruw" },
-                                        { at: "Таңмайыл", túri: "uruw" },
-                                        { at: "Жақанай", túri: "uruw" }
+                                        { id: "anetai", at: "Әнетай", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "zharimbet", at: "Жәрімбет", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "zhunli", at: "Жүнлі", túri: "tiyre", level: 4, type: "көше" },
+                                        { id: "sadaq", at: "Садақ", túri: "tiyre", level: 4, type: "көше" }
                                     ]
                                 },
                                 {
-                                    at: "Қазаяқты",
+                                    id: "uygyr",
+                                    at: "ҰЙҒЫР",
                                     túri: "ulken",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        { at: "Әнетай", túri: "uruw" },
-                                        { at: "Жарымбет", túri: "uruw" },
-                                        { at: "Жүнді", túri: "uruw" },
-                                        { at: "Садақ", túri: "uruw" }
-                                    ]
-                                },
-                                {
-                                    at: "Ұйғыр",
-                                    túri: "ulken",
-                                    ballar: [
-                                        { at: "Шиші", túri: "uruw" },
-                                        { at: "Туманай", túri: "uruw" },
-                                        { at: "Сабалақ", túri: "uruw" },
-                                        { at: "Мәулік", túri: "uruw" },
-                                        { at: "Байрам", túri: "uruw" },
-                                        { at: "Сырғалы", túri: "uruw" }
+                                        { id: "shishi", at: "Шиші", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tumanay", at: "Туманай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "maulik", at: "Мәулик", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "bayram", at: "Байрам", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "sabalaq", at: "Сабалақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "syrgaly", at: "Сырғалы", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 }
                             ]
@@ -1055,168 +2063,511 @@
                     ]
                 },
                 {
-                    at: "Арыс Он төрт",
+                    id: "onTort",
+                    at: "АРЫС ОН ТӨРТ РУУ",
                     túri: "aris",
-                    tamga: "14",
-                    uran: "Тоқсаба!",
+                    level: 1,
+                    type: "арыс",
                     maǵlıwmat: {
-                        tariyx: "14 рудан тұратын ірі арыс. Көп санлы.",
-                        qalaqı: "10260 кибиток (60%)",
-                        qurilimi: "4 үлкен ру: Қытай, Қыпшақ, Кенегес, Маңғыт"
+                        tariyx: "Он төрт руу - 14 ру.",
+                        qalaqı: "10260 кибиток (60%)"
                     },
                     ballar: [
                         {
-                            at: "Қытай",
+                            id: "kytaı",
+                            at: "ҚЫТАЙ",
                             túri: "ulken",
-                            tamga: "Q",
-                            uran: "Ұллы тау!",
-                            jup: "Қыпшақпен",
-                            maǵlıwmat: { tariyx: "Ең ірі ру.", qalaqı: "4320 кибиток" },
+                            level: 2,
+                            type: "үлкен ру",
+                            tamga: "Қ",
+                            urан: "Ұллы тау",
+                            maǵlıwmat: {
+                                tariyx: "Ең ірі ру.",
+                                tamga: "Қ",
+                                urан: "Ұллы тау",
+                                qalaqı: "4320 кибиток"
+                            },
                             ballar: [
-                                { at: "Бессары", túri: "uruw", ballar: [{at:"Жүнлі",túri:"tiyre"},{at:"Қойлы",túri:"tiyre"}] },
-                                { at: "Бексыйық", túri: "uruw", ballar: [{at:"Зергер",túri:"tiyre"},{at:"Масай",túri:"tiyre"},{at:"Шығыршы",túri:"tiyre"},{at:"Малай",túri:"tiyre"}] },
-                                { at: "Қазаяқты", túri: "uruw", ballar: [{at:"Кәлсен",túri:"tiyre"},{at:"Күйік",túri:"tiyre"},{at:"Мырзай",túri:"tiyre"},{at:"Қылмойын",túri:"tiyre"},{at:"Жылқбай",túri:"tiyre"}] },
-                                { 
-                                    at: "Қайшылы", 
+                                {
+                                    id: "bessary",
+                                    at: "БЕССАРЫ",
                                     túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        {at:"Ақымбет",túri:"tiyre"},
-                                        {at:"Жувансан",túri:"tiyre"},
-                                        {at:"Көтерехожа",túri:"tiyre"},
-                                        {at:"Танамырза",túri:"tiyre"},
-                                        {at:"Бақи",túri:"tiyre"},
-                                        {at:"Сыбыл",túri:"tiyre"},
-                                        {at:"Басар",túri:"tiyre"},
-                                        {at:"Толық",túri:"tiyre"},
-                                        {at:"Ябы",túri:"tiyre"}
+                                        { id: "zhunli", at: "Жүнлі", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qoyly", at: "Қойлы", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { 
-                                    at: "Әйтеке", 
+                                {
+                                    id: "beksyyk",
+                                    at: "БЕКСЫЙЫҚ",
                                     túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        {at:"Жәдік",túri:"tiyre"},
-                                        {at:"Ырсымбек",túri:"tiyre"},
-                                        {at:"Оразымбет",túri:"tiyre"},
-                                        {at:"Тәңірқұл",túri:"tiyre"},
-                                        {at:"Бектес",túri:"tiyre",ballar:[{at:"Бектес Төре",túri:"koshe"}]},
-                                        {at:"Наурыз",túri:"tiyre"},
-                                        {at:"Мәнжүлі",túri:"tiyre"},
-                                        {at:"Тазшылық",túri:"tiyre"}
+                                        { id: "zherger", at: "Жергер", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "masai", at: "Масай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "shyghyrshy", at: "Шығыршы", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "bekreshi", at: "Бекреші", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { at: "Мәнжүлі", túri: "uruw", ballar: [{at:"Екі шыйық",túri:"tiyre"},{at:"Қараманжүлі",túri:"tiyre"},{at:"Әйереке",túri:"tiyre"}] },
-                                { at: "Аралбай", túri: "uruw", ballar: [{at:"Аққала",túri:"tiyre"},{at:"Қалмурат",túri:"tiyre"},{at:"Өгизбайшы",túri:"tiyre"},{at:"Бәйбіше",túri:"tiyre"},{at:"Тілеу қушы",túri:"tiyre"}] }
+                                {
+                                    id: "kazayakly-k",
+                                    at: "ҚАЗАЯҚЛЫ",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "kalsen", at: "Кәлсен", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "kuyik", at: "Күйік", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "myrzai", at: "Мырзай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qylymoiyn", at: "Қылмойын", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "baqaragan", at: "Бақараған", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "baqsiqaragan", at: "Бақсикараған", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                {
+                                    id: "kaishyly",
+                                    at: "ҚАЙШЫЛЫ",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "aqymbet", at: "Ақымбет", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhuansan", at: "Жувансан", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "koterehoja", at: "Көтерехожа", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tanamyrza", at: "Танамырза", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "baqy", at: "Бақи", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tore", at: "Торе", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "korpe", at: "Көрпе", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "etpaq", at: "Етпақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "gijaq", at: "Гижақ", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                { id: "anna", at: "Анна", túri: "uruw", level: 3, type: "ру" },
+                                { id: "quyin", at: "Қуйын", túri: "uruw", level: 3, type: "ру" },
+                                { id: "sheriushi", at: "Шеріуші", túri: "uruw", level: 3, type: "ру" },
+                                { id: "baqliqtay", at: "Бақлықай", túri: "uruw", level: 3, type: "ру" },
+                                {
+                                    id: "aitereke",
+                                    at: "ӘЙТЕКЕ",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "zhadyq", at: "Жәдік", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "yrsymbek", at: "Ырсымбек", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "orazymbet", at: "Оразымбет", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tangirkul", at: "Тəңіркүл", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "bektay", at: "Бектас", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "bektes", at: "Бектес", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "besli", at: "Беслі", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "umbetey", at: "Үмбетей", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                {
+                                    id: "manjuwli-k",
+                                    at: "МАҢЖҮУЛІ",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        {
+                                            id: "eki-shyiq",
+                                            at: "Екі шыйық",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "qarashiyiq", at: "Қарашыйық", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        },
+                                        {
+                                            id: "qaramanjuli",
+                                            at: "Қараманжүулі",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "oqshiyiq", at: "Оқшыйық", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "aralba",
+                                    at: "Аралбай",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "aqqala", at: "Аққала", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qalmuart-aul", at: "Қалмурат_ауыл", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "ogizbaishy", at: "Өгізбайшы", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "baibishe-ar", at: "Бәйбіше", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tile-qusshy", at: "Тілеу қушшы", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                {
+                                    id: "qiriq",
+                                    at: "Қырық",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "qilishli", at: "Қілішлі", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "bayirqaragan", at: "Байырқараған", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qazaqli", at: "Қазақлы", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            at: "Қыпшақ",
+                            id: "kypshak",
+                            at: "ҚЫПШАҚ",
                             túri: "ulken",
+                            level: 2,
+                            type: "үлкен ру",
                             tamga: "I",
-                            uran: "Тоқсаба!",
-                            jup: "Қытаймен",
-                            maǵlıwmat: { tariyx: "Көне қыпшақ руы.", qalaqı: "2240 кибиток" },
+                            urан: "Тоқсаба",
+                            maǵlıwmat: {
+                                tariyx: "Ежелгі ру.",
+                                tamga: "I",
+                                urан: "Тоқсаба",
+                                qalaqı: "2240 кибиток"
+                            },
                             ballar: [
-                                { 
-                                    at: "Қаңлы", 
+                                {
+                                    id: "kangly",
+                                    at: "ҚАҢЛЫ",
                                     túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        {at:"Трам",túri:"tiyre"},
-                                        {at:"Қатқаңлы",túri:"tiyre"},
-                                        {at:"Ырғақты",túri:"tiyre"},
-                                        {at:"Ашамайлы",túri:"tiyre"},
-                                        {at:"Тарақты",túri:"tiyre"},
-                                        {at:"Баспақ",túri:"tiyre"},
-                                        {at:"Айят",túri:"tiyre"},
-                                        {at:"Босын",túri:"tiyre"},
-                                        {at:"Баспат",túri:"tiyre"},
-                                        {at:"Қоңырқазы",túri:"tiyre"},
-                                        {at:"Кенес",túri:"tiyre"},
-                                        {at:"Ташкент",túri:"tiyre"}
+                                        { id: "juansan", at: "Жуансан", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qatqangly", at: "Қатқаңлы", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "yrghaqly", at: "Ырғақты", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "ashamaily-k", at: "Ашамайлы(қаңлы)", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "taraqty-k", at: "Тарақты", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "shomishali", at: "Шөмішәлі", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qashiular", at: "Қашиулар", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "ormanshi", at: "Орманши", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "aqilhoja", at: "Ақылхожа", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "altiortaq", at: "Алтиортақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tazaqanli", at: "Тазақанлы", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { at: "Саңмұрын", túri: "uruw", ballar: [{at:"Көнші",túri:"tiyre"},{at:"Тұбай",túri:"tiyre"},{at:"Ешкілі",túri:"tiyre"},{at:"Жалпақ шек",túri:"tiyre"},{at:"Төлебай",túri:"tiyre"},{at:"Жабашы",túri:"tiyre"}] },
-                                { at: "Естек", túri: "uruw", ballar: [{at:"Маңқанай",túri:"tiyre"},{at:"Қайыпназар",túri:"tiyre"},{at:"Қаратереңші",túri:"tiyre"},{at:"Қалмурат",túri:"tiyre"}] },
-                                { at: "Қанжығалы", túri: "uruw", ballar: [{at:"Шанышпай",túri:"tiyre"},{at:"Самбет",túri:"tiyre"},{at:"Жағалтай",túri:"tiyre"},{at:"Бәйбіше",túri:"tiyre"}] },
-                                { at: "Салтыр", túri: "uruw", ballar: [{at:"Бәйбіше",túri:"tiyre"},{at:"Сарт",túri:"tiyre"},{at:"Оразымбет",túri:"tiyre"},{at:"Шуылған",túri:"tiyre"}] }
+                                {
+                                    id: "sanmuryn",
+                                    at: "САҢМҰРЫН",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "konshi", at: "Көнші", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tubai", at: "Тұбай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "eshkili", at: "Ешкілі", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhaipaq-shek", at: "Жайпақ шек", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tolebai", at: "Төлебай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhabashy", at: "Жабашы", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                {
+                                    id: "estek",
+                                    at: "ЕСТЕК",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "manqanai", at: "Маңқанай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qaiypnazar", at: "Қайыпназар", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "karaterenshi", at: "Қаратереңші", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qalmuart-es", at: "Қалмурат-ауыл", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                { id: "qanjigali", at: "Қанжығалы", túri: "uruw", level: 3, type: "ру" },
+                                { id: "shunaq", at: "Шұнақ", túri: "uruw", level: 3, type: "ру" },
+                                { id: "basar", at: "Басар", túri: "uruw", level: 3, type: "ру" },
+                                { id: "toliq", at: "Толық", túri: "uruw", level: 3, type: "ру" },
+                                { id: "jabi", at: "Жаби", túri: "uruw", level: 3, type: "ру" },
+                                { id: "ariq", at: "Арық", túri: "uruw", level: 3, type: "ру" },
+                                {
+                                    id: "jagaltay",
+                                    at: "Жағалтай",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "shanishbay", at: "Шанышбай", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "sambet", at: "Самбет", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                {
+                                    id: "maylibalta",
+                                    at: "Майлыбалта",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "konsoqir", at: "Көнсөкір", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "sumbil", at: "Сүмбіл", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                { id: "baganali", at: "Бағаналы", túri: "uruw", level: 3, type: "ру" },
+                                { id: "jadik", at: "Жәдік", túri: "uruw", level: 3, type: "ру" },
+                                {
+                                    id: "saltyr",
+                                    at: "САЛТЫР",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "baibishe-s", at: "Бәйбіше", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "sart", at: "Сарт", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "orazymbet-s", at: "Оразымбет", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "shuyghan", at: "Шуылған", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            at: "Кенегес",
+                            id: "keneges",
+                            at: "КЕНЕГЕС",
                             túri: "ulken",
-                            tamga: "X",
-                            uran: "Шаулы-Шаухай!",
-                            jup: "Маңғытпен",
-                            maǵlıwmat: { tariyx: "Кенегес.", qalaqı: "1480 кибиток" },
+                            level: 2,
+                            type: "үлкен ру",
+                            tamga: "Х",
+                            urан: "Шаулы-Шаухай",
+                            maǵlıwmat: {
+                                tariyx: "Кеңгес.",
+                                tamga: "Х",
+                                urан: "Шаулы-Шаухай",
+                                qalaqı: "1480 кибиток"
+                            },
                             ballar: [
-                                { 
-                                    at: "Араншы", 
+                                {
+                                    id: "aranshy",
+                                    at: "АРАНШЫ",
                                     túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        {at:"Аннақұл",túri:"tiyre"},
-                                        {at:"Абас",túri:"tiyre",ballar:[{at:"Сейтімбет",túri:"koshe"}]},
-                                        {at:"Сүйін",túri:"tiyre"},
-                                        {at:"Жуас",túri:"tiyre"},
-                                        {at:"Дәулетқарға",túri:"tiyre"},
-                                        {at:"Қайыпберген",túri:"tiyre"}
+                                        { id: "annaqul", at: "Аннақұл", túri: "tiyre", level: 4, type: "тіре" },
+                                        {
+                                            id: "abas-k",
+                                            at: "Абас",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "seitimbet", at: "Сейтімбет", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        },
+                                        { id: "suiin", at: "Сүйін", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhuas", at: "Жуас", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qulmaq", at: "Құлмақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "dauletqargha", at: "Дәулетқарға", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "qaipbergen", at: "Қайыпберген", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { at: "Ақтоғын", túri: "uruw", ballar: [{at:"Нанжемес",túri:"tiyre"},{at:"Көшек",túri:"tiyre"}] },
-                                { at: "Өмір", túri: "uruw", ballar: [{at:"Ақпышақ",túri:"tiyre"},{at:"Усақ",túri:"tiyre"},{at:"Жел",túri:"tiyre"},{at:"Мынжыр",túri:"tiyre"},{at:"Өтеміс",túri:"tiyre"}] },
-                                { at: "Тарақты", túri: "uruw", ballar: [{at:"Жетіқараған",túri:"tiyre",ballar:[{at:"Жетіқара",túri:"koshe"}]}] },
-                                { at: "Добал", túri: "uruw" },
-                                { 
-                                    at: "Оймауыт", 
+                                {
+                                    id: "aktogyn",
+                                    at: "АҚТОҒЫН",
                                     túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
                                     ballar: [
-                                        {at:"Қара",túri:"tiyre"},
-                                        {at:"Сары",túri:"tiyre",ballar:[{at:"Жийдели",túri:"koshe"}]},
-                                        {at:"Ақ",túri:"tiyre"}
+                                        { id: "nanzhemes", at: "Нанжемес", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "kosher", at: "Көшер", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { at: "Домбазқақ", túri: "uruw" },
-                                { at: "Нөкіс", túri: "uruw", maǵlıwmat: { eskertpe: "Қарақалпақстан астанасы!" }, ballar: [{at:"Жаманжақ",túri:"tiyre"},{at:"Бозақ",túri:"tiyre"},{at:"Алтынпышақ",túri:"tiyre"},{at:"Гобдир",túri:"tiyre"}] }
+                                {
+                                    id: "omir",
+                                    at: "ӨМІР",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "aqpyshaq", at: "Ақпышақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "usaq", at: "Усақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhel", at: "Жел", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "mynzhyr", at: "Мынжыр", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "otemis-o", at: "Өтеміс", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                {
+                                    id: "taraqly-ken",
+                                    at: "ТАРАҚЛЫ",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        {
+                                            id: "zhetiqaraghaz",
+                                            at: "Жетіқарақазақы",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "zheti-kosh", at: "Жетіқара", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                { id: "dobal", at: "ДОБАЛ", túri: "uruw", level: 3, type: "ру" },
+                                {
+                                    id: "oymauyt",
+                                    at: "ОЙМАУЫТ",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "qara-o", at: "Қара", túri: "tiyre", level: 4, type: "тіре" },
+                                        {
+                                            id: "sary-o",
+                                            at: "Сары",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "zhiydeli", at: "Жийдели", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        },
+                                        { id: "aq-o", at: "Ақ", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                },
+                                { id: "dombazqaq", at: "ДОМБАЗҚАҚ", túri: "uruw", level: 3, type: "ру" },
+                                {
+                                    id: "nokis",
+                                    at: "НӨКІС",
+                                    túri: "uruw",
+                                    level: 3,
+                                    type: "ру",
+                                    ballar: [
+                                        { id: "zhamanzhak", at: "Жаманжақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "bozaq", at: "Бозақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "altynpyshaq", at: "Алтынпышақ", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "ghobdir", at: "Гобдир", túri: "tiyre", level: 4, type: "тіре" }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            at: "Маңғыт",
+                            id: "mangyt",
+                            at: "МАҢҒЫТ",
                             túri: "ulken",
+                            level: 2,
+                            type: "үлкен ру",
                             tamga: "f",
-                            uran: "Шаулы-Шаухай!",
-                            jup: "Кенегеспен",
-                            maǵlıwmat: { tariyx: "Соғысқор ру. Едіге ұрпақтары.", qalaqı: "2220 кибиток" },
+                            urан: "Шаулы-Шаухай",
+                            maǵlıwmat: {
+                                tariyx: "Соғысқор ру.",
+                                tamga: "f",
+                                urан: "Шаулы-Шаухай",
+                                qalaqı: "2220 кибиток"
+                            },
                             ballar: [
-                                { 
-                                    at: "Қаратай", 
-                                    túri: "uruw",
-                                    maǵlıwmat: { topar: "Қара (Қаралар)" },
+                                {
+                                    id: "qaratay",
+                                    at: "ҚАРАТАЙ (Қара)",
+                                    túri: "topar",
+                                    level: 3,
+                                    type: "топар",
                                     ballar: [
-                                        {at:"Қараманғыт",túri:"tiyre",ballar:[{at:"Үшбас",túri:"koshe"},{at:"Қарасирақ",túri:"koshe"},{at:"Ақманғыт",túri:"koshe"}]},
-                                        {at:"Мамықшы",túri:"tiyre",ballar:[{at:"Жетіқұрт",túri:"koshe"}]},
-                                        {at:"Қосар",túri:"tiyre",ballar:[{at:"Гүбидин",túri:"koshe"}]},
-                                        {at:"Қылқалы",túri:"tiyre"}
+                                        {
+                                            id: "qaramangyt",
+                                            at: "Қараманғыт",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "ushbas", at: "Үшбас", túri: "koshe", level: 5, type: "көше" },
+                                                { id: "karasiraq-m", at: "Қарасыйрақ", túri: "koshe", level: 5, type: "көше" },
+                                                { id: "aqmangyt", at: "Ақманғыт", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        },
+                                        {
+                                            id: "mamyqshy",
+                                            at: "Мамықшы",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            ballar: [
+                                                { id: "zhetiqurt", at: "Жетіқұрт", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        },
+                                        {
+                                            id: "kosar-m",
+                                            at: "Қосар",
+                                            túri: "uruw",
+                                            level: 4,
+                                            type: "ру",
+                                            ballar: [
+                                                { id: "gubidin", at: "Гүбидин", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        },
+                                        { id: "qylqaly", at: "Қылқалы", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { 
-                                    at: "Сарытай", 
-                                    túri: "uruw",
-                                    maǵlıwmat: { topar: "Сары (Сарылар)" },
+                                {
+                                    id: "sarytay",
+                                    at: "САРЫТАЙ (Сары)",
+                                    túri: "topar",
+                                    level: 3,
+                                    type: "топар",
                                     ballar: [
-                                        {at:"Аршын",túri:"tiyre"},
-                                        {at:"Жайлық",túri:"tiyre"},
-                                        {at:"Тоқманғыт",túri:"tiyre"},
-                                        {at:"Арсары",túri:"tiyre"},
-                                        {at:"Тазжанлық",túri:"tiyre"},
-                                        {at:"Шүйт",túri:"tiyre"},
-                                        {at:"Жаманша",túri:"tiyre"},
-                                        {at:"Есебий",túri:"tiyre"},
-                                        {at:"Тамғалы",túri:"tiyre"},
-                                        {at:"Тоқмойын",túri:"tiyre"},
-                                        {at:"Темірхожа",túri:"tiyre"}
+                                        { id: "arshyn", at: "Аршын", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhailyk", at: "Жайлық", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "toqmangyt", at: "Тоқманғыт", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "arsary", at: "Арсары", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tazhzhanlyk", at: "Тазжанлық", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "shuyt", at: "Шүйт", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "zhamansha", at: "Жаманша", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "esebii", at: "Есебий", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "tamgaly-m", at: "Тамғалы", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "toqmoiyin", at: "Тоқмойын", túri: "tiyre", level: 4, type: "тіре" },
+                                        { id: "temirhoja", at: "Темірхожа", túri: "tiyre", level: 4, type: "тіре" }
                                     ]
                                 },
-                                { at: "Бозтай", túri: "uruw", maǵlıwmat: { topar: "Боз (Боздар)" }, ballar: [{at:"Бозта",túri:"tiyre",ballar:[{at:"Бозта баба",túri:"koshe"}]}] },
-                                { at: "Жетімтай", túri: "uruw", maǵlıwmat: { topar: "Жетім (Жетімдер)" }, ballar: [{at:"Ешбуға",túri:"tiyre",ballar:[{at:"Еш буға",túri:"koshe"}]}] }
+                                {
+                                    id: "boztay",
+                                    at: "БОЗТАЙ (Боз)",
+                                    túri: "topar",
+                                    level: 3,
+                                    type: "топар",
+                                    ballar: [
+                                        {
+                                            id: "bozta",
+                                            at: "Бозта",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "bozta-kosh", at: "Бозта", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: "jetimtay",
+                                    at: "ЖЕТІМТАЙ (Жетім)",
+                                    túri: "topar",
+                                    level: 3,
+                                    type: "топар",
+                                    ballar: [
+                                        {
+                                            id: "eshbuga",
+                                            at: "Ешбуға",
+                                            túri: "tiyre",
+                                            level: 4,
+                                            type: "тіре",
+                                            ballar: [
+                                                { id: "eshbuga-kosh", at: "Ешбуға", túri: "koshe", level: 5, type: "көше" }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
@@ -1227,6 +2578,52 @@
         let svg, g, zoom;
         let ámeldegiMasshtab = d3.zoomIdentity;
         let panelAshıq = false;
+
+        // Деректерді D3 иерархиясына түрлендіру
+        function convertToHierarchy(data) {
+            return d3.hierarchy(data, d => d.ballar);
+        }
+
+        // Барлық ұрпақтарды алу
+        function getAllDescendants(node) {
+            const descendants = [];
+            if (node.ballar) {
+                for (let child of node.ballar) {
+                    descendants.push(child);
+                    descendants.push(...getAllDescendants(child));
+                }
+            }
+            return descendants;
+        }
+
+        // Ата-аналар тізбегін алу
+        function getParentChain(node, root = terekMaǵlıwmatları, chain = []) {
+            if (root.id === node.id) {
+                return [root, ...chain];
+            }
+            if (root.ballar) {
+                for (let child of root.ballar) {
+                    const result = getParentChain(node, child, [root, ...chain]);
+                    if (result) return result;
+                }
+            }
+            return null;
+        }
+
+        // Ұрпақтар ағашын құру
+        function buildDescendantsTree(node) {
+            if (!node.ballar || node.ballar.length === 0) return null;
+            
+            const result = [];
+            for (let child of node.ballar) {
+                const item = {
+                    node: child,
+                    children: child.ballar || []
+                };
+                result.push(item);
+            }
+            return result;
+        }
 
         function terektiBaslaw() {
             const qorap = document.getElementById('treeArea');
@@ -1251,10 +2648,10 @@
 
             g = svg.append("g");
 
-            const támır = d3.hierarchy(terekMaǵlıwmatları, d => d.ballar);
+            const támár = convertToHierarchy(terekMaǵlıwmatları);
             
-            const japrakSanaqı = támır.leaves().length;
-            const terenlik = támır.height;
+            const japrakSanaqı = támár.leaves().length;
+            const terenlik = támár.height;
                     
             // Керек өлшем
             const eńAzamattıqKeńlik = Math.max(keńlik, japrakSanaqı * 25);
@@ -1267,7 +2664,7 @@
                     return 1.2;
                 });
             
-            terekQurılmı(támır);
+            terekQurılmı(támár);
 
             // Бастапқы көрініс - ортада
             const baslanǵıshMasshtab = Math.min(
@@ -1289,7 +2686,7 @@
 
             // Байланыс сызықтары
             g.selectAll(".link")
-                .data(támır.links())
+                .data(támár.links())
                 .enter().append("path")
                 .attr("class", "link")
                 .attr("d", d3.linkVertical()
@@ -1298,7 +2695,7 @@
 
             // Бөліктер
             const bólek = g.selectAll(".node")
-                .data(támır.descendants())
+                .data(támár.descendants())
                 .enter().append("g")
                 .attr("class", d => `node node-${d.data.túri}`)
                 .attr("transform", d => `translate(${d.x},${d.y})`)
@@ -1350,12 +2747,16 @@
                 .text(d => d.data.uran);
         }
 
+        // Ақпаратты көрсету - listsKZ.html стилі бойынша
         function maǵlıwmatKórsetiw(maǵlıwmat) {
             paneldiAshıw();
             
-            document.getElementById('dTamga').textContent = maǵlıwmat.tamga || (maǵlıwmat.túri === 'aris' ? '🏛️' : '🏹');
+            // Тамға белгісін орнату
+            const tamga = maǵlıwmat.tamga || (maǵlıwmat.túri === 'aris' ? '🏛️' : '🏹');
+            document.getElementById('dTamga').textContent = tamga;
             document.getElementById('dName').textContent = maǵlıwmat.at;
             
+            // Тип және қосымша ақпарат
             let qospa = "";
             const túrler = {
                 'xaliq': 'Халық',
@@ -1364,7 +2765,8 @@
                 'ulken': 'Үлкен ру (үлкен ру)',
                 'uruw': 'Ру (ру)',
                 'tiyre': 'Тире (тире)',
-                'koshe': 'Көше (бутик)'
+                'koshe': 'Көше (бутик)',
+                'topar': 'Топар (топар)'
             };
             qospa = túrler[maǵlıwmat.túri] || 'Рулық бірлік';
             if (maǵlıwmat.maǵlıwmat && maǵlıwmat.maǵlıwmat.qalaqı) qospa += ` • ${maǵlıwmat.maǵlıwmat.qalaqı}`;
@@ -1372,73 +2774,92 @@
             
             let html = '';
             
-            if (maǵlıwmat.uran) {
-                html += `<div class="info-block" style="border-color:#e74c3c; background:rgba(231,76,60,0.1)">
-                    <div class="info-label">Соғыс ұраны (Уран)</div>
-                    <div class="info-content" style="color:#ff8a80; font-size:1.3rem; font-weight:bold; text-align:center">${maǵlıwmat.uran}</div>
-                </div>`;
+            // Иерархиялық тізбек
+            const chain = getParentChain(maǵlıwmat);
+            if (chain && chain.length > 0) {
+                html += '<div class="info-section"><h3>🔗 Толық шежіре</h3><div class="hierarchy-chain">';
+                chain.reverse().forEach((item, index) => {
+                    const isLast = index === chain.length - 1;
+                    html += '<div class="hierarchy-item">';
+                    html += '<span class="hierarchy-level">' + levelsMap[item.level] + '</span>';
+                    html += '<span>' + item.at + '</span>';
+                    if (!isLast) html += '<span class="hierarchy-arrow">⬇</span>';
+                    html += '</div>';
+                });
+                html += '</div></div>';
             }
             
+            // Тамға блокы
+            const tamgaValue = maǵlıwmat.tamga || (maǵlıwmat.maǵlıwmat && maǵlıwmat.maǵlıwmat.tamga);
+            if (tamgaValue) {
+                html += '<div class="tamga-box"><div class="tamga-symbol">' + tamgaValue + '</div><div class="tamga-label">ТАМГА (Рулық белгі)</div></div>';
+            }
+            
+            // Уран блокы
+            const uranValue = maǵlıwmat.uran || (maǵlıwmat.maǵlıwmat && maǵlıwmat.maǵlıwmat.uran);
+            if (uranValue) {
+                html += '<div class="uran-box"><div class="uran-text">' + uranValue + '</div><div class="uran-label">УРАН (Соғыс ұраны)</div></div>';
+            }
+            
+            // Негізгі ақпарат бөліктері
             if (maǵlıwmat.maǵlıwmat) {
-                if (maǵlıwmat.maǵlıwmat.tariyx) {
-                    html += `<div class="info-block">
-                        <div class="info-label">Тарихы</div>
-                        <div class="info-content">${maǵlıwmat.maǵlıwmat.tariyx}</div>
-                    </div>`;
-                }
-                if (maǵlıwmat.maǵlıwmat.túbegi) {
-                    html += `<div class="info-block" style="border-color:#3498db">
-                        <div class="info-label">Келіп шығуы</div>
-                        <div class="info-content">${maǵlıwmat.maǵlıwmat.túbegi}</div>
-                    </div>`;
-                }
-                if (maǵlıwmat.maǵlıwmat.anız) {
-                    html += `<div class="info-block" style="border-color:#f39c12; background:rgba(243,156,18,0.1)">
-                        <div class="info-label">Аңыз</div>
-                        <div class="info-content"><em>${maǵlıwmat.maǵlıwmat.anız}</em></div>
-                    </div>`;
-                }
-                if (maǵlıwmat.maǵlıwmat.qurilimi) {
-                    html += `<div class="info-block" style="border-color:#27ae60">
-                        <div class="info-label">Құрылымы</div>
-                        <div class="info-content">${maǵlıwmat.maǵlıwmat.qurilimi}</div>
-                    </div>`;
-                }
-                if (maǵlıwmat.maǵlıwmat.qalaqı) {
-                    html += `<div class="info-block" style="border-color:#9b59b6">
-                        <div class="info-label">Қалағы</div>
-                        <div class="info-content">${maǵlıwmat.maǵlıwmat.qalaqı}</div>
-                    </div>`;
-                }
-                if (maǵlıwmat.maǵlıwmat.tili) {
-                    html += `<div class="info-block">
-                        <div class="info-label">Тілі</div>
-                        <div class="info-content">${maǵlıwmat.maǵlıwmat.tili}</div>
-                    </div>`;
-                }
-                if (maǵlıwmat.maǵlıwmat.eskertpe) {
-                    html += `<div class="info-block" style="border-color:#e67e22">
-                        <div class="info-label">Ескерту</div>
-                        <div class="info-content">${maǵlıwmat.maǵlıwmat.eskertpe}</div>
-                    </div>`;
-                }
+                const fields = [
+                    { key: 'tariyx', icon: '📜', title: 'Тарих' },
+                    { key: 'túbegi', icon: '🧬', title: 'Келіп шығыуы' },
+                    { key: 'anız', icon: '🌟', title: 'Аңыз' },
+                    { key: 'qalaqı', icon: '👥', title: 'Саны' },
+                    { key: 'qurilimi', icon: '🏗️', title: 'Құрылымы' },
+                    { key: 'region', icon: '🌍', title: 'Жері' },
+                    { key: 'tili', icon: '🗣️', title: 'Тілі' }
+                ];
+                
+                fields.forEach(field => {
+                    if (maǵlıwmat.maǵlıwmat[field.key]) {
+                        html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + maǵlıwmat.maǵlıwmat[field.key] + '</p></div>';
+                    }
+                });
             }
             
+            // Ұрпақтар тізімі
             if (maǵlıwmat.ballar && maǵlıwmat.ballar.length > 0) {
-                html += `<div class="info-block" style="border-color:#d4af37; text-align:center">
-                    <div class="info-label">Топтар саны</div>
-                    <div class="info-content" style="font-size:1.5rem; color:var(--gold); font-weight:bold">${maǵlıwmat.ballar.length}</div>
-                </div>`;
+                const descendantsTree = buildDescendantsTree(maǵlıwmat);
+                const allDescendants = getAllDescendants(maǵlıwmat);
+                
+                html += '<div class="stats-box"><div class="stats-number">' + allDescendants.length + '</div><div> Барлық рулар</div></div>';
+                
+                html += '<div class="info-section"><h3>👇 Бағынышты топтар</h3>';
+                html += '<div class="descendants-list">';
+                
+                descendantsTree.forEach(group => {
+                    html += '<div class="descendant-group">';
+                    html += '<div class="descendant-parent">';
+                    html += '<span style="color: var(--accent-yellow);">' + group.node.at + '</span>';
+                    html += ' <span style="font-size: 0.8em; opacity: 0.7;">(' + levelsMap[group.node.level] + ')</span>';
+                    html += '</div>';
+                    
+                    if (group.children.length > 0) {
+                        html += '<div class="descendant-children">';
+                        group.children.forEach(child => {
+                            html += '<div class="descendant-child">';
+                            html += '<span class="descendant-bullet"></span>';
+                            html += '<span>' + child.at + '</span>';
+                            if (child.ballar && child.ballar.length > 0) {
+                                html += ' <span style="font-size: 0.75em; color: var(--accent-orange);">+' + getAllDescendants(child).length + '</span>';
+                            }
+                            html += '</div>';
+                        });
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                });
+                
+                html += '</div></div>';
             }
             
-            if (maǵlıwmat.jup) {
-                html += `<div class="info-block" style="border-color:#3498db; background:rgba(52,152,219,0.1)">
-                    <div class="info-label">Жұпар ру</div>
-                    <div class="info-content">${maǵlıwmat.jup}</div>
-                </div>`;
-            }
+            // Дәреже ақпараты
+            html += '<div class="info-section"><h3>📊 Дәреже</h3><p>' + levelsMap[maǵlıwmat.level] + ' (' + maǵlıwmat.level + ')</p></div>';
             
-            document.getElementById('dContent').innerHTML = html || '<div class="info-block"><div class="info-label">Мәлімет</div><div class="info-content">Басқа бөліктерді көру үшін басыңыз</div></div>';
+            document.getElementById('dContent').innerHTML = html;
         }
 
         function paneldiAshıw() {

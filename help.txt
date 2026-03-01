@@ -14,15 +14,5 @@ git push origin main
 
 
 
-git add .
-
-git commit -m "add up grade"
-
-git pull origin main
 
 
-
-https://abdimuratovbahrom.github.io/qaraqalpaq-rulari/index.html
-
-
-rgba(241, 196, 15, 0.7)
