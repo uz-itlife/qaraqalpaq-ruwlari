@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- ==================== ГЛАВНЫЕ СТРАНИЦЫ (Приоритет 1.0) ==================== -->
+  
+  <!-- Каракалпакская версия (основная) -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/index.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Казахская версия -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/indexKZ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Русская версия -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/indexRU.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- ==================== СПИСКИ РУЛАР (Приоритет 0.8) ==================== -->
+  
+  <!-- Списки - QQ -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/listsQQ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Списки - KZ -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/listsKZ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Списки - RU -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/listsRU.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- ==================== СХЕМЫ/ДЕРЕВЬЯ (Приоритет 0.8) ==================== -->
+  
+  <!-- Схема - QQ -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/schemeQQ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Схема - QQ1 (дополнительная) -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/schemeQQ1.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Схема - KZ -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/schemeKZ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Схема - RU -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/schemeRU.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- ==================== ЭКЗОГАМИЯ (Приоритет 0.7) ==================== -->
+  
+  <!-- Экзогамия - KZ -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/exogamyKZ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Экзогамия - QQ -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/exogamyQQ.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Экзогамия - RU -->
+  <url>
+    <loc>https://uz-itlife.github.io/qaraqalpaq-ruwlari/exogamyRU.html</loc>
+    <lastmod>2024-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

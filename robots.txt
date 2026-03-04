@@ -1,2 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /images/
+Allow: /pdf/
+
+Sitemap: https://uz-itlife.github.io/qaraqalpaq-ruwlari/sitemap.xml
