@@ -656,6 +656,70 @@
         }
     </style>
 </head>
+
+
+
+    <!-- СЫНАҚ РЕЖИМІ ТУРАЛЫ ЕСКЕРТУ -->
+<div id="testModeWarning" style="
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 200;
+    border-bottom: 3px solid #f1c40f;
+    box-shadow: 0 4px 20px rgba(231, 76, 60, 0.4);
+">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="font-size: 2em; margin-bottom: 10px;">⚠️ 🧪 ⚠️</div>
+        <h2 style="margin: 0 0 15px 0; font-size: 1.5em; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            НАЗАР АУДАРЫҢЫЗ! СЫНАҚ РЕЖИМІ
+        </h2>
+        <p style="margin: 0 0 15px 0; font-size: 1.1em; line-height: 1.6; opacity: 0.95;">
+            Бұл бет белсенді даму сатысында. 
+            Экзогамияны тексеру алгоритмі <strong>дұрыс жұмыс істемеуі</strong> мүмкін және 
+            <strong>шындыққа сәйкес келмейтін</strong> нәтижелерді көрсетуі мүмкін.
+        </p>
+        <div style="
+            background: rgba(255,255,255,0.15); 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin: 15px 0;
+            border: 2px dashed rgba(255,255,255,0.3);
+        ">
+            <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.05em;">
+                🙏 Бізге көмегіңіз керек!
+            </p>
+            <p style="margin: 0; line-height: 1.5;">
+                Егер сіз туыстықты анықтауда қателік немесе 
+                неке тексеруінің қате нәтижесін тапсаңыз, өтінеміз, 
+                <a href="https://t.me/qaraqalpaq_rulari" target="_blank" style="
+                    color: #f1c40f; 
+                    text-decoration: underline; 
+                    font-weight: bold;
+                ">бізге Telegram-топқа @qaraqalpaq_rulari жазыңыз</a>.
+            </p>
+        </div>
+        <button onclick="document.getElementById('testModeWarning').style.display='none';" style="
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        " onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+           onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+            ✕ Түсіндім, ескертуді жабу
+        </button>
+    </div>
+</div>
+
+
+
+
 <body>
    <header>
         <div class="logo">
@@ -709,7 +773,7 @@
             padding: 8px 0;
             font-size: 0.9em;
             font-weight: 600;
-            z-index: 99;
+            z-index: 210;
             overflow: hidden;
             white-space: nowrap;
             box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
