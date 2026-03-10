@@ -162,95 +162,112 @@
             margin: 0 auto;
         }
 
-        .container { 
-            display: flex; 
-            min-height: calc(100vh - 80px);
-            height: auto;
-        }
-        .tree-panel { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 15px; 
-            background: rgba(15, 20, 25, 0.98); 
-            transition: width 0.3s ease;
-        }
-        
-        /* Правая панель с возможностью сворачивания */
-        .info-panel {
-            width: 450px; 
-            background: var(--secondary-bg); 
-            border-left: 3px solid var(--accent-orange);
-            padding: 20px; 
-            overflow-y: auto; 
-            box-shadow: -5px 0 25px rgba(0,0,0,0.4);
-            position: relative;
-            transition: transform 0.3s ease, width 0.3s ease;
-            transform: translateX(0);
-        }
-        
-        /* Скрытая панель на десктопе */
-        .info-panel.collapsed {
-            transform: translateX(100%);
-            width: 0;
-            padding: 0;
-            overflow: hidden;
-            border-left: none;
-        }
-        
-        /* Кнопка закрытия панели */
-        .close-panel-btn {
-            position: sticky;
-            top: 10px;
-            left: 400px;
-            background: var(--accent-red);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: all 0.3s;
-        }
-        
-        .close-panel-btn:hover {
-            background: #c0392b;
-            transform: scale(1.1);
-        }
-        
-        /* Кнопка открытия панели (плавающая) */
-        .open-panel-btn {
-            position: fixed;
-            right: 20px;
-            bottom: 100px;
-            background: var(--gold);
-            color: #000;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5em;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
-            transition: all 0.3s;
-        }
-        
-        .open-panel-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
-        }
-        
-        .open-panel-btn.visible {
-            display: flex;
-        }
+/* Основной контейнер — вертикальный стек */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 70px);
+    width: 100%;
+}
+/* Дерево — занимает доступное пространство, но не больше нужного */
+.tree-panel {
+    flex: 1 1 auto;              /* растягивается, но не сжимает нижние блоки */
+    padding: 20px 15px;
+    overflow-x: auto;
+    min-height: 60vh;            /* минимум места для дерева */
+}
+
+/* Выдвижная панель справа */
+.info-panel {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    bottom: 0;
+    width: 440px;
+    max-width: 92vw;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1200;
+    background: rgba(20, 25, 35, 0.97);
+    border-left: 4px solid var(--accent-orange);
+    box-shadow: -12px 0 40px rgba(0,0,0,0.65);
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.info-panel.active {
+    transform: translateX(0);
+}
+
+/* Тёмный фон / backdrop */
+.backdrop {
+    position: fixed;
+    inset: 70px 0 0 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(3px);
+    z-index: 1150;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Кнопка закрытия — более удобная позиция */
+.close-panel-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    background: rgba(231, 76, 60, 0.9);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    z-index: 1300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.close-panel-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Плавающая кнопка info (показывается редко) */
+.open-panel-btn {
+    position: fixed;
+    right: 24px;
+    bottom: 32px;
+    width: 60px;
+    height: 60px;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    font-size: 2rem;
+    box-shadow: 0 6px 24px rgba(241,196,15,0.5);
+    z-index: 1100;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.open-panel-btn.visible {
+    display: flex;
+}
         
         h1 { text-align: center; color: var(--accent-yellow); margin-bottom: 5px; font-size: 1.8em; }
         .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 15px; font-size: 0.8em; }
@@ -269,7 +286,12 @@
         .level-3 .node { background: linear-gradient(135deg, #2ecc71, #27ae60); }
         .level-4 .node { background: linear-gradient(135deg, #3498db, #2980b9); font-size: 0.75em; }
         .level-5 .node { background: linear-gradient(135deg, #9b59b6, #8e44ad); font-size: 0.7em; min-width: 70px; }
-        .level-6 .node { background: linear-gradient(135deg, #1abc9c, #16a085); font-size: 0.65em; min-width: 60px; }
+        .level-6 .node {
+        background: linear-gradient(135deg, #6fe71f9d, #7cec26af);
+        font-weight: bold;
+        font-size: 0.7em;
+        min-width: 70px;
+      }
         .node-title { font-weight: bold; font-size: 0.9em; }
         .node-subtitle { font-size: 0.7em; opacity: 0.9; }
         .connector { width: 2px; height: 12px; background: var(--accent-orange); margin: -2px auto; }
@@ -277,7 +299,18 @@
         .info-header { border-bottom: 2px solid var(--accent-orange); padding-bottom: 10px; margin-bottom: 12px; }
         .info-title { font-size: 1.4em; color: var(--accent-yellow); margin-bottom: 5px; }
         .info-type { color: var(--accent-orange); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }
-        .info-section { margin-bottom: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 5px; border-left: 3px solid var(--accent-blue); }
+        /* Нижние секции (глоссарий, источники, футер) — всегда внизу, не смешиваются */
+.info-section {
+    margin:40px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+     
         .info-section ul a { color: var(--accent-darkblue); text-decoration: none; display: flex; align-items: center; flex-wrap: wrap; }
         .info-section h3 { color: var(--accent-cyan); margin-bottom: 8px; font-size: 0.9em; display: flex; align-items: center; gap: 8px; }
         .info-section p { color: var(--text-secondary); line-height: 1.5; font-size: 0.9em; text-align: justify; }
@@ -304,7 +337,7 @@
         }
         .legend-item { display: flex; align-items: center; gap: 5px; margin: 2px 0; }
         .legend-color { width: 12px; height: 12px; border-radius: 2px; }
-        .stats { position: fixed; top: 90px; right: 475px; background: rgba(0,0,0,0.9); padding: 10px; border-radius: 6px; font-size: 0.8em; z-index: 100; transition: right 0.3s ease; }
+        .stats { position: fixed; top: 90px; right: 275px; background: rgba(0,0,0,0.9); padding: 10px; border-radius: 6px; font-size: 0.8em; z-index: 100; transition: right 0.3s ease; }
         
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(241, 196, 15, 0); } 100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); } }
         
@@ -526,67 +559,82 @@
            ВСЕ МЕДИА-ЗАПРОСЫ
            ============================================ */
 
-        /* ─── 1024px и меньше (планшеты) ─── */
-        @media (max-width: 1024px) {
+        @media (min-width: 1025px) {
+    .info-panel { width: 460px; }
+}
+        @media (max-width: 1200px) {
             .stats { right: 10px; top: 90px; }
         }
 
         /* ─── 968px и меньше (мобильные меню) ─── */
-        @media (max-width: 968px) { 
-            .burger-menu { display: flex; }
-            
-            .view-switch {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: rgba(10,12,16,0.98);
-                flex-direction: column;
-                padding: 1rem;
-                border-bottom: 2px solid var(--gold);
-                border-radius: 0;
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-            }
-            
-            .view-switch.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            .view-btn {
-                width: 100%;
-                text-align: center;
-                padding: 6px 8px;
-            }
-            
-            .stats { right: 10px; top: 80px; font-size: 0.65em; max-width: 150px; } 
-            .legend { display: none; }
-            
-            .info-panel { 
-                width: 100%; 
-                position: fixed; 
-                bottom: 0; 
-                left: 0; 
-                height: 60vh; 
-                transform: translateY(100%); 
-                transition: transform 0.3s ease;
-                z-index: 1000;
-                border-left: none;
-                border-top: 3px solid var(--accent-orange);
-            } 
-            
-            .info-panel.active { transform: translateY(0); }
-            .info-panel.collapsed { transform: translateY(100%); }
-            
-            header { padding: 0.5rem 1rem; }
-            body { padding-top: 70px; }
-            .container { height: calc(100vh - 70px); }
-            .open-panel-btn { bottom: 20px; right: 20px; }
-            .search-box input { padding: 2px 8px; position: absolute; top: 0px; }
-        }
+       /* ─── 968px и меньше (мобильные меню + панель снизу) ─── */
+@media (max-width: 968px) {
+    .burger-menu { display: flex; }
+    
+    .view-switch {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(10,12,16,0.98);
+        flex-direction: column;
+        padding: 1rem;
+        border-bottom: 2px solid var(--gold);
+        border-radius: 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .view-switch.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .view-btn {
+        width: 100%;
+        text-align: center;
+        padding: 6px 8px;
+    }
+    
+    .stats { right: 10px; top: 80px; font-size: 0.65em; max-width: 150px; }
+    .legend { display: none; }
+    
+    header { padding: 0.5rem 1rem; }
+    body { padding-top: 70px; }
+    .container { height: calc(100vh - 70px); }
+    .open-panel-btn { bottom: 20px; right: 20px; }
+    .search-box input { padding: 2px 8px; position: absolute; top: 0px; }
+
+    /* Мобильная панель — снизу */
+    .info-panel {
+        top: 80px;
+        right: 3vw;
+        left: 3vw;
+        bottom: 4vh;
+        width: 94vw;
+        max-width: none;
+        height: auto;
+        max-height: 65vh;
+        border-radius: 16px 16px 0 0;
+        border-left: none;
+        border-top: 5px solid var(--accent-orange);
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+        transform: translateY(110%);
+        padding: 16px;
+    }
+
+    .info-panel.active {
+        transform: translateY(0);
+    }
+
+    .close-panel-btn {
+        
+        top: 12px;
+        right: 16px;
+    }
+}
 
         /* ─── 768px и меньше (планшеты/телефоны) ─── */
         @media (max-width: 768px) {
@@ -619,6 +667,8 @@
                 position: fixed;
                 top: 70px;
             }
+
+            .info-panel.active { transform: translateY(0); height: 100vh; }
             
             body { padding-top: 115px !important; }
             
@@ -635,11 +685,7 @@
             .stats { display: none; }
         }
 
-        /* ─── 765px и меньше ─── */
-        @media (max-width: 765px) {
-            .stats { display: none; }
-        }
-
+        
         /* ─── 480px и меньше (маленькие телефоны) ─── */
         @media (max-width: 480px) {
             header {
@@ -701,7 +747,7 @@
             .stats, .legend { display: none; }
             
             .container { height: auto; min-height: calc(100vh - 55px); }
-            .info-panel { height: 50vh; }
+            .info-panel { height: 300vh; }
         }
     </style>
     <base target="_blank">
@@ -772,6 +818,7 @@
                 </div>
             </div>
         </div>
+        <div class="backdrop" id="backdrop"></div>
     </div>
 
     <!-- Кнопка открытия панели -->
@@ -793,7 +840,8 @@
             "Арыс",
             "Болим/Улкен уруу",
             "Улкен уруу/уруу",
-            "Тире",
+            "Уруу/тире",
+            "Тире/коше",
             "Коше"
         ];
 
@@ -1214,7 +1262,7 @@
                                         {
                                             id: "ush-bas",
                                             name: "Уш бас",
-                                            level: 4,
+                                            level: 5,
                                             type: "уруу",
                                             info: {
                                                 tamga: "УБ",
@@ -1225,7 +1273,7 @@
                                                 {
                                                     id: "jaman-ub",
                                                     name: "Жаман",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "ЖМ", uran: "Шулик!" }
                                                 }
@@ -1498,7 +1546,7 @@
                                         },
                                         {
                                             id: "jamanaul-b",
-                                            name: "Жаманаул",
+                                            name: "Жамана-ул(балгалы)",
                                             level: 4,
                                             type: "уруу",
                                             info: { tamga: "ЖА", urан: "Балга!" }
@@ -1689,42 +1737,42 @@
                                         {
                                             id: "samat",
                                             name: "Самат",
-                                            level: 4,
+                                            level: 5,
                                             type: "уруу",
                                             info: { tamga: "СМ", urан: "Акшолпан!" },
                                             children: [
                                                 {
                                                     id: "baibishe",
                                                     name: "Байбисе",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "ББ", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "toqqaragan",
                                                     name: "Токалкаран",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "ТК", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "baimurat",
                                                     name: "Баймурат",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "БМ", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "jolan",
                                                     name: "Жолан",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "ЖЛ", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "bekau",
                                                     name: "Бекау",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "БК", urан: "Акшолпан!" }
                                                 }
@@ -1733,42 +1781,42 @@
                                         {
                                             id: "teli",
                                             name: "Тели",
-                                            level: 4,
+                                            level: 5,
                                             type: "уруу",
                                             info: { tamga: "ТЛ", urан: "Акшолпан!" },
                                             children: [
                                                 {
                                                     id: "tleuberdi",
                                                     name: "Тлеуберди",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "ТБ", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "allaberdi",
                                                     name: "Аллаберди",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "АБ", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "tangirberdi",
                                                     name: "Тангирберди",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "ТБ", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "mantyqaragan",
                                                     name: "Мантыккаран",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "МК", urан: "Акшолпан!" }
                                                 },
                                                 {
                                                     id: "molloqaragan",
                                                     name: "Моллакаран",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "коше",
                                                     info: { tamga: "МК", urан: "Акшолпан!" }
                                                 }
@@ -1832,15 +1880,15 @@
                                 {
                                     id: "teristambaly",
                                     name: "ТЕРИСТАНБАЛЫ",
-                                    level: 3,
+                                    level: 4,
                                     type: "уруу",
                                     children: [
-                                        { id: "shomak", name: "Шомак", level: 4, type: "тире" },
-                                        { id: "hangildi", name: "Хангелди", level: 4, type: "коше" },
-                                        { id: "baiqaragan", name: "Байкаран", level: 4, type: "коше" },
-                                        { id: "elshibai", name: "Елшибай", level: 4, type: "коше" },
-                                        { id: "qurban-t", name: "Курбан", level: 4, type: "коше" },
-                                        { id: "togai", name: "Тогай", level: 4, type: "коше" }
+                                        { id: "shomak", name: "Шомак", level: 5, type: "тире" },
+                                        { id: "hangildi", name: "Хангелди", level: 5, type: "коше" },
+                                        { id: "baiqaragan", name: "Байкаран", level: 5, type: "коше" },
+                                        { id: "elshibai", name: "Елшибай", level: 5, type: "коше" },
+                                        { id: "qurban-t", name: "Курбан", level: 5, type: "коше" },
+                                        { id: "togai", name: "Тогай", level: 5, type: "коше" }
                                     ]
                                 },
                                 {
@@ -1852,13 +1900,13 @@
                                 {
                                     id: "tyekli",
                                     name: "ТИЕКТИ",
-                                    level: 3,
+                                    level: 4,
                                     type: "уруу",
                                     children: [
-                                        { id: "zhumagul", name: "Жумагул", level: 4, type: "коше" },
-                                        { id: "aidarbek", name: "Айдарбек", level: 4, type: "коше" },
-                                        { id: "kanjar", name: "Канжар", level: 4, type: "коше" },
-                                        { id: "sarykempir", name: "Сарыкемпир", level: 4, type: "коше" }
+                                        { id: "zhumagul", name: "Жумагул", level: 5, type: "коше" },
+                                        { id: "aidarbek", name: "Айдарбек", level: 5, type: "коше" },
+                                        { id: "kanjar", name: "Канжар", level: 5, type: "коше" },
+                                        { id: "sarykempir", name: "Сарыкемпир", level: 5, type: "коше" }
                                     ]
                                 },
                                 {
@@ -1890,13 +1938,13 @@
                                 {
                                     id: "kazayakty",
                                     name: "КАЗАЯКТЫ",
-                                    level: 3,
+                                    level: 4,
                                     type: "уруу",
                                     children: [
-                                        { id: "anetai", name: "Анетай", level: 4, type: "коше" },
-                                        { id: "zharimbet", name: "Жаримбет", level: 4, type: "коше" },
-                                        { id: "zhunli", name: "Жунли", level: 4, type: "коше" },
-                                        { id: "sadaq", name: "Садак", level: 4, type: "коше" }
+                                        { id: "anetai", name: "Анетай", level: 5, type: "коше" },
+                                        { id: "zharimbet", name: "Жаримбет", level: 5, type: "коше" },
+                                        { id: "zhunli", name: "Жунли", level: 5, type: "коше" },
+                                        { id: "sadaq", name: "Садак", level: 5, type: "коше" }
                                     ]
                                 },
                                 {
@@ -1941,28 +1989,41 @@
                                 population: "4320 кибиток"
                             },
                             children: [
-                                {
-                                    id: "bessary",
-                                    name: "БЕССАРЫ",
-                                    level: 3,
-                                    type: "уруу",
-                                    children: [
-                                        { id: "zhunli", name: "Жунли", level: 4, type: "тире" },
-                                        { id: "qoyly", name: "Койлы", level: 4, type: "тире" }
-                                    ]
-                                },
-                                {
-                                    id: "beksyyk",
-                                    name: "БЕКСИЙЫК",
-                                    level: 3,
-                                    type: "уруу",
-                                    children: [
-                                        { id: "zherger", name: "Жергер", level: 4, type: "тире" },
-                                        { id: "masai", name: "Масай", level: 4, type: "тире" },
-                                        { id: "shyghyrshy", name: "Шыгыршы", level: 4, type: "тире" },
-                                        { id: "bekreshi", name: "Бекреши", level: 4, type: "тире" }
-                                    ]
-                                },
+        {
+            id: "bessary",
+            name: "БЕССАРЫ",
+            level: 3,
+            type: "уруу",
+            children: [
+                {
+                    id: "zhunli",
+                    name: "Жунли(бессары)",
+                    level: 4,
+                    type: "тире",
+                    children: [
+                        { id: "suyindik", name: "Суйиндик", level: 5, type: "koshe" },
+                        { id: "esergeb", name: "Есергеб", level: 5, type: "koshe" },
+                        { id: "taltay", name: "Талтай", level: 5, type: "koshe" },
+                        { id: "alimbay", name: "Алимбай", level: 5, type: "koshe" }
+                    ]
+                },
+                {
+                    id: "qoyly",
+                    name: "Койлы",
+                    level: 4,
+                    type: "тире",
+                    children: [
+                        { id: "amankul", name: "Аманкул", level: 5, type: "koshe" },
+                        { id: "zharsay", name: "Жарсай", level: 5, type: "koshe" },
+                        { id: "segizek", name: "Сегизек", level: 5, type: "koshe" },
+                        { id: "qurbanqul", name: "Курбанкул", level: 5, type: "koshe" },
+                        { id: "genjequl", name: "Генжекул", level: 5, type: "koshe" }
+                    ]
+                }
+            ]
+        
+},
+                
                                 {
                                     id: "kazayakly-k",
                                     name: "КАЗАЯКЛЫ",
@@ -2041,8 +2102,8 @@
                                     ]
                                 },
                                 {
-                                    id: "aralba",
-                                    name: "Аралба",
+                                    id: "aralbay",
+                                    name: "Аралбай",
                                     level: 3,
                                     type: "уруу",
                                     children: [
@@ -2313,19 +2374,19 @@
                                         {
                                             id: "mamyqshy",
                                             name: "Мамыкшы",
-                                            level: 4,
+                                            level: 5,
                                             type: "уруу",
                                             children: [
-                                                { id: "zhetiqurt", name: "Жетикурт", level: 5, type: "коше" }
+                                                { id: "zhetiqurt", name: "Жетикурт", level: 6, type: "коше" }
                                             ]
                                         },
                                         {
                                             id: "kosar-m",
                                             name: "Косар",
-                                            level: 4,
+                                            level: 5,
                                             type: "уруу",
                                             children: [
-                                                { id: "gubidin", name: "Губидин", level: 5, type: "коше" }
+                                                { id: "gubidin", name: "Губидин", level: 6, type: "коше" }
                                             ]
                                         },
                                         { id: "qylqaly", name: "Кылкалы", level: 4, type: "тире" }
@@ -2445,37 +2506,46 @@
         }
 
         // Управление панелью
-        function openPanel() {
-            const panel = document.getElementById('infoPanel');
-            const openBtn = document.getElementById('openPanelBtn');
-            const statsBox = document.getElementById('statsBox');
-            
-            panel.classList.remove('collapsed');
-            panel.classList.add('active');
-            openBtn.classList.remove('visible');
-            isPanelOpen = true;
-            
-            // На десктопе сдвигаем статистику
-            if (window.innerWidth > 968) {
-                statsBox.style.right = '470px';
-            }
-        }
+   function openPanel() {
+    const panel    = document.getElementById("infoPanel");
+    const backdrop = document.getElementById("backdrop");
+    const openBtn  = document.getElementById("openPanelBtn");
+    const statsBox = document.getElementById("statsBox"); // ← добавили определение!
 
-        function closePanel() {
-            const panel = document.getElementById('infoPanel');
-            const openBtn = document.getElementById('openPanelBtn');
-            const statsBox = document.getElementById('statsBox');
-            
-            panel.classList.add('collapsed');
-            panel.classList.remove('active');
-            openBtn.classList.add('visible');
-            isPanelOpen = false;
-            
-            // На десктопе возвращаем статистику
-            if (window.innerWidth > 968) {
-                statsBox.style.right = '10px';
-            }
-        }
+    panel.classList.add("active");
+    backdrop.classList.add("active");
+    openBtn.style.display = "none";
+    isPanelOpen = true;
+
+    document.body.style.overflow = "hidden";
+
+    // Сдвигаем статистику ТОЛЬКО если панель видна справа (десктоп)
+    if (window.innerWidth > 968) {
+        statsBox.style.right = "460px"; // или 470px — подберите под ширину панели
+    }
+}
+
+    function closePanel() {
+    const panel    = document.getElementById("infoPanel");
+    const backdrop = document.getElementById("backdrop");
+    const openBtn  = document.getElementById("openPanelBtn");
+    const statsBox = document.getElementById("statsBox");
+
+    panel.classList.remove("active");
+    backdrop.classList.remove("active");
+    openBtn.style.display = "flex";
+    isPanelOpen = false;
+
+    document.body.style.overflow = "";
+
+    if (window.innerWidth > 968) {
+        statsBox.style.right = "10px"; // возвращаем на место
+    }
+}
+
+        // Закрытие по клику на фон
+document.getElementById("backdrop")?.addEventListener("click", closePanel);
+
 
         function togglePanel() {
             if (isPanelOpen) {
@@ -2629,21 +2699,25 @@
             });
         }
 
-        // Обработчики событий
-        document.addEventListener('DOMContentLoaded', function() {
-            buildTree(treeData, document.getElementById('tree'));
-            
-            // Кнопка закрытия панели
-            document.getElementById('closePanelBtn').addEventListener('click', closePanel);
-            
-            // Кнопка открытия панели
-            document.getElementById('openPanelBtn').addEventListener('click', function() {
-                if (currentSelectedNode) {
-                    openPanel();
-                } else {
-                    alert('Сначала выберите род');
-                }
-            });
+     document.addEventListener('DOMContentLoaded', function() {
+    buildTree(treeData, document.getElementById('tree'));
+
+    // Явно закрываем всё при старте
+    closePanel();
+
+    // Слушатели
+    document.getElementById('closePanelBtn').addEventListener('click', closePanel);
+    document.getElementById('backdrop')?.addEventListener('click', closePanel);
+
+    document.getElementById('openPanelBtn').addEventListener('click', () => {
+        if (currentSelectedNode) openPanel();
+        else alert('Сначала выберите род');
+    });
+
+    // Показ плавающей кнопки только на мобильных
+    if (window.innerWidth <= 968) {
+        document.getElementById('openPanelBtn').style.display = 'none';
+    }
             
             // Бургер меню
             document.getElementById('burgerMenu').addEventListener('click', toggleBurgerMenu);
@@ -2921,6 +2995,15 @@
             font-size: 0.8em; 
             color: #666; 
         }
+
+        footer {
+    margin-top: 60px;
+    padding: 40px 20px;
+    background: rgba(0,0,0,0.4);
+    border-top: 2px solid var(--accent-orange);
+}
+
+   
     </style>
 
       <script>

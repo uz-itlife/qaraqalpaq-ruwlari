@@ -169,96 +169,106 @@
         margin: 0 auto;
       }
 
-      .container {
-        display: flex;
-        min-height: calc(100vh - 80px); /* min-height вместо height */
-        height: auto; /* позволяет растягиваться */
-      }
-      .tree-panel {
-        flex: 1;
-        overflow-y: auto;
-        padding: 15px;
-        background: rgba(15, 20, 25, 0.98);
-        transition: width 0.3s ease;
-      }
+ /* Убираем постоянный отступ справа */
+.container {
+  margin-right: 0;           /* !!! важно */
+  width: 100%;
+  min-height: calc(100vh - 70px);
+}
 
-      /* Правая панель с возможностью сворачивания */
-      .info-panel {
-        width: 450px;
-        background: var(--secondary-bg);
-        border-left: 3px solid var(--accent-orange);
-        padding: 20px;
-        overflow-y: auto;
-        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.4);
-        position: relative;
-        transition:
-          transform 0.3s ease,
-          width 0.3s ease;
-        transform: translateX(0);
-      }
+/* Дерево теперь занимает всю ширину */
+.tree-panel {
+  width: 100%;
+  padding: 20px;
+  overflow-x: auto;
+}
 
-      /* Скрытая панель на десктопе */
-      .info-panel.collapsed {
-        transform: translateX(100%);
-        width: 0;
-        padding: 0;
-        overflow: hidden;
-        border-left: none;
-      }
+/* Правая панель — выдвижная */
+.info-panel {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  bottom: 0;
+  width: 420px;               /* или 90vw на мобильных */
+  max-width: 90vw;
+  transform: translateX(100%); /* спрятано за правым краем */
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1100;
+  background: rgba(15, 20, 25, 0.96);
+  border-left: 3px solid var(--accent-orange);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+  overflow-y: auto;
+}
 
-      /* Кнопка закрытия панели */
-      .close-panel-btn {
-        position: sticky;
-        top: 10px;
-        left: 400px;
-        background: var(--accent-red);
-        border: none;
-        color: white;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-        transition: all 0.3s;
-      }
+/* Когда открыта */
+.info-panel.active {
+  transform: translateX(0);
+}
+
+/* Затемнение фона при открытой панели */
+.backdrop {
+  position: fixed;
+  inset: 70px 0 0 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1090;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.backdrop.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Кнопка закрытия — теперь более заметная */
+.close-panel-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;           /* изменили позицию */
+  width: 40px;
+  height: 40px;
+  background: rgba(231, 76, 60, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Плавающая кнопка info — показываем только когда панель закрыта */
+.open-panel-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 32px;
+  width: 56px;
+  height: 56px;
+  background: var(--gold);
+  color: #000;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  box-shadow: 0 6px 20px rgba(241,196,15,0.4);
+  z-index: 1050;
+  display: none;          /* управляется JS */
+}
+
+.open-panel-btn.visible {
+  display: flex;
+}
 
       .close-panel-btn:hover {
         background: #c0392b;
         transform: scale(1.1);
       }
 
-      /* Кнопка открытия панели (плавающая) */
-      .open-panel-btn {
-        position: fixed;
-        right: 20px;
-        bottom: 100px;
-        background: var(--gold);
-        color: #000;
-        border: none;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.5em;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 999;
-        box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
-        transition: all 0.3s;
-      }
-
       .open-panel-btn:hover {
         transform: scale(1.1);
         box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
-      }
-
-      .open-panel-btn.visible {
-        display: flex;
       }
 
       h1 {
@@ -329,15 +339,17 @@
         background: linear-gradient(135deg, #3498db, #2980b9);
         font-size: 0.75em;
       }
+
       .level-5 .node {
         background: linear-gradient(135deg, #9b59b6, #8e44ad);
         font-size: 0.7em;
         min-width: 70px;
       }
       .level-6 .node {
-        background: linear-gradient(135deg, #1abc9c, #16a085);
-        font-size: 0.65em;
-        min-width: 60px;
+        background: linear-gradient(135deg, #6fe71f9d, #7cec26af);
+        font-weight: bold;
+        font-size: 0.7em;
+        min-width: 70px;
       }
       .node-title {
         font-weight: bold;
@@ -802,26 +814,35 @@
           display: none;
         }
 
-        .info-panel {
-          width: 100%;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          height: 60vh;
-          transform: translateY(100%);
-          transition: transform 0.3s ease;
-          z-index: 1000;
-          border-left: none;
-          border-top: 3px solid var(--accent-orange);
-        }
+   /* Мобильная адаптация */
+@media (max-width: 968px) {
+  .info-panel {
+    width: 90vw;
+    max-width: none;
+    right: 5vw;
+    left: 5vw;
+    bottom: 5vh;
+    top: 80px;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    border-left: none;
+    border-top: 4px solid var(--accent-orange);
+  }
 
-        .info-panel.active {
-          transform: translateY(0);
-        }
+  .info-panel.active {
+    transform: translateY(0);
+  }
 
-        .info-panel.collapsed {
-          transform: translateY(100%);
-        }
+  .close-panel-btn {
+    top: 12px;
+    right: 16px;
+  }
+}
+
+  .info-panel.collapsed {
+    transform: translateY(100%);
+    width: 100%;
+  }
 
         header {
           padding: 0.5rem 1rem;
@@ -832,13 +853,10 @@
         }
 
         .container {
-          height: calc(100vh - 70px);
-        }
+  margin-right: 0; /* Сброс отступа на мобильных */
+}
 
-        .open-panel-btn {
-          bottom: 20px;
-          right: 20px;
-        }
+        
 
         .search-box input {
           padding: 2px 8px;
@@ -1267,6 +1285,7 @@
     </div>
 
     <div class="container">
+      <div class="backdrop" id="backdrop"></div>
       <div class="tree-panel" id="treePanel">
         <h1 style="margin-top: 10px">QARAQALPAQ RIWLARI</h1>
         <div class="subtitle"></div>
@@ -1326,6 +1345,11 @@
         <div class="legend-color" style="background: #9b59b6"></div>
         Tiyre/Ko'she
       </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #6fe71f9d"></div>
+        Ko'she
+      </div>
+
     </div>
 
     <script>
@@ -1337,6 +1361,8 @@
         "Tiyre",
         "Ko'she",
       ];
+
+
 
       // Флаг состояния панели
       let isPanelOpen = false;
@@ -1757,7 +1783,7 @@
                       {
                         id: "ush-bas",
                         name: "Úsh bas",
-                        level: 4,
+                        level: 5,
                         type: "urıw",
                         info: {
                           tamga: "ÚB",
@@ -1768,7 +1794,7 @@
                           {
                             id: "jaman-ub",
                             name: "Jaman",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "JM", uran: "Shulıq!" },
                           },
@@ -1934,7 +1960,7 @@
                       },
                       {
                         id: "jaman-aul",
-                        name: "Jaman awıl",
+                        name: "Jaman awıl()",
                         level: 4,
                         type: "urıw",
                         info: { tamga: "JA", uran: "Qoldaw!" },
@@ -2041,7 +2067,7 @@
                       },
                       {
                         id: "jamanaul-b",
-                        name: "Jamanaul",
+                        name: "Jamanaul(BALĞALı)",
                         level: 4,
                         type: "urıw",
                         info: { tamga: "JA", uran: "Balǵa!" },
@@ -2232,42 +2258,42 @@
                       {
                         id: "samat",
                         name: "Samat",
-                        level: 4,
+                        level: 5,
                         type: "urıw",
                         info: { tamga: "SM", uran: "Aqsholpan!" },
                         children: [
                           {
                             id: "baibishe",
                             name: "Báybishe",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "BB", uran: "Aqsholpan!" },
                           },
                           {
                             id: "toqqaragan",
                             name: "Toqalqarag'an",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "TQ", uran: "Aqsholpan!" },
                           },
                           {
                             id: "baimurat",
                             name: "Baymurat",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "BM", uran: "Aqsholpan!" },
                           },
                           {
                             id: "jolan",
                             name: "Jolan",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "JL", uran: "Aqsholpan!" },
                           },
                           {
                             id: "bekau",
                             name: "Bekaw",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "BK", uran: "Aqsholpan!" },
                           },
@@ -2276,42 +2302,42 @@
                       {
                         id: "teli",
                         name: "Teli",
-                        level: 4,
+                        level: 5,
                         type: "urıw",
                         info: { tamga: "TL", uran: "Aqsholpan!" },
                         children: [
                           {
                             id: "tleuberdi",
                             name: "Tleuberdi",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "TB", uran: "Aqsholpan!" },
                           },
                           {
                             id: "allaberdi",
                             name: "Allaberdi",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "AB", uran: "Aqsholpan!" },
                           },
                           {
                             id: "tangirberdi",
                             name: "Tańirberdi",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "TB", uran: "Aqsholpan!" },
                           },
                           {
                             id: "mantyqaragan",
                             name: "Mantıqarag'an",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "MQ", uran: "Aqsholpan!" },
                           },
                           {
                             id: "molloqaragan",
                             name: "Mollaqarag'an",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                             info: { tamga: "MQ", uran: "Aqsholpan!" },
                           },
@@ -2375,43 +2401,43 @@
                   {
                     id: "teristambaly",
                     name: "TERISTAŃBALı",
-                    level: 3,
+                    level: 4,
                     type: "urıw",
                     children: [
                       {
                         id: "shomak",
                         name: "Shomaq",
-                        level: 4,
+                        level: 5,
                         type: "tiyre",
                       },
                       {
                         id: "hangildi",
                         name: "Xangildi",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "baiqaragan",
                         name: "Bayqarag'an",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "elshibai",
                         name: "Elshibay",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "qurban-t",
                         name: "Qurban",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "togai",
                         name: "Tog'ay",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                     ],
@@ -2419,37 +2445,37 @@
                   {
                     id: "bakanly-sheyjeyli",
                     name: "BAQANLı-sheyjeyli",
-                    level: 3,
+                    level: 4,
                     type: "urıw",
                   },
                   {
                     id: "tyekli",
                     name: "TIYEKTI",
-                    level: 3,
+                    level: 4,
                     type: "urıw",
                     children: [
                       {
                         id: "zhumagul",
                         name: "Jumagul",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "aidarbek",
                         name: "Aidarbek",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "kanjar",
                         name: "Kanjar",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                       {
                         id: "sarykempir",
                         name: "Sarykempir",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
                     ],
@@ -2460,7 +2486,10 @@
                     level: 3,
                     type: "urıw",
                     children: [
-                      { id: "atanai", name: "Atanay", level: 4, type: "tiyre" },
+                      { id: "atanai", 
+                      name: "Atanay",
+                      level: 4,
+                        type: "tiyre" },
                       {
                         id: "eshkili",
                         name: "Eshkili",
@@ -2508,23 +2537,23 @@
                   {
                     id: "kazayakty",
                     name: "QAZAYAQTı",
-                    level: 3,
+                    level: 4,
                     type: "urıw",
                     children: [
                       {
                         id: "anetai",
                         name: "Ánetay",
-                        level: 4,
+                        level: 5,  
                         type: "ko'she",
                       },
                       {
                         id: "zharimbet",
                         name: "Járímbet",
-                        level: 4,
+                        level: 5,
                         type: "ko'she",
                       },
-                      { id: "zhunli", name: "Júnli", level: 4, type: "ko'she" },
-                      { id: "sadaq", name: "Sadaq", level: 4, type: "ko'she" },
+                      { id: "zhunli", name: "Júnli(kazayakty)", level: 5, type: "ko'she" },
+                      { id: "sadaq", name: "Sadaq", level: 5, type: "ko'she" },
                     ],
                   },
                   {
@@ -2560,40 +2589,72 @@
               },
             ],
           },
-          {
-            id: "onTort",
-            name: "ARYS ON TÓRT RUW",
-            level: 1,
-            type: "arıs",
-            info: {
-              history: "On tórt ruw - 14 urıw.",
-              population: "10260 kibitka (60%)",
-            },
+         {
+    id: "onTort",
+    name: "ARYS ON TÓRT RUW",
+    level: 1,
+    type: "arıs",
+    info: {
+        history: "On tórt ruw - 14 urıw.",
+        population: "10260 kibitka (60%)",
+    },
+     children: [
+                        {
+                            id: "kytai",
+                            name: "QITAY",
+                            level: 2,
+                            type: "úlken urıw",
+                            tamga: "Q",
+                            urан: "Ullı taw",
+                            info: {
+                                history: "Eń úlken urıw.",
+                                tamga: "Q",
+                                urан: "Ullı taw",
+                                population: "4320 кибитка ",
+                            },
+    children: [
+        {
+            id: "bessary",
+            name: "BESSARI",
+            level: 3,
+            type: "urıw",
             children: [
-              {
-                id: "kytaı",
-                name: "QITAY",
-                level: 2,
-                type: "úlken urıw",
-                tamga: "Q",
-                uran: "Ullı taw",
-                info: {
-                  history: "Eń úlken urıw.",
-                  tamga: "Q",
-                  uran: "Ullı taw",
-                  population: "4320 kibitka",
-                },
-                children: [
-                  {
-                    id: "bessary",
-                    name: "BESSARI",
-                    level: 3,
-                    type: "urıw",
+                {
+                    id: "zhunli",
+                    name: "Júnli(bessary)",
+                    level: 4,
+                    type: "tiyre",
                     children: [
-                      { id: "zhunli", name: "Júnli", level: 4, type: "tiyre" },
-                      { id: "qoyly", name: "Qoylı", level: 4, type: "tiyre" },
-                    ],
-                  },
+                        { id: "suyindik", name: "Súyindik", level: 5, type: "koshe" },
+                        { id: "esergeb", name: "Esergeb", level: 5, type: "koshe" },
+                        { id: "taltay", name: "Taltay", level: 5, type: "koshe" },
+                        { id: "alimbay", name: "Alimbay", level: 5, type: "koshe" }
+                    ]
+                },
+                {
+                    id: "qoyly",
+                    name: "Qoylı",
+                    level: 4,
+                    type: "tiyre",
+                    children: [
+                        { id: "amankul", name: "Amankúl", level: 5, type: "koshe" },
+                        { id: "zharsay", name: "Jarsay", level: 5, type: "koshe" },
+                        { id: "segizek", name: "Segizek", level: 5, type: "koshe" },
+                        { id: "qurbanqul", name: "Qurbanqul", level: 5, type: "koshe" },
+                        { id: "genjequl", name: "Genjequl", level: 5, type: "koshe" }
+                    ]
+                }
+            ]
+        
+},
+                
+
+
+
+               
+
+
+
                   {
                     id: "beksyyk",
                     name: "BEKSİYIQ",
@@ -2779,8 +2840,8 @@
                   },
 
                   {
-                    id: "aralba",
-                    name: "Aralba",
+                    id: "aralbay",
+                    name: "Aralbay",
                     level: 3,
                     type: "urıw",
                     children: [
@@ -3299,13 +3360,13 @@
                       {
                         id: "mamyqshy",
                         name: "Mamıqshı",
-                        level: 4,
+                        level: 5,
                         type: "urıw",
                         children: [
                           {
                             id: "zhetiqurt",
                             name: "Jetiqurt",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                           },
                         ],
@@ -3313,13 +3374,13 @@
                       {
                         id: "kosar-m",
                         name: "Qosar",
-                        level: 4,
+                        level: 5,
                         type: "urıw",
                         children: [
                           {
                             id: "gubidin",
                             name: "G'úbidin",
-                            level: 5,
+                            level: 6,
                             type: "ko'she",
                           },
                         ],
@@ -3425,8 +3486,7 @@
                             name: "Eshbug'a",
                             level: 5,
                             type: "ko'she",
-                          },
-                        ],
+                          
                       },
                     ],
                   },
@@ -3434,6 +3494,9 @@
               },
             ],
           },
+        ],
+         },
+        
         ],
       };
 
@@ -3489,38 +3552,49 @@
         return result;
       }
 
-      // Управление панелью
-      function openPanel() {
-        const panel = document.getElementById("infoPanel");
-        const openBtn = document.getElementById("openPanelBtn");
-        const statsBox = document.getElementById("statsBox");
+    function openPanel() {
+  const panel = document.getElementById("infoPanel");
+  const backdrop = document.getElementById("backdrop");
+  const openBtn = document.getElementById("openPanelBtn");
 
-        panel.classList.remove("collapsed");
-        panel.classList.add("active");
-        openBtn.classList.remove("visible");
-        isPanelOpen = true;
+  panel.classList.add("active");
+  backdrop.classList.add("active");
+  openBtn.style.display = "none";           // прячем кнопку info
+  isPanelOpen = true;
+
+  // Запрет скролла body (опционально)
+  document.body.style.overflow = "hidden";
+}
+
+      
 
         // На десктопе сдвигаем статистику
-        if (window.innerWidth > 968) {
-          statsBox.style.right = "470px";
-        }
-      }
+  if (window.innerWidth > 968) {
+    statsBox.style.right = "460px";
+  }
+      
 
-      function closePanel() {
-        const panel = document.getElementById("infoPanel");
-        const openBtn = document.getElementById("openPanelBtn");
-        const statsBox = document.getElementById("statsBox");
+function closePanel() {
+  const panel = document.getElementById("infoPanel");
+  const backdrop = document.getElementById("backdrop");
+  const openBtn = document.getElementById("openPanelBtn");
 
-        panel.classList.add("collapsed");
-        panel.classList.remove("active");
-        openBtn.classList.add("visible");
-        isPanelOpen = false;
+  panel.classList.remove("active");
+  backdrop.classList.remove("active");
+  openBtn.style.display = "flex";
+  isPanelOpen = false;
 
-        // На десктопе возвращаем статистику
-        if (window.innerWidth > 968) {
-          statsBox.style.right = "10px";
-        }
-      }
+  document.body.style.overflow = "";
+}
+
+// Закрытие по клику на backdrop
+document.getElementById("backdrop").addEventListener("click", closePanel);
+
+  // На десктопе возвращаем статистику
+  if (window.innerWidth > 968) {
+    statsBox.style.right = "10px";
+  }
+      
 
       function togglePanel() {
         if (isPanelOpen) {
@@ -3748,6 +3822,22 @@
               // Если ничего не выбрано, показываем сообщение
               alert(" Aldın' menen tuwdı tan'lan' ");
             }
+
+            // Устанавливаем начальное состояние панели (открыта на десктопе)
+  const panel = document.getElementById("infoPanel");
+  const openBtn = document.getElementById("openPanelBtn");
+  
+  if (window.innerWidth > 968) {
+    panel.classList.remove("collapsed");
+    panel.classList.add("active");
+    openBtn.classList.remove("visible");
+    isPanelOpen = true;
+  } else {
+    panel.classList.add("collapsed");
+    panel.classList.remove("active");
+    openBtn.classList.remove("visible"); // На мобильном скрываем кнопку до выбора элемента
+    isPanelOpen = false;
+  }
           });
 
         // Бургер меню

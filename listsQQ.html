@@ -403,17 +403,19 @@
         .legend-color { width: 12px; height: 12px; border-radius: 2px; }
         .stats { position: fixed; top: 90px; right: 475px; background: rgba(0,0,0,0.9); padding: 10px; border-radius: 6px; font-size: 0.8em; z-index: 100; transition: right 0.3s ease; }
         
+         @media (max-width: 1100px) {
+            .stats {right: 100px; top: 90px; }
+        }
+        
         @media (max-width: 1024px) {
-            .stats { right: 10px; top: 90px; }
+            .stats { right: 0px; top: 190px; }
         }
         
         @media (max-width: 968px) { 
-            .stats { 
-                right: 10px; 
-                top: 80px; 
-                font-size: 0.65em;
-                max-width: 150px;
-            } 
+           .stats { display: none; }
+             .legend  {
+                display: none;
+            }
             
             .info-panel { 
                 width: 100%; 
@@ -460,9 +462,7 @@
             }
         }
 
-        @media (max-width: 765px) {
-            .stats { display: none; }
-        }
+       
         
         .search-box { position: fixed; top: 72px; left: 10px; z-index: 100; }
         .search-box input { padding: 6px 10px; border-radius: 15px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.9); color: white; width: 180px; font-size: 0.85em; }
@@ -987,7 +987,7 @@ const terekMaǵlıwmatları = {
                                         { id: "ereke", at: "Ereke", dáreje: 5, túri: "Ko\'she", maǵlıwmat: { tamga: "ER", uran: "Qoldaw!" } }
                                     ]
                                 },
-                                { id: "jaman-awıl", at: "Jaman awıl", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "JA", uran: "Qoldaw!" } }
+                                { id: "jaman-awıl", at: "Jaman awıl(QOLDAWLı)", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "JA", uran: "Qoldaw!" } }
                             ]
                         },
                         {
@@ -1010,7 +1010,7 @@ const terekMaǵlıwmatları = {
                                 { id: "aqbalǵalı", at: "Aqbalǵalı", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "AB", uran: "Balǵa!" } },
                                 { id: "nur-balǵalı", at: "Nur balǵalı", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "NB", uran: "Balǵa!" } },
                                 { id: "túrkmen-b", at: "Túrkmen", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "TB", uran: "Balǵa!" } },
-                                { id: "jaman-awıl-b", at: "Jaman awıl", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "JA", uran: "Balǵa!" } },
+                                { id: "jaman-awıl-b", at: "Jaman awıl(BALǴALY)", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "JA", uran: "Balǵa!" } },
                                 { id: "shómishti", at: "Shómishti", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "SHM", uran: "Balǵa!" } },
                                 { id: "toqımbet", at: "Toqımbet", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "TQ", uran: "Balǵa!" } },
                                 { id: "taz-balǵalı", at: "Taz balǵalı", dáreje: 4, túri: "Tiyre", maǵlıwmat: { tamga: "TB", uran: "Balǵa!" } },
@@ -1108,8 +1108,42 @@ const terekMaǵlıwmatları = {
                     id: "qıtay", at: "QITAY", dáreje: 2, túri: "Úlken urıw", tamga: "Q", uran: "Ullı taw",
                     
                     maǵlıwmat: { tariyx: "Eń iri urıw.", tamga: "Q", uran: "Ullı taw", qalaqı: "4320 kibitok" },
+                   
+                                  ballar:  [
+                         {
+            id: "bessary",
+            at: "Bessary",
+            dáreje: 3,
+            túri: "Urıw",
+             ballar:  [
+                {
+                    id: "zhunli",
+                    at: "Junly(bessary)",
+                    dáreje: 4,
+                    túri: "Tiyre",
                     ballar: [
-                        { id: "bessarı", at: "BESSARY", dáreje: 3, túri: "Urıw", ballar: [{id:"júnli",at:"Júnli",dáreje:4,túri:"Tiyre"},{id:"qoylı",at:"Qoylı",dáreje:4,túri:"Tiyre"}] },
+                        { id: "suyindik", at: "Suyindik", dáreje: 5, túri: "koshe" },
+                        { id: "esergeb", at: "Esergeb", dáreje: 5, túri: "koshe" },
+                        { id: "taltay", at: "Taltay", dáreje: 5, túri: "koshe" },
+                        { id: "alimbay", at: "Alimbay", dáreje: 5, túri: "koshe" }
+                    ]
+                },
+                {
+                    id: "qoyly",
+                at: "Qoyly",
+                    dáreje: 4,
+                    túri: "Tiyre",
+                    ballar: [
+                        { id: "amankul", at: "Amankul", dáreje: 5, túri: "koshe" },
+                        { id: "zharsay", at: "Zharsay", dáreje: 5, túri: "koshe" },
+                        { id: "segizek", at: "Segizek", dáreje: 5, túri: "koshe" },
+                        { id: "qurbanqul", at: "Qurbanqul", dáreje: 5, túri: "koshe" },
+                        { id: "genjequl", at: "Genjequl", dáreje: 5, túri: "koshe" }
+                    ]
+                }
+            ]
+        
+},
                         { id: "beksıyıq", at: "BEKSIIYIQ", dáreje: 3, túri: "Urıw", ballar: [{id:"zerger",at:"Zerger",dáreje:4,túri:"Tiyre"},{id:"masay",at:"Masay",dáreje:4,túri:"Tiyre"},{id:"shıǵırshı",at:"Shıǵırshı",dáreje:4,túri:"Tiyre"},{id:"malay",at: "Malay",dáreje:4,túri:"Tiyre"}] },
                         { id: "qazayaqlı-q", at: "QAZAYAQLY", dáreje: 3, túri: "Urıw", ballar: [{id:"kálsen",at:"Kálsen",dáreje:4,túri:"Tiyre"},{id:"kúyik",at:"Kúyik",dáreje:4,túri:"Tiyre"},{id:"mırzay",at:"Mırzay",dáreje:4,túri:"Tiyre"},{id:"qılmoyın",at:"Qılmoyın",dáreje:4,túri:"Tiyre"},{id:"jılqbay",at:"Jılqbay",dáreje:4,túri:"Tiyre"},{id:"baybíshe-qz",at:"Baybíshe",dáreje:4,túri:"Tiyre",ballar:[{id:"baybíshe-kosh",at:"Baybíshe",dáreje:5,túri:"Ko\'she"}]}] },
                         { id: "qayshılı", at: "QAYSHYLY", dáreje: 3, túri: "Urıw", ballar: [{id:"aqımbet",at:"Aqımbet",dáreje:4,túri:"Tiyre"},{id:"juwansan",at:"Juwansan",dáreje:4,túri:"Tiyre"},{id:"kóterehoja",at:"Kóterehoja",dáreje:4,túri:"Tiyre"},{id:"tanamırza",at:"Tanamırza",dáreje:4,túri:"Tiyre"},{id:"baqı",at:"Baqı",dáreje:4,túri:"Tiyre"},{id:"sıbıl",at:"Sıbıl",dáreje:4,túri:"Tiyre"},{id:"basar",at:"Basar",dáreje:4,túri:"Tiyre"},{id:"tolıq",at:"Tolıq",dáreje:4,túri:"Tiyre"},{id:"yabı",at:"Yabı",dáreje:4,túri:"Tiyre"}] },

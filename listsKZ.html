@@ -408,7 +408,7 @@
         
         /* Адаптация для планшетов */
         @media (max-width: 1024px) {
-            .stats { right: 10px; top: 90px; }
+            .stats { right: 10px; top: 190px; }
 
         }
         
@@ -2012,17 +2012,41 @@ const treeData = {
                         urан: "Ұллы тау",
                         population: "4320 кибиток"
                     },
+                     children: [
+                         {
+            id: "bessary",
+            name: "БЕССАРЫ",
+            level: 3,
+            type: "ру",
+            children: [
+                {
+                    id: "zhunli",
+                    name: "Жунли(бессары)",
+                    level: 4,
+                    type: "тiре",
                     children: [
-                        {
-                            id: "bessary",
-                            name: "БЕССАРЫ",
-                            level: 3,
-                            type: "ру",
-                            children: [
-                                { id: "zhunli", name: "Жүнлі", level: 4, type: "тіре" },
-                                { id: "qoyly", name: "Қойлы", level: 4, type: "тіре" }
-                            ]
-                        },
+                        { id: "suyindik", name: "Сүйіндік", level: 5, type: "koshe" },
+                        { id: "esergeb", name: "Есергеб", level: 5, type: "koshe" },
+                        { id: "taltay", name: "Талтай", level: 5, type: "koshe" },
+                        { id: "alimbay", name: "Алимбай", level: 5, type: "koshe" }
+                    ]
+                },
+                {
+                    id: "qoyly",
+                    name: "Қойлы",
+                    level: 4,
+                    type: "тiре",
+                    children: [
+                        { id: "amankul", name: "Аманкул", level: 5, type: "koshe" },
+                        { id: "zharsay", name: "Жарсай", level: 5, type: "koshe" },
+                        { id: "segizek", name: "Сегізек", level: 5, type: "koshe" },
+                        { id: "qurbanqul", name: "Құрбанқұл", level: 5, type: "koshe" },
+                        { id: "genjequl", name: "Гәнжәқұл", level: 5, type: "koshe" }
+                    ]
+                }
+            ]
+        
+},
                         {
                             id: "beksyyk",
                             name: "БЕКСЫЙЫҚ",

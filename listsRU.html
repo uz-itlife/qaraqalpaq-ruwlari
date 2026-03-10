@@ -236,7 +236,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            z-index: 100;
             transition: all 0.3s;
         }
         
@@ -407,18 +407,18 @@
         .stats { position: fixed; top: 90px; right: 475px; background: rgba(0,0,0,0.9); padding: 10px; border-radius: 6px; font-size: 0.8em; z-index: 100; transition: right 0.3s ease; }
         
         /* Адаптация для планшетов */
-        @media (max-width: 1024px) {
-            .stats { right: 10px; top: 90px; }
+         @media (max-width: 1024px) {
+            .stats { right: 10px; top: 190px; }
         }
-        
+         
         /* Адаптация для мобильных */
         @media (max-width: 968px) { 
             .stats { 
-                right: 10px; 
-                top: 80px; 
-                font-size: 0.65em;
-                max-width: 150px;
+                 display: none;
             } 
+             .legend  {
+                display: none;
+            }
             
             .info-panel { 
                 width: 100%; 
@@ -459,10 +459,6 @@
             }
         }
 
-        @media (max-width: 765px) {
-            .stats { display: none; }
-
-        }
         
         .search-box { position: fixed; top: 72px; left: 10px; z-index: 100; }
         .search-box input { padding: 6px 10px; border-radius: 15px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.9); color: white; width: 180px; font-size: 0.85em; }
@@ -1458,7 +1454,7 @@ const treeData = {
                                 },
                                 {
                                     id: "jaman-aul",
-                                    name: "Жаман аул",
+                                    name: "Жаман аул(колдаулы)",
                                     level: 4,
                                     type: "уруу",
                                     info: { tamga: "ЖА", urан: "Колдау!" }
@@ -1565,7 +1561,7 @@ const treeData = {
                                 },
                                 {
                                     id: "jamanaul-b",
-                                    name: "Жаманаул",
+                                    name: "Жаман аул(балгалы)",
                                     level: 4,
                                     type: "уруу",
                                     info: { tamga: "ЖА", urан: "Балга!" }
@@ -2008,16 +2004,40 @@ const treeData = {
                         population: "4320 кибиток"
                     },
                     children: [
-                        {
-                            id: "bessary",
-                            name: "БЕССАРЫ",
-                            level: 3,
-                            type: "уруу",
-                            children: [
-                                { id: "zhunli", name: "Жунли", level: 4, type: "тире" },
-                                { id: "qoyly", name: "Койлы", level: 4, type: "тире" }
-                            ]
-                        },
+                         {
+            id: "bessary",
+            name: "БЕССАРЫ",
+            level: 3,
+            type: "уруу",
+            children: [
+                {
+                    id: "zhunli",
+                    name: "Жунли(бессары)",
+                    level: 4,
+                    type: "тире",
+                    children: [
+                        { id: "suyindik", name: "Суйиндик", level: 5, type: "koshe" },
+                        { id: "esergeb", name: "Есергеб", level: 5, type: "koshe" },
+                        { id: "taltay", name: "Талтай", level: 5, type: "koshe" },
+                        { id: "alimbay", name: "Алимбай", level: 5, type: "koshe" }
+                    ]
+                },
+                {
+                    id: "qoyly",
+                    name: "Койлы",
+                    level: 4,
+                    type: "тире",
+                    children: [
+                        { id: "amankul", name: "Аманкул", level: 5, type: "koshe" },
+                        { id: "zharsay", name: "Жарсай", level: 5, type: "koshe" },
+                        { id: "segizek", name: "Сегизек", level: 5, type: "koshe" },
+                        { id: "qurbanqul", name: "Курбанкул", level: 5, type: "koshe" },
+                        { id: "genjequl", name: "Генжекул", level: 5, type: "koshe" }
+                    ]
+                }
+            ]
+        
+},
                         {
                             id: "beksyyk",
                             name: "БЕКСИЙЫК",

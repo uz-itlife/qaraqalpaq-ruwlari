@@ -162,31 +162,39 @@
             margin: 0 auto;
         }
 
-        .container { 
-            display: flex; 
-            min-height: calc(100vh - 80px);
-            height: auto;
-        }
-        .tree-panel { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 15px; 
-            background: rgba(15, 20, 25, 0.98); 
-            transition: width 0.3s ease;
-        }
-        
-        /* Правая панель с возможностью сворачивания */
-        .info-panel {
-            width: 450px; 
-            background: var(--secondary-bg); 
-            border-left: 3px solid var(--accent-orange);
-            padding: 20px; 
-            overflow-y: auto; 
-            box-shadow: -5px 0 25px rgba(0,0,0,0.4);
-            position: relative;
-            transition: transform 0.3s ease, width 0.3s ease;
-            transform: translateX(0);
-        }
+        .container {
+  margin-right: 0;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+}
+        /* Дерево теперь занимает всю ширину */
+.tree-panel {
+  width: 100%;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+/* Правая панель — выдвижная */
+.info-panel {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 90vw;
+  transform: translateX(100%); /* спрятано за правым краем */
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1100;
+  background: rgba(15, 20, 25, 0.96);
+  border-left: 3px solid var(--accent-orange);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+  overflow-y: auto;
+}
+
+/* Когда открыта */
+.info-panel.active {
+  transform: translateX(0);
+}
         
         /* Скрытая панель на десктопе */
         .info-panel.collapsed {
@@ -197,61 +205,74 @@
             border-left: none;
         }
         
-        /* Кнопка закрытия панели */
-        .close-panel-btn {
-            position: sticky;
-            top: 10px;
-            left: 400px;
-            background: var(--accent-red);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: all 0.3s;
-        }
-        
+        /* Затемнение фона при открытой панели */
+.backdrop {
+  position: fixed;
+  inset: 70px 0 0 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1090;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.backdrop.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+        /* Кнопка закрытия — теперь более заметная */
+.close-panel-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  background: rgba(231, 76, 60, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
         .close-panel-btn:hover {
             background: #c0392b;
             transform: scale(1.1);
         }
         
-        /* Кнопка открытия панели (плавающая) */
-        .open-panel-btn {
-            position: fixed;
-            right: 20px;
-            bottom: 100px;
-            background: var(--gold);
-            color: #000;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5em;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
-            transition: all 0.3s;
-        }
-        
-        .open-panel-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
-        }
-        
-        .open-panel-btn.visible {
-            display: flex;
-        }
-        
+        /* Плавающая кнопка info — показываем только когда панель закрыта */
+.open-panel-btn {
+    position: fixed;
+    right: 24px;
+    bottom: 32px;
+    width: 56px;
+    height: 56px;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    box-shadow: 0 6px 20px rgba(241,196,15,0.4);
+    z-index: 1050;
+    display: none; /* Изначально скрыта */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.open-panel-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
+}
+
+.open-panel-btn.visible {
+    display: flex;
+}
         h1 { text-align: center; color: var(--accent-yellow); margin-bottom: 5px; font-size: 1.8em; }
         .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 15px; font-size: 0.8em; }
         .tree { display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -269,7 +290,11 @@
         .level-3 .node { background: linear-gradient(135deg, #2ecc71, #27ae60); }
         .level-4 .node { background: linear-gradient(135deg, #3498db, #2980b9); font-size: 0.75em; }
         .level-5 .node { background: linear-gradient(135deg, #9b59b6, #8e44ad); font-size: 0.7em; min-width: 70px; }
-        .level-6 .node { background: linear-gradient(135deg, #1abc9c, #16a085); font-size: 0.65em; min-width: 60px; }
+        .level-6 .node { background: linear-gradient(135deg, #6fe71f9d, #7cec26af);
+        font-weight: bold;
+        font-size: 0.7em;
+        min-width: 70px;
+      }
         .node-title { font-weight: bold; font-size: 0.9em; }
         .node-subtitle { font-size: 0.7em; opacity: 0.9; }
         .connector { width: 2px; height: 12px; background: var(--accent-orange); margin: -2px auto; }
@@ -531,55 +556,63 @@
             .stats { right: 10px; top: 90px; }
         }
 
-        /* ─── 968px и меньше (мобильные меню) ─── */
-        @media (max-width: 968px) { 
-            .burger-menu { display: flex; }
-            
-            .view-switch {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: rgba(10,12,16,0.98);
-                flex-direction: column;
-                padding: 1rem;
-                border-bottom: 2px solid var(--gold);
-                border-radius: 0;
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-            }
-            
-            .view-switch.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            .view-btn {
-                width: 100%;
-                text-align: center;
-                padding: 6px 8px;
-            }
-            
-            .stats { right: 10px; top: 80px; font-size: 0.65em; max-width: 150px; } 
-            .legend { display: none; }
-            
-            .info-panel { 
-                width: 100%; 
-                position: fixed; 
-                bottom: 0; 
-                left: 0; 
-                height: 60vh; 
-                transform: translateY(100%); 
-                transition: transform 0.3s ease;
-                z-index: 1000;
-                border-left: none;
-                border-top: 3px solid var(--accent-orange);
-            } 
-            
-            .info-panel.active { transform: translateY(0); }
-            .info-panel.collapsed { transform: translateY(100%); }
+      @media (max-width: 968px) { 
+    .burger-menu { display: flex; }
+    
+    .view-switch {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(10,12,16,0.98);
+        flex-direction: column;
+        padding: 1rem;
+        border-bottom: 2px solid var(--gold);
+        border-radius: 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .view-switch.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .view-btn {
+        width: 100%;
+        text-align: center;
+        padding: 6px 8px;
+    }
+    
+    .stats { right: 10px; top: 80px; font-size: 0.65em; max-width: 150px; } 
+    .legend { display: none; }
+    
+    /* @media (max-width: 968px) { */
+    .info-panel {
+        width: 90vw;
+        max-width: none;
+        right: 5vw;
+        left: 5vw;
+        bottom: 5vh;
+        top: 80px;
+        border-radius: 16px 16px 0 0;
+        transform: translateY(100%);
+        border-left: none;
+        border-top: 4px solid var(--accent-orange);
+    }
+
+    .info-panel.active {
+        transform: translateY(0);
+    }
+
+    .close-panel-btn {
+        top: 12px;
+        right: 16px;
+    }
+
+    .info-panel.collapsed { transform: translateY(100%);
             
             header { padding: 0.5rem 1rem; }
             body { padding-top: 70px; }
@@ -587,6 +620,8 @@
             .open-panel-btn { bottom: 20px; right: 20px; }
             .search-box input { padding: 2px 8px; position: absolute; top: 0px; }
         }
+
+    }
 
         /* ─── 768px и меньше (планшеты/телефоны) ─── */
         @media (max-width: 768px) {
@@ -701,7 +736,7 @@
             .stats, .legend { display: none; }
             
             .container { height: auto; min-height: calc(100vh - 55px); }
-            .info-panel { height: 50vh; }
+            .info-panel { height: 80vh; }
         }
     </style>
     <base target="_blank">
@@ -758,6 +793,7 @@
     </div>
 
     <div class="container">
+        <div class="backdrop" id="backdrop"></div>
         <div class="tree-panel" id="treePanel">
             <h1 style="margin-top: 10px">ҚАРАҚАЛПАҚ РУЛАРЫ</h1>
             <div class="subtitle"></div>
@@ -785,6 +821,7 @@
         <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Үлкен ру/Ру</div>
         <div class="legend-item"><div class="legend-color" style="background: #3498db;"></div> Тіре/Көше</div>
         <div class="legend-item"><div class="legend-color" style="background: #9b59b6;"></div> Тіре/Көше</div>
+        <div class="legend-item"><div class="legend-color" style="background: #6fe71f9d;"></div> Көше</div>
     </div>
 
     <script>
@@ -798,8 +835,8 @@
         ];
 
         // Флаг состояния панели
-        let isPanelOpen = false;
-        let currentSelectedNode = null;
+let isPanelOpen = false;
+let currentSelectedNode = null;
 
         const treeData = {
             id: "root",
@@ -1214,7 +1251,7 @@
                                         {
                                             id: "ush-bas",
                                             name: "Үш бас",
-                                            level: 4,
+                                            level: 5,
                                             type: "ру",
                                             info: {
                                                 tamga: "ҮБ",
@@ -1225,7 +1262,7 @@
                                                 {
                                                     id: "jaman-ub",
                                                     name: "Жаман",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
                                                     info: { tamga: "ЖМ", uran: "Шулык!" }
                                                 }
@@ -1385,16 +1422,16 @@
                                                     name: "Ереке",
                                                     level: 5,
                                                     type: "тіре",
-                                                    info: { tamga: "ЕР", urан: "Қолдау!" }
+                                                    info: { tamga: "ЕР", uran: "Қолдау!" }
                                                 }
                                             ]
                                         },
                                         {
                                             id: "jaman-aul",
-                                            name: "Жаман ауыл",
+                                            name: "Жаман ауыл(колдаулы)",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ЖА", urан: "Қолдау!" }
+                                            info: { tamga: "ЖА", uran: "Қолдау!" }
                                         }
                                     ]
                                 },
@@ -1407,7 +1444,7 @@
                                     info: {
                                         history: "Екі тамғалы.",
                                         tamga: "II",
-                                        urан: "Қосқа!",
+                                        uran: "Қосқа!",
                                         population: "590 кибиток"
                                     },
                                     children: [
@@ -1416,49 +1453,49 @@
                                             name: "Жангелді",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ЖГ", urан: "Қосқа!" }
+                                            info: { tamga: "ЖГ", uran: "Қосқа!" }
                                         },
                                         {
                                             id: "shirzhegen",
                                             name: "Шіржеген",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ШЖ", urан: "Қосқа!" }
+                                            info: { tamga: "ШЖ", uran: "Қосқа!" }
                                         },
                                         {
                                             id: "aghabegli",
                                             name: "Ағабеглі",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "АБ", urан: "Қосқа!" }
+                                            info: { tamga: "АБ", uran: "Қосқа!" }
                                         },
                                         {
                                             id: "qarynzhuan",
                                             name: "Қарынжуан",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚЖ", urан: "Қосқа!" }
+                                            info: { tamga: "ҚЖ", uran: "Қосқа!" }
                                         },
                                         {
                                             id: "kostambali-k",
                                             name: "Қостаңбалы",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚТ", urан: "Қосқа!" }
+                                            info: { tamga: "ҚТ", uran: "Қосқа!" }
                                         },
                                         {
                                             id: "qaraqursaq-k",
                                             name: "Қарақұрсақ",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚҚ", urан: "Қосқа!" }
+                                            info: { tamga: "ҚҚ", uran: "Қосқа!" }
                                         },
                                         {
                                             id: "qazaqy-k",
                                             name: "Қазақы",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚЗ", urан: "Қосқа!" }
+                                            info: { tamga: "ҚЗ", uran: "Қосқа!" }
                                         }
                                     ]
                                 },
@@ -1470,7 +1507,7 @@
                                     info: {
                                         history: "Балға ұстаған. Теміршілер.",
                                         tamga: "Б",
-                                        urан: "Балға!",
+                                        uran: "Балға!",
                                         legend: "Теміршілер ұрпағы",
                                         population: "560 кибиток"
                                     },
@@ -1480,77 +1517,77 @@
                                             name: "Ақбалғалы",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "АБ", urан: "Балға!" }
+                                            info: { tamga: "АБ", uran: "Балға!" }
                                         },
                                         {
                                             id: "nurbalgali",
                                             name: "Нұрбалғалы",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "НБ", urан: "Балға!" }
+                                            info: { tamga: "НБ", uran: "Балға!" }
                                         },
                                         {
                                             id: "turkmen-b",
                                             name: "Түркімен",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ТБ", urан: "Балға!" }
+                                            info: { tamga: "ТБ", uran: "Балға!" }
                                         },
                                         {
                                             id: "jamanaul-b",
-                                            name: "Жаманауыл",
+                                            name: "Жаманауыл(балғалы)",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ЖА", urан: "Балға!" }
+                                            info: { tamga: "ЖА", uran: "Балға!" }
                                         },
                                         {
                                             id: "shomishti",
                                             name: "Шөмішті",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ШМ", urан: "Балға!" }
+                                            info: { tamga: "ШМ", uran: "Балға!" }
                                         },
                                         {
                                             id: "toqymbet",
                                             name: "Тоқымбет",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ТҚ", urан: "Балға!" }
+                                            info: { tamga: "ТҚ", uran: "Балға!" }
                                         },
                                         {
                                             id: "tazbalgali",
                                             name: "Тазбалғалы",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ТБ", urан: "Балға!" }
+                                            info: { tamga: "ТБ", uran: "Балға!" }
                                         },
                                         {
                                             id: "kostamgali-balgali",
                                             name: "Қостамғалы(балғалы)",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚС", urан: "Балға!" }
+                                            info: { tamga: "ҚС", uran: "Балға!" }
                                         },
                                         {
                                             id: "qaratalshy",
                                             name: "Қараталшы",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚТ", urан: "Балға!" }
+                                            info: { tamga: "ҚТ", uran: "Балға!" }
                                         },
                                         {
                                             id: "asan",
                                             name: "Асан",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "АС", urан: "Балға!" }
+                                            info: { tamga: "АС", uran: "Балға!" }
                                         },
                                         {
                                             id: "arzyqul",
                                             name: "Арзықұл",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "АР", urан: "Балға!" }
+                                            info: { tamga: "АР", uran: "Балға!" }
                                         }
                                     ]
                                 },
@@ -1563,7 +1600,7 @@
                                     info: {
                                         history: "Көндек - қора.",
                                         tamga: "Г",
-                                        urан: "Көндек!",
+                                        uran: "Көндек!",
                                         population: "730 кибиток"
                                     },
                                     children: [
@@ -1572,7 +1609,7 @@
                                             name: "Қарама",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚР", urан: "Көндек!" }
+                                            info: { tamga: "ҚР", uran: "Көндек!" }
                                         },
                                         {
                                             id: "kiikshi",
@@ -1581,7 +1618,7 @@
                                             type: "ру",
                                             info: {
                                                 tamga: "КШ",
-                                                urан: "Көндек!",
+                                                uran: "Көндек!",
                                                 history: "Киік сақшы"
                                             }
                                         },
@@ -1590,14 +1627,14 @@
                                             name: "Тоқболат",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ТБ", urан: "Көндек!" }
+                                            info: { tamga: "ТБ", uran: "Көндек!" }
                                         },
                                         {
                                             id: "qyryqsadaq",
                                             name: "Қырықсадақ",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "ҚС", urан: "Көндек!" }
+                                            info: { tamga: "ҚС", uran: "Көндек!" }
                                         }
                                     ]
                                 },
@@ -1610,7 +1647,7 @@
                                     info: {
                                         history: "Қара мойын.",
                                         tamga: "ТМ",
-                                        urан: "Мойын!",
+                                        uran: "Мойын!",
                                         population: "560 кибиток"
                                     },
                                     children: [
@@ -1621,7 +1658,7 @@
                                             type: "тіре",
                                             info: {
                                                 tamga: "АН",
-                                                urан: "Мойын!",
+                                                uran: "Мойын!",
                                                 history: "Анна әулие"
                                             }
                                         },
@@ -1632,7 +1669,7 @@
                                             type: "тіре",
                                             info: {
                                                 tamga: "СБ",
-                                                urан: "Мойын!",
+                                                uran: "Мойын!",
                                                 history: "Саба - бала"
                                             }
                                         },
@@ -1643,7 +1680,7 @@
                                             type: "тіре",
                                             info: {
                                                 tamga: "КТ",
-                                                urан: "Мойын!",
+                                                uran: "Мойын!",
                                                 history: "Торлау"
                                             }
                                         },
@@ -1652,21 +1689,21 @@
                                             name: "Қареке",
                                             level: 4,
                                             type: "тіре",
-                                            info: { tamga: "ҚР", urан: "Мойын!" }
+                                            info: { tamga: "ҚР", uran: "Мойын!" }
                                         },
                                         {
                                             id: "qarlymaral",
                                             name: "Қарлымарал",
                                             level: 4,
                                             type: "тіре",
-                                            info: { tamga: "ҚМ", urан: "Мойын!" }
+                                            info: { tamga: "ҚМ", uran: "Мойын!" }
                                         },
                                         {
                                             id: "bulkildek",
                                             name: "Бүлкілдек",
                                             level: 4,
                                             type: "тіре",
-                                            info: { tamga: "БҮ", urан: "Мойын!", history: "Күлу" }
+                                            info: { tamga: "БҮ", uran: "Мойын!", history: "Күлу" }
                                         }
                                     ]
                                 },
@@ -1676,12 +1713,12 @@
                                     level: 3,
                                     type: "үлкен ру",
                                     tamga: "Үш шанышқы",
-                                    urан: "Ақшолпан",
+                                    uran: "Ақшолпан",
                                     info: {
                                         history: "Мұйын - мойын.",
                                         origin: "Мүйтен батыр",
                                         tamga: "Үш шанышқы",
-                                        urан: "Ақшолпан",
+                                        uran: "Ақшолпан",
                                         population: "540 кибиток",
                                         legend: "Мүйтеннің үш ұлы: Самат, Тели, Абыз"
                                     },
@@ -1689,88 +1726,88 @@
                                         {
                                             id: "samat",
                                             name: "Самат",
-                                            level: 4,
+                                            level: 5,
                                             type: "ру",
-                                            info: { tamga: "СМ", urан: "Ақшолпан!" },
+                                            info: { tamga: "СМ", uran: "Ақшолпан!" },
                                             children: [
                                                 {
                                                     id: "baibishe",
                                                     name: "Бәйбіше",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "ББ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ББ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "toqqaragan",
                                                     name: "Тоқалқараған",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "ТҚ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ТҚ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "baimurat",
                                                     name: "Баймұрат",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "БМ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "БМ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "jolan",
                                                     name: "Жолан",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "ЖЛ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ЖЛ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "bekau",
                                                     name: "Бекау",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "БК", urан: "Ақшолпан!" }
+                                                    info: { tamga: "БК", uran: "Ақшолпан!" }
                                                 }
                                             ]
                                         },
                                         {
                                             id: "teli",
                                             name: "Тели",
-                                            level: 4,
+                                            level: 5,
                                             type: "ру",
-                                            info: { tamga: "ТЛ", urан: "Ақшолпан!" },
+                                            info: { tamga: "ТЛ", uran: "Ақшолпан!" },
                                             children: [
                                                 {
                                                     id: "tleuberdi",
                                                     name: "Тілеуберді",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "ТБ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ТБ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "allaberdi",
                                                     name: "Аллаберді",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "АБ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "АБ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "tangirberdi",
                                                     name: "Тəңірберді",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "ТБ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ТБ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "mantyqaragan",
                                                     name: "Мантыққараған",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "МҚ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "МҚ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "molloqaragan",
                                                     name: "Моллақараған",
-                                                    level: 5,
+                                                    level: 6,
                                                     type: "көше",
-                                                    info: { tamga: "МҚ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "МҚ", uran: "Ақшолпан!" }
                                                 }
                                             ]
                                         },
@@ -1781,7 +1818,7 @@
                                             type: "ру",
                                             info: {
                                                 tamga: "АБ",
-                                                urан: "Ақшолпан!",
+                                                uran: "Ақшолпан!",
                                                 history: "Ақсақал, әулие"
                                             }
                                         },
@@ -1790,28 +1827,28 @@
                                             name: "Кеңтанау",
                                             level: 4,
                                             type: "ру",
-                                            info: { tamga: "КТ", urан: "Ақшолпан!" },
+                                            info: { tamga: "КТ", uran: "Ақшолпан!" },
                                             children: [
                                                 {
                                                     id: "baryn",
                                                     name: "Барын",
                                                     level: 5,
                                                     type: "тіре",
-                                                    info: { tamga: "БР", urан: "Ақшолпан!" }
+                                                    info: { tamga: "БР", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "itak",
                                                     name: "Итак",
                                                     level: 5,
                                                     type: "тіре",
-                                                    info: { tamga: "ИТ", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ИТ", uran: "Ақшолпан!" }
                                                 },
                                                 {
                                                     id: "jekensal",
                                                     name: "Жекенсал",
                                                     level: 5,
                                                     type: "тіре",
-                                                    info: { tamga: "ЖС", urан: "Ақшолпан!" }
+                                                    info: { tamga: "ЖС", uran: "Ақшолпан!" }
                                                 }
                                             ]
                                         }
@@ -1933,24 +1970,49 @@
                             level: 2,
                             type: "үлкен ру",
                             tamga: "Қ",
-                            urан: "Ұллы тау",
+                            uran: "Ұллы тау",
                             info: {
                                 history: "Ең ірі ру.",
                                 tamga: "Қ",
-                                urан: "Ұллы тау",
+                                uran: "Ұллы тау",
                                 population: "4320 кибиток"
                             },
-                            children: [
-                                {
-                                    id: "bessary",
-                                    name: "БЕССАРЫ",
-                                    level: 3,
-                                    type: "ру",
-                                    children: [
-                                        { id: "zhunli", name: "Жүнлі", level: 4, type: "тіре" },
-                                        { id: "qoyly", name: "Қойлы", level: 4, type: "тіре" }
-                                    ]
-                                },
+                             children: [
+        {
+            id: "bessary",
+            name: "Бессары",
+            level: 3,
+            type: "ру",
+            children: [
+                {
+                    id: "zhunli",
+                    name: "Жүнлі(бессары)",
+                    level: 4,
+                    type: "тiре",
+                    children: [
+                        { id: "suyindik", name: "Сүйіндік", level: 5, type: "koshe" },
+                        { id: "esergeb", name: "Есергеб", level: 5, type: "koshe" },
+                        { id: "taltay", name: "Талтай", level: 5, type: "koshe" },
+                        { id: "alimbay", name: "Алимбай", level: 5, type: "koshe" }
+                    ]
+                },
+                {
+                    id: "qoyly",
+                    name: "Қойлы",
+                    level: 4,
+                    type: "тiре",
+                    children: [
+                        { id: "amankul", name: "Аманкул", level: 5, type: "koshe" },
+                        { id: "zharsay", name: "Жарсай", level: 5, type: "koshe" },
+                        { id: "segizek", name: "Сегізек", level: 5, type: "koshe" },
+                        { id: "qurbanqul", name: "Құрбанқұл", level: 5, type: "koshe" },
+                        { id: "genjequl", name: "Гәнжәқұл", level: 5, type: "koshe" }
+                    ]
+                }
+            
+            ]
+        
+},
                                 {
                                     id: "beksyyk",
                                     name: "БЕКСЫЙЫҚ",
@@ -2072,11 +2134,11 @@
                             level: 2,
                             type: "үлкен ру",
                             tamga: "I",
-                            urан: "Тоқсаба",
+                            uran: "Тоқсаба",
                             info: {
                                 history: "Ежелгі ру.",
                                 tamga: "I",
-                                urан: "Тоқсаба",
+                                uran: "Тоқсаба",
                                 population: "2240 кибиток"
                             },
                             children: [
@@ -2173,11 +2235,11 @@
                             level: 2,
                             type: "үлкен ру",
                             tamga: "Х",
-                            urан: "Шаулы-Шаухай",
+                            uran: "Шаулы-Шаухай",
                             info: {
                                 history: "Кеңгес.",
                                 tamga: "Х",
-                                urан: "Шаулы-Шаухай",
+                                uran: "Шаулы-Шаухай",
                                 population: "1480 кибиток"
                             },
                             children: [
@@ -2285,11 +2347,11 @@
                             level: 2,
                             type: "үлкен ру",
                             tamga: "f",
-                            urан: "Шаулы-Шаухай",
+                            uran: "Шаулы-Шаухай",
                             info: {
                                 history: "Соғысқор ру.",
                                 tamga: "f",
-                                urан: "Шаулы-Шаухай",
+                                uran: "Шаулы-Шаухай",
                                 population: "2220 кибиток"
                             },
                             children: [
@@ -2313,19 +2375,19 @@
                                         {
                                             id: "mamyqshy",
                                             name: "Мамықшы",
-                                            level: 4,
+                                            level: 5,
                                             type: "ру",
                                             children: [
-                                                { id: "zhetiqurt", name: "Жетіқұрт", level: 5, type: "көше" }
+                                                { id: "zhetiqurt", name: "Жетіқұрт", level: 6, type: "көше" }
                                             ]
                                         },
                                         {
                                             id: "kosar-m",
                                             name: "Қосар",
-                                            level: 4,
+                                            level: 5,
                                             type: "ру",
                                             children: [
-                                                { id: "gubidin", name: "Гүбидин", level: 5, type: "көше" }
+                                                { id: "gubidin", name: "Гүбидин", level: 6, type: "көше" }
                                             ]
                                         },
                                         { id: "qylqaly", name: "Қылқалы", level: 4, type: "тіре" }
@@ -2391,283 +2453,303 @@
             ]
         };
 
-        // Найти узел по ID в дереве
-        function findNodeById(node, id) {
-            if (node.id === id) return node;
-            if (node.children) {
-                for (let child of node.children) {
-                    const found = findNodeById(child, id);
-                    if (found) return found;
-                }
+       // Найти узел по ID в дереве
+    function findNodeById(node, id) {
+        if (node.id === id) return node;
+        if (node.children) {
+            for (let child of node.children) {
+                const found = findNodeById(child, id);
+                if (found) return found;
             }
-            return null;
+        }
+        return null;
+    }
+    
+    // Получить полную цепочку родителей до корня
+    function getParentChain(node, current = treeData, chain = []) {
+        if (current.id === node.id) {
+            return [current, ...chain];
+        }
+        if (current.children) {
+            for (let child of current.children) {
+                const result = getParentChain(node, child, [current, ...chain]);
+                if (result) return result;
+            }
+        }
+        return null;
+    }
+
+    // Получить всех потомков узла
+    function getAllDescendants(node) {
+        const descendants = [];
+        if (node.children) {
+            for (let child of node.children) {
+                descendants.push(child);
+                descendants.push(...getAllDescendants(child));
+            }
+        }
+        return descendants;
+    }
+
+    // Построить дерево группировки потомков по родителям
+    function buildDescendantsTree(node) {
+        if (!node.children || node.children.length === 0) return null;
+
+        const result = [];
+        for (let child of node.children) {
+            const item = {
+                node: child,
+                children: child.children || []
+            };
+            result.push(item);
+        }
+        return result;
+    }
+
+    function openPanel() {
+        const panel = document.getElementById("infoPanel");
+        const backdrop = document.getElementById("backdrop");
+        const openBtn = document.getElementById("openPanelBtn");
+        const statsBox = document.getElementById("statsBox");
+
+        panel.classList.add("active");
+        backdrop.classList.add("active");
+        if (openBtn) openBtn.style.display = "none";
+        isPanelOpen = true;
+
+        document.body.style.overflow = "hidden";
+
+        // На десктопе сдвигаем статистику
+        if (window.innerWidth > 968 && statsBox) {
+            statsBox.style.right = '470px';
+        }
+    }
+
+    function closePanel() {
+        const panel = document.getElementById("infoPanel");
+        const backdrop = document.getElementById("backdrop");
+        const openBtn = document.getElementById("openPanelBtn");
+        const statsBox = document.getElementById("statsBox");
+
+        panel.classList.remove("active");
+        backdrop.classList.remove("active");
+        if (openBtn) openBtn.style.display = "flex";
+        isPanelOpen = false;
+
+        document.body.style.overflow = "";
+
+        // На десктопе возвращаем статистику
+        if (window.innerWidth > 968 && statsBox) {
+            statsBox.style.right = '10px';
+        }
+    }
+
+    function togglePanel() {
+        if (isPanelOpen) {
+            closePanel();
+        } else {
+            openPanel();
+        }
+    }
+
+    function buildTree(node, container) {
+        const branch = document.createElement('div');
+        branch.className = 'branch';
+        const nodeEl = document.createElement('div');
+        nodeEl.className = 'node level-' + node.level;
+        let htmlContent = '<div class="node-title">' + node.name + '</div>';
+        if (node.type) htmlContent += '<div class="node-subtitle">' + node.type + '</div>';
+        nodeEl.innerHTML = htmlContent;
+        nodeEl.onclick = function() { showInfo(node); };
+        nodeEl.id = 'node-' + node.id;
+        branch.appendChild(nodeEl);
+        if (node.children && node.children.length > 0) {
+            const connector = document.createElement('div');
+            connector.className = 'connector';
+            branch.appendChild(connector);
+            const children = document.createElement('div');
+            children.className = 'children level-' + (node.level + 1);
+            for (let i = 0; i < node.children.length; i++) {
+                buildTree(node.children[i], children);
+            }
+            branch.appendChild(children);
+        }
+        container.appendChild(branch);
+    }
+
+    function showInfo(node) {
+        currentSelectedNode = node;
+        
+        document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+        const currentNode = document.getElementById('node-' + node.id);
+        if (currentNode) currentNode.classList.add('active');
+        
+        // Открываем панель при клике на элемент
+        openPanel();
+        
+        const content = document.getElementById('infoContent');
+        let html = '<div class="info-header"><div class="info-title">' + node.name + '</div><div class="info-type">' + (node.type || 'Ру') + '</div></div>';
+                
+        const tamga = node.tamga || (node.info && node.info.tamga);
+        if (tamga) {
+            html += '<div class="tamga-box"><div class="tamga-symbol">' + tamga + '</div><div class="tamga-label">ТАМГА (Рулық белгі)</div></div>';
         }
         
-        // Получить полную цепочку родителей до корня
-        function getParentChain(node, current = treeData, chain = []) {
-            if (current.id === node.id) {
-                return [current, ...chain];
-            }
-            if (current.children) {
-                for (let child of current.children) {
-                    const result = getParentChain(node, child, [current, ...chain]);
-                    if (result) return result;
+        const uran = node.uran || (node.info && node.info.uran);
+        if (uran && String(uran).trim() !== "") {
+            html += '<div class="uran-box"><div class="uran-text">' + uran + '</div><div class="uran-label">УРАН (Соғыс ұраны)</div></div>';
+        }
+        
+        if (node.info) {
+            const fields = [
+                { key: 'history', icon: '📜', title: 'Тарих' },
+                { key: 'origin', icon: '🧬', title: 'Келіп шығыуы' },
+                { key: 'legend', icon: '🌟', title: 'Аңыз' },
+                { key: 'population', icon: '👥', title: 'Саны' },
+                { key: 'structure', icon: '🏗️', title: 'Құрылымы' },
+                { key: 'region', icon: '🌍', title: 'Жері' },
+                { key: 'language', icon: '🗣️', title: 'Тілі' }
+            ];
+            
+            fields.forEach(field => {
+                if (node.info[field.key]) {
+                    html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + node.info[field.key] + '</p></div>';
                 }
-            }
-            return null;
+            });
         }
-
-        // Получить всех потомков узла
-        function getAllDescendants(node) {
-            const descendants = [];
-            if (node.children) {
-                for (let child of node.children) {
-                    descendants.push(child);
-                    descendants.push(...getAllDescendants(child));
+        
+        // Список всех потомков
+        if (node.children && node.children.length > 0) {
+            const descendantsTree = buildDescendantsTree(node);
+            html += '<div class="stats-box"><div class="stats-number">' + getAllDescendants(node).length + '</div><div> Барлық рулар</div></div>';
+            
+            html += '<div class="info-section"><h3>👇 Бағынышты топтар</h3>';
+            html += '<div class="descendants-list">';
+            
+            descendantsTree.forEach(group => {
+                html += '<div class="descendant-group">';
+                html += '<div class="descendant-parent">';
+                html += '<span style="color: var(--accent-yellow);">' + group.node.name + '</span>';
+                html += ' <span style="font-size: 0.8em; opacity: 0.7;">(' + levelsMap[group.node.level] + ')</span>';
+                html += '</div>';
+                
+                if (group.children.length > 0) {
+                    html += '<div class="descendant-children">';
+                    group.children.forEach(child => {
+                        html += '<div class="descendant-child">';
+                        html += '<span class="descendant-bullet"></span>';
+                        html += '<span>' + child.name + '</span>';
+                        if (child.children && child.children.length > 0) {
+                            html += ' <span style="font-size: 0.75em; color: var(--accent-orange);">+' + getAllDescendants(child).length + '</span>';
+                        }
+                        html += '</div>';
+                    });
+                    html += '</div>';
                 }
-            }
-            return descendants;
-        }
-
-        // Построить дерево группировки потомков по родителям
-        function buildDescendantsTree(node) {
-            if (!node.children || node.children.length === 0) return null;
-
-            const result = [];
-            for (let child of node.children) {
-                const item = {
-                    node: child,
-                    children: child.children || []
-                };
-                result.push(item);
-            }
-            return result;
-        }
-
-        // Управление панелью
-        function openPanel() {
-            const panel = document.getElementById('infoPanel');
-            const openBtn = document.getElementById('openPanelBtn');
-            const statsBox = document.getElementById('statsBox');
+                html += '</div>';
+            });
             
-            panel.classList.remove('collapsed');
-            panel.classList.add('active');
-            openBtn.classList.remove('visible');
-            isPanelOpen = true;
-            
-            // На десктопе сдвигаем статистику
-            if (window.innerWidth > 968) {
-                statsBox.style.right = '470px';
-            }
+            html += '</div></div>';
         }
+        
+        html += '<div class="info-section"><h3>📊 Дәреже</h3><p>' + levelsMap[node.level] + ' (' + node.level + ')</p></div>';
+        
+        content.innerHTML = html;
+    }
 
-        function closePanel() {
-            const panel = document.getElementById('infoPanel');
-            const openBtn = document.getElementById('openPanelBtn');
-            const statsBox = document.getElementById('statsBox');
-            
-            panel.classList.add('collapsed');
-            panel.classList.remove('active');
-            openBtn.classList.add('visible');
-            isPanelOpen = false;
-            
-            // На десктопе возвращаем статистику
-            if (window.innerWidth > 968) {
-                statsBox.style.right = '10px';
-            }
-        }
-
-        function togglePanel() {
-            if (isPanelOpen) {
-                closePanel();
+    function searchNode() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const nodes = document.querySelectorAll('.node');
+        nodes.forEach(node => {
+            if (node.textContent.toLowerCase().includes(input) && input.length > 0) {
+                node.classList.add('highlight');
+                node.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
+                node.classList.remove('highlight');
+            }
+        });
+    }
+
+    // Бургер меню
+    function toggleBurgerMenu() {
+        const burger = document.getElementById('burgerMenu');
+        const viewSwitch = document.getElementById('viewSwitch');
+        
+        burger.classList.toggle('active');
+        viewSwitch.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        buildTree(treeData, document.getElementById('tree'));
+        
+        // Кнопка закрытия панели
+        document.getElementById('closePanelBtn').addEventListener('click', closePanel);
+        
+        // Кнопка открытия панели (плавающая)
+        document.getElementById('openPanelBtn').addEventListener('click', function() {
+            if (currentSelectedNode) {
+                openPanel();
+            } else {
+                // Если ничего не выбрано, можно показать сообщение или выбрать корень
+                showInfo(treeData);
                 openPanel();
             }
-        }
-
+        });
+        
+        // Закрытие по клику на backdrop
+        document.getElementById('backdrop').addEventListener('click', closePanel);
+        
         // Бургер меню
-        function toggleBurgerMenu() {
-            const burger = document.getElementById('burgerMenu');
-            const viewSwitch = document.getElementById('viewSwitch');
-            
-            burger.classList.toggle('active');
-            viewSwitch.classList.toggle('active');
-        }
-
-        function buildTree(node, container) {
-            const branch = document.createElement('div');
-            branch.className = 'branch';
-            const nodeEl = document.createElement('div');
-            nodeEl.className = 'node level-' + node.level;
-            let htmlContent = '<div class="node-title">' + node.name + '</div>';
-            if (node.type) htmlContent += '<div class="node-subtitle">' + node.type + '</div>';
-            nodeEl.innerHTML = htmlContent;
-            nodeEl.onclick = function() { showInfo(node); };
-            nodeEl.id = 'node-' + node.id;
-            branch.appendChild(nodeEl);
-            if (node.children && node.children.length > 0) {
-                const connector = document.createElement('div');
-                connector.className = 'connector';
-                branch.appendChild(connector);
-                const children = document.createElement('div');
-                children.className = 'children level-' + (node.level + 1);
-                for (let i = 0; i < node.children.length; i++) {
-                    buildTree(node.children[i], children);
-                }
-                branch.appendChild(children);
-            }
-            container.appendChild(branch);
-        }
-
-        function showInfo(node) {
-            currentSelectedNode = node;
-            
-            document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
-            const currentNode = document.getElementById('node-' + node.id);
-            if (currentNode) currentNode.classList.add('active');
-            
-            const panel = document.getElementById('infoPanel');
-            const content = document.getElementById('infoContent');
-            
-            // Открываем панель при клике на элемент
-            openPanel();
-            
-            let html = '<div class="info-header"><div class="info-title">' + node.name + '</div><div class="info-type">' + (node.type || 'Ру') + '</div></div>';
-            
-            // Иерархическая цепочка
-            const chain = getParentChain(node);
-            if (chain && chain.length > 0) {
-                html += '<div class="info-section"><h3>🔗 Толық шежіре</h3><div class="hierarchy-chain">';
-                chain.reverse().forEach((item, index) => {
-                    const isLast = index === chain.length - 1;
-                    html += '<div class="hierarchy-item ' + (isLast ? 'current' : '') + '">';
-                    html += '<span class="hierarchy-level">' + levelsMap[item.level] + '</span>';
-                    html += '<span>' + item.name + '</span>';
-                    if (!isLast) html += '<span class="hierarchy-arrow">⬇</span>';
-                    html += '</div>';
-                });
-                html += '</div></div>';
-            }
-            
-            const tamga = node.tamga || (node.info && node.info.tamga);
-            if (tamga) {
-                html += '<div class="tamga-box"><div class="tamga-symbol">' + tamga + '</div><div class="tamga-label">ТАМГА (Рулық белгі)</div></div>';
-            }
-            
-            const uran = node.uran || (node.info && node.info.uran);
-            if (uran && String(uran).trim() !== "") {
-                html += '<div class="uran-box"><div class="uran-text">' + uran + '</div><div class="uran-label">УРАН (Соғыс ұраны)</div></div>';
-            }
-            
-            if (node.info) {
-                const fields = [
-                    { key: 'history', icon: '📜', title: 'Тарих' },
-                    { key: 'origin', icon: '🧬', title: 'Келіп шығыуы' },
-                    { key: 'legend', icon: '🌟', title: 'Аңыз' },
-                    { key: 'population', icon: '👥', title: 'Саны' },
-                    { key: 'structure', icon: '🏗️', title: 'Құрылымы' },
-                    { key: 'region', icon: '🌍', title: 'Жері' },
-                    { key: 'language', icon: '🗣️', title: 'Тілі' }
-                ];
-                
-                fields.forEach(field => {
-                    if (node.info[field.key]) {
-                        html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + node.info[field.key] + '</p></div>';
-                    }
-                });
-            }
-            
-            // Список всех потомков
-            if (node.children && node.children.length > 0) {
-                const descendantsTree = buildDescendantsTree(node);
-                html += '<div class="stats-box"><div class="stats-number">' + getAllDescendants(node).length + '</div><div> Барлық рулар</div></div>';
-                
-                html += '<div class="info-section"><h3>👇 Бағынышты топтар</h3>';
-                html += '<div class="descendants-list">';
-                
-                descendantsTree.forEach(group => {
-                    html += '<div class="descendant-group">';
-                    html += '<div class="descendant-parent">';
-                    html += '<span style="color: var(--accent-yellow);">' + group.node.name + '</span>';
-                    html += ' <span style="font-size: 0.8em; opacity: 0.7;">(' + levelsMap[group.node.level] + ')</span>';
-                    html += '</div>';
-                    
-                    if (group.children.length > 0) {
-                        html += '<div class="descendant-children">';
-                        group.children.forEach(child => {
-                            html += '<div class="descendant-child">';
-                            html += '<span class="descendant-bullet"></span>';
-                            html += '<span>' + child.name + '</span>';
-                            if (child.children && child.children.length > 0) {
-                                html += ' <span style="font-size: 0.75em; color: var(--accent-orange);">+' + getAllDescendants(child).length + '</span>';
-                            }
-                            html += '</div>';
-                        });
-                        html += '</div>';
-                    }
-                    html += '</div>';
-                });
-                
-                html += '</div></div>';
-            }
-            
-            html += '<div class="info-section"><h3>📊 Дәреже</h3><p>' + levelsMap[node.level] + ' (' + node.level + ')</p></div>';
-            
-            content.innerHTML = html;
-        }
-
-        function searchNode() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const nodes = document.querySelectorAll('.node');
-            nodes.forEach(node => {
-                if (node.textContent.toLowerCase().includes(input) && input.length > 0) {
-                    node.classList.add('highlight');
-                    node.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    node.classList.remove('highlight');
-                }
-            });
-        }
-
-        // Обработчики событий
-        document.addEventListener('DOMContentLoaded', function() {
-            buildTree(treeData, document.getElementById('tree'));
-            
-            // Кнопка закрытия панели
-            document.getElementById('closePanelBtn').addEventListener('click', closePanel);
-            
-            // Кнопка открытия панели
-            document.getElementById('openPanelBtn').addEventListener('click', function() {
-                if (currentSelectedNode) {
-                    openPanel();
-                } else {
-                    alert('Алдымен руды таңдаңыз');
-                }
-            });
-            
-            // Бургер меню
-            document.getElementById('burgerMenu').addEventListener('click', toggleBurgerMenu);
-            
-            // Закрытие бургер меню при клике на ссылку
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        toggleBurgerMenu();
-                    }
-                });
-            });
-            
-            // Обработка изменения размера окна
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 968) {
-                    if (!isPanelOpen) {
-                        document.getElementById('openPanelBtn').classList.add('visible');
-                    }
-                } else {
-                    document.getElementById('openPanelBtn').classList.remove('visible');
+        document.getElementById('burgerMenu').addEventListener('click', toggleBurgerMenu);
+        
+        // Закрытие бургер меню при клике на ссылку
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    toggleBurgerMenu();
                 }
             });
         });
+        
+        // === ГЛАВНОЕ: Инициализация — панель скрыта ===
+        const panel = document.getElementById('infoPanel');
+        const openBtn = document.getElementById('openPanelBtn');
+        const backdrop = document.getElementById('backdrop');
+        const statsBox = document.getElementById('statsBox');
+        
+        // Скрываем панель изначально на всех устройствах
+        panel.classList.remove('active');
+        panel.classList.remove('collapsed');
+        
+        // Скрываем backdrop
+        backdrop.classList.remove('active');
+        
+        // Показываем кнопку открытия только если есть выбранный элемент
+        // Изначально скрыта, потому что currentSelectedNode = null
+        if (openBtn) {
+            openBtn.style.display = 'none';
+        }
+        
+        // Сбрасываем стили статистики
+        if (statsBox) {
+            statsBox.style.right = '10px';
+        }
+        
+        isPanelOpen = false;
+        
+        // Устанавливаем начальный контент панели
+        const content = document.getElementById('infoContent');
+        content.innerHTML = `
+            <div class="info-header">
+                <div class="info-title">Элементті таңдаңыз</div>
+                <div class="info-type">Тамға, уран, тарих туралы ақпарат алу үшін басыңыз</div>
+            </div>
+            <div class="info-section" style="text-align: center; padding: 40px 20px;">
+                <p style="font-size: 3em; margin-bottom: 20px;">👆</p>
+                <p>Рулық тізімнен кез келген элементті басып, толық ақпаратты көре аласыз.</p>
+            </div>
+        `;
+    });
     </script>
 
     <!-- Глоссарий -->
