@@ -279,7 +279,54 @@
             min-width: 80px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-size: 0.8em;
         }
         .node:hover { transform: translateY(-2px); border-color: var(--accent-yellow); }
-        .node.active { border-color: var(--accent-yellow); box-shadow: 0 0 10px rgba(241, 196, 15, 0.4); }
+        /* .node.active { border-color: var(--accent-yellow); box-shadow: 0 0 10px rgba(241, 196, 15, 0.4); } */
+           .node.active {
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.9), 0 0 40px rgba(241, 196, 15, 0.5);
+  animation: pulse-bright 1.2s ease-in-out infinite;
+  transform: scale(1.08);
+  z-index: 100;
+}
+
+@keyframes pulse-bright {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.9), 0 0 40px rgba(241, 196, 15, 0.5);
+    border-color: var(--accent-yellow);
+    filter: brightness(1.2);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(241, 196, 15, 1), 0 0 70px rgba(241, 196, 15, 0.8), 0 0 100px rgba(241, 196, 15, 0.4);
+    border-color: #fff;
+    filter: brightness(1.5);
+  }
+}
+
+
+
+       .node.highlight {
+  border: 3px solid #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(241, 196, 15, 0.7);
+  transform: scale(1.15);
+  z-index: 100;
+  animation: search-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes search-glow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(241, 196, 15, 0.7);
+    border-color: #fff;
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(241, 196, 15, 0.9), 0 0 80px rgba(241, 196, 15, 0.5);
+    border-color: var(--accent-yellow);
+  }
+}
+
+/* Чтобы выделение поиска было заметнее, чем обычный active */
+.node.active.highlight {
+  border-color: #fff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 50px rgba(231, 76, 60, 0.8);
+}
         .level-0 .node { background: linear-gradient(135deg, #e74c3c, #c0392b); font-size: 1.1em; font-weight: bold; padding: 10px 18px; }
         .level-1 .node { background: linear-gradient(135deg, #e67e22, #d35400); font-size: 0.95em; font-weight: bold; }
         .level-2 .node { background: linear-gradient(135deg, #f1c40f, #f39c12); color: #2c3e50; font-weight: bold; }
@@ -900,7 +947,7 @@
                                     info: {
                                         history: "Кыят - крупнейший род Шулика.",
                                         origin: "От батыра Кыят.",
-                                        legend: "Три сына: Уштамбалы, Таракты, Балгалы.",
+                                        legend: "Три сына: Уштамбалы, Тараклы, Балгалы.",
                                         population: "870 кибиток",
                                         tamga: "Три знака",
                                         uran: "Алатау"
@@ -984,7 +1031,7 @@
                                         },
                                         {
                                             id: "taraqty",
-                                            name: "Таракты",
+                                            name: "Тараклы",
                                             level: 4,
                                             type: "уруу",
                                             info: {
@@ -1878,8 +1925,8 @@
                             },
                             children: [
                                 {
-                                    id: "teristambaly",
-                                    name: "ТЕРИСТАНБАЛЫ",
+                                    id: "teristamgaly",
+                                    name: "ТЕРИСТАНГАЛЫ",
                                     level: 4,
                                     type: "уруу",
                                     children: [
@@ -1899,7 +1946,7 @@
                                 },
                                 {
                                     id: "tyekli",
-                                    name: "ТИЕКТИ",
+                                    name: "ТИЕКЛИ",
                                     level: 4,
                                     type: "уруу",
                                     children: [
@@ -1910,8 +1957,8 @@
                                     ]
                                 },
                                 {
-                                    id: "yrgaqty",
-                                    name: "ЫРГАКТЫ",
+                                    id: "yrgaqly",
+                                    name: "ЫРГАКЛЫ",
                                     level: 3,
                                     type: "уруу",
                                     children: [
@@ -1922,8 +1969,8 @@
                                     ]
                                 },
                                 {
-                                    id: "baimaqty",
-                                    name: "БАЙМАКТЫ",
+                                    id: "baimaqly",
+                                    name: "БАЙМАКЛЫ",
                                     level: 3,
                                     type: "уруу",
                                     children: [
@@ -1936,8 +1983,8 @@
                                     ]
                                 },
                                 {
-                                    id: "kazayakty",
-                                    name: "КАЗАЯКТЫ",
+                                    id: "kazayakly",
+                                    name: "КАЗАЯКЛЫ",
                                     level: 4,
                                     type: "уруу",
                                     children: [
@@ -2026,7 +2073,7 @@
                 
                                 {
                                     id: "kazayakly-k",
-                                    name: "КАЗАЯКЛЫ",
+                                    name: "КАЗАЯКЛЫ(кытай)",
                                     level: 3,
                                     type: "уруу",
                                     children: [
@@ -2116,7 +2163,7 @@
                                 },
                                 {
                                     id: "qiriq",
-                                    name: "Кириик",
+                                    name: "Кирик",
                                     level: 3,
                                     type: "уруу",
                                     children: [
@@ -2150,8 +2197,8 @@
                                         { id: "juansan", name: "Жуансан", level: 4, type: "тире" },
                                         { id: "qatqangly", name: "Катканлы", level: 4, type: "тире" },
                                         { id: "yrghaqly", name: "Ыргаклы", level: 4, type: "тире" },
-                                        { id: "ashamaily-k", name: "Ашамайлы", level: 4, type: "тире" },
-                                        { id: "taraqty-k", name: "Таракты", level: 4, type: "тире" },
+                                        { id: "ashamaily-k", name: "Ашамайлы(Канглы)", level: 4, type: "тире" },
+                                        { id: "taraqly", name: "Тараклы", level: 4, type: "тире" },
                                         { id: "shomishali", name: "Шомишали", level: 4, type: "тире" },
                                         { id: "qashiular", name: "Кашиулар", level: 4, type: "тире" },
                                         { id: "ormanshi", name: "Орманши", level: 4, type: "тире" },
@@ -2686,18 +2733,42 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
             content.innerHTML = html;
         }
 
+        // function searchNode() {
+        //     const input = document.getElementById('searchInput').value.toLowerCase();
+        //     const nodes = document.querySelectorAll('.node');
+        //     nodes.forEach(node => {
+        //         if (node.textContent.toLowerCase().includes(input) && input.length > 0) {
+        //             node.classList.add('highlight');
+        //             node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        //         } else {
+        //             node.classList.remove('highlight');
+        //         }
+        //     });
+        // }
+
         function searchNode() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const nodes = document.querySelectorAll('.node');
-            nodes.forEach(node => {
-                if (node.textContent.toLowerCase().includes(input) && input.length > 0) {
-                    node.classList.add('highlight');
-                    node.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    node.classList.remove('highlight');
-                }
-            });
-        }
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const nodes = document.querySelectorAll(".node");
+  
+  // Снимаем все выделения
+  nodes.forEach((node) => {
+    node.classList.remove("highlight");
+    node.classList.remove("active"); // Убираем предыдущий active
+  });
+  
+  if (input.length === 0) return;
+  
+  // Ищем первое совпадение и выделяем его
+  for (let node of nodes) {
+    if (node.textContent.toLowerCase().includes(input)) {
+      node.classList.add("highlight");
+      node.classList.add("active"); // Делаем активным для подробностей
+      node.scrollIntoView({ behavior: "smooth", block: "center" });
+      showInfo(findNodeById(treeData, node.id.replace('node-', ''))); // Показываем инфо
+      break; // Убирать break, если хотите выделить ВСЕ совпадения
+    }
+  }
+}
 
      document.addEventListener('DOMContentLoaded', function() {
     buildTree(treeData, document.getElementById('tree'));

@@ -312,10 +312,58 @@
         transform: translateY(-2px);
         border-color: var(--accent-yellow);
       }
-      .node.active {
+      /* .node.active {
         border-color: var(--accent-yellow);
         box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
-      }
+      } */
+      .node.active {
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.9), 0 0 40px rgba(241, 196, 15, 0.5);
+  animation: pulse-bright 1.2s ease-in-out infinite;
+  transform: scale(1.08);
+  z-index: 100;
+}
+
+@keyframes pulse-bright {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.9), 0 0 40px rgba(241, 196, 15, 0.5);
+    border-color: var(--accent-yellow);
+    filter: brightness(1.2);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(241, 196, 15, 1), 0 0 70px rgba(241, 196, 15, 0.8), 0 0 100px rgba(241, 196, 15, 0.4);
+    border-color: #fff;
+    filter: brightness(1.5);
+  }
+}
+
+
+
+       .node.highlight {
+  border: 3px solid #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(241, 196, 15, 0.7);
+  transform: scale(1.15);
+  z-index: 100;
+  animation: search-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes search-glow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(241, 196, 15, 0.7);
+    border-color: #fff;
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(241, 196, 15, 0.9), 0 0 80px rgba(241, 196, 15, 0.5);
+    border-color: var(--accent-yellow);
+  }
+}
+
+/* Чтобы выделение поиска было заметнее, чем обычный active */
+.node.active.highlight {
+  border-color: #fff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 50px rgba(231, 76, 60, 0.8);
+}
+      
       .level-0 .node {
         background: linear-gradient(135deg, #e74c3c, #c0392b);
         font-size: 1.1em;
@@ -1421,7 +1469,7 @@
                     info: {
                       history: "Qıyat - Shulıqtıń eń úlken urıwı.",
                       origin: "Qıyat batırdan.",
-                      legend: "Úsh ulı: Úshtamǵalı, Taraqtı, Balǵalı.",
+                      legend: "Úsh ulı: Úshtamǵalı, Taraqlı, Balǵalı.",
                       population: "870 kibitka",
                       tamga: "Úsh tańba",
                       uran: "Alataw",
@@ -1504,8 +1552,8 @@
                         ],
                       },
                       {
-                        id: "taraqty",
-                        name: "Taraqtı",
+                        id: "taraqly",
+                        name: "Taraqlı",
                         level: 4,
                         type: "urıw",
                         info: {
@@ -1960,7 +2008,7 @@
                       },
                       {
                         id: "jaman-aul",
-                        name: "Jaman awıl()",
+                        name: "Jaman awıl",
                         level: 4,
                         type: "urıw",
                         info: { tamga: "JA", uran: "Qoldaw!" },
@@ -2399,8 +2447,8 @@
                 },
                 children: [
                   {
-                    id: "teristambaly",
-                    name: "TERISTAŃBALı",
+                    id: "teristamgaly",
+                    name: "TERISTAŃГALı",
                     level: 4,
                     type: "urıw",
                     children: [
@@ -2450,7 +2498,7 @@
                   },
                   {
                     id: "tyekli",
-                    name: "TIYEKTI",
+                    name: "TIYEKLI",
                     level: 4,
                     type: "urıw",
                     children: [
@@ -2481,8 +2529,8 @@
                     ],
                   },
                   {
-                    id: "yrgaqty",
-                    name: "IRĞAQTı",
+                    id: "yrgaqly",
+                    name: "IRĞAQLı",
                     level: 3,
                     type: "urıw",
                     children: [
@@ -2511,8 +2559,8 @@
                     ],
                   },
                   {
-                    id: "baimaqty",
-                    name: "BAYMAQTı",
+                    id: "baimaqly",
+                    name: "BAYMAQLı",
                     level: 3,
                     type: "urıw",
                     children: [
@@ -2535,8 +2583,8 @@
                     ],
                   },
                   {
-                    id: "kazayakty",
-                    name: "QAZAYAQTı",
+                    id: "kazayakly",
+                    name: "QAZAYAQLı",
                     level: 4,
                     type: "urıw",
                     children: [
@@ -2552,7 +2600,7 @@
                         level: 5,
                         type: "ko'she",
                       },
-                      { id: "zhunli", name: "Júnli(kazayakty)", level: 5, type: "ko'she" },
+                      { id: "zhunli", name: "Júnli(kazayakly)", level: 5, type: "ko'she" },
                       { id: "sadaq", name: "Sadaq", level: 5, type: "ko'she" },
                     ],
                   },
@@ -2684,7 +2732,7 @@
                   },
                   {
                     id: "kazayakly-k",
-                    name: "QAZAYAQLı",
+                    name: "QAZAYAQLı(qitay)",
                     level: 3,
                     type: "urıw",
                     children: [
@@ -2941,13 +2989,13 @@
                       },
                       {
                         id: "ashamaily-k",
-                        name: "Ashamaylı",
+                        name: "Ashamaylı(kangli)",
                         level: 4,
                         type: "tiyre",
                       },
                       {
                         id: "taraqty-k",
-                        name: "Taraqtı",
+                        name: "Taraqlı(kangli)",
                         level: 4,
                         type: "tiyre",
                       },
@@ -3785,23 +3833,48 @@ document.getElementById("backdrop").addEventListener("click", closePanel);
         content.innerHTML = html;
       }
 
+      // function searchNode() {
+      //   const input = document
+      //     .getElementById("searchInput")
+      //     .value.toLowerCase();
+      //   const nodes = document.querySelectorAll(".node");
+      //   nodes.forEach((node) => {
+      //     if (
+      //       node.textContent.toLowerCase().includes(input) &&
+      //       input.length > 0
+      //     ) {
+      //       node.classList.add("highlight");
+      //       node.scrollIntoView({ behavior: "smooth", block: "center" });
+      //     } else {
+      //       node.classList.remove("highlight");
+      //     }
+      //   });
+      // }
+
+
       function searchNode() {
-        const input = document
-          .getElementById("searchInput")
-          .value.toLowerCase();
-        const nodes = document.querySelectorAll(".node");
-        nodes.forEach((node) => {
-          if (
-            node.textContent.toLowerCase().includes(input) &&
-            input.length > 0
-          ) {
-            node.classList.add("highlight");
-            node.scrollIntoView({ behavior: "smooth", block: "center" });
-          } else {
-            node.classList.remove("highlight");
-          }
-        });
-      }
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const nodes = document.querySelectorAll(".node");
+  
+  // Снимаем все выделения
+  nodes.forEach((node) => {
+    node.classList.remove("highlight");
+    node.classList.remove("active"); // Убираем предыдущий active
+  });
+  
+  if (input.length === 0) return;
+  
+  // Ищем первое совпадение и выделяем его
+  for (let node of nodes) {
+    if (node.textContent.toLowerCase().includes(input)) {
+      node.classList.add("highlight");
+      node.classList.add("active"); // Делаем активным для подробностей
+      node.scrollIntoView({ behavior: "smooth", block: "center" });
+      showInfo(findNodeById(treeData, node.id.replace('node-', ''))); // Показываем инфо
+      break; // Убирать break, если хотите выделить ВСЕ совпадения
+    }
+  }
+}  
 
       // Обработчики событий
       document.addEventListener("DOMContentLoaded", function () {
