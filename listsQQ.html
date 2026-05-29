@@ -1472,7 +1472,20 @@ function maǵlıwmatKórsetiw(element) {
     paneldiAshıw();
     
     let html = '<div class="info-header"><div class="info-title">' + element.at + '</div><div class="info-type">' + (element.túri || 'Uruw') + '</div></div>';
-    
+
+    const _id   = element.id || '';
+    const _name = element.at || element.name || '';
+    html += '<div class="node-action-bar">'
+      + '<button class="share-btn" onclick="shareCurrentNode(\'' + _id + '\',\'Silteme kóshirildi ✓\')">'
+      + '🔗 Bólisiw</button>'
+      + '<button class="star-btn ' + (isFavorite(_id) ? 'active' : '') + '" '
+      + 'id="star-btn-' + _id + '" '
+      + 'data-add="Tańdaǵanlarga" data-remove="Alıp taslaw" '
+      + 'onclick="toggleFavorite(\'' + _id + '\',\'' + _name.replace(/'/g,"\\'") + '\')">'
+      + (isFavorite(_id) ? '★ Tańdaǵanlarda' : '☆ Tańdaǵanlarga')
+      + '</button>'
+      + '</div>';
+
     const tizim = áwkeshtiAlıw(element);
     if (tizim && tizim.length > 0) {
         html += '<div class="info-section"><h3>🔗 Tolıq shejire</h3><div class="hierarchy-chain">';
@@ -1489,7 +1502,7 @@ function maǵlıwmatKórsetiw(element) {
     
     const tamga = element.tamga || (element.maǵlıwmat && element.maǵlıwmat.tamga);
     if (tamga) {
-        html += '<div class="tamga-box"><div class="tamga-symbol">' + tamga + '</div><div class="tamga-label">TAMǴA (Ruwlıq belgi)</div></div>';
+        html += '<div class="tamga-box">' + renderTamgaSVG(tamga, 90) + '<div class="tamga-label">TAMǴA (Ruwlıq belgi)</div></div>';
     }
     
     const uran = element.uran || (element.maǵlıwmat && element.maǵlıwmat.uran);
@@ -1550,8 +1563,17 @@ function maǵlıwmatKórsetiw(element) {
     }
     
     html += '<div class="info-section"><h3>📊 Dáreje</h3><p>' + dárejeAtawları[element.dáreje] + ' (' + element.dáreje + ')</p></div>';
-    
+
+    const _hasTamga2 = !!(tamga);
+    const _hasUran2  = !!(uran);
+    const _hasInfo2  = !!(element.maǵlıwmat && Object.keys(element.maǵlıwmat).length > 0)
+                    || !!(element.info && Object.keys(element.info).length > 0);
+    if (!_hasTamga2 && !_hasUran2 && !_hasInfo2) {
+      html += renderEmptyState('Maǵlıwmat joq', 'Maǵlıwmat qosıw');
+    }
+
     mazmun.innerHTML = html;
+    history.replaceState(null, '', '#' + (element.id || ''));
 }
 
 // ЗАМЕНИТЕ ЭТУ ФУНКЦИЮ (найдите её в коде и замените полностью)
@@ -1710,6 +1732,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function navigateToFavorite(id) {
+  toggleFavoritesPanel();
+  // Try to find the item in the list and click it
+  const el = document.getElementById('item-' + id)
+    || document.querySelector('[data-id="' + id + '"]');
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.click(); }
+}
     </script>
     <script src="js/shared-features.js"></script>
 </body>

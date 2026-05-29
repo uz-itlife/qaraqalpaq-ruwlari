@@ -2806,7 +2806,20 @@ function showInfo(node) {
     openPanel();
     
     let html = '<div class="info-header"><div class="info-title">' + node.name + '</div><div class="info-type">' + (node.type || 'Род') + '</div></div>';
-    
+
+    const _id   = node.id || '';
+    const _name = node.name || '';
+    html += '<div class="node-action-bar">'
+      + '<button class="share-btn" onclick="shareCurrentNode(\'' + _id + '\',\'Ссылка скопирована ✓\')">'
+      + '🔗 Поделиться</button>'
+      + '<button class="star-btn ' + (isFavorite(_id) ? 'active' : '') + '" '
+      + 'id="star-btn-' + _id + '" '
+      + 'data-add="В избранное" data-remove="Удалить" '
+      + 'onclick="toggleFavorite(\'' + _id + '\',\'' + _name.replace(/'/g,"\\'") + '\')">'
+      + (isFavorite(_id) ? '★ В избранном' : '☆ В избранное')
+      + '</button>'
+      + '</div>';
+
     // Иерархическая цепочка
     const chain = getParentChain(node);
     if (chain && chain.length > 0) {
@@ -2824,7 +2837,7 @@ function showInfo(node) {
     
     const tamga = node.tamga || (node.info && node.info.tamga);
     if (tamga) {
-        html += '<div class="tamga-box"><div class="tamga-symbol">' + tamga + '</div><div class="tamga-label">ТАМГА (Родовой знак)</div></div>';
+        html += '<div class="tamga-box">' + renderTamgaSVG(tamga, 90) + '<div class="tamga-label">ТАМГА (Родовой знак)</div></div>';
     }
     
     const uran = node.uran || (node.info && node.info.uran);
@@ -2886,8 +2899,17 @@ function showInfo(node) {
     }
     
     html += '<div class="info-section"><h3>📊 Уровень</h3><p>' + levelsMap[node.level] + ' (' + node.level + ')</p></div>';
-    
+
+    const _hasTamga2 = !!(tamga);
+    const _hasUran2  = !!(uran);
+    const _hasInfo2  = !!(node.maǵlıwmat && Object.keys(node.maǵlıwmat).length > 0)
+                    || !!(node.info && Object.keys(node.info).length > 0);
+    if (!_hasTamga2 && !_hasUran2 && !_hasInfo2) {
+      html += renderEmptyState('Нет данных', 'Добавить сведения');
+    }
+
     content.innerHTML = html;
+    history.replaceState(null, '', '#' + (node.id || ''));
 }
 
 function searchNode() {
@@ -2989,6 +3011,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function navigateToFavorite(id) {
+  toggleFavoritesPanel();
+  // Try to find the item in the list and click it
+  const el = document.getElementById('item-' + id)
+    || document.querySelector('[data-id="' + id + '"]');
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.click(); }
+}
     </script>
     <script src="js/shared-features.js"></script>
 </body>
