@@ -25,6 +25,12 @@ body.light-theme .node-box {
   border-color: var(--border-color) !important;
 }
 
+/* Legend has its own dark background — keep text always white */
+.legend,
+.legend-item {
+  color: #ecf0f1 !important;
+}
+
 body.light-theme .stats,
 body.light-theme .info-panel,
 body.light-theme .list-item,
