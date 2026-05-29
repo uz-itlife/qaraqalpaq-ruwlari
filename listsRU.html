@@ -2838,24 +2838,22 @@ function showInfo(node) {
         html += '<div class="uran-box"><div class="uran-text">' + uran + '</div><div class="uran-label">УРАН (Боевой клич)</div></div>';
     }
     
-    if (node.info) {
-        const fields = [
-            { key: 'history', icon: '📜', title: 'История' },
-            { key: 'origin', icon: '🧬', title: 'Происхождение' },
-            { key: 'legend', icon: '🌟', title: 'Легенда' },
-            { key: 'population', icon: '👥', title: 'Численность' },
-            { key: 'structure', icon: '🏗️', title: 'Структура' },
-            { key: 'warrior', icon: '⚔️', title: 'Воины' },
-            { key: 'region', icon: '🌍', title: 'Регион' },
-            { key: 'language', icon: '🗣️', title: 'Язык' }
-        ];
-        
-        fields.forEach(field => {
-            if (node.info[field.key]) {
-                html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + node.info[field.key] + '</p></div>';
-            }
-        });
-    }
+    const fields = [
+        { key: 'history',    icon: '📜', title: 'История' },
+        { key: 'origin',     icon: '🧬', title: 'Происхождение' },
+        { key: 'legend',     icon: '🌟', title: 'Легенда' },
+        { key: 'population', icon: '👥', title: 'Численность' },
+        { key: 'structure',  icon: '🏗️', title: 'Структура' },
+        { key: 'warrior',    icon: '⚔️', title: 'Воины' },
+        { key: 'region',     icon: '🌍', title: 'Регион' },
+        { key: 'language',   icon: '🗣️', title: 'Язык' }
+    ];
+    fields.forEach(field => {
+        const val = (node.info && node.info[field.key]) || node[field.key];
+        if (val) {
+            html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + val + '</p></div>';
+        }
+    });
     
     // Список всех потомков
     if (node.children && node.children.length > 0) {

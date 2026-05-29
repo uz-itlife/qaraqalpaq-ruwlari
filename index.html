@@ -3809,32 +3809,22 @@ document.getElementById("backdrop").addEventListener("click", closePanel);
         </div>
     `;
         }
-        if (node.info) {
-          const fields = [
-            { key: "history", icon: "📜", title: "Tariyx" },
-            { key: "origin", icon: "🧬", title: "Kelip shıg'ıwı" },
-            { key: "legend", icon: "🌟", title: "Ańız" },
+        const fields = [
+            { key: "history",    icon: "📜", title: "Tariyx" },
+            { key: "origin",     icon: "🧬", title: "Kelip shıg'ıwı" },
+            { key: "legend",     icon: "🌟", title: "Ańız" },
             { key: "population", icon: "👥", title: "Sanı" },
-            { key: "structure", icon: "🏗️", title: "Qurilımı" },
-            { key: "region", icon: "🌍", title: "Jeri" },
-            { key: "language", icon: "🗣️", title: "Til" },
-            // 'warrior' убрано, т.к. такого поля в данных нет
-            // Если в будущем появится — можно будет вернуть
-          ];
-
-          fields.forEach((field) => {
-            if (node.info[field.key]) {
-              html +=
-                '<div class="info-section"><h3>' +
-                field.icon +
-                " " +
-                field.title +
-                "</h3><p>" +
-                node.info[field.key] +
-                "</p></div>";
+            { key: "structure",  icon: "🏗️", title: "Qurilımı" },
+            { key: "region",     icon: "🌍", title: "Jeri" },
+            { key: "language",   icon: "🗣️", title: "Til" },
+        ];
+        fields.forEach((field) => {
+            const val = (node.info && node.info[field.key]) || node[field.key];
+            if (val) {
+              html += '<div class="info-section"><h3>' + field.icon + " " + field.title +
+                      "</h3><p>" + val + "</p></div>";
             }
-          });
-        }
+        });
 
         // Список всех потомков
         if (node.children && node.children.length > 0) {

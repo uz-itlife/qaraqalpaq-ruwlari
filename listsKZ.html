@@ -2847,23 +2847,21 @@ function showInfo(node) {
         html += '<div class="uran-box"><div class="uran-text">' + uran + '</div><div class="uran-label">УРАН (Соғыс ұраны)</div></div>';
     }
     
-    if (node.info) {
-        const fields = [
-            { key: 'history', icon: '📜', title: 'Тарих' },
-            { key: 'origin', icon: '🧬', title: 'Келіп шығыуы' },
-            { key: 'legend', icon: '🌟', title: 'Аңыз' },
-            { key: 'population', icon: '👥', title: 'Саны' },
-            { key: 'structure', icon: '🏗️', title: 'Құрылымы' },
-            { key: 'region', icon: '🌍', title: 'Жері' },
-            { key: 'language', icon: '🗣️', title: 'Тілі' }
-        ];
-        
-        fields.forEach(field => {
-            if (node.info[field.key]) {
-                html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + node.info[field.key] + '</p></div>';
-            }
-        });
-    }
+    const fields = [
+        { key: 'history',    icon: '📜', title: 'Тарих' },
+        { key: 'origin',     icon: '🧬', title: 'Келіп шығыуы' },
+        { key: 'legend',     icon: '🌟', title: 'Аңыз' },
+        { key: 'population', icon: '👥', title: 'Саны' },
+        { key: 'structure',  icon: '🏗️', title: 'Құрылымы' },
+        { key: 'region',     icon: '🌍', title: 'Жері' },
+        { key: 'language',   icon: '🗣️', title: 'Тілі' }
+    ];
+    fields.forEach(field => {
+        const val = (node.info && node.info[field.key]) || node[field.key];
+        if (val) {
+            html += '<div class="info-section"><h3>' + field.icon + ' ' + field.title + '</h3><p>' + val + '</p></div>';
+        }
+    });
     
     // Список всех потомков
     if (node.children && node.children.length > 0) {

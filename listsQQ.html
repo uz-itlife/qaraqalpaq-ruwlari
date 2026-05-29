@@ -1503,21 +1503,21 @@ function maǵlıwmatKórsetiw(element) {
         html += '<div class="uran-box"><div class="uran-text">' + uran + '</div><div class="uran-label">URAN (Soyıs urawı)</div></div>';
     }
     
-    if (element.maǵlıwmat) {
-        const maydandar = [
-            { kilt: 'tariyx', belgi: '📜', ataw: 'Tariyxı' },
-            { kilt: 'túbegi', belgi: '🧬', ataw: 'Kelip shıǵıwı' },
-            { kilt: 'anız', belgi: '🌟', ataw: 'Anız' },
-            { kilt: 'qalaqı', belgi: '👥', ataw: 'Qalaqı' },
-            { kilt: 'qúrılımı', belgi: '🏗️', ataw: 'Qúrılımı' },
-            { kilt: 'batırları', belgi: '⚔️', ataw: 'Batırları' },
-            { kilt: 'jeri', belgi: '🌍', ataw: 'Jeri' },
-            { kilt: 'tili', belgi: '🗣️', ataw: 'Tili' }
-        ];
-        
+    const maydandar = [
+        { kilt: 'tariyx', belgi: '📜', ataw: 'Tariyxı' },
+        { kilt: 'túbegi', belgi: '🧬', ataw: 'Kelip shıǵıwı' },
+        { kilt: 'anız',   belgi: '🌟', ataw: 'Anız' },
+        { kilt: 'qalaqı', belgi: '👥', ataw: 'Qalaqı' },
+        { kilt: 'qúrılımı', belgi: '🏗️', ataw: 'Qúrılımı' },
+        { kilt: 'batırları', belgi: '⚔️', ataw: 'Batırları' },
+        { kilt: 'jeri',   belgi: '🌍', ataw: 'Jeri' },
+        { kilt: 'tili',   belgi: '🗣️', ataw: 'Tili' }
+    ];
+    {
         maydandar.forEach(maydan => {
-            if (element.maǵlıwmat[maydan.kilt]) {
-                html += '<div class="info-section"><h3>' + maydan.belgi + ' ' + maydan.ataw + '</h3><p>' + element.maǵlıwmat[maydan.kilt] + '</p></div>';
+            const mánis = (element.maǵlıwmat && element.maǵlıwmat[maydan.kilt]) || element[maydan.kilt];
+            if (mánis) {
+                html += '<div class="info-section"><h3>' + maydan.belgi + ' ' + maydan.ataw + '</h3><p>' + mánis + '</p></div>';
             }
         });
     }
