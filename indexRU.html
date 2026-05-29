@@ -857,7 +857,6 @@
         <div class="favorites-panel" id="favoritesPanel"
           data-title="Избранное" data-empty="Нет избранного"></div>
     </header>
-<div class="breadcrumb-bar" id="breadcrumbBar"></div>
 
     <!-- Бегущая строка для мобильных устройств -->
     <div class="mobile-warning-marquee" id="mobileMarquee">
@@ -2631,8 +2630,6 @@
     if (window.innerWidth > 968) {
         statsBox.style.right = "10px"; // возвращаем на место
     }
-    const _bc = document.getElementById('breadcrumbBar');
-    if (_bc) _bc.classList.remove('visible');
 }
 
         // Закрытие по клику на фон
@@ -2694,21 +2691,6 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
           return null;
         }
 
-        function updateBreadcrumb(nodeId) {
-          const bar = document.getElementById('breadcrumbBar');
-          if (!bar) return;
-          if (!nodeId) { bar.classList.remove('visible'); return; }
-          const path = _getAncestorPath(treeData, nodeId, []);
-          if (!path || path.length === 0) { bar.classList.remove('visible'); return; }
-          bar.classList.add('visible');
-          bar.innerHTML = path.map((n, i) => {
-            const name = n.name || n.at || '';
-            const isCurrent = i === path.length - 1;
-            if (isCurrent) return `<span class="breadcrumb-crumb current">${name}</span>`;
-            return `<span class="breadcrumb-crumb" onclick="selectSearchResult('${n.id}')">${name}</span>`
-                 + `<span class="breadcrumb-sep">›</span>`;
-          }).join('');
-        }
 
         function showInfo(node) {
             currentSelectedNode = node;
