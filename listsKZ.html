@@ -835,6 +835,15 @@
     <div class="search-box"><input type="text" id="searchInput" placeholder="Іздеу..." onkeyup="searchNode()"></div>
     <div class="stats" id="statsBox"><div><strong>Статистика:</strong></div><div>Арыс: 2</div><div>Бөлім: 2</div><div>Ру: 50+</div><div>Тіре/Көше: 300+</div></div>
     
+    <div class="list-filters" id="listFilters">
+  <button class="filter-chip active" data-filter="all" onclick="applyFilter('all')">Барлығы</button>
+  <button class="filter-chip" data-filter="uruw" onclick="applyFilter('uruw')">🏘 Рулар</button>
+  <button class="filter-chip" data-filter="tiyre" onclick="applyFilter('tiyre')">🌿 Тірелер</button>
+  <button class="filter-chip" data-filter="koshe" onclick="applyFilter('koshe')">🌱 Көшелер</button>
+  <button class="filter-chip" data-filter="has-tamga" onclick="applyFilter('has-tamga')">🔴 Тамғалы</button>
+  <button class="filter-chip" data-filter="has-uran" onclick="applyFilter('has-uran')">📢 Уранды</button>
+</div>
+
     <div class="container">
         <div class="list-panel" id="listPanel">
             <h1 style="margin-top: 10px;">Қарақалпақ рулары</h1>
@@ -843,6 +852,7 @@
             <div class="controls">
                 <button class="control-btn" onclick="expandAll()">📂 Барлығын ашу</button>
                 <button class="control-btn" onclick="collapseAll()">📁 Барлығын жабу</button>
+                <button class="print-btn" onclick="window.print()">🖨️ Басып шығару</button>
             </div>
 
             <div class="breadcrumb" id="breadcrumb">
@@ -2690,11 +2700,19 @@ function buildList(node, container) {
     const item = document.createElement('div');
     item.className = 'list-item level-' + node.level;
     item.id = 'item-' + node.id;
-    
+
+    const nodeType = node.type || '';
+    const nodeTamga = node.tamga || (node.info && node.info.tamga) || '';
+    const nodeUran  = node.uran  || (node.info && node.info.uran)  || '';
+    const nodePop   = node.population || (node.info && node.info.population) || '';
+    item.dataset.itemType = nodeType;
+    item.dataset.hasTamga = nodeTamga ? 'true' : 'false';
+    item.dataset.hasUran  = nodeUran  ? 'true' : 'false';
+
     const hasChildren = node.children && node.children.length > 0;
     const childCount = hasChildren ? node.children.length : 0;
     const descendantCount = hasChildren ? getAllDescendants(node).length : 0;
-    
+
     let html = '<div class="list-header" id="header-' + node.id + '" onclick="handleItemClick(\'' + node.id + '\', event)">';
     
     // Кнопка разворачивания (если есть дети)
@@ -2729,8 +2747,20 @@ function buildList(node, container) {
     }
     
     item.innerHTML = html;
+
+    let badges = '';
+    if (nodeTamga) badges += '<span class="list-badge badge-tamga">🔴 ' + nodeTamga + '</span>';
+    if (nodeUran)  badges += '<span class="list-badge badge-uran">📢 ' + nodeUran + '</span>';
+    if (nodePop)   badges += '<span class="list-badge badge-pop">👥 ' + nodePop + '</span>';
+    if (badges) {
+      const badgesDiv = document.createElement('div');
+      badgesDiv.className = 'list-badges';
+      badgesDiv.innerHTML = badges;
+      item.appendChild(badgesDiv);
+    }
+
     container.appendChild(item);
-    
+
     // Рекурсивно добавляем детей
     if (hasChildren) {
         const childrenContainer = item.querySelector('.children-container');
@@ -2902,9 +2932,36 @@ function searchNode() {
 }
 
 // Обработчики событий
+function applyFilter(type) {
+  // Update active chip
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  const activeChip = document.querySelector('.filter-chip[data-filter="' + type + '"]');
+  if (activeChip) activeChip.classList.add('active');
+
+  // Filter items
+  document.querySelectorAll('.list-item').forEach(item => {
+    let show = true;
+    if (type === 'uruw') {
+      const t = (item.dataset.itemType || '').toLowerCase();
+      show = t === 'uruw' || t === 'urıw' || t === 'ру' || t === 'род' || t === 'уруу';
+    } else if (type === 'tiyre') {
+      const t = (item.dataset.itemType || '').toLowerCase();
+      show = t === 'tiyre' || t === 'тіре' || t === 'тире' || t === 'тиyre';
+    } else if (type === 'koshe') {
+      const t = (item.dataset.itemType || '').toLowerCase();
+      show = t === 'koshe' || t === "ko'she" || t === 'көше' || t === 'коше' || t === 'кош';
+    } else if (type === 'has-tamga') {
+      show = item.dataset.hasTamga === 'true';
+    } else if (type === 'has-uran') {
+      show = item.dataset.hasUran === 'true';
+    }
+    item.classList.toggle('hidden-by-filter', !show);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     buildList(treeData, document.getElementById('hierarchicalList'));
-    
+
     // Кнопка закрытия панели
     document.getElementById('closePanelBtn').addEventListener('click', closePanel);
     

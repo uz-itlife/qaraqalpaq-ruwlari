@@ -825,6 +825,15 @@
     <div class="search-box"><input type="text" id="searchInput" placeholder="Izlew..." onkeyup="izlew()"></div>
     <div class="stats" id="statsBox"><div><strong>Statistika:</strong></div><div>Arıs: 2</div><div>Bólim: 2</div><div>Uruw: 50+</div><div>Tiyre/ko'she: 300+</div></div>
     
+    <div class="list-filters" id="listFilters">
+  <button class="filter-chip active" data-filter="all" onclick="applyFilter('all')">Barlıǵı</button>
+  <button class="filter-chip" data-filter="uruw" onclick="applyFilter('uruw')">🏘 Urıwlar</button>
+  <button class="filter-chip" data-filter="tiyre" onclick="applyFilter('tiyre')">🌿 Tiyreler</button>
+  <button class="filter-chip" data-filter="koshe" onclick="applyFilter('koshe')">🌱 Kósheler</button>
+  <button class="filter-chip" data-filter="has-tamga" onclick="applyFilter('has-tamga')">🔴 Tamǵalı</button>
+  <button class="filter-chip" data-filter="has-uran" onclick="applyFilter('has-uran')">📢 Uranlı</button>
+</div>
+
     <div class="container">
         <div class="list-panel" id="listPanel">
             <h1 style="margin-top: 10px;">QARAQALPAQ URUWLARI</h1>
@@ -833,6 +842,7 @@
             <div class="controls">
     <button class="control-btn" onclick="barlıgınAshıw()">📂 Barlıgın ashıw</button>
     <button class="control-btn" onclick="barlıgınJabıw()">📁 Barlıgın jabıw</button>
+    <button class="print-btn" onclick="window.print()">🖨️ Basıp shıǵarıw</button>
 </div>
 
             <div class="breadcrumb" id="breadcrumb">
@@ -1376,11 +1386,19 @@ function tizimQurıw(bólek, qorap) {
     const element = document.createElement('div');
     element.className = 'list-item level-' + bólek.dáreje;
     element.id = 'element-' + bólek.id;
-    
+
+    const nodeType = bólek.túri || bólek.turi || '';
+    const nodeTamga = bólek.tamga || (bólek.maǵlıwmat && bólek.maǵlıwmat.tamga) || '';
+    const nodeUran  = bólek.uran  || (bólek.maǵlıwmat && bólek.maǵlıwmat.uran)  || '';
+    const nodePop   = bólek.qalaqı || (bólek.maǵlıwmat && bólek.maǵlıwmat.qalaqı) || '';
+    element.dataset.itemType = nodeType;
+    element.dataset.hasTamga = nodeTamga ? 'true' : 'false';
+    element.dataset.hasUran  = nodeUran  ? 'true' : 'false';
+
     const balalarBar = bólek.ballar && bólek.ballar.length > 0;
     const balalarSanaqı = balalarBar ? bólek.ballar.length : 0;
     const nemelerSanaqı = balalarBar ? barlıqNemelerdiAlıw(bólek).length : 0;
-    
+
     let html = '<div class="list-header" id="baslıq-' + bólek.id + '" onclick="elementkeBasqanda(\'' + bólek.id + '\', event)">';
     
     if (balalarBar) {
@@ -1411,8 +1429,20 @@ function tizimQurıw(bólek, qorap) {
     }
     
     element.innerHTML = html;
+
+    let badges = '';
+    if (nodeTamga) badges += '<span class="list-badge badge-tamga">🔴 ' + nodeTamga + '</span>';
+    if (nodeUran)  badges += '<span class="list-badge badge-uran">📢 ' + nodeUran + '</span>';
+    if (nodePop)   badges += '<span class="list-badge badge-pop">👥 ' + nodePop + '</span>';
+    if (badges) {
+      const badgesDiv = document.createElement('div');
+      badgesDiv.className = 'list-badges';
+      badgesDiv.innerHTML = badges;
+      element.appendChild(badgesDiv);
+    }
+
     qorap.appendChild(element);
-    
+
     if (balalarBar) {
         const balalarQorabı = element.querySelector('.children-container');
         bólek.ballar.forEach(bala => {
@@ -1619,6 +1649,33 @@ function barlıgınJabıw() {
     });
 }
 
+
+function applyFilter(type) {
+  // Update active chip
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  const activeChip = document.querySelector('.filter-chip[data-filter="' + type + '"]');
+  if (activeChip) activeChip.classList.add('active');
+
+  // Filter items
+  document.querySelectorAll('.list-item').forEach(item => {
+    let show = true;
+    if (type === 'uruw') {
+      const t = (item.dataset.itemType || '').toLowerCase();
+      show = t === 'uruw' || t === 'urıw' || t === 'ру' || t === 'род' || t === 'уруу';
+    } else if (type === 'tiyre') {
+      const t = (item.dataset.itemType || '').toLowerCase();
+      show = t === 'tiyre' || t === 'тіре' || t === 'тире' || t === 'тиyre';
+    } else if (type === 'koshe') {
+      const t = (item.dataset.itemType || '').toLowerCase();
+      show = t === 'koshe' || t === "ko'she" || t === 'көше' || t === 'коше' || t === 'кош';
+    } else if (type === 'has-tamga') {
+      show = item.dataset.hasTamga === 'true';
+    } else if (type === 'has-uran') {
+      show = item.dataset.hasUran === 'true';
+    }
+    item.classList.toggle('hidden-by-filter', !show);
+  });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     tizimQurıw(terekMaǵlıwmatları, document.getElementById('hierarchicalList'));
