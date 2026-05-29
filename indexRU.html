@@ -2683,8 +2683,21 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
             // Открываем панель при клике на элемент
             openPanel();
             
+            const _nodeId = node.id || '';
+            const _nodeName = node.name || node.at || '';
             let html = '<div class="info-header"><div class="info-title">' + node.name + '</div><div class="info-type">' + (node.type || 'Род') + '</div></div>';
-            
+
+            html += '<div class="node-action-bar">'
+              + '<button class="share-btn" onclick="shareCurrentNode(\'' + _nodeId + '\',\'Ссылка скопирована ✓\')">'
+              + '🔗 Поделиться</button>'
+              + '<button class="star-btn ' + (isFavorite(_nodeId) ? 'active' : '') + '" '
+              + 'id="star-btn-' + _nodeId + '" '
+              + 'data-add="В избранное" data-remove="Удалить" '
+              + 'onclick="toggleFavorite(\'' + _nodeId + '\',\'' + _nodeName.replace(/'/g, "\\'") + '\')">'
+              + (isFavorite(_nodeId) ? '★ В избранном' : '☆ В избранное')
+              + '</button>'
+              + '</div>';
+
             // Иерархическая цепочка
             const chain = getParentChain(node);
             if (chain && chain.length > 0) {
@@ -2702,7 +2715,7 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
             
             const tamga = node.tamga || (node.info && node.info.tamga);
             if (tamga) {
-                html += '<div class="tamga-box"><div class="tamga-symbol">' + tamga + '</div><div class="tamga-label">ТАМГА (Родовой знак)</div></div>';
+                html += '<div class="tamga-box">' + renderTamgaSVG(tamga, 90) + '<div class="tamga-label">ТАМГА (Родовой знак)</div></div>';
             }
             
             const uran = node.uran || (node.info && node.info.uran);
@@ -2763,8 +2776,22 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
             }
             
             html += '<div class="info-section"><h3>📊 Уровень</h3><p>' + levelsMap[node.level] + ' (' + node.level + ')</p></div>';
-            
+
+            const _hasTamga = !!(tamga);
+            const _hasUran  = !!(uran);
+            const _hasInfo  = !!(node.info && (node.info.history || node.info.tariyx || node.info.origin));
+            if (!_hasTamga && !_hasUran && !_hasInfo) {
+              html += renderEmptyState('Нет данных', 'Добавить сведения');
+            }
+
             content.innerHTML = html;
+            history.replaceState(null, '', '#' + (node.id || ''));
+        }
+
+        function navigateToFavorite(id) {
+          toggleFavoritesPanel();
+          const el = document.getElementById('node-' + id);
+          if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.click(); }
         }
 
         // function searchNode() {
