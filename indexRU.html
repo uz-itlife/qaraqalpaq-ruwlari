@@ -602,6 +602,28 @@
         .search-box { position: fixed; top: 72px; left: 10px; z-index: 100; }
         .search-box input { padding: 6px 10px; border-radius: 15px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.9); color: white; width: 180px; font-size: 0.85em; }
 
+        .search-dropdown {
+          display: none;
+          position: absolute;
+          top: calc(100% + 4px);
+          left: 0;
+          min-width: 240px;
+          background: rgba(10,10,20,0.97);
+          border: 1px solid var(--accent-blue);
+          border-radius: 8px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+          z-index: 200;
+          max-height: 320px;
+          overflow-y: auto;
+        }
+        .search-dropdown.open { display: block; }
+        .search-result-item { padding: 8px 12px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item:hover { background: rgba(255,255,255,0.08); }
+        .search-result-name { color: #fff; font-size: 0.9em; }
+        .search-result-name mark { background: transparent; color: var(--accent-blue); font-weight: bold; }
+        .search-result-path { color: rgba(255,255,255,0.45); font-size: 0.75em; margin-top: 2px; }
+
         /* ============================================
            ВСЕ МЕДИА-ЗАПРОСЫ
            ============================================ */
@@ -847,8 +869,12 @@
         </div>
     </div>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Поиск..." onkeyup="searchNode()">
+    <div class="search-box" style="position:relative">
+      <input type="text" id="searchInput" placeholder="Поиск..."
+        oninput="searchWithDropdown(this.value)"
+        onkeydown="handleSearchKey(event)"
+        autocomplete="off"/>
+      <div class="search-dropdown" id="searchDropdown"></div>
     </div>
     <div class="stats" id="statsBox">
         <div><strong>Статистика:</strong></div>
@@ -2753,6 +2779,80 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
         //         }
         //     });
         // }
+
+        // ── Search dropdown ──────────────────────────────────────────
+        let _searchIndex = null;
+
+        function _buildSearchIndex(node, path, result) {
+          if (!result) result = [];
+          if (!path) path = [];
+          const curr = [...path, node.name || node.at || ''];
+          result.push({ id: node.id, name: (node.name || node.at || ''), path: curr });
+          const kids = node.children || node.ballar || [];
+          kids.forEach(c => _buildSearchIndex(c, curr, result));
+          return result;
+        }
+
+        function _getSearchIndex() {
+          if (!_searchIndex) _searchIndex = _buildSearchIndex(treeData, []);
+          return _searchIndex;
+        }
+
+        function _highlight(text, query) {
+          const idx = text.toLowerCase().indexOf(query.toLowerCase());
+          if (idx < 0) return text;
+          return text.slice(0, idx) +
+            '<mark>' + text.slice(idx, idx + query.length) + '</mark>' +
+            text.slice(idx + query.length);
+        }
+
+        function searchWithDropdown(query) {
+          const dd = document.getElementById('searchDropdown');
+          if (!dd) return;
+          if (!query || query.length < 2) { dd.classList.remove('open'); return; }
+          const q = query.toLowerCase();
+          const results = _getSearchIndex()
+            .filter(r => r.name.toLowerCase().includes(q))
+            .slice(0, 10);
+          if (results.length === 0) { dd.classList.remove('open'); return; }
+          dd.innerHTML = results.map(r => {
+            const pathStr = r.path.slice(0, -1).join(' › ');
+            return `<div class="search-result-item" onclick="selectSearchResult('${r.id}')">
+              <div class="search-result-name">${_highlight(r.name, query)}</div>
+              ${pathStr ? `<div class="search-result-path">${pathStr}</div>` : ''}
+            </div>`;
+          }).join('');
+          dd.classList.add('open');
+        }
+
+        function selectSearchResult(id) {
+          const dd = document.getElementById('searchDropdown');
+          if (dd) dd.classList.remove('open');
+          const inp = document.getElementById('searchInput');
+          if (inp) inp.value = '';
+          const el = document.getElementById('node-' + id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.click();
+          }
+        }
+
+        function handleSearchKey(e) {
+          if (e.key === 'Escape') {
+            const dd = document.getElementById('searchDropdown');
+            if (dd) dd.classList.remove('open');
+            e.target.value = '';
+            e.target.blur();
+          }
+        }
+
+        // Close dropdown on outside click
+        document.addEventListener('click', e => {
+          if (!e.target.closest('.search-box')) {
+            const dd = document.getElementById('searchDropdown');
+            if (dd) dd.classList.remove('open');
+          }
+        });
 
         function searchNode() {
   const input = document.getElementById("searchInput").value.toLowerCase();
