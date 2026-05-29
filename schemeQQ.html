@@ -2633,6 +2633,163 @@
             return result;
         }
 
+        // Torek tu'yinlerin jabuw/ashiw
+        function toggleD3Node(d) {
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else if (d._children) {
+                d.children = d._children;
+                d._children = null;
+            }
+        }
+
+        let tamar, terekQurilmi, enAzamattiqKenlik, enAzamattiqBiyiklik;
+
+        function updateTree(source) {
+            const duration = 400;
+
+            // Japrak sanaqi men terenlik qayta esaplaniw (collapse esi'binden)
+            const allNodes = tamar.descendants();
+            const visibleLeaves = tamar.leaves();
+            const leafCount = visibleLeaves.length;
+            const depth = tamar.height;
+
+            const qorap = document.getElementById('treeArea');
+            const kenlik = qorap.clientWidth;
+            const biyiklik = qorap.clientHeight;
+
+            enAzamattiqKenlik = Math.max(kenlik, leafCount * 25);
+            enAzamattiqBiyiklik = Math.max(biyiklik, (depth + 1) * 100);
+
+            terekQurilmi.size([enAzamattiqKenlik, enAzamattiqBiyiklik]);
+            terekQurilmi(tamar);
+
+            const nodes = tamar.descendants();
+            const links = tamar.links();
+
+            // ── BAYLANIS SIZIQLARI ──────────────────────────────────────
+            const link = g.selectAll('path.link')
+                .data(links, d => d.target.data.id);
+
+            const linkEnter = link.enter()
+                .append('path')
+                .attr('class', 'link')
+                .attr('d', () => {
+                    const ox = source.x0 !== undefined ? source.x0 : source.x;
+                    const oy = source.y0 !== undefined ? source.y0 : source.y;
+                    return `M${ox},${oy}L${ox},${oy}`;
+                });
+
+            linkEnter.merge(link)
+                .transition().duration(duration)
+                .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
+
+            link.exit()
+                .transition().duration(duration)
+                .attr('d', () => `M${source.x},${source.y}L${source.x},${source.y}`)
+                .remove();
+
+            // ── BO'LIMLER (TUIYINLER) ─────────────────────────────────
+            const bolek = g.selectAll('g.node')
+                .data(nodes, d => d.data.id);
+
+            const bolekEnter = bolek.enter()
+                .append('g')
+                .attr('class', d => `node node-${d.data.turi}`)
+                .attr('transform', () => {
+                    const sx = source.x0 !== undefined ? source.x0 : source.x;
+                    const sy = source.y0 !== undefined ? source.y0 : source.y;
+                    return `translate(${sx},${sy})`;
+                })
+                .style('cursor', 'pointer')
+                .on('click', (e, d) => {
+                    toggleD3Node(d);
+                    updateTree(d);
+                    magliwmatKorsetiw(d.data);
+                });
+
+            // To'rtburyshlar
+            bolekEnter.append('rect')
+                .attr('width', d => {
+                    const uzunliq = Math.max(d.data.at.length * 7 + 16, 50);
+                    return d.data.turi === 'koshe' ? uzunliq * 0.8 : uzunliq;
+                })
+                .attr('height', d => d.data.turi === 'koshe' ? 22 : 28)
+                .attr('x', d => {
+                    const uzunliq = Math.max(d.data.at.length * 7 + 16, 50);
+                    const haqiqiyUzunliq = d.data.turi === 'koshe' ? uzunliq * 0.8 : uzunliq;
+                    return -haqiqiyUzunliq / 2;
+                })
+                .attr('y', d => d.data.turi === 'koshe' ? -11 : -14)
+                .attr('rx', 6)
+                .attr('stroke-width', d => d.data.turi === 'xaliq' ? 3 : 2);
+
+            // Ataw ma'tini
+            bolekEnter.append('text')
+                .attr('dy', '.35em')
+                .attr('text-anchor', 'middle')
+                .style('font-size', d => {
+                    if (d.data.turi === 'koshe') return '9px';
+                    if (d.data.turi === 'tiyre') return '10px';
+                    return '11px';
+                })
+                .style('pointer-events', 'none')
+                .text(d => d.data.at);
+
+            // Tamga (jog'arida)
+            bolekEnter.filter(d => d.data.tamga && d.data.turi !== 'koshe' && d.data.turi !== 'tiyre')
+                .append('text')
+                .attr('class', 'tamga-text')
+                .attr('dy', -22)
+                .attr('text-anchor', 'middle')
+                .style('pointer-events', 'none')
+                .text(d => d.data.tamga);
+
+            // Uran (to'mende)
+            bolekEnter.filter(d => d.data.uran && (d.data.turi === 'aris' || d.data.turi === 'ulken'))
+                .append('text')
+                .attr('dy', 28)
+                .attr('text-anchor', 'middle')
+                .style('font-size', '9px')
+                .style('fill', '#d4af37')
+                .style('font-weight', 'bold')
+                .style('pointer-events', 'none')
+                .text(d => d.data.uran);
+
+            // Animaciya menen jiljitiw
+            bolekEnter.merge(bolek)
+                .transition().duration(duration)
+                .attr('transform', d => `translate(${d.x},${d.y})`);
+
+            // Jabiq tu'yinlardi joq etiw
+            bolek.exit()
+                .transition().duration(duration)
+                .attr('transform', () => `translate(${source.x},${source.y})`)
+                .style('opacity', 0)
+                .remove();
+
+            // +/- belgisi (ballar bar bolsa)
+            g.selectAll('g.node').each(function(d) {
+                const grp = d3.select(this);
+                grp.selectAll('.toggle-indicator').remove();
+                if (d.children || d._children) {
+                    grp.append('text')
+                        .attr('class', 'toggle-indicator')
+                        .attr('x', 0)
+                        .attr('y', -14)
+                        .attr('text-anchor', 'middle')
+                        .style('font-size', '12px')
+                        .style('fill', '#f1c40f')
+                        .style('pointer-events', 'none')
+                        .text(d.children ? '−' : '+');
+                }
+            });
+
+            // Keyingi animaciya u'shin orindi saqlaw
+            nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+        }
+
         function terektiBaslaw() {
             const qorap = document.getElementById('treeArea');
             const kenlik = qorap.clientWidth;
@@ -2656,22 +2813,30 @@
 
             g = svg.append("g");
 
-            const tamar = convertToHierarchy(terekMagliwmatlari);
-            
+            tamar = convertToHierarchy(terekMagliwmatlari);
+
+            // Depth > 2 boʻlgan tuiyinlerni jabuw
+            tamar.descendants().forEach(d => {
+                if (d.depth > 2 && d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                }
+            });
+
             const japrakSanaqi = tamar.leaves().length;
             const terenlik = tamar.height;
-                    
+
             // Kerek o'l'shem
-            const enAzamattiqKenlik = Math.max(kenlik, japrakSanaqi * 25);
-            const enAzamattiqBiyiklik = Math.max(biyiklik, (terenlik + 1) * 100);
-            
-            const terekQurilmi = d3.tree()
+            enAzamattiqKenlik = Math.max(kenlik, japrakSanaqi * 25);
+            enAzamattiqBiyiklik = Math.max(biyiklik, (terenlik + 1) * 100);
+
+            terekQurilmi = d3.tree()
                 .size([enAzamattiqKenlik, enAzamattiqBiyiklik])
                 .separation((a, b) => {
                     if (a.parent === b.parent) return 1;
                     return 1.2;
                 });
-            
+
             terekQurilmi(tamar);
 
             // Bastapqi ko'rinis - ortada
@@ -2680,79 +2845,21 @@
                 (biyiklik - 150) / enAzamattiqBiyiklik,
                 0.9
             );
-            
+
             const baslangishX = (kenlik - enAzamattiqKenlik * baslangishMasshtab) / 2;
             const baslangishY = 50;
 
             g.attr("transform", `translate(${baslangishX}, ${baslangishY}) scale(${baslangishMasshtab})`);
-            
+
             ameldegiMasshtab = d3.zoomIdentity
                 .translate(baslangishX, baslangishY)
                 .scale(baslangishMasshtab);
 
             svg.call(zoom.transform, ameldegiMasshtab);
 
-            // Baylanis sizi'qlari'
-            g.selectAll(".link")
-                .data(tamar.links())
-                .enter().append("path")
-                .attr("class", "link")
-                .attr("d", d3.linkVertical()
-                    .x(d => d.x)
-                    .y(d => d.y));
-
-            // Bo'limder
-            const bolek = g.selectAll(".node")
-                .data(tamar.descendants())
-                .enter().append("g")
-                .attr("class", d => `node node-${d.data.turi}`)
-                .attr("transform", d => `translate(${d.x},${d.y})`)
-                .on("click", (e, d) => magliwmatKorsetiw(d.data));
-
-            // To'rtburyshlar - ko'lemi dareje boyinsha o'zgeredi
-            bolek.append("rect")
-                .attr("width", d => {
-                    const uzunliq = Math.max(d.data.at.length * 7 + 16, 50);
-                    return d.data.turi === 'koshe' ? uzunliq * 0.8 : uzunliq;
-                })
-                .attr("height", d => d.data.turi === 'koshe' ? 22 : 28)
-                .attr("x", d => {
-                    const uzunliq = Math.max(d.data.at.length * 7 + 16, 50);
-                    const haqiqiyUzunliq = d.data.turi === 'koshe' ? uzunliq * 0.8 : uzunliq;
-                    return -haqiqiyUzunliq / 2;
-                })
-                .attr("y", d => d.data.turi === 'koshe' ? -11 : -14)
-                .attr("rx", 6)
-                .attr("stroke-width", d => d.data.turi === 'xaliq' ? 3 : 2);
-
-            // Ataw ma'tini
-            bolek.append("text")
-                .attr("dy", ".35em")
-                .attr("text-anchor", "middle")
-                .style("font-size", d => {
-                    if (d.data.turi === 'koshe') return "9px";
-                    if (d.data.turi === 'tiyre') return "10px";
-                    return "11px";
-                })
-                .text(d => d.data.at);
-
-            // Tamga (jog'arida)
-            bolek.filter(d => d.data.tamga && d.data.turi !== 'koshe' && d.data.turi !== 'tiyre')
-                .append("text")
-                .attr("class", "tamga-text")
-                .attr("dy", -22)
-                .attr("text-anchor", "middle")
-                .text(d => d.data.tamga);
-                
-            // Uran (to'mende)
-            bolek.filter(d => d.data.uran && (d.data.turi === 'aris' || d.data.turi === 'ulken'))
-                .append("text")
-                .attr("dy", 28)
-                .attr("text-anchor", "middle")
-                .style("font-size", "9px")
-                .style("fill", "#d4af37")
-                .style("font-weight", "bold")
-                .text(d => d.data.uran);
+            tamar.x0 = tamar.x || 0;
+            tamar.y0 = tamar.y || 0;
+            updateTree(tamar);
         }
 
         // Aqparatti korsetiw

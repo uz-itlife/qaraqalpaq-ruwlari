@@ -2384,6 +2384,156 @@
         let currentTransform = d3.zoomIdentity;
         let panelOpen = false;
 
+        // Переключение свернуть/развернуть узел
+        function toggleD3Node(d) {
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else if (d._children) {
+                d.children = d._children;
+                d._children = null;
+            }
+        }
+
+        let root, treeLayout, minWidth, minHeight;
+
+        function updateTree(source) {
+            const duration = 400;
+
+            const container = document.getElementById('treeArea');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            const leafCount = root.leaves().length;
+            const depth = root.height;
+
+            minWidth = Math.max(width, leafCount * 25);
+            minHeight = Math.max(height, (depth + 1) * 100);
+
+            treeLayout.size([minWidth, minHeight]);
+            treeLayout(root);
+
+            const nodes = root.descendants();
+            const links = root.links();
+
+            // ── ЛИНИИ СВЯЗЕЙ ──────────────────────────────────────
+            const link = g.selectAll('path.link')
+                .data(links, d => d.target.data.id);
+
+            const linkEnter = link.enter()
+                .append('path')
+                .attr('class', 'link')
+                .attr('d', () => {
+                    const ox = source.x0 !== undefined ? source.x0 : source.x;
+                    const oy = source.y0 !== undefined ? source.y0 : source.y;
+                    return `M${ox},${oy}L${ox},${oy}`;
+                });
+
+            linkEnter.merge(link)
+                .transition().duration(duration)
+                .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
+
+            link.exit()
+                .transition().duration(duration)
+                .attr('d', () => `M${source.x},${source.y}L${source.x},${source.y}`)
+                .remove();
+
+            // ── УЗЛЫ ──────────────────────────────────────────────
+            const node = g.selectAll('g.node')
+                .data(nodes, d => d.data.id);
+
+            const nodeEnter = node.enter()
+                .append('g')
+                .attr('class', d => `node node-${d.data.type}`)
+                .attr('transform', () => {
+                    const sx = source.x0 !== undefined ? source.x0 : source.x;
+                    const sy = source.y0 !== undefined ? source.y0 : source.y;
+                    return `translate(${sx},${sy})`;
+                })
+                .style('cursor', 'pointer')
+                .on('click', (e, d) => {
+                    toggleD3Node(d);
+                    updateTree(d);
+                    showInfo(d.data);
+                });
+
+            nodeEnter.append('rect')
+                .attr('width', d => {
+                    const length = Math.max(d.data.name.length * 7 + 16, 50);
+                    return d.data.type === 'koshe' ? length * 0.8 : length;
+                })
+                .attr('height', d => d.data.type === 'koshe' ? 22 : 28)
+                .attr('x', d => {
+                    const length = Math.max(d.data.name.length * 7 + 16, 50);
+                    const actualLength = d.data.type === 'koshe' ? length * 0.8 : length;
+                    return -actualLength / 2;
+                })
+                .attr('y', d => d.data.type === 'koshe' ? -11 : -14)
+                .attr('rx', 6)
+                .attr('stroke-width', d => d.data.type === 'xaliq' ? 3 : 2);
+
+            nodeEnter.append('text')
+                .attr('dy', '.35em')
+                .attr('text-anchor', 'middle')
+                .style('font-size', d => {
+                    if (d.data.type === 'koshe') return '9px';
+                    if (d.data.type === 'tiyre') return '10px';
+                    return '11px';
+                })
+                .style('pointer-events', 'none')
+                .text(d => d.data.name);
+
+            nodeEnter.filter(d => d.data.tamga && d.data.type !== 'koshe' && d.data.type !== 'tiyre')
+                .append('text')
+                .attr('class', 'tamga-text')
+                .attr('dy', -22)
+                .attr('text-anchor', 'middle')
+                .style('pointer-events', 'none')
+                .text(d => d.data.tamga);
+
+            nodeEnter.filter(d => d.data.uran && (d.data.type === 'aris' || d.data.type === 'ulken'))
+                .append('text')
+                .attr('dy', 28)
+                .attr('text-anchor', 'middle')
+                .style('font-size', '9px')
+                .style('fill', '#d4af37')
+                .style('font-weight', 'bold')
+                .style('pointer-events', 'none')
+                .text(d => d.data.uran);
+
+            // Анимированное перемещение
+            nodeEnter.merge(node)
+                .transition().duration(duration)
+                .attr('transform', d => `translate(${d.x},${d.y})`);
+
+            // Удаление свёрнутых узлов
+            node.exit()
+                .transition().duration(duration)
+                .attr('transform', () => `translate(${source.x},${source.y})`)
+                .style('opacity', 0)
+                .remove();
+
+            // Индикатор +/- для узлов с детьми
+            g.selectAll('g.node').each(function(d) {
+                const grp = d3.select(this);
+                grp.selectAll('.toggle-indicator').remove();
+                if (d.children || d._children) {
+                    grp.append('text')
+                        .attr('class', 'toggle-indicator')
+                        .attr('x', 0)
+                        .attr('y', -14)
+                        .attr('text-anchor', 'middle')
+                        .style('font-size', '12px')
+                        .style('fill', '#f1c40f')
+                        .style('pointer-events', 'none')
+                        .text(d.children ? '−' : '+');
+                }
+            });
+
+            // Сохраняем позиции для следующей анимации
+            nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+        }
+
         function initTree() {
             const container = document.getElementById('treeArea');
             const width = container.clientWidth;
@@ -2406,21 +2556,29 @@
 
             g = svg.append("g");
 
-            const root = d3.hierarchy(treeData, d => d.children);
-            
+            root = d3.hierarchy(treeData, d => d.children);
+
+            // Свернуть узлы глубже 2-го уровня
+            root.descendants().forEach(d => {
+                if (d.depth > 2 && d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                }
+            });
+
             const leafCount = root.leaves().length;
             const depth = root.height;
-                    
-            const minWidth = Math.max(width, leafCount * 25);
-            const minHeight = Math.max(height, (depth + 1) * 100);
-            
-            const treeLayout = d3.tree()
+
+            minWidth = Math.max(width, leafCount * 25);
+            minHeight = Math.max(height, (depth + 1) * 100);
+
+            treeLayout = d3.tree()
                 .size([minWidth, minHeight])
                 .separation((a, b) => {
                     if (a.parent === b.parent) return 1;
                     return 1.2;
                 });
-            
+
             treeLayout(root);
 
             const initialScale = Math.min(
@@ -2428,73 +2586,21 @@
                 (height - 150) / minHeight,
                 0.9
             );
-            
+
             const initialX = (width - minWidth * initialScale) / 2;
             const initialY = 50;
 
             g.attr("transform", `translate(${initialX}, ${initialY}) scale(${initialScale})`);
-            
+
             currentTransform = d3.zoomIdentity
                 .translate(initialX, initialY)
                 .scale(initialScale);
 
             svg.call(zoom.transform, currentTransform);
 
-            g.selectAll(".link")
-                .data(root.links())
-                .enter().append("path")
-                .attr("class", "link")
-                .attr("d", d3.linkVertical()
-                    .x(d => d.x)
-                    .y(d => d.y));
-
-            const node = g.selectAll(".node")
-                .data(root.descendants())
-                .enter().append("g")
-                .attr("class", d => `node node-${d.data.type}`)
-                .attr("transform", d => `translate(${d.x},${d.y})`)
-                .on("click", (e, d) => showInfo(d.data));
-
-            node.append("rect")
-                .attr("width", d => {
-                    const length = Math.max(d.data.name.length * 7 + 16, 50);
-                    return d.data.type === 'koshe' ? length * 0.8 : length;
-                })
-                .attr("height", d => d.data.type === 'koshe' ? 22 : 28)
-                .attr("x", d => {
-                    const length = Math.max(d.data.name.length * 7 + 16, 50);
-                    const actualLength = d.data.type === 'koshe' ? length * 0.8 : length;
-                    return -actualLength / 2;
-                })
-                .attr("y", d => d.data.type === 'koshe' ? -11 : -14)
-                .attr("rx", 6)
-                .attr("stroke-width", d => d.data.type === 'xaliq' ? 3 : 2);
-
-            node.append("text")
-                .attr("dy", ".35em")
-                .attr("text-anchor", "middle")
-                .style("font-size", d => {
-                    if (d.data.type === 'koshe') return "9px";
-                    if (d.data.type === 'tiyre') return "10px";
-                    return "11px";
-                })
-                .text(d => d.data.name);
-
-            node.filter(d => d.data.tamga && d.data.type !== 'koshe' && d.data.type !== 'tiyre')
-                .append("text")
-                .attr("class", "tamga-text")
-                .attr("dy", -22)
-                .attr("text-anchor", "middle")
-                .text(d => d.data.tamga);
-                
-            node.filter(d => d.data.uran && (d.data.type === 'aris' || d.data.type === 'ulken'))
-                .append("text")
-                .attr("dy", 28)
-                .attr("text-anchor", "middle")
-                .style("font-size", "9px")
-                .style("fill", "#d4af37")
-                .style("font-weight", "bold")
-                .text(d => d.data.uran);
+            root.x0 = root.x || 0;
+            root.y0 = root.y || 0;
+            updateTree(root);
         }
 
         function getAllDescendants(node) {

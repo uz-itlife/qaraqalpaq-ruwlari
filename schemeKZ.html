@@ -2653,6 +2653,160 @@
             return result;
         }
 
+        // Тұйын ашу/жабу
+        function toggleD3Node(d) {
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else if (d._children) {
+                d.children = d._children;
+                d._children = null;
+            }
+        }
+
+        let támár, terekQurılmı, eńAzamattıqKeńlik, eńAzamattıqBiyiklik;
+
+        function updateTree(source) {
+            const duration = 400;
+
+            const qorap = document.getElementById('treeArea');
+            const keńlik = qorap.clientWidth;
+            const biyiklik = qorap.clientHeight;
+
+            const leafCount = támár.leaves().length;
+            const depth = támár.height;
+
+            eńAzamattıqKeńlik = Math.max(keńlik, leafCount * 25);
+            eńAzamattıqBiyiklik = Math.max(biyiklik, (depth + 1) * 100);
+
+            terekQurılmı.size([eńAzamattıqKeńlik, eńAzamattıqBiyiklik]);
+            terekQurılmı(támár);
+
+            const nodes = támár.descendants();
+            const links = támár.links();
+
+            // ── БАЙЛАНЫС СЫЗЫҚТАРЫ ──────────────────────────────────────
+            const link = g.selectAll('path.link')
+                .data(links, d => d.target.data.id);
+
+            const linkEnter = link.enter()
+                .append('path')
+                .attr('class', 'link')
+                .attr('d', () => {
+                    const ox = source.x0 !== undefined ? source.x0 : source.x;
+                    const oy = source.y0 !== undefined ? source.y0 : source.y;
+                    return `M${ox},${oy}L${ox},${oy}`;
+                });
+
+            linkEnter.merge(link)
+                .transition().duration(duration)
+                .attr('d', d3.linkVertical().x(d => d.x).y(d => d.y));
+
+            link.exit()
+                .transition().duration(duration)
+                .attr('d', () => `M${source.x},${source.y}L${source.x},${source.y}`)
+                .remove();
+
+            // ── БӨЛІКТЕР (ТҰЙЫНДАР) ──────────────────────────────────────
+            const bólek = g.selectAll('g.node')
+                .data(nodes, d => d.data.id);
+
+            const bólekEnter = bólek.enter()
+                .append('g')
+                .attr('class', d => `node node-${d.data.túri}`)
+                .attr('transform', () => {
+                    const sx = source.x0 !== undefined ? source.x0 : source.x;
+                    const sy = source.y0 !== undefined ? source.y0 : source.y;
+                    return `translate(${sx},${sy})`;
+                })
+                .style('cursor', 'pointer')
+                .on('click', (e, d) => {
+                    toggleD3Node(d);
+                    updateTree(d);
+                    maǵlıwmatKórsetiw(d.data);
+                });
+
+            // Төртбұрыштар
+            bólekEnter.append('rect')
+                .attr('width', d => {
+                    const uzınlıq = Math.max(d.data.at.length * 7 + 16, 50);
+                    return d.data.túri === 'koshe' ? uzınlıq * 0.8 : uzınlıq;
+                })
+                .attr('height', d => d.data.túri === 'koshe' ? 22 : 28)
+                .attr('x', d => {
+                    const uzınlıq = Math.max(d.data.at.length * 7 + 16, 50);
+                    const haqıqıyUzınlıq = d.data.túri === 'koshe' ? uzınlıq * 0.8 : uzınlıq;
+                    return -haqıqıyUzınlıq / 2;
+                })
+                .attr('y', d => d.data.túri === 'koshe' ? -11 : -14)
+                .attr('rx', 6)
+                .attr('stroke-width', d => d.data.túri === 'xaliq' ? 3 : 2);
+
+            // Атау мәтіні
+            bólekEnter.append('text')
+                .attr('dy', '.35em')
+                .attr('text-anchor', 'middle')
+                .style('font-size', d => {
+                    if (d.data.túri === 'koshe') return '9px';
+                    if (d.data.túri === 'tiyre') return '10px';
+                    return '11px';
+                })
+                .style('pointer-events', 'none')
+                .text(d => d.data.at);
+
+            // Тамға (жоғарыда)
+            bólekEnter.filter(d => d.data.tamga && d.data.túri !== 'koshe' && d.data.túri !== 'tiyre')
+                .append('text')
+                .attr('class', 'tamga-text')
+                .attr('dy', -22)
+                .attr('text-anchor', 'middle')
+                .style('pointer-events', 'none')
+                .text(d => d.data.tamga);
+
+            // Уран (төменде)
+            bólekEnter.filter(d => d.data.uran && (d.data.túri === 'aris' || d.data.túri === 'ulken'))
+                .append('text')
+                .attr('dy', 28)
+                .attr('text-anchor', 'middle')
+                .style('font-size', '9px')
+                .style('fill', '#d4af37')
+                .style('font-weight', 'bold')
+                .style('pointer-events', 'none')
+                .text(d => d.data.uran);
+
+            // Анимациямен жылжыту
+            bólekEnter.merge(bólek)
+                .transition().duration(duration)
+                .attr('transform', d => `translate(${d.x},${d.y})`);
+
+            // Жабық тұйындарды жою
+            bólek.exit()
+                .transition().duration(duration)
+                .attr('transform', () => `translate(${source.x},${source.y})`)
+                .style('opacity', 0)
+                .remove();
+
+            // +/- белгісі (балалар болса)
+            g.selectAll('g.node').each(function(d) {
+                const grp = d3.select(this);
+                grp.selectAll('.toggle-indicator').remove();
+                if (d.children || d._children) {
+                    grp.append('text')
+                        .attr('class', 'toggle-indicator')
+                        .attr('x', 0)
+                        .attr('y', -14)
+                        .attr('text-anchor', 'middle')
+                        .style('font-size', '12px')
+                        .style('fill', '#f1c40f')
+                        .style('pointer-events', 'none')
+                        .text(d.children ? '−' : '+');
+                }
+            });
+
+            // Келесі анимация үшін орынды сақтау
+            nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+        }
+
         function terektiBaslaw() {
             const qorap = document.getElementById('treeArea');
             const keńlik = qorap.clientWidth;
@@ -2676,22 +2830,30 @@
 
             g = svg.append("g");
 
-            const támár = convertToHierarchy(terekMaǵlıwmatları);
-            
+            támár = convertToHierarchy(terekMaǵlıwmatları);
+
+            // Тереңдігі > 2 тұйындарды жабу
+            támár.descendants().forEach(d => {
+                if (d.depth > 2 && d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                }
+            });
+
             const japrakSanaqı = támár.leaves().length;
             const terenlik = támár.height;
-                    
+
             // Керек өлшем
-            const eńAzamattıqKeńlik = Math.max(keńlik, japrakSanaqı * 25);
-            const eńAzamattıqBiyiklik = Math.max(biyiklik, (terenlik + 1) * 100);
-            
-            const terekQurılmı = d3.tree()
+            eńAzamattıqKeńlik = Math.max(keńlik, japrakSanaqı * 25);
+            eńAzamattıqBiyiklik = Math.max(biyiklik, (terenlik + 1) * 100);
+
+            terekQurılmı = d3.tree()
                 .size([eńAzamattıqKeńlik, eńAzamattıqBiyiklik])
                 .separation((a, b) => {
                     if (a.parent === b.parent) return 1;
                     return 1.2;
                 });
-            
+
             terekQurılmı(támár);
 
             // Бастапқы көрініс - ортада
@@ -2700,79 +2862,21 @@
                 (biyiklik - 150) / eńAzamattıqBiyiklik,
                 0.9
             );
-            
+
             const baslanǵıshX = (keńlik - eńAzamattıqKeńlik * baslanǵıshMasshtab) / 2;
             const baslanǵıshY = 50;
 
             g.attr("transform", `translate(${baslanǵıshX}, ${baslanǵıshY}) scale(${baslanǵıshMasshtab})`);
-            
+
             ámeldegiMasshtab = d3.zoomIdentity
                 .translate(baslanǵıshX, baslanǵıshY)
                 .scale(baslanǵıshMasshtab);
 
             svg.call(zoom.transform, ámeldegiMasshtab);
 
-            // Байланыс сызықтары
-            g.selectAll(".link")
-                .data(támár.links())
-                .enter().append("path")
-                .attr("class", "link")
-                .attr("d", d3.linkVertical()
-                    .x(d => d.x)
-                    .y(d => d.y));
-
-            // Бөліктер
-            const bólek = g.selectAll(".node")
-                .data(támár.descendants())
-                .enter().append("g")
-                .attr("class", d => `node node-${d.data.túri}`)
-                .attr("transform", d => `translate(${d.x},${d.y})`)
-                .on("click", (e, d) => maǵlıwmatKórsetiw(d.data));
-
-            // Төртбұрыштар - көлемі дәреже бойынша өзгереді
-            bólek.append("rect")
-                .attr("width", d => {
-                    const uzınlıq = Math.max(d.data.at.length * 7 + 16, 50);
-                    return d.data.túri === 'koshe' ? uzınlıq * 0.8 : uzınlıq;
-                })
-                .attr("height", d => d.data.túri === 'koshe' ? 22 : 28)
-                .attr("x", d => {
-                    const uzınlıq = Math.max(d.data.at.length * 7 + 16, 50);
-                    const haqıqıyUzınlıq = d.data.túri === 'koshe' ? uzınlıq * 0.8 : uzınlıq;
-                    return -haqıqıyUzınlıq / 2;
-                })
-                .attr("y", d => d.data.túri === 'koshe' ? -11 : -14)
-                .attr("rx", 6)
-                .attr("stroke-width", d => d.data.túri === 'xaliq' ? 3 : 2);
-
-            // Атау мәтіні
-            bólek.append("text")
-                .attr("dy", ".35em")
-                .attr("text-anchor", "middle")
-                .style("font-size", d => {
-                    if (d.data.túri === 'koshe') return "9px";
-                    if (d.data.túri === 'tiyre') return "10px";
-                    return "11px";
-                })
-                .text(d => d.data.at);
-
-            // Тамға (жоғарыда)
-            bólek.filter(d => d.data.tamga && d.data.túri !== 'koshe' && d.data.túri !== 'tiyre')
-                .append("text")
-                .attr("class", "tamga-text")
-                .attr("dy", -22)
-                .attr("text-anchor", "middle")
-                .text(d => d.data.tamga);
-                
-            // Уран (төменде)
-            bólek.filter(d => d.data.uran && (d.data.túri === 'aris' || d.data.túri === 'ulken'))
-                .append("text")
-                .attr("dy", 28)
-                .attr("text-anchor", "middle")
-                .style("font-size", "9px")
-                .style("fill", "#d4af37")
-                .style("font-weight", "bold")
-                .text(d => d.data.uran);
+            támár.x0 = támár.x || 0;
+            támár.y0 = támár.y || 0;
+            updateTree(támár);
         }
 
         // Ақпаратты көрсету - listsKZ.html стилі бойынша
