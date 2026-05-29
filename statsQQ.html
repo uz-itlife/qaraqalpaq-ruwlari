@@ -80,6 +80,9 @@
       .view-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.1); }
       .view-btn.active { background: var(--gold); color: #000; font-weight: 600; max-width: 170px; text-align: center; margin: 0 auto; }
       .lang-switch { display: flex; align-items: center; gap: 0.5rem; margin-left: 1rem; padding-left: 1rem; border-left: 1px solid rgba(212,175,55,0.3); }
+      
+     
+      
       .lang-btn1 { padding: 0.4rem; border-radius: 8px; background: transparent; color: var(--gold); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; }
       .lang-btn1 img { width: 2rem; height: 2rem; border-radius: 50%; vertical-align: middle; }
       .lang-btn { text-decoration: none; }
@@ -88,6 +91,14 @@
       .lang-btn1.active { border: 1px solid var(--accent-red); width: 3rem; height: 3rem; }
       .lang-btn1.active img { width: 2rem; height: 2rem; }
       .lang-btn1:hover { border: 1px solid var(--gold); width: 3rem; height: 3rem; }
+
+
+       .lang-btn img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
       .theme-toggle-btn, .fav-toggle-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 8px; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 0.8rem; margin-left: 0.5rem; }
       .favorites-panel { display: none; }
       @media (max-width: 968px) {
@@ -165,16 +176,16 @@
       <span class="burger-bar"></span>
     </button>
     <div class="view-switch" id="viewSwitch">
-      <a href="index.html" class="view-btn" target="_self">&#127968; Bas bet</a>
-      <a href="listsQQ.html" class="view-btn" target="_self">&#128203; Tizimler</a>
-      <a href="schemeQQ.html" class="view-btn" target="_self">&#127795; Sxema</a>
-      <a href="exogamyQQ.html" class="view-btn" target="_self">&#128145; Ekzogamiya</a>
+      <a href="index.html" class="view-btn">&#127968; Bas bet</a>
+      <a href="listsQQ.html" class="view-btn">&#128203; Tizimler</a>
+      <a href="schemeQQ.html" class="view-btn">&#127795; Sxema</a>
+      <a href="exogamyQQ.html" class="view-btn">&#128145; Ekzogamiya</a>
       <a href="statsQQ.html" class="view-btn active">&#128202; Statistika</a>
     </div>
     <div class="lang-switch">
-      <a target="_self" href="indexRU.html" class="lang-btn1"><img src="./images/RU.jpg" alt="RU"></a>
-      <a target="_self" href="index.html" class="lang-btn active"><img src="./images/QQ_.png" alt="QQ"></a>
-      <a target="_self" href="indexKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
+      <a href="statsRU.html" class="lang-btn1"><img src="./images/RU.jpg" alt="RU"></a>
+      <a href="statsQQ.html" class="lang-btn active"><img src="./images/QQ_.png" alt="QQ"></a>
+      <a href="statsKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
     </div>
     <button class="theme-toggle-btn" id="themeToggleBtn"
       data-light="☀️ Aqshil" data-dark="🌙 Qarangi"
@@ -2354,7 +2365,7 @@
       { v: all.filter(n => (n.level||0) === 1).length, l: 'Arıs' },
       { v: all.filter(n => (n.level||0) === 2).length, l: 'Bólim' },
       { v: all.filter(n => (n.level||0) === 3).length, l: 'Urıw' },
-      { v: all.filter(n => (n.level||0) >= 4).length, l: 'Tiyre/Ko'she' },
+      { v: all.filter(n => (n.level||0) >= 4).length, l: 'Tiyre/ko\'she' },
       { v: all.filter(n => n.tamga || (n.info && n.info.tamga)).length, l: 'Tamƣalı' },
       { v: all.filter(n => n.uran  || (n.info && n.info.uran )).length,  l: 'Uranlı' },
     ];
