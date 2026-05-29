@@ -684,10 +684,11 @@
         font-size: 1.4rem;
     
     }
-        
+
     }
 
     </style>
+    <link rel="stylesheet" href="css/shared-features.css">
 <base target="_blank">
 </head>
 <body>
@@ -716,6 +717,13 @@
         <a target="_self" href="listsQQ.html" class="lang-btn active"><img src="./images/QQ_.png" alt="QQ"></a>
         <a target="_self" href="listsKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
     </div>
+    <button class="theme-toggle-btn" id="themeToggleBtn"
+      data-light="☀️ Aqshıl" data-dark="🌙 Qaranǵı"
+      onclick="toggleTheme()">🌙 Qaranǵı</button>
+    <button class="fav-toggle-btn" id="favToggleBtn"
+      onclick="toggleFavoritesPanel()" title="Tańdaǵanlar">⭐</button>
+    <div class="favorites-panel" id="favoritesPanel"
+      data-title="Tańdaǵanlar" data-empty="Tańdaǵanlar joq"></div>
     </header>
 
 
@@ -1646,5 +1654,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
     </script>
+    <script src="js/shared-features.js"></script>
 </body>
 </html>

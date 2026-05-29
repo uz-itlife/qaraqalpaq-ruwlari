@@ -693,10 +693,11 @@
                 font-size: 0.5em;
                 font-weight: 400;
                 padding: 5px 0;
-                top: 70px; 
+                top: 70px;
             }
         }
     </style>
+    <link rel="stylesheet" href="css/shared-features.css">
 </head>
 <body>
     <header>
@@ -723,6 +724,13 @@
             <a target="_self" href="schemeQQ.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
             <a target="_self" href="schemeKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
         </div>
+        <button class="theme-toggle-btn" id="themeToggleBtn"
+          data-light="☀️ Светлая" data-dark="🌙 Тёмная"
+          onclick="toggleTheme()">🌙 Тёмная</button>
+        <button class="fav-toggle-btn" id="favToggleBtn"
+          onclick="toggleFavoritesPanel()" title="Избранное">⭐</button>
+        <div class="favorites-panel" id="favoritesPanel"
+          data-title="Избранное" data-empty="Нет избранного"></div>
     </header>
 
     <div class="mobile-warning-marquee" id="mobileMarquee">
@@ -2673,5 +2681,6 @@
             });
         };
     </script>
+    <script src="js/shared-features.js"></script>
 </body>
 </html>

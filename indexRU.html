@@ -797,6 +797,7 @@
             .info-panel { height: 300vh; }
         }
     </style>
+    <link rel="stylesheet" href="css/shared-features.css">
     <base target="_blank">
 </head>
 <body>
@@ -825,6 +826,13 @@
             <a target="_self" href="index.html" class="lang-btn"><img src="./images/QQ_.png" alt="QQ"></a>
             <a target="_self" href="indexKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
         </div>
+        <button class="theme-toggle-btn" id="themeToggleBtn"
+          data-light="☀️ Светлая" data-dark="🌙 Тёмная"
+          onclick="toggleTheme()">🌙 Тёмная</button>
+        <button class="fav-toggle-btn" id="favToggleBtn"
+          onclick="toggleFavoritesPanel()" title="Избранное">⭐</button>
+        <div class="favorites-panel" id="favoritesPanel"
+          data-title="Избранное" data-empty="Нет избранного"></div>
     </header>
 
     <!-- Бегущая строка для мобильных устройств -->
@@ -3119,5 +3127,6 @@ document.getElementById("backdrop")?.addEventListener("click", closePanel);
             document.querySelector('.tree-panel').scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+    <script src="js/shared-features.js"></script>
 </body>
 </html>

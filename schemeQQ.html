@@ -662,6 +662,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/shared-features.css">
 </head>
 <body>
     <header>
@@ -689,6 +690,13 @@
             <a target="_self" href="schemeQQ.html" class="lang-btn active"><img src="./images/QQ_.png" alt="QQ"></a>
             <a target="_self" href="schemeKZ.html" class="lang-btn1"><img src="./images/KZ.webp" alt="KZ"></a>
         </div>
+        <button class="theme-toggle-btn" id="themeToggleBtn"
+          data-light="☀️ Aqshıl" data-dark="🌙 Qaranǵı"
+          onclick="toggleTheme()">🌙 Qaranǵı</button>
+        <button class="fav-toggle-btn" id="favToggleBtn"
+          onclick="toggleFavoritesPanel()" title="Tańdaǵanlar">⭐</button>
+        <div class="favorites-panel" id="favoritesPanel"
+          data-title="Tańdaǵanlar" data-empty="Tańdaǵanlar joq"></div>
     </header>
 
     <!-- Bgayuchiy stroka dlya mobilnyx ustroystv -->
@@ -2944,5 +2952,6 @@
             });
         };
     </script>
+    <script src="js/shared-features.js"></script>
 </body>
 </html>
