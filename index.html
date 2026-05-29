@@ -1325,6 +1325,7 @@
       <div class="favorites-panel" id="favoritesPanel"
         data-title="Tańdaǵanlar" data-empty="Tańdaǵanlar joq"></div>
     </header>
+<div class="breadcrumb-bar" id="breadcrumbBar"></div>
 
     <!-- Бегущая строка для мобильных устройств -->
     <div class="mobile-warning-marquee" id="mobileMarquee">
@@ -1434,6 +1435,13 @@
     </div>
 
     <script>
+      (function() {
+        if (window.innerWidth < 768 && !sessionStorage.getItem('qq-mobile-redirected')) {
+          sessionStorage.setItem('qq-mobile-redirected', '1');
+          window.location.href = 'listsQQ.html';
+        }
+      })();
+
       const levelsMap = [
         "Xalıq / Xalıq",
         "Arıs",
@@ -3666,6 +3674,8 @@ function closePanel() {
   isPanelOpen = false;
 
   document.body.style.overflow = "";
+  const _bc = document.getElementById('breadcrumbBar');
+  if (_bc) _bc.classList.remove('visible');
 }
 
 // Закрытие по клику на backdrop
@@ -3720,6 +3730,35 @@ document.getElementById("backdrop").addEventListener("click", closePanel);
           branch.appendChild(children);
         }
         container.appendChild(branch);
+      }
+
+      // ── Breadcrumbs ──────────────────────────────────────────────
+      function _getAncestorPath(root, targetId, path) {
+        if (!path) path = [];
+        const id = root.id || root.id;
+        if (id === targetId) return [...path, root];
+        const kids = root.children || root.ballar || [];
+        for (const child of kids) {
+          const found = _getAncestorPath(child, targetId, [...path, root]);
+          if (found) return found;
+        }
+        return null;
+      }
+
+      function updateBreadcrumb(nodeId) {
+        const bar = document.getElementById('breadcrumbBar');
+        if (!bar) return;
+        if (!nodeId) { bar.classList.remove('visible'); return; }
+        const path = _getAncestorPath(treeData, nodeId, []);
+        if (!path || path.length === 0) { bar.classList.remove('visible'); return; }
+        bar.classList.add('visible');
+        bar.innerHTML = path.map((n, i) => {
+          const name = n.name || n.at || '';
+          const isCurrent = i === path.length - 1;
+          if (isCurrent) return `<span class="breadcrumb-crumb current">${name}</span>`;
+          return `<span class="breadcrumb-crumb" onclick="selectSearchResult('${n.id}')">${name}</span>`
+               + `<span class="breadcrumb-sep">›</span>`;
+        }).join('');
       }
 
       function showInfo(node) {
@@ -3882,6 +3921,7 @@ document.getElementById("backdrop").addEventListener("click", closePanel);
 
         content.innerHTML = html;
         history.replaceState(null, '', '#' + (node.id || ''));
+        updateBreadcrumb(node.id || '');
       }
 
       function navigateToFavorite(id) {
