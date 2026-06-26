@@ -1430,7 +1430,7 @@
 
     <script>
       (function() {
-        if (window.innerWidth < 768 && !sessionStorage.getItem('qq-mobile-redirected')) {
+        if (window.innerWidth < 360 && !sessionStorage.getItem('qq-mobile-redirected')) {
           sessionStorage.setItem('qq-mobile-redirected', '1');
           window.location.href = 'listsQQ.html';
         }
