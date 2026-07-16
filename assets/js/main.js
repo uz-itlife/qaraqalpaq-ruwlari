@@ -31,6 +31,49 @@
       }, { passive: true });
     }
 
+    // -- scroll reveal (Stage 4) --
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealTargets = document.querySelectorAll('.stats-card, .kpi-card, .selector-panel, .result-panel');
+    if (revealTargets.length && !reduceMotion && 'IntersectionObserver' in window) {
+      var revealIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('qq-in');
+            revealIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealTargets.forEach(function (el, i) {
+        el.classList.add('qq-reveal');
+        el.style.transitionDelay = Math.min(i * 40, 240) + 'ms';
+        revealIo.observe(el);
+      });
+    }
+
+    // -- animated stat counters (Stage 4) --
+    var kpiValues = document.querySelectorAll('.kpi-value');
+    if (kpiValues.length && 'IntersectionObserver' in window) {
+      var countIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          countIo.unobserve(entry.target);
+          var el = entry.target;
+          var target = parseInt(el.textContent, 10);
+          if (isNaN(target)) return;
+          if (reduceMotion) { el.textContent = target; return; }
+          var start = performance.now();
+          var dur = 700;
+          (function tick(now) {
+            var p = Math.min((now - start) / dur, 1);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(tick);
+            else el.textContent = target;
+          })(start);
+        });
+      }, { threshold: 0.3 });
+      kpiValues.forEach(function (el) { countIo.observe(el); });
+    }
+
     // -- theme toggle: sun/moon icon --
     // _updateThemeBtn() in shared-features.js sets btn.textContent on every toggle,
     // which wipes any child element — so the icon must be re-created, not just updated.
