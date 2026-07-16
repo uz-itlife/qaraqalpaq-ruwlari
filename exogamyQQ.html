@@ -534,6 +534,20 @@
         .rule-card.warning { border-left-color: var(--warning); }
         .rule-card.exception { border-left-color: var(--info); }
 
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 0.95em; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; }
+        .compare-table th { padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color); background: var(--accent-blue); color: white; }
+        .compare-table td { padding: 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; color: var(--text-secondary); }
+        .compare-table tr:last-child td { border-bottom: none; }
+
+        @media (max-width: 600px) {
+            .compare-table thead { display: none; }
+            .compare-table, .compare-table tbody, .compare-table tr, .compare-table td { display: block; width: 100%; }
+            .compare-table tr { margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+            .compare-table td { border-bottom: 1px solid var(--border-color); }
+            .compare-table td:last-child { border-bottom: none; }
+            .compare-table td::before { content: attr(data-label); display: block; font-weight: bold; color: var(--accent-yellow); margin-bottom: 4px; font-size: 0.85em; }
+        }
+
         .collapse-all, .expand-all {
             background: var(--accent-purple);
             color: white;
@@ -684,67 +698,6 @@
     <link rel="stylesheet" href="css/shared-features.css">
 </head>
 <body>
-
-
-
-    <!-- TEST REJIMI HAQQINDA ESLETPE -->
-<div id="testModeWarning" style="
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    z-index: 200;
-    border-bottom: 3px solid #f1c40f;
-    box-shadow: 0 4px 20px rgba(231, 76, 60, 0.4);
-">
-    <div style="max-width: 1200px; margin: 0 auto;">
-        <div style="font-size: 2em; margin-bottom: 10px;">⚠️ 🧪 ⚠️</div>
-        <h2 style="margin: 0 0 15px 0; font-size: 1.5em; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
-            DIQQAT! TEST REJIMI
-        </h2>
-        <p style="margin: 0 0 15px 0; font-size: 1.1em; line-height: 1.6; opacity: 0.95;">
-            Bul bet aktiv islep shıǵılıw basqıshında. 
-            Eksogamiyanı tekseriw algoritmi <strong>durıs islemewi</strong> múmkin hám 
-            <strong>haqıyqatqa sáykes kelmeytugın</strong> nátiyjelerdi kórsetiwi múmkin.
-        </p>
-        <div style="
-            background: rgba(255,255,255,0.15); 
-            border-radius: 10px; 
-            padding: 15px; 
-            margin: 15px 0;
-            border: 2px dashed rgba(255,255,255,0.3);
-        ">
-            <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.05em;">
-                🙏 Bizge járdem kerek!
-            </p>
-            <p style="margin: 0; line-height: 1.5;">
-                Eger siz tuǵıslıqtı anıqlawda qátelik yamasa 
-                úyliniw tekseriwiniń qáte nátiyjesin tapsańız, ótinemiz, 
-                <a href="https://t.me/qaraqalpaq_rulari" target="_blank" style="
-                    color: #f1c40f; 
-                    text-decoration: underline; 
-                    font-weight: bold;
-                ">bizge Telegram-toparǵa @qaraqalpaq_rulari jazıń</a>.
-            </p>
-        </div>
-        <button onclick="document.getElementById('testModeWarning').style.display='none';" style="
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.95em;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        " onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
-           onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-            ✕ Túsindim, esletpeni jabıw
-        </button>
-    </div>
-</div>
-
 
 
 
@@ -947,19 +900,19 @@
             <div class="rules-grid">
                 <div class="rule-card forbidden">
                     <h4>❌ Qadaǵan</h4>
-                    <p>Bir rıwın qoshtıń yamasa tiyreniń ishinde nekeleiw incest dep esaplanadı.</p>
+                    <p>Bir urıwdıń ishinde neke — qız alıspaw. Bul qadaǵan qazaq hám qırgız xalıqlarındaǵı «jeti ata» dástúrinen ózgeshe, áwladlar sanı menen sheklenbeydi.</p>
                 </div>
                 <div class="rule-card exception">
                     <h4>💡 Ayrıqsha jaǵday</h4>
-                    <p>Múyten urıwı: Keńtańaw, Teli, Samat, Abız tiyreleri arasında neke ruxsat.</p>
+                    <p>Qayshılı (Qıtay) hám Qańlı (Qıpshaq) urıwları — urıw ishindegi neke dástúrde ruqsat etilgen.</p>
                 </div>
                 <div class="rule-card warning">
-                    <h4>❌ Qadaǵan</h4>
-                    <p>Basqa ruwlarda: bir urıwdıń ishinde nekelew qadaǵan.</p>
+                    <h4>❓ Dawlı jaǵday</h4>
+                    <p>Sańmúrin hám Estek (Qıpshaq): izertlewshiler arasında bul urıwlar arasındaǵı nekeni qadaǵan dep esaplaw kerek pe degen máselede pikir aylanısları bar.</p>
                 </div>
                 <div class="rule-card allowed">
                     <h4>✅ Ruxsat etilgen</h4>
-                    <p>Hár qıylı urıwlardan, arıslardan yamasa bólek taypalardan.</p>
+                    <p>Hár qıylı urıwlar, taypalar yamasa arıslar arasında, sonıń menen birge ana tárepinen boladurǵan neke (ana tárepindegi twısqanlar hám odan ári twısqanlar menen).</p>
                 </div>
             </div>
         </div>
@@ -967,269 +920,2213 @@
 
     <script>
         const tribeData = {
-            id: "root", name: "QARAQALPAQLAR", level: 0, type: "xalıq",
-            children: [
+          id: "root",
+          name: "QARAQALPAQLAR",
+          level: 0,
+          type: "Xalıq",
+          info: {
+            history:
+              "Qaraqalpaqlar - Orta Aziyadag'ı túrki tilles xalıq. XVI-XVIII ásirlerde qalıptastırılǵan.",
+            origin: "Negizinen Noǵay ordası, Qıpchaq, Qarluq taypalarınan.",
+            legend:
+              "Ańızǵa sáy, alǵashqı kóshpendiler Úlı taw óńirinen Aral mańına kóship kelgen.",
+            tamga: "Ár urıwdıń óz tamǵası",
+            uran: "Ár urıwdıń óz uranı",
+            population: "800 mıń adam",
+            language: "Qaraqalpaq tili - túrki tilleriniń qıpchaq tarmaǵı",
+          },
+          children: [
+            {
+              id: "conyrat",
+              name: "ARYS QOŃIRAT",
+              level: 1,
+              type: "arıs",
+              tamga: "P (bosaǵa)",
+              uran: "Qaqpa",
+              info: {
+                history: "Qońırat - eki úlken arıstıń biri. Noǵay ordasınan.",
+                origin: "Noǵaylıq, Qıpchaq taypaları qosındısı.",
+                legend: "Qońırat - 'qandı qaraqalpaq' ma'nisinde.",
+                tamga: "P árpi - bosaǵa (esik)",
+                uran: "Qaqpa - qorǵan",
+                population: "9520 kibitka (40%)",
+                structure: "Shulıq (8 urıw) hám Jawıngır (7 urıw)",
+              },
+              children: [
                 {
-                    id: "conyrat", name: "ARYS QOŃYRAT", level: 1, type: "arıs", tamga: "P (bosaǵa)", uran: "Qaqpa",
-                    children: [
+                  id: "shulyk",
+                  name: "SHULLIQ BÓLIMI",
+                  level: 2,
+                  type: "bólim",
+                  info: {
+                    history: "Shulıq - 8 urıwdan turadı.",
+                    origin: "Shulıq jeriniń atawınan.",
+                    population: "5860 kibitka",
+                  },
+                  children: [
+                    {
+                      id: "kyat",
+                      name: "QIYAT",
+                      level: 3,
+                      type: "úlken urıw",
+                      info: {
+                        history: "Qıyat - Shulıqtıń eń úlken urıwı.",
+                        origin: "Qıyat batırdan.",
+                        legend: "Úsh ulı: Úshtamǵalı, Taraqlı, Balǵalı.",
+                        population: "870 kibitka",
+                        tamga: "Úsh tańba",
+                        uran: "Alataw",
+                      },
+                      children: [
                         {
-                            id: "shulyk", name: "SHULYQ BÓLIMI", level: 2, type: "bólim",
-                            children: [
-                                {
-                                    id: "kyat", name: "QYAT", level: 3, type: "úlken urıw", tamga: "Úsh tańba", uran: "Alataw",
-                                    children: [
-                                        {
-                                            id: "ush-tambaly", name: "Úshtańbalı", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "sanmurun-k", name: "Sańmurın", level: 5, type: "ko'she" },
-                                                { id: "aryq-kyat", name: "Arıqqıyat", level: 5, type: "ko'she" },
-                                                { id: "tartuly", name: "Tartulı", level: 5, type: "ko'she" },
-                                                { id: "qanzhygaly-k", name: "Qanjıǵalı", level: 5, type: "ko'she" },
-                                                { id: "qatagan", name: "Qataǵan", level: 5, type: "ko'she" },
-                                                { id: "qara-kyat", name: "Qaraqıyat", level: 5, type: "ko'she" }
-                                            ]
-                                        },
-                                        {
-                                            id: "taraqty", name: "Taraqtı", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "togyzaq", name: "Toǵızaq", level: 5, type: "ko'she" },
-                                                { id: "abas-kyat", name: "Abas", level: 5, type: "ko'she" },
-                                                { id: "jaltyrshy", name: "Jaltırshı", level: 5, type: "ko'she" },
-                                                { id: "aqunqaragan", name: "Aqunqaraǵan", level: 5, type: "ko'she" },
-                                                { id: "taqay", name: "Taqay", level: 5, type: "ko'she" },
-                                                { id: "qarzhaubaras", name: "Qarjawbaras", level: 5, type: "ko'she" }
-                                            ]
-                                        },
-                                        {
-                                            id: "balgaly-kyat", name: "Balǵalı Qıyat", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "bespishaq", name: "Bespıshaq", level: 5, type: "ko'she" },
-                                                { id: "etekshi", name: "Etekshi", level: 5, type: "ko'she" },
-                                                { id: "sanmurun-bk", name: "Sańmurın", level: 5, type: "ko'she" },
-                                                { id: "qozhaqaragan", name: "Qojaqqaraǵan", level: 5, type: "ko'she" }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    id: "ashamayly", name: "ASHAMAYLY", level: 3, type: "urıw", tamga: "ASH", uran: "Shulıq",
-                                    children: [
-                                        { id: "saqu", name: "Saqu", level: 4, type: "tiyre" },
-                                        { id: "qaraqoja", name: "Qaraqoja", level: 4, type: "tiyre" },
-                                        { id: "jalangayaq", name: "Jalańayaq", level: 4, type: "tiyre" },
-                                        { id: "ajyldy", name: "Aiyldı", level: 4, type: "tiyre" },
-                                        {
-                                            id: "qobasan", name: "Qobasan", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "aqnazar", name: "Aqnazar", level: 5, type: "ko'she" },
-                                                { id: "jansary", name: "Jansarı", level: 5, type: "ko'she" },
-                                                { id: "otemis-q", name: "Ótemis", level: 5, type: "ko'she" },
-                                                { id: "esen", name: "Esen", level: 5, type: "ko'she" },
-                                                { id: "tampysh", name: "Tampısh", level: 5, type: "ko'she" }
-                                            ]
-                                        },
-                                        { id: "turkmenqara", name: "Túrkmenqara", level: 4, type: "tiyre" },
-                                        { id: "jappar", name: "Jappar", level: 4, type: "tiyre" },
-                                        { id: "sary-ash", name: "Sarı", level: 4, type: "tiyre" },
-                                        { id: "abyz-ash", name: "Abız", level: 4, type: "tiyre" },
-                                        { id: "aqay", name: "Aqay", level: 4, type: "tiyre" },
-                                        { id: "pangqara", name: "Pańqara", level: 4, type: "tiyre" },
-                                        {
-                                            id: "ush-bas", name: "Úsh bas", level: 4, type: "tiyre",
-                                            children: [{ id: "jaman-ub", name: "Jaman", level: 5, type: "ko'she" }]
-                                        },
-                                        { id: "qurama", name: "Qurama", level: 4, type: "tiyre" }
-                                    ]
-                                },
-                                {
-                                    id: "koldauli", name: "QOLDAULY", level: 3, type: "urıw", tamga: "QLD", uran: "Qoldaw",
-                                    children: [
-                                        { id: "beskempir", name: "Beskempir", level: 4, type: "tiyre" },
-                                        { id: "maishyshaly", name: "Mayshıshalı", level: 4, type: "tiyre" },
-                                        { id: "qalqaman", name: "Qalqaman", level: 4, type: "tiyre" },
-                                        { id: "ghajypqaragan", name: "Ǵayıpqaraǵan", level: 4, type: "tiyre" },
-                                        { id: "sarytan-k", name: "Sarıtan", level: 4, type: "tiyre" },
-                                        { id: "kulkiqozhaq", name: "Kúlkiqojaqq", level: 4, type: "tiyre" },
-                                        { id: "jarymbet", name: "Jarımbet", level: 4, type: "tiyre" },
-                                        { id: "qyzylayaq", name: "Qızılayaq", level: 4, type: "tiyre" },
-                                        { id: "karasiraq-k", name: "Qarasıraq", level: 4, type: "tiyre" },
-                                        { id: "jelqaragan", name: "Jelqaraǵan", level: 4, type: "tiyre" },
-                                        { id: "ulkenborik", name: "Úlkenbórik", level: 4, type: "tiyre" },
-                                        { id: "shylzhuyt", name: "Shıljuıt", level: 4, type: "tiyre" },
-                                        { id: "jamanqonyrat", name: "Jamanqońırat", level: 4, type: "tiyre" },
-                                        {
-                                            id: "kalmaq", name: "Qalmaq", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "adil", name: "Adil", level: 5, type: "ko'she" },
-                                                { id: "ereke", name: "Ereke", level: 5, type: "ko'she" }
-                                            ]
-                                        },
-                                        { id: "jaman-aul", name: "Jaman awıl", level: 4, type: "tiyre" }
-                                    ]
-                                },
-                                {
-                                    id: "kostambali", name: "QOSTAŃBALY", level: 3, type: "urıw", tamga: "II", uran: "Qosqa",
-                                    children: [
-                                        { id: "jangildi-k", name: "Jangeldi", level: 4, type: "tiyre" },
-                                        { id: "shirzhegen", name: "Shirjegen", level: 4, type: "tiyre" },
-                                        { id: "aghabegli", name: "Aǵabegli", level: 4, type: "tiyre" },
-                                        { id: "qarynzhuan", name: "Qarınjuan", level: 4, type: "tiyre" },
-                                        { id: "kostambali-k", name: "Qostańbalı", level: 4, type: "tiyre" },
-                                        { id: "qaraqursaq-k", name: "Qaraqursaq", level: 4, type: "tiyre" },
-                                        { id: "qazaqy-k", name: "Qazaqı", level: 4, type: "tiyre" }
-                                    ]
-                                },
-                                {
-                                    id: "balgali", name: "BALǴALY", level: 3, type: "urıw", tamga: "B", uran: "Balǵa",
-                                    children: [
-                                        { id: "aqbalgali", name: "Aqbalǵalı", level: 4, type: "tiyre" },
-                                        { id: "nurbalgali", name: "Nur balǵalı", level: 4, type: "tiyre" },
-                                        { id: "turkmen-b", name: "Túrkmen", level: 4, type: "tiyre" },
-                                        { id: "jamanaul-b", name: "Jaman awıl", level: 4, type: "tiyre" },
-                                        { id: "shomishti", name: "Shómishti", level: 4, type: "tiyre" },
-                                        { id: "toqymbet", name: "Toqımbet", level: 4, type: "tiyre" },
-                                        { id: "tazbalgali", name: "Taz balǵalı", level: 4, type: "tiyre" },
-                                        { id: "kostamgali-b", name: "Qostamǵalı", level: 4, type: "tiyre" },
-                                        { id: "qaratalshy", name: "Qaratalshı", level: 4, type: "tiyre" },
-                                        { id: "asan", name: "Asan", level: 4, type: "tiyre" },
-                                        { id: "arzyqul", name: "Arzıqul", level: 4, type: "tiyre" }
-                                    ]
-                                },
-                                {
-                                    id: "kandekli", name: "KÁNDEKLI", level: 3, type: "urıw", tamga: "G", uran: "Kóndek",
-                                    children: [
-                                        { id: "qarama-kan", name: "Qarama", level: 4, type: "tiyre" },
-                                        { id: "kiikshi", name: "Kiikshi", level: 4, type: "tiyre" },
-                                        { id: "toqbolat-kan", name: "Toqbolat", level: 4, type: "tiyre" },
-                                        { id: "qyryqsadaq", name: "Qırıqsadaq", level: 4, type: "tiyre" }
-                                    ]
-                                },
-                                {
-                                    id: "karamoiyn", name: "QARAMOYIN", level: 3, type: "urıw", tamga: "TM", uran: "Moyın",
-                                    children: [
-                                        { id: "annakhoja", name: "Annahoja", level: 4, type: "tiyre" },
-                                        { id: "sabalaq", name: "Sabalaq", level: 4, type: "tiyre" },
-                                        { id: "kotelek", name: "Kótelek", level: 4, type: "tiyre" },
-                                        { id: "qarlymaral", name: "Qarılmaral", level: 4, type: "tiyre" },
-                                        { id: "bulkildek", name: "Búlkildek", level: 4, type: "tiyre" }
-                                    ]
-                                },
-                                {
-                                    id: "muyten", name: "MÚYTEN", level: 3, type: "urıw", tamga: "Úsh shanyshqı", uran: "Aqsholpan",
-                                    children: [
-                                        {
-                                            id: "samat", name: "Samat (5)", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "baibishe", name: "Baybíshe", level: 5, type: "ko'she" },
-                                                { id: "toqqaragan", name: "Toqqaraǵan", level: 5, type: "ko'she" },
-                                                { id: "baimurat", name: "Baymurat", level: 5, type: "ko'she" },
-                                                { id: "jolan", name: "Jolan", level: 5, type: "ko'she" },
-                                                { id: "bekau", name: "Bekaw", level: 5, type: "ko'she" }
-                                            ]
-                                        },
-                                        {
-                                            id: "teli", name: "Teli (5)", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "tileuberdi", name: "Tilewberdi", level: 5, type: "ko'she" },
-                                                { id: "allaberdi", name: "Allaberdi", level: 5, type: "ko'she" },
-                                                { id: "tangirberdi", name: "Tańirberdi", level: 5, type: "ko'she" },
-                                                { id: "mantyqaragan", name: "Mantıqqaraǵan", level: 5, type: "ko'she" },
-                                                { id: "molloqaragan", name: "Mollaqqaraǵan", level: 5, type: "ko'she" }
-                                            ]
-                                        },
-                                        {
-                                            id: "abyz-m", name: "Abız", level: 4, type: "tiyre",
-                                            children: [{ id: "ady", name: "Adı", level: 5, type: "ko'she" }]
-                                        },
-                                        {
-                                            id: "kentanau", name: "Keńtańaw (3)", level: 4, type: "tiyre",
-                                            children: [
-                                                { id: "barn", name: "Barn", level: 5, type: "ko'she" },
-                                                { id: "itaq", name: "Itaq", level: 5, type: "ko'she" },
-                                                { id: "jekensal", name: "Jekensal", level: 5, type: "ko'she" }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
+                          id: "ush-tamgaly",
+                          name: "Úshtamǵalı",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            history: "Úsh tańbalı - úsh belgisi.",
+                            tamga: "Úsh sızıq",
+                            uran: "Alataw!",
+                            population: "350-400 otbası",
+                          },
+                          children: [
+                            {
+                              id: "sumuryn",
+                              name: "Sumurın",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "SM",
+                                uran: "Alataw!",
+                                history: "Sań múrındıq maldan",
+                              },
+                            },
+                            {
+                              id: "ush-tamgaly-t",
+                              name: "Úshtamǵalı",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "UT", uran: "Alataw!" },
+                            },
+                            {
+                              id: "aryq-kyat",
+                              name: "Arıqqıyat",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "AQ",
+                                uran: "Alataw!",
+                                history: "Arıq deneli",
+                              },
+                            },
+                            {
+                              id: "tartuly",
+                              name: "Tartulı",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "TR",
+                                uran: "Alataw!",
+                                history: "Tartımdı, qaysar",
+                              },
+                            },
+                            {
+                              id: "qatagan",
+                              name: "Qataǵan",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "QT",
+                                uran: "Alataw!",
+                                history: "Soltústik Jetisuw",
+                              },
+                            },
+                            {
+                              id: "qanzhygaly-k",
+                              name: "Qanjıǵalı",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "QJ",
+                                uran: "Alataw!",
+                                history: "Jebe saplıǵı",
+                              },
+                            },
+                          ],
                         },
                         {
-                            id: "jauyngyr", name: "JAUINǴIR BÓLIMI", level: 2, type: "bólim",
-                            children: [
-                                { id: "teristambaly", name: "TERISTAŃBALY", level: 3, type: "urıw", tamga: "T", uran: "Jauınǵır", children: [{id:"shomak",name:"Shomaq",level:4,type:"tiyre"},{id:"hangildi",name:"Hangildi",level:4,type:"tiyre"},{id:"baiqaragan",name:"Bayqaraǵan",level:4,type:"tiyre"},{id:"elshibai",name:"Elshibay",level:4,type:"tiyre"},{id:"qurban-t",name:"Qurban",level:4,type:"tiyre"},{id:"togai",name:"Toǵız",level:4,type:"tiyre"},{id:"tyle",name:"Tile",level:4,type:"tiyre"},{id:"tebegen",name:"Tebegen",level:4,type:"tiyre"},{id:"tum",name:"Tum",level:4,type:"tiyre"},{id:"tyrk",name:"Túrkistan",level:4,type:"tiyre"}] },
-                                { id: "bakanly", name: "BAQANLY", level: 3, type: "urıw", tamga: "B", uran: "Jauınǵır", children: [{id:"tanmail-b",name:"Tańmayıl",level:4,type:"tiyre"},{id:"zhananai",name:"Jaganay",level:4,type:"tiyre"},{id:"naiman-b",name:"Nayman",level:4,type:"tiyre"},{id:"aiys-b",name:"Aiyıs",level:4,type:"tiyre"}] },
-                                { id: "tyekli", name: "TIYEKTI", level: 3, type: "urıw", tamga: "TK", uran: "Jauınǵır", children: [{id:"shishi-t",name:"Shishi",level:4,type:"tiyre",children:[{id:"shishi-kosh",name:"Shishi",level:5,type:"ko'she"}]},{id:"tumanai-t",name:"Tumanay",level:4,type:"tiyre",children:[{id:"tumanai-kosh",name:"Tumanay",level:5,type:"ko'she"}]},{id:"maulik-t",name:"Mawlik",level:4,type:"tiyre",children:[{id:"maulik-kosh",name:"Mawlik",level:5,type:"ko'she"}]},{id:"bairam-t",name:"Bayram",level:4,type:"tiyre",children:[{id:"bairam-kosh",name:"Bayram",level:5,type:"ko'she"}]}] },
-                                { id: "yrgaqty", name: "YRGHAQTY", level: 3, type: "urıw", tamga: "Y", uran: "Jauınǵır", children: [{id:"atanai-y",name:"Atanay",level:4,type:"tiyre",children:[{id:"atanai-kosh",name:"Atanay",level:5,type:"ko'she"}]},{id:"eshkili-y",name:"Eshkili",level:4,type:"tiyre",children:[{id:"eshkili-kosh",name:"Eshkili",level:5,type:"ko'she"}]},{id:"baibura-y",name:"Baybura",level:4,type:"tiyre",children:[{id:"baibura-kosh",name:"Baybura",level:5,type:"ko'she"}]},{id:"sarytan-y",name:"Sarıtan",level:4,type:"tiyre",children:[{id:"sarytan-kosh",name:"Sarıtan",level:5,type:"ko'she"}]}] },
-                                { id: "baimaqty", name: "BAYMAQTY", level: 3, type: "urıw", tamga: "BM", uran: "Jauınǵır", children: [{id:"saspaq",name:"Saspaq",level:4,type:"tiyre"},{id:"uies",name:"Úyes",level:4,type:"tiyre"},{id:"tanmail-bm",name:"Tańmayıl",level:4,type:"tiyre"},{id:"zhananai-bm",name:"Jaganay",level:4,type:"tiyre"},{id:"naiman-bm",name:"Nayman",level:4,type:"tiyre"},{id:"aiys-bm",name:"Aiyıs",level:4,type:"tiyre"}] },
-                                { id: "kazayakty", name: "QAZAYAQTY", level: 3, type: "urıw", tamga: "QZ", uran: "Jauınǵır", children: [{id:"anetai",name:"Anetay",level:4,type:"tiyre"},{id:"zharimbet-k",name:"Jarımbet",level:4,type:"tiyre"},{id:"zhundi",name:"Jundi",level:4,type:"tiyre"},{id:"sadaq",name:"Sadaq",level:4,type:"tiyre"}] },
-                                { id: "uygyr", name: "UYǴIR", level: 3, type: "urıw", tamga: "U", uran: "Jauınǵır", children: [{id:"shishi-u",name:"Shishi",level:4,type:"tiyre"},{id:"tumanai-u",name:"Tumanay",level:4,type:"tiyre"},{id:"sabalaq-u",name:"Sabalaq",level:4,type:"tiyre"},{id:"maulik-u",name:"Mawlik",level:4,type:"tiyre"},{id:"bairam-u",name:"Bayram",level:4,type:"tiyre"},{id:"syrgaly",name:"Sırǵalı",level:4,type:"tiyre"}] }
-                            ]
-                        }
-                    ]
+                          id: "taraqly",
+                          name: "Taraqlı(qiyat)",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            history: "Shashaqtı, órnekteli",
+                            tamga: "TB",
+                            uran: "Alataw!",
+                          },
+                          children: [
+                            {
+                              id: "togyzaq",
+                              name: "Tog'ızaq",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "T9",
+                                uran: "Tog'ısqan!",
+                                history: "Tog'ız úrpaqtan keyin",
+                              },
+                            },
+                            {
+                              id: "abas-kyat",
+                              name: "Abas",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "AB",
+                                uran: "Alataw!",
+                                history: "Abas batır",
+                              },
+                            },
+                            {
+                              id: "jaltyrshy",
+                              name: "Jaltırshı",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "JL",
+                                uran: "Alataw!",
+                                history: "Jarqın",
+                              },
+                            },
+                            {
+                              id: "aqunqaragan",
+                              name: "Aqúnqarag'an",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "AQQ",
+                                uran: "Alataw!",
+                                history: "Aq qúndıqtı",
+                              },
+                            },
+                            {
+                              id: "taqay",
+                              name: "Taqay",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "TQ", uran: "Alataw!" },
+                            },
+                            {
+                              id: "qarzhaubaras",
+                              name: "Qarjawbaras",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "QJB", uran: "Alataw!" },
+                            },
+                          ],
+                        },
+                        {
+                          id: "balgaly-kyat",
+                          name: "Balǵalı Qıyat",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            history: "Balǵa ustag'an",
+                            tamga: "B",
+                            uran: "Alataw!",
+                            legend: "Temirshiler termini",
+                          },
+                          children: [
+                            {
+                              id: "bespishaq",
+                              name: "Bespıshaq",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "B5",
+                                uran: "Alataw!",
+                                history: "Bes pıshaq",
+                              },
+                            },
+                            {
+                              id: "etekshi",
+                              name: "Etekshi",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "ET",
+                                uran: "Alataw!",
+                                history: "Etek - qoltırawın",
+                              },
+                            },
+                            {
+                              id: "sanmurun-bk",
+                              name: "Sańmúrin",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "SMB", uran: "Alataw!" },
+                            },
+                            {
+                              id: "qozhaqaragan",
+                              name: "Qojaqarag'an",
+                              level: 5,
+                              type: "tiyre",
+                              info: {
+                                tamga: "QJQ",
+                                uran: "Alataw!",
+                                history: "Qoja ata",
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      id: "ashamayly",
+                      name: "ASHAMAYLı",
+                      level: 3,
+                      type: "úlken urıw",
+                      info: {
+                        history: "Ashamay - kóri nashar kórgen.",
+                        tamga: "ASH",
+                        uran: "Shulıq!",
+                        population: "870 kibitka",
+                      },
+                      children: [
+                        {
+                          id: "saqu",
+                          name: "Saqu",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "SQ",
+                            uran: "Shulıq!",
+                            history: "Saqshılar",
+                          },
+                        },
+                        {
+                          id: "qaraqoja",
+                          name: "Qaraqoja",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "QQ",
+                            uran: "Shulıq!",
+                            history: "Qara qoja",
+                          },
+                        },
+                        {
+                          id: "jalangayaq",
+                          name: "Jalańayaq",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "JA",
+                            uran: "Shulıq!",
+                            history: "Tez júgiriwshi",
+                          },
+                        },
+                        {
+                          id: "ajyldy",
+                          name: "Ayıldı",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "AY",
+                            uran: "Shulıq!",
+                            history: "Ayıl - otar",
+                          },
+                        },
+                        {
+                          id: "qobasan",
+                          name: "Qobasan",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "QBS",
+                            uran: "Shulıq!",
+                            history: "Qoba - quz",
+                          },
+                          children: [
+                            {
+                              id: "aqnazar",
+                              name: "Aqnazar",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "AN", uran: "Shulıq!" },
+                            },
+                            {
+                              id: "jansary",
+                              name: "Jansarı",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "JS", uran: "Shulıq!" },
+                            },
+                            {
+                              id: "otemis-q",
+                              name: "Ótemis",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "ÓT", uran: "Shulıq!" },
+                            },
+                            {
+                              id: "esen",
+                              name: "Esen",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "ES", uran: "Shulıq!" },
+                            },
+                            {
+                              id: "tampysh",
+                              name: "Tampısh",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "TM", uran: "Shulıq!" },
+                            },
+                          ],
+                        },
+                        {
+                          id: "turkmenqara",
+                          name: "Túrkmenqara",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "TQ",
+                            uran: "Shulıq!",
+                            history: "Túrkmenler menen aralasqan",
+                          },
+                        },
+                        {
+                          id: "jappar",
+                          name: "Jappar",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JP", uran: "Shulıq!" },
+                        },
+                        {
+                          id: "sary-ash",
+                          name: "Sarı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "SR", uran: "Shulıq!" },
+                        },
+                        {
+                          id: "abyz-ash",
+                          name: "Abız",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "AB", uran: "Shulıq!" },
+                        },
+                        {
+                          id: "aqay",
+                          name: "Aqay",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "AQ", uran: "Shulıq!" },
+                        },
+                        {
+                          id: "pangqara",
+                          name: "Pan'qara",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "PN'", uran: "Shulıq!" },
+                        },
+                        {
+                          id: "ush-bas",
+                          name: "Úsh bas",
+                          level: 5,
+                          type: "urıw",
+                          info: {
+                            tamga: "ÚB",
+                            uran: "Shulıq!",
+                            history: "Úsh bastı toqıg'an",
+                          },
+                          children: [
+                            {
+                              id: "jaman-ub",
+                              name: "Jaman",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "JM", uran: "Shulıq!" },
+                            },
+                          ],
+                        },
+                        {
+                          id: "qurama",
+                          name: "Qurama",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QR", uran: "Shulıq!" },
+                        },
+                      ],
+                    },
+                    {
+                      id: "koldauli",
+                      name: "QOLDAWLı",
+                      level: 3,
+                      type: "úlken urıw",
+                      info: {
+                        history: "Qoldaw - opora.",
+                        tamga: "QLD",
+                        uran: "Qoldaw!",
+                        population: "1140 kibitka",
+                      },
+                      children: [
+                        {
+                          id: "beskempir",
+                          name: "Beskempir",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "B5",
+                            uran: "Qoldaw!",
+                            history: "Bes kempir",
+                          },
+                        },
+                        {
+                          id: "maishyshaly",
+                          name: "Mayşıshalı",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "MSH",
+                            uran: "Qoldaw!",
+                            history: "Maylı shısha",
+                          },
+                        },
+                        {
+                          id: "qalqaman",
+                          name: "Qalqaman",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QLQ", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "ghajypqaragan",
+                          name: "G'ayıpqarag'an",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "G'Q",
+                            uran: "Qoldaw!",
+                            history: "G'ayıp bolg'an ata",
+                          },
+                        },
+                        {
+                          id: "sarytan-k",
+                          name: "Sarıtan",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "SRT", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "kulkiqozhaq",
+                          name: "Kúlkíqojaq",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "KQ", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "jarymbet",
+                          name: "Jarımbet",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JB", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "jamanqonyrat",
+                          name: "Jamanqońırat",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JQ", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "zhuka",
+                          name: "Júka",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JK", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "qyzylayaq",
+                          name: "Qızılayaq",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QZ", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "karasiraq-k",
+                          name: "Qarasiraq",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QSR", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "jelqaragan",
+                          name: "Jelqarag'an",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JQ", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "ulkenborik",
+                          name: "Úlkenbórik",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "ÚB", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "shylzhuyt",
+                          name: "Shıljuyt",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "SHJ", uran: "Qoldaw!" },
+                        },
+                        {
+                          id: "kalmaq",
+                          name: "Qalmaq",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "QM",
+                            uran: "Qoldaw!",
+                            history: "Qalmaqlar menen aralasqan",
+                          },
+                          children: [
+                            {
+                              id: "adil",
+                              name: "Ádil",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "ÁD", uran: "Qoldaw!" },
+                            },
+                            {
+                              id: "ereke",
+                              name: "Ereke",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "ER", uran: "Qoldaw!" },
+                            },
+                          ],
+                        },
+                        {
+                          id: "jaman-aul",
+                          name: "Jaman awıl",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JA", uran: "Qoldaw!" },
+                        },
+                      ],
+                    },
+                    {
+                      id: "kostambali",
+                      name: "QOSTAMGALI",
+                      level: 3,
+                      type: "úlken urıw",
+                      tamga: "II",
+                      info: {
+                        history: "Eki tamǵalı.",
+                        tamga: "II",
+                        uran: "Qosqa!",
+                        population: "590 kibitka",
+                      },
+                      children: [
+                        {
+                          id: "jangildi-k",
+                          name: "Jangildi",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JG", uran: "Qosqa!" },
+                        },
+                        {
+                          id: "shirzhegen",
+                          name: "Shirjegen",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "SHJ", uran: "Qosqa!" },
+                        },
+                        {
+                          id: "aghabegli",
+                          name: "Aǵabegli",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "AB", uran: "Qosqa!" },
+                        },
+                        {
+                          id: "qarynzhuan",
+                          name: "Qarınjwan",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QJ", uran: "Qosqa!" },
+                        },
+                        {
+                          id: "kostambali-k",
+                          name: "Qostamgalı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QT", uran: "Qosqa!" },
+                        },
+                        {
+                          id: "qaraqursaq-k",
+                          name: "Qaraqúrsaq",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QQ", uran: "Qosqa!" },
+                        },
+                        {
+                          id: "qazaqy-k",
+                          name: "Qazaqı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QZ", uran: "Qosqa!" },
+                        },
+                      ],
+                    },
+                    {
+                      id: "balgali",
+                      name: "BALĞALı",
+                      level: 3,
+                      type: "úlken urıw",
+                      info: {
+                        history: "Balǵa ustag'an. Temirshiler.",
+                        tamga: "B",
+                        uran: "Balǵa!",
+                        legend: "Temirshiler úrpaǵı",
+                        population: "560 kibitka",
+                      },
+                      children: [
+                        {
+                          id: "aqbalgali",
+                          name: "Aqbalǵalı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "AB", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "nurbalgali",
+                          name: "Núrbalǵalı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "NB", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "turkmen-b",
+                          name: "Túrkmen",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "TB", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "jamanaul-b",
+                          name: "Jamanaul(BALĞALı)",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "JA", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "shomishti",
+                          name: "Shómishti",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "SHM", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "toqymbet",
+                          name: "Toqımbet",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "TQ", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "tazbalgali",
+                          name: "Tazbalǵalı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "TB", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "kostamgali-balgali",
+                          name: "Qostamǵalı(balgali)",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QS", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "qaratalshy",
+                          name: "Qaratalshı",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QT", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "asan",
+                          name: "Asan",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "AS", uran: "Balǵa!" },
+                        },
+                        {
+                          id: "arzyqul",
+                          name: "Arzıqul",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "AR", uran: "Balǵa!" },
+                        },
+                      ],
+                    },
+                    {
+                      id: "kandekli",
+                      name: "QÁNDEKLI",
+                      level: 3,
+                      type: "úlken urıw",
+                      tamga: "G",
+                      info: {
+                        history: "Kóndek - qora.",
+                        tamga: "G",
+                        uran: "Kóndek!",
+                        population: "730 kibitka",
+                      },
+                      children: [
+                        {
+                          id: "qarama-kan",
+                          name: "Qarama",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QR", uran: "Kóndek!" },
+                        },
+                        {
+                          id: "kiikshi",
+                          name: "Kiikshi",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "KSH",
+                            uran: "Kóndek!",
+                            history: "Kiik saqshı",
+                          },
+                        },
+                        {
+                          id: "toqbolat-kan",
+                          name: "Toqbolat",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "TB", uran: "Kóndek!" },
+                        },
+                        {
+                          id: "qyryqsadaq",
+                          name: "Qırıqsadaq",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "QS", uran: "Kóndek!" },
+                        },
+                      ],
+                    },
+                    {
+                      id: "karamoiyn",
+                      name: "QARAMOYıN",
+                      level: 3,
+                      type: "úlken urıw",
+                      tamga: "TM",
+                      info: {
+                        history: "Qara moyın.",
+                        tamga: "TM",
+                        uran: "Moyın!",
+                        population: "560 kibitka",
+                      },
+                      children: [
+                        {
+                          id: "annakhoja",
+                          name: "Annaxoja",
+                          level: 4,
+                          type: "tiyre",
+                          info: {
+                            tamga: "AN",
+                            uran: "Moyın!",
+                            history: "Anna áwliye",
+                          },
+                        },
+                        {
+                          id: "sabalaq",
+                          name: "Sabalaq",
+                          level: 4,
+                          type: "tiyre",
+                          info: {
+                            tamga: "SB",
+                            uran: "Moyın!",
+                            history: "Saba - bala",
+                          },
+                        },
+                        {
+                          id: "kotelek",
+                          name: "Kótelek",
+                          level: 4,
+                          type: "tiyre",
+                          info: {
+                            tamga: "KT",
+                            uran: "Moyın!",
+                            history: "Torlaw",
+                          },
+                        },
+                        {
+                          id: "qareke",
+                          name: "Qareke",
+                          level: 4,
+                          type: "tiyre",
+                          info: { tamga: "QR", uran: "Moyın!" },
+                        },
+                        {
+                          id: "qarlymaral",
+                          name: "Qarlımaral",
+                          level: 4,
+                          type: "tiyre",
+                          info: { tamga: "QM", uran: "Moyın!" },
+                        },
+                        {
+                          id: "bulkildek",
+                          name: "Búlkildek",
+                          level: 4,
+                          type: "tiyre",
+                          info: { tamga: "BÚ", uran: "Moyın!", history: "Kúlew" },
+                        },
+                      ],
+                    },
+                    {
+                      id: "muyten",
+                      name: "MÚYTEN",
+                      level: 3,
+                      type: "úlken urıw",
+                      tamga: "Úsh shanışqı",
+                      uran: "Aqsholpan",
+                      info: {
+                        history: "Múyın - moyın.",
+                        origin: "Múyten batır",
+                        tamga: "Úsh shanışqı",
+                        uran: "Aqsholpan",
+                        population: "540 kibitka",
+                        legend: "Múytenniń úsh ulı: Samat, Teli, Abız",
+                      },
+                      children: [
+                        {
+                          id: "samat",
+                          name: "Samat",
+                          level: 5,
+                          type: "urıw",
+                          info: { tamga: "SM", uran: "Aqsholpan!" },
+                          children: [
+                            {
+                              id: "baibishe",
+                              name: "Báybishe",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "BB", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "toqqaragan",
+                              name: "Toqalqarag'an",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "TQ", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "baimurat",
+                              name: "Baymurat",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "BM", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "jolan",
+                              name: "Jolan",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "JL", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "bekau",
+                              name: "Bekaw",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "BK", uran: "Aqsholpan!" },
+                            },
+                          ],
+                        },
+                        {
+                          id: "teli",
+                          name: "Teli",
+                          level: 5,
+                          type: "urıw",
+                          info: { tamga: "TL", uran: "Aqsholpan!" },
+                          children: [
+                            {
+                              id: "tleuberdi",
+                              name: "Tleuberdi",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "TB", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "allaberdi",
+                              name: "Allaberdi",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "AB", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "tangirberdi",
+                              name: "Tańirberdi",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "TB", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "mantyqaragan",
+                              name: "Mantıqarag'an",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "MQ", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "molloqaragan",
+                              name: "Mollaqarag'an",
+                              level: 6,
+                              type: "ko'she",
+                              info: { tamga: "MQ", uran: "Aqsholpan!" },
+                            },
+                          ],
+                        },
+                        {
+                          id: "abyz-m",
+                          name: "Abız",
+                          level: 4,
+                          type: "urıw",
+                          info: {
+                            tamga: "AB",
+                            uran: "Aqsholpan!",
+                            history: "Aqsaqal, áwliye",
+                          },
+                        },
+                        {
+                          id: "kentanau",
+                          name: "Ken'tanaw",
+                          level: 4,
+                          type: "urıw",
+                          info: { tamga: "KT", uran: "Aqsholpan!" },
+                          children: [
+                            {
+                              id: "baryn",
+                              name: "Baryn",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "BR", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "itak",
+                              name: "Itaq",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "IT", uran: "Aqsholpan!" },
+                            },
+                            {
+                              id: "jekensal",
+                              name: "Jekensal",
+                              level: 5,
+                              type: "tiyre",
+                              info: { tamga: "JS", uran: "Aqsholpan!" },
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
                 },
                 {
-                    id: "onTort", name: "ARYS ON TÓRT", level: 1, type: "arıs",
-                    children: [
+                  id: "jauyngyr",
+                  name: "JAWıNGıR BÓLIMI",
+                  level: 2,
+                  type: "bólim",
+                  info: {
+                    history: "Jawıngır - 7 urıw.",
+                    population: "3660 kibitka",
+                  },
+                  children: [
+                    {
+                      id: "teristamgaly",
+                      name: "TERISTAŃГALı",
+                      level: 4,
+                      type: "urıw",
+                      children: [
                         {
-                            id: "kytaı", name: "QYITAY", level: 2, type: "úlken urıw", tamga: "Q", uran: "Ullı taw",
-                            children: [
-                                { id: "bessary", name: "BESSARY", level: 3, type: "urıw", tamga: "BS", uran: "Ullı taw", children: [{id:"zhunli",name:"Júnli",level:4,type:"tiyre"},{id:"qoyly",name:"Qoylı",level:4,type:"tiyre"}] },
-                                { id: "beksyyk", name: "BEKSIIK", level: 3, type: "urıw", tamga: "BS", uran: "Ullı taw", children: [{id:"zherger",name:"Zerger",level:4,type:"tiyre"},{id:"masai",name:"Masay",level:4,type:"tiyre"},{id:"shyghyrshy",name:"Shıǵırshı",level:4,type:"tiyre"},{id:"malay",name:"Malay",level:4,type:"tiyre"}] },
-                                { id: "kazayakly-k", name: "QAZAYAQLY", level: 3, type: "urıw", tamga: "QZ", uran: "Ullı taw", children: [{id:"kalsen",name:"Kálsen",level:4,type:"tiyre"},{id:"kuyik",name:"Kúyik",level:4,type:"tiyre"},{id:"myrzai",name:"Mırzay",level:4,type:"tiyre"},{id:"qylymoiyn",name:"Qılmoyın",level:4,type:"tiyre"},{id:"zhylkybai",name:"Jılqbay",level:4,type:"tiyre"},{id:"baibishe-kz",name:"Baybíshe",level:4,type:"tiyre",children:[{id:"baibishe-kosh",name:"Baybíshe",level:5,type:"ko'she"}]}] },
-                                { id: "kaishyly", name: "QAISHYLY", level: 3, type: "urıw", tamga: "QSh", uran: "Ullı taw", children: [{id:"aqymbet",name:"Aqımbet",level:4,type:"tiyre"},{id:"zhuansan",name:"Juwansan",level:4,type:"tiyre"},{id:"koterehoja",name:"Kóterehoja",level:4,type:"tiyre"},{id:"tanamyrza",name:"Tańamırza",level:4,type:"tiyre"},{id:"baqy",name:"Baqı",level:4,type:"tiyre"},{id:"sybyl",name:"Sıbıl",level:4,type:"tiyre"},{id:"basar",name:"Basar",level:4,type:"tiyre"},{id:"tolyq",name:"Tolyq",level:4,type:"tiyre"},{id:"yaby",name:"Yabı",level:4,type:"tiyre"}] },
-                                { id: "aitereke", name: "ÁYTEKE", level: 3, type: "urıw", tamga: "ÁT", uran: "Ullı taw", children: [{id:"zhadyq",name:"Jádik",level:4,type:"tiyre"},{id:"yrsymbek",name:"Yrsımbek",level:4,type:"tiyre"},{id:"orazymbet",name:"Orazımbet",level:4,type:"tiyre"},{id:"tangirkul",name:"Tańirkul",level:4,type:"tiyre"},{id:"bektes",name:"Bektes",level:4,type:"tiyre",children:[{id:"bektes-kosh",name:"Bektes",level:5,type:"ko'she"}]},{id:"nauriz",name:"Nawriz",level:4,type:"tiyre",children:[{id:"nauriz-kosh",name:"Nawriz",level:5,type:"ko'she"}]},{id:"maniuwli-a",name:"Manjúwli",level:4,type:"tiyre",children:[{id:"maniuwli-kosh",name:"Manjúwli",level:5,type:"ko'she"}]},{id:"tazshylyq",name:"Tazshılıq",level:4,type:"tiyre",children:[{id:"tazshylyq-kosh",name:"Tazshılıq",level:5,type:"ko'she"}]}] },
-                                { id: "manjuwli-k", name: "MANJÚWLI", level: 3, type: "urıw", tamga: "Mń", uran: "Ullı taw", children: [{id:"eki-shyiq",name:"Eki shıyıq",level:4,type:"tiyre"},{id:"qaramanjuwli",name:"Qaramanjúwli",level:4,type:"tiyre"},{id:"aiiereke",name:"Áyereke",level:4,type:"tiyre"}] },
-                                { id: "aralbai", name: "ARALBAY", level: 3, type: "urıw", tamga: "AR", uran: "Ullı taw", children: [{id:"aqqala",name:"Aqqala",level:4,type:"tiyre"},{id:"qalmuart-ar",name:"Qalmurat",level:4,type:"tiyre"},{id:"ogizbaishy",name:"Ógizbayshı",level:4,type:"tiyre"},{id:"baibishe-ar",name:"Baybíshe",level:4,type:"tiyre"},{id:"tile-qusshy",name:"Tilew qushı",level:4,type:"tiyre"}] }
-                            ]
+                          id: "shomak",
+                          name: "Shomaq",
+                          level: 5,
+                          type: "tiyre",
                         },
                         {
-                            id: "kypshak", name: "QYPSHAQ", level: 2, type: "úlken urıw", tamga: "I", uran: "Toqsaba",
-                            children: [
-                                { id: "kangly", name: "QAŃLY", level: 3, type: "urıw", tamga: "Qń", uran: "Toqsaba", children: [{id:"tram",name:"Tram",level:4,type:"tiyre"},{id:"qatqangly",name:"Qatqańlı",level:4,type:"tiyre"},{id:"yrghaqly",name:"Yrǵaqılı",level:4,type:"tiyre"},{id:"ashamaily-k",name:"Ashamaylı",level:4,type:"tiyre"},{id:"taraqty-k",name:"Taraqtı",level:4,type:"tiyre"},{id:"baspak",name:"Baspaq",level:4,type:"tiyre"},{id:"aiat",name:"Aiyat",level:4,type:"tiyre"},{id:"bosyn",name:"Bosın",level:4,type:"tiyre"},{id:"basapat",name:"Basapat",level:4,type:"tiyre"},{id:"konyrqazy",name:"Qońırqazı",level:4,type:"tiyre"},{id:"kenes",name:"Kenes",level:4,type:"tiyre"},{id:"tashkent",name:"Tashkent",level:4,type:"tiyre"}] },
-                                { id: "sanmuryn", name: "SAŃMURIN", level: 3, type: "urıw", tamga: "SM", uran: "Toqsaba", children: [{id:"konshi",name:"Kónshi",level:4,type:"tiyre"},{id:"tubai",name:"Tubay",level:4,type:"tiyre"},{id:"eshkili",name:"Eshkili",level:4,type:"tiyre"},{id:"zhaipaq-shek",name:"Jalpaq shek",level:4,type:"tiyre"},{id:"tolebai",name:"Tólebay",level:4,type:"tiyre"},{id:"zhabashy",name:"Jabashı",level:4,type:"tiyre"}] },
-                                { id: "estek", name: "ESTEK", level: 3, type: "urıw", tamga: "ES", uran: "Toqsaba", children: [{id:"manqanai",name:"Mańqanay",level:4,type:"tiyre"},{id:"qaiypnazar",name:"Qayıpnazar",level:4,type:"tiyre"},{id:"karaterenshi",name:"Qaraterenshi",level:4,type:"tiyre"},{id:"qalmuart-es",name:"Qalmurat",level:4,type:"tiyre"}] },
-                                { id: "qanzhygaly", name: "QANJYǴALY", level: 3, type: "urıw", tamga: "QJ", uran: "Toqsaba", children: [{id:"shanyshpai",name:"Shanıshpay",level:4,type:"tiyre"},{id:"sambet-q",name:"Sambet",level:4,type:"tiyre"},{id:"zhaghaltai",name:"Jaǵaltay",level:4,type:"tiyre"},{id:"baibishe-q",name:"Baybíshe",level:4,type:"tiyre",children:[{id:"baibishe-q-kosh",name:"Baybíshe",level:5,type:"ko'she"}]}] },
-                                { id: "saltyr", name: "SALTYR", level: 3, type: "urıw", tamga: "SL", uran: "Toqsaba", children: [{id:"baibishe-s",name:"Baybíshe",level:4,type:"tiyre"},{id:"sart",name:"Sart",level:4,type:"tiyre"},{id:"orazymbet-s",name:"Orazımbet",level:4,type:"tiyre"},{id:"shuyghan",name:"Shuyıǵan",level:4,type:"tiyre"}] }
-                            ]
+                          id: "hangildi",
+                          name: "Xangildi",
+                          level: 5,
+                          type: "ko'she",
                         },
                         {
-                            id: "keneges", name: "KENEGES", level: 2, type: "úlken urıw", tamga: "X", uran: "Shawlı-Shawhay",
-                            children: [
-                                { id: "aranshy", name: "ARANSHY", level: 3, type: "urıw", tamga: "AR", uran: "Shawlı-Shawhay", children: [{id:"annaqul",name:"Annaqul",level:4,type:"tiyre"},{id:"abas-k",name:"Abas",level:4,type:"tiyre",children:[{id:"seitimbet",name:"Seytimbet",level:5,type:"ko'she"}]},{id:"suiin",name:"Súyin",level:4,type:"tiyre"},{id:"zhuas",name:"Juwas",level:4,type:"tiyre"},{id:"dauletqargha",name:"Dáwletqarǵa",level:4,type:"tiyre"},{id:"qaipbergen",name:"Qayıpbergen",level:4,type:"tiyre"}] },
-                                { id: "aktogyn", name: "AQTOǴYN", level: 3, type: "urıw", tamga: "AT", uran: "Shawlı-Shawhay", children: [{id:"nanzhemes",name:"Nanjemes",level:4,type:"tiyre"},{id:"kosher",name:"Kóshek",level:4,type:"tiyre"}] },
-                                { id: "omir", name: "ÓMIR", level: 3, type: "urıw", tamga: "ÓM", uran: "Shawlı-Shawhay", children: [{id:"aqpyshaq",name:"Aqpıshaq",level:4,type:"tiyre"},{id:"usaq",name:"Usaq",level:4,type:"tiyre"},{id:"zhel",name:"Jel",level:4,type:"tiyre"},{id:"mynzhyr",name:"Mınjır",level:4,type:"tiyre"},{id:"otemis-o",name:"Ótemis",level:4,type:"tiyre"}] },
-                                { id: "taraqly-ken", name: "TARAQTY", level: 3, type: "urıw", tamga: "TR", uran: "Shawlı-Shawhay", children: [{id:"zhetiqaraghaz",name:"Jetiqaraǵaz",level:4,type:"tiyre",children:[{id:"zheti-kosh",name:"Jetiqara",level:5,type:"ko'she"}]}] },
-                                { id: "dobal", name: "DOBAL", level: 3, type: "urıw", tamga: "DB", uran: "Shawlı-Shawhay" },
-                                { id: "oymauyt", name: "OYMAWYT", level: 3, type: "urıw", tamga: "OY", uran: "Shawlı-Shawhay", children: [{id:"qara-o",name:"Qara",level:4,type:"tiyre"},{id:"sary-o",name:"Sarı",level:4,type:"tiyre",children:[{id:"zhiydeli",name:"Jiydeli",level:5,type:"ko'she"}]},{id:"aq-o",name:"Aq",level:4,type:"tiyre"}] },
-                                { id: "dombazqaq", name: "DOMBAZQA", level: 3, type: "urıw", tamga: "DM", uran: "Shawlı-Shawhay" },
-                                { id: "nokis", name: "NÓKIS", level: 3, type: "urıw", tamga: "NK", uran: "Shawlı-Shawhay", children: [{id:"zhamanzhak",name:"Jamanjaq",level:4,type:"tiyre"},{id:"bozaq",name:"Bozaq",level:4,type:"tiyre"},{id:"altynpyshaq",name:"Altınpyshaq",level:4,type:"tiyre"},{id:"ghobdir",name:"Ǵobdir",level:4,type:"tiyre"}] }
-                            ]
+                          id: "baiqaragan",
+                          name: "Bayqarag'an",
+                          level: 5,
+                          type: "ko'she",
                         },
                         {
-                            id: "mangyt", name: "MAŃǴYT", level: 2, type: "úlken urıw", tamga: "f", uran: "Shawlı-Shawhay",
-                            children: [
-                                { id: "qaratay", name: "QARATAY (Qara)", level: 3, type: "topar", tamga: "QT", uran: "Shawlı-Shawhay", children: [{id:"qaramangyt",name:"Qaramańǵıt",level:4,type:"tiyre",children:[{id:"ushbas",name:"Úshbas",level:5,type:"ko'she"},{id:"karasiraq-m",name:"Qarasıraq",level:5,type:"ko'she"},{id:"aqmangyt",name:"Aqmańǵıt",level:5,type:"ko'she"}]},{id:"mamyqshy",name:"Mamıqshı",level:4,type:"urıw",children:[{id:"zhetiqurt",name:"Jetiqurt",level:5,type:"ko'she"}]},{id:"kosar-m",name:"Qosar",level:4,type:"urıw",children:[{id:"gubidin",name:"Gúbidin",level:5,type:"ko'she"}]},{id:"qylqaly",name:"Qılqalı",level:4,type:"tiyre"}] },
-                                { id: "sarytay", name: "SARYTAY (Sarı)", level: 3, type: "topar", tamga: "ST", uran: "Shawlı-Shawhay", children: [{id:"arshyn",name:"Arshın",level:4,type:"tiyre"},{id:"zhailyk",name:"Jaylıq",level:4,type:"tiyre"},{id:"toqmangyt",name:"Toqmańǵıt",level:4,type:"tiyre"},{id:"arsary",name:"Arsarı",level:4,type:"tiyre"},{id:"tazhzhanlyk",name:"Tazjanlıq",level:4,type:"tiyre"},{id:"shuyt",name:"Shúyt",level:4,type:"tiyre"},{id:"zhamansha",name:"Jamansha",level:4,type:"tiyre"},{id:"esebii",name:"Esebiy",level:4,type:"tiyre"},{id:"tamgaly-m",name:"Tamǵalı",level:4,type:"tiyre"},{id:"toqmoiyin",name:"Toqmoyın",level:4,type:"tiyre"},{id:"temirhoja",name:"Temirhoja",level:4,type:"tiyre"}] },
-                                { id: "boztay", name: "BOZTAY (Boz)", level: 3, type: "topar", tamga: "BT", uran: "Shawlı-Shawhay", children: [{id:"bozta",name:"Bozta",level:4,type:"tiyre",children:[{id:"bozta-kosh",name:"Bozta",level:5,type:"ko'she"}]}] },
-                                { id: "jetimtay", name: "JETIMTAY (Jetim)", level: 3, type: "topar", tamga: "JT", uran: "Shawlı-Shawhay", children: [{id:"eshbuga",name:"Eshbuǵa",level:4,type:"tiyre",children:[{id:"eshbuga-kosh",name:"Eshbuǵa",level:5,type:"ko'she"}]}] }
-                            ]
-                        }
-                    ]
-                }
-            ]
+                          id: "elshibai",
+                          name: "Elshibay",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                        {
+                          id: "qurban-t",
+                          name: "Qurban",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                        {
+                          id: "togai",
+                          name: "Tog'ay",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                      ],
+                    },
+                    {
+                      id: "bakanly-sheyjeyli",
+                      name: "BAQANLı-sheyjeyli",
+                      level: 4,
+                      type: "urıw",
+                    },
+                    {
+                      id: "tyekli",
+                      name: "TIYEKLI",
+                      level: 4,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "zhumagul",
+                          name: "Jumagul",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                        {
+                          id: "aidarbek",
+                          name: "Aidarbek",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                        {
+                          id: "kanjar",
+                          name: "Kanjar",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                        {
+                          id: "sarykempir",
+                          name: "Sarykempir",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                      ],
+                    },
+                    {
+                      id: "yrgaqly",
+                      name: "IRĞAQLı",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "atanai", 
+                        name: "Atanay",
+                        level: 4,
+                          type: "tiyre" },
+                        {
+                          id: "eshkili",
+                          name: "Eshkili",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "baibura",
+                          name: "Baybura",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "sarytan",
+                          name: "Sarıtan",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "baimaqly",
+                      name: "BAYMAQLı",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "sospaq", name: "Sospaq", level: 4, type: "tiyre" },
+                        { id: "uyes", name: "Uyes", level: 4, type: "tiyre" },
+                        {
+                          id: "tanmayil",
+                          name: "Tanmayil",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "jaqanay",
+                          name: "Jaqanay",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "nayman", name: "Nayman", level: 4, type: "tiyre" },
+                        { id: "ayis", name: "Ayıs", level: 4, type: "tiyre" },
+                      ],
+                    },
+                    {
+                      id: "kazayakly",
+                      name: "QAZAYAQLı",
+                      level: 4,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "anetai",
+                          name: "Ánetay",
+                          level: 5,  
+                          type: "ko'she",
+                        },
+                        {
+                          id: "zharimbet",
+                          name: "Járímbet",
+                          level: 5,
+                          type: "ko'she",
+                        },
+                        { id: "zhunli", name: "Júnli(kazayakly)", level: 5, type: "ko'she" },
+                        { id: "sadaq", name: "Sadaq", level: 5, type: "ko'she" },
+                      ],
+                    },
+                    {
+                      id: "uygyr",
+                      name: "UYĞıR",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "shishi", name: "Shishi", level: 4, type: "tiyre" },
+                        {
+                          id: "tumanay",
+                          name: "Tumanay",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "maulik", name: "Máwlik", level: 4, type: "tiyre" },
+                        { id: "bayram", name: "Bayram", level: 4, type: "tiyre" },
+                        {
+                          id: "sabalaq",
+                          name: "Sabalaq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "syrgaly",
+                          name: "Sırgalı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+           {
+      id: "onTort",
+      name: "ARYS ON TÓRT RUW",
+      level: 1,
+      type: "arıs",
+      info: {
+          history: "On tórt ruw - 14 urıw.",
+          population: "10260 kibitka (60%)",
+      },
+       children: [
+                          {
+                              id: "kytai",
+                              name: "QITAY",
+                              level: 2,
+                              type: "úlken urıw",
+                              tamga: "Q",
+                              urан: "Ullı taw",
+                              info: {
+                                  history: "Eń úlken urıw.",
+                                  tamga: "Q",
+                                  urан: "Ullı taw",
+                                  population: "4320 кибитка ",
+                              },
+      children: [
+          {
+              id: "bessary",
+              name: "BESSARI",
+              level: 3,
+              type: "urıw",
+              children: [
+                  {
+                      id: "zhunli",
+                      name: "Júnli(bessary)",
+                      level: 4,
+                      type: "tiyre",
+                      children: [
+                          { id: "suyindik", name: "Súyindik", level: 5, type: "koshe" },
+                          { id: "esergeb", name: "Esergeb", level: 5, type: "koshe" },
+                          { id: "taltay", name: "Taltay", level: 5, type: "koshe" },
+                          { id: "alimbay", name: "Alimbay", level: 5, type: "koshe" }
+                      ]
+                  },
+                  {
+                      id: "qoyly",
+                      name: "Qoylı",
+                      level: 4,
+                      type: "tiyre",
+                      children: [
+                          { id: "amankul", name: "Amankúl", level: 5, type: "koshe" },
+                          { id: "zharsay", name: "Jarsay", level: 5, type: "koshe" },
+                          { id: "segizek", name: "Segizek", level: 5, type: "koshe" },
+                          { id: "qurbanqul", name: "Qurbanqul", level: 5, type: "koshe" },
+                          { id: "genjequl", name: "Genjequl", level: 5, type: "koshe" }
+                      ]
+                  }
+              ]
+          
+  },
+                  
+
+
+
+                 
+
+
+
+                    {
+                      id: "beksyyk",
+                      name: "BEKSİYIQ",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "zherger",
+                          name: "Jerger",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "masai", name: "Masay", level: 4, type: "tiyre" },
+                        {
+                          id: "shyghyrshy",
+                          name: "Shıg'ırshı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "bekreshi",
+                          name: "Bekreshi",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "kazayakly-k",
+                      name: "QAZAYAQLı(qitay)",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "kalsen", name: "Kálsen", level: 4, type: "tiyre" },
+                        { id: "kuyik", name: "Kúyik", level: 4, type: "tiyre" },
+                        { id: "myrzai", name: "Mırzay", level: 4, type: "tiyre" },
+                        {
+                          id: "qylymoiyn",
+                          name: "Qılmoyın",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "baqaragan",
+                          name: "Baqaragan",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "baqsiqaragan",
+                          name: "Baqsiqaragan",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "kaishyly",
+                      name: "QAYSHıLı",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "aqymbet",
+                          name: "Aqımbet",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "zhuansan",
+                          name: "Juwansan",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "koterehoja",
+                          name: "Kóterehoja",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "tanamyrza",
+                          name: "Tanamırza",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "baqy", name: "Baqı", level: 4, type: "tiyre" },
+                        { id: "tore", name: "Tore", level: 4, type: "tiyre" },
+                        { id: "korpe", name: "Korpe", level: 4, type: "tiyre" },
+                        { id: "etpaq", name: "Etpaq", level: 4, type: "tiyre" },
+                        { id: "gijaq", name: "Gijaq", level: 4, type: "tiyre" },
+                      ],
+                    },
+
+                    { id: "anna", name: "Anna", level: 3, type: "urıw" },
+                    { id: "quyin", name: "Quyin", level: 3, type: "urıw" },
+                    {
+                      id: "sheriushi",
+                      name: "Sheriushi",
+                      level: 3,
+                      type: "urıw",
+                    },
+                    {
+                      id: "baqliqtay",
+                      name: "Baqliqtay",
+                      level: 3,
+                      type: "urıw",
+                    },
+
+                    {
+                      id: "aitereke",
+                      name: "ÁYTEKE",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "zhadyq", name: "Jádiq", level: 4, type: "tiyre" },
+                        {
+                          id: "yrsymbek",
+                          name: "Irsımbek",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "orazymbet",
+                          name: "Orazımbet",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "tangirkul",
+                          name: "Tańirqúl",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "bektay", name: "Bektaş", level: 4, type: "tiyre" },
+                        { id: "bektes", name: "Bektes", level: 4, type: "tiyre" },
+                        { id: "besli", name: "Besli", level: 4, type: "tiyre" },
+                        {
+                          id: "umbetey",
+                          name: "Umbetey",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "manjuwli-k",
+                      name: "MAŃJÚWLI",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "eki-shyiq",
+                          name: "Eki shıyıq",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "qarashiyiq",
+                              name: "Qarashiyiq",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                        {
+                          id: "qaramanjuli",
+                          name: "Qaramanjúwli",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "oqshiyiq",
+                              name: "Oqshiyiq",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "aralbay",
+                      name: "Aralbay",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "aqqala", name: "Aqqala", level: 4, type: "tiyre" },
+                        {
+                          id: "qalmuart-aul",
+                          name: "Qalmurat_aul",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "ogizbaishy",
+                          name: "Ógizbayshı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "baibishe-ar",
+                          name: "Báybishe",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "tile-qusshy",
+                          name: "Tilew qusshı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "qiriq",
+                      name: "Qiriq",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "qilishli",
+                          name: "Qilishli",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "bayirqaragan",
+                          name: "Bayirqaragan",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "qazaqli",
+                          name: "Qazaqli",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  id: "kypshak",
+                  name: "QIPSHAQ",
+                  level: 2,
+                  type: "úlken urıw",
+                  tamga: "I",
+                  uran: "Toqsaba",
+                  info: {
+                    history: "Kóne urıw.",
+                    tamga: "I",
+                    uran: "Toqsaba",
+                    population: "2240 kibitka",
+                  },
+                  children: [
+                    {
+                      id: "kangly",
+                      name: "QAŃLı",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "juansan",
+                          name: "Juansan",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "qatqangly",
+                          name: "Qatqańlı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "yrghaqly",
+                          name: "Irg'aqlı(kangli)",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "ashamaily-k",
+                          name: "Ashamaylı(kangli)",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "taraqty-k",
+                          name: "Taraqlı(kangli)",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "shomishali",
+                          name: "Shomishali",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "qashiular",
+                          name: "Qashiular",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "ormanshi",
+                          name: "Ormanshi",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "aqilhoja",
+                          name: "Aqilhoja",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "altiortaq",
+                          name: "Altıortaq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "tazaqanli",
+                          name: "Tazaqanlı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "sanmuryn",
+                      name: "SAŃMÚRIN",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "konshi", name: "Kónshi", level: 4, type: "tiyre" },
+                        { id: "tubai", name: "Tubay", level: 4, type: "tiyre" },
+                        {
+                          id: "eshkili",
+                          name: "Eshkili",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "zhaipaq-shek",
+                          name: "Jaypaq shek",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "tolebai",
+                          name: "Tólebay",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "zhabashy",
+                          name: "Jabashı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "estek",
+                      name: "ESTEK",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "manqanai",
+                          name: "Man'qanay",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "qaiypnazar",
+                          name: "Qayıpnazar",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "karaterenshi",
+                          name: "Qaraterenshi",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "qalmuart-es",
+                          name: "Qalmurat-aul",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "qanjigali",
+                      name: "Qanjigali",
+                      level: 3,
+                      type: "urıw",
+                    },
+                    { id: "shunaq", name: "Shunaq", level: 3, type: "urıw" },
+                    { id: "basar", name: "Basar", level: 3, type: "urıw" },
+                    { id: "toliq", name: "Tolıq", level: 3, type: "urıw" },
+                    { id: "jabi", name: "Jabı", level: 3, type: "urıw" },
+                    { id: "ariq", name: "Ariq", level: 3, type: "urıw" },
+                    {
+                      id: "jagaltay",
+                      name: "Gagaltay",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "shanishbay",
+                          name: "Shanishbay",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "sambet", name: "Sambet", level: 4, type: "tiyre" },
+                      ],
+                    },
+
+                    {
+                      id: "maylibalta",
+                      name: "Maylibalta",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "kónsoqir",
+                          name: "Kónsoqır",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "sumbil", name: "Sumbil", level: 4, type: "tiyre" },
+                      ],
+                    },
+                    { id: "baganali", name: "Baganali", level: 3, type: "urıw" },
+                    { id: "jadik", name: "Jadik", level: 3, type: "urıw" },
+
+                    {
+                      id: "saltyr",
+                      name: "SALTIR",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "baibishe-s",
+                          name: "Báybishe",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "sart", name: "Sart", level: 4, type: "tiyre" },
+                        {
+                          id: "orazymbet-s",
+                          name: "Orazımbet",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "shuyghan",
+                          name: "Shuylg'an",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  id: "keneges",
+                  name: "KENEGES",
+                  level: 2,
+                  type: "úlken urıw",
+                  tamga: "X",
+                  uran: "Shawlı-Shawxay",
+                  info: {
+                    history: "Ken'ges.",
+                    tamga: "X",
+                    uran: "Shawlı-Shawxay",
+                    population: "1480 kibitka",
+                  },
+                  children: [
+                    {
+                      id: "aranshy",
+                      name: "ARANSHı",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "annaqul",
+                          name: "Annaqul",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "abas-k",
+                          name: "Abas",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "seitimbet",
+                              name: "Seytimbet",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                        { id: "suiin", name: "Súyin", level: 4, type: "tiyre" },
+                        { id: "zhuas", name: "Juwas", level: 4, type: "tiyre" },
+                        { id: "qulmaq", name: "Qulmaq", level: 4, type: "tiyre" },
+                        {
+                          id: "dauletqargha",
+                          name: "Dáwletqarg'a",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "qaipbergen",
+                          name: "Qayıpbergen",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "aktogyn",
+                      name: "AQTOĞIN",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "nanzhemes",
+                          name: "Nanjemes",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "kosher", name: "Kósher", level: 4, type: "tiyre" },
+                      ],
+                    },
+                    {
+                      id: "omir",
+                      name: "ÓMIR",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "aqpyshaq",
+                          name: "Aqpıshaq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "usaq", name: "Usaq", level: 4, type: "tiyre" },
+                        { id: "zhel", name: "Jel", level: 4, type: "tiyre" },
+                        {
+                          id: "mynzhyr",
+                          name: "Mınjır",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "otemis-o",
+                          name: "Ótemis",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "taraqly-ken",
+                      name: "TARAQLı",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "zhetiqaraghaz",
+                          name: "Jetiqaraqazaqı",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "zheti-kosh",
+                              name: "Jetiqara",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    { id: "dobal", name: "DOBAL", level: 3, type: "urıw" },
+                    {
+                      id: "oymauyt",
+                      name: "OYMAWıT",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        { id: "qara-o", name: "Qara", level: 4, type: "tiyre" },
+                        {
+                          id: "sary-o",
+                          name: "Sarı",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "zhiydeli",
+                              name: "Jiydeli",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                        { id: "aq-o", name: "Aq", level: 4, type: "tiyre" },
+                      ],
+                    },
+                    {
+                      id: "dombazqaq",
+                      name: "DOMBAZQAQ",
+                      level: 3,
+                      type: "urıw",
+                    },
+                    {
+                      id: "nokis",
+                      name: "NÓKIS",
+                      level: 3,
+                      type: "urıw",
+                      children: [
+                        {
+                          id: "zhamanzhak",
+                          name: "Jamanjaq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "bozaq", name: "Bozaq", level: 4, type: "tiyre" },
+                        {
+                          id: "altynpyshaq",
+                          name: "Altınpıshaq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "ghobdir",
+                          name: "G'obdir",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  id: "mangyt",
+                  name: "MAŃĞıT",
+                  level: 2,
+                  type: "úlken urıw",
+                  tamga: "f",
+                  uran: "Shawlı-Shawxay",
+                  info: {
+                    history: "Sog'ısqor urıw.",
+                    tamga: "f",
+                    uran: "Shawlı-Shawxay",
+                    population: "2220 kibitka",
+                  },
+                  children: [
+                    {
+                      id: "qaratay",
+                      name: "QARATAY (Qara)",
+                      level: 3,
+                      type: "topar",
+                      children: [
+                        {
+                          id: "qaramangyt",
+                          name: "Qaraman'ǵıt",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "ushbas",
+                              name: "Úshbas",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                            {
+                              id: "karasiraq-m",
+                              name: "Qarasıyraq",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                            {
+                              id: "aqmangyt",
+                              name: "Aqman'ǵıt",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                        {
+                          id: "mamyqshy",
+                          name: "Mamıqshı",
+                          level: 5,
+                          type: "urıw",
+                          children: [
+                            {
+                              id: "zhetiqurt",
+                              name: "Jetiqurt",
+                              level: 6,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                        {
+                          id: "kosar-m",
+                          name: "Qosar",
+                          level: 5,
+                          type: "urıw",
+                          children: [
+                            {
+                              id: "gubidin",
+                              name: "G'úbidin",
+                              level: 6,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                        {
+                          id: "qylqaly",
+                          name: "Qılqalı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "sarytay",
+                      name: "SARITAY (Sarı)",
+                      level: 3,
+                      type: "topar",
+                      children: [
+                        { id: "arshyn", name: "Arshın", level: 4, type: "tiyre" },
+                        {
+                          id: "zhailyk",
+                          name: "Jaylıq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "toqmangyt",
+                          name: "Toqman'ǵıt",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "arsary", name: "Arsarı", level: 4, type: "tiyre" },
+                        {
+                          id: "tazhzhanlyk",
+                          name: "Tazjanlıq",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "shuyt", name: "Shúyt", level: 4, type: "tiyre" },
+                        {
+                          id: "zhamansha",
+                          name: "Jamansha",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        { id: "esebii", name: "Esebiy", level: 4, type: "tiyre" },
+                        {
+                          id: "tamgaly-m",
+                          name: "Tamǵalı",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "toqmoiyin",
+                          name: "Toqmoyın",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                        {
+                          id: "temirhoja",
+                          name: "Temirxoja",
+                          level: 4,
+                          type: "tiyre",
+                        },
+                      ],
+                    },
+                    {
+                      id: "boztay",
+                      name: "BOZTAY (Boz)",
+                      level: 3,
+                      type: "topar",
+                      children: [
+                        {
+                          id: "bozta",
+                          name: "Bozta",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "bozta-kosh",
+                              name: "Bozta",
+                              level: 5,
+                              type: "ko'she",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      id: "jetimtay",
+                      name: "JETIMTAY (Jetim)",
+                      level: 3,
+                      type: "topar",
+                      children: [
+                        {
+                          id: "eshbuga",
+                          name: "Eshbug'a",
+                          level: 4,
+                          type: "tiyre",
+                          children: [
+                            {
+                              id: "eshbuga-kosh",
+                              name: "Eshbug'a",
+                              level: 5,
+                              type: "ko'she",
+                            
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+           },
+          
+          ],
         };
 
-        const MUYTEN_EXCEPTION = {
-            uruuId: 'muyten',
-            tiyreIds: ['samat', 'teli', 'abyz-m', 'kentanau'],
-            description: 'Múyten urıwınıń tiyrekleri: Keńtańlaw, Teli, Samat, Abız'
+        // Qaraqalpaq urıwlıq ekzogamiyasınıń qaǵıydaları (Xorezm qaraqalpaqları)
+        // Derekler: Jdanko T.A. 1950; Tolstova L.S. 1963; Esbergenov X., Atamuratov T. 1970; Davletiyarov 2022
+        const exogamyRules = {
+            region: "Xorezm (xorezm qaraqalpaqları)",
+            unit: "urıw", // ekzogamiya birligi — urıw (ru), tiyre yamasa arıs emes
+            generationLimit: null, // qadaǵan buwın sanı menen sheklenbeydi
+            generationTerms: ["bel bala", "aqlıq", "shawlıq", "kuwlıq", "toqlıq", "bawlıq", "jatlıq"],
+            endogamyAllowed: [
+                { id: "kaishyly", name: "Qayshılı", clan: "Qıtay (On tórt urıw)",
+                  note: "Qayshılı urıwınıń 9 tiyresi arasında ishki neke dástúrde ruqsat etilgen — bul ulıwma qadaǵannan siyrek gezlesetuǵın erekshelik.",
+                  source: "Jdanko T.A., 1950-jıl, 71-bet" },
+                { id: "kangly", name: "Qańlı", clan: "Qıpshaq (On tórt urıw)",
+                  note: "Qańlı urıwı — erekshelik: onıń sanı kóp hám tarmaqları kóp bolǵanlıqtan, ishki neke qatnasıqları ruqsat etilgen edi.",
+                  source: "Tolstova L.S., 1963-jıl" }
+            ],
+            // Bessarı urıwı ishindegi qosımsha qatań qadaǵan — jeńillik joq (ulıwma "bir urıw ishinde qadaǵan" qaǵıydası menen ámelde qamtılǵan)
+            extraIntraClanBans: [
+                { parent: "bessary", name: "Bessarı (Júnli / Qoylı)",
+                  note: "Bessarı urıwınıń Júnli hám Qoylı tiyreleri arasındaǵı neke ayrıqsha qattı qadaǵan etilgen, hesh qanday jeńillik joq.",
+                  source: "Jdanko T.A., 1950-jıl" }
+            ],
+            // "Bir urıw" degen ulıwma qaǵıydadan tısqarı urıwlar aralıq qadaǵanlar. Tariyxıy jup-jubınıń
+            // bir bólegi saittegi ǵárezsiz aǵash túyinlerine sáykes kelmeydi (notInTree) — bunday jaǵdayda
+            // tómendegi tekseriw olar ushın hesh qashan iske aspaydı.
+            interClanBans: [
+                { a: "toliq", b: "basar", aName: "Tolıq", bName: "Basar", clan: "Qıpshaq",
+                  status: "active", notInTree: false,
+                  note: "Qıpshaq urıwınıń Tolıq hám Basar urıwları arasındaǵı tariyxıy neke qadaǵanı.",
+                  source: "Esbergenov X., Atamuratov T., 1970-jıl" },
+                { a: "tanke-1", b: "tanke-2", aName: "Tańke (top)", bName: "Tańke (top)", clan: "Qıtay",
+                  status: "historic", notInTree: true,
+                  note: "Tańke tobınıń 4 urıwı arasındaǵı tariyxıy qadaǵan.",
+                  source: "Jdanko T.A., 1950-jıl" },
+                { a: "manjuli-qypshak", b: "boqly-qtai", aName: "Manjulı", bName: "Boqlı-Qıtay", clan: "Qıpshaq/Qıtay",
+                  status: "historic", notInTree: true,
+                  note: "Manjulı hám Boqlı-Qıtay urıwları arasındaǵı tariyxıy qadaǵan.",
+                  source: "Esbergenov X., Atamuratov T., 1970-jıl" },
+                { a: "jadik", b: "saltyr", aName: "Jadik", bName: "Saltır", clan: "Qıpshaq",
+                  status: "historic", notInTree: false,
+                  note: "Jadik hám Saltır urıwları arasındaǵı tariyxıy qadaǵan; házirgi dala maǵlıwmatları onıń saqlanıp atırǵanın tastıyıqlamaydı.",
+                  source: "Davletiyarov, 2022-jıl" },
+                { a: "baganali", b: "jagaltay", aName: "Baǵanalı", bName: "Jaǵaltay", clan: "Qıpshaq",
+                  status: "historic", notInTree: false,
+                  note: "Baǵanalı hám Jaǵaltay urıwları arasındaǵı tariyxıy qadaǵan.",
+                  source: "Esbergenov X., Atamuratov T., 1970-jıl" },
+                { a: "sanmuryn", b: "estek", aName: "Sańmúrin", bName: "Estek", clan: "Qıpshaq",
+                  status: "disputed", notInTree: false,
+                  note: "Sańmúrin hám Estek urıwları arasındaǵı neke qadaǵanı dawlı — izertlewshiler hám dala maǵlıwmatları hár qıylı bahalaydı.",
+                  source: "Tolstova L.S., 1963-jıl; 2007–2017-jıllardıń dala maǵlıwmatları" }
+            ],
+            maternalSide: "allowed_and_encouraged" // ana tárepinen (nagashı ápiw-siyńilliler hám t.b.) neke dástúrde ruqsat etilgen hám qollap-quwatlanǵan
         };
 
+        // Eń jaqın urıw-atanı tabıw: jol ishinen type-i "urıw" yamasa "topar" bolǵan birinshi túyin
+        // (Mańgıt tarawında urıw ornına topar bar — topar urıwdıń ekvivalenti). Saittiń nızıq derekterinde
+        // level sanı tarawlar arasında sáykes kelmeydi (mısalı, Qıyat/Ashamaylı tarawında Shulıq ishinde
+        // qosımsha "úlken urıw" qatlamı bar), sonlıqtan level emes, type-ke tayanamız.
+        function resolveUruw(path) {
+            for (let i = 1; i < path.length; i++) {
+                if (path[i].type === 'urıw' || path[i].type === 'topar') return path[i];
+            }
+            return null;
+        }
+
+        function findInterClanBan(idA, idB) {
+            return exogamyRules.interClanBans.find(b =>
+                (b.a === idA && b.b === idB) || (b.a === idB && b.b === idA));
+        }
+
+        // Tańlanǵan mánislerdi saqlaw
         let selections = {
             groom: null,
             bride: null
         };
 
+        // Túyinge shekem jol
         function getNodePath(nodeId, node = tribeData, path = []) {
             if (node.id === nodeId) {
                 return [...path, node];
@@ -1243,27 +3140,7 @@
             return null;
         }
 
-        function findCommonAncestor(path1, path2) {
-            let common = null;
-            let minLength = Math.min(path1.length, path2.length);
-            for (let i = 0; i < minLength; i++) {
-                if (path1[i].id === path2[i].id) {
-                    common = path1[i];
-                } else {
-                    break;
-                }
-            }
-            return common;
-        }
-
-        function isMuytenException(nodeId) {
-            return MUYTEN_EXCEPTION.tiyreIds.includes(nodeId);
-        }
-
-        function isMuytenUruu(nodeId) {
-            return nodeId === MUYTEN_EXCEPTION.uruuId;
-        }
-
+        // Ekzogamiyanı tekseriw
         function checkExogamy() {
             if (!selections.groom || !selections.bride) {
                 updateResult('pending');
@@ -1276,56 +3153,47 @@
             if (!groomPath || !bridePath) return;
 
             if (selections.groom === selections.bride) {
-                updateResult('forbidden', 'same');
+                updateResult('forbidden', 'same_node');
                 return;
             }
 
-            const groomLevel = groomPath[groomPath.length - 1].level;
-            const brideLevel = bridePath[bridePath.length - 1].level;
-            const groomId = groomPath[groomPath.length - 1].id;
-            const brideId = bridePath[bridePath.length - 1].id;
+            const groomUruw = resolveUruw(groomPath);
+            const brideUruw = resolveUruw(bridePath);
 
-            const groomInMuyten = isMuytenException(groomId);
-            const brideInMuyten = isMuytenException(brideId);
-
-            if (groomInMuyten && brideInMuyten) {
-                updateResult('allowed', 'muyten_exception');
+            // Bir bahá urıw
+            if (groomUruw && brideUruw && groomUruw.id === brideUruw.id) {
+                const exc = exogamyRules.endogamyAllowed.find(e => e.id === groomUruw.id);
+                if (exc) {
+                    updateResult('allowed', 'endogamy_exception', exc);
+                } else {
+                    updateResult('forbidden', 'same_uruw', groomUruw);
+                }
                 return;
             }
 
-            const commonAncestor = findCommonAncestor(groomPath, bridePath);
-
-            if (!commonAncestor) {
-                updateResult('allowed', 'different');
-                return;
-            }
-
-            const commonLevel = commonAncestor.level;
-            
-            if (commonLevel === 5) {
-                updateResult('forbidden', 'koshe');
-            } else if (commonLevel === 4) {
-                updateResult('forbidden', 'tiyre');
-            } else if (commonLevel === 3) {
-                if (isMuytenUruu(commonAncestor.id)) {
-                    if (groomInMuyten || brideInMuyten) {
-                        updateResult('allowed', 'muyten_exception');
+            // Bólek urıwlar — urıwlar aralıq qadaǵanlardı tekseremiz
+            if (groomUruw && brideUruw) {
+                const ban = findInterClanBan(groomUruw.id, brideUruw.id);
+                if (ban) {
+                    if (ban.status === 'active') {
+                        updateResult('forbidden', 'inter_clan_active', ban);
+                    } else if (ban.status === 'disputed') {
+                        updateResult('disputed', 'inter_clan_disputed', ban);
                     } else {
-                        updateResult('forbidden', 'uruu');
+                        updateResult('allowed', 'inter_clan_historic', ban);
                     }
                 } else {
-                    updateResult('forbidden', 'uruu');
+                    updateResult('allowed', 'different_uruw');
                 }
-            } else if (commonLevel === 2) {
-                updateResult('warning', 'bolim');
-            } else if (commonLevel === 1) {
-                updateResult('allowed', 'arys');
-            } else {
-                updateResult('allowed', 'nation');
+                return;
             }
+
+            // Keń kategoriya (arıs/bólim) tańlanǵan, anıq urıw emes
+            updateResult('allowed', 'broad_selection');
         }
 
-        function updateResult(status, reason) {
+        // Nátiyjeni jańalaw
+        function updateResult(status, reason, data) {
             const panel = document.getElementById('resultPanel');
             const icon = panel.querySelector('.result-icon');
             const title = panel.querySelector('.result-title');
@@ -1338,92 +3206,66 @@
                 pending: {
                     icon: '⏳',
                     title: 'Tańlawdı kútiw',
-                    desc: 'Eki tárep te tańlaǵannan soń, nekeniń múmkinshiligi tekseriledi'
+                    desc: 'Eki tárep te tańlanǵannan soń, neke múmkinshiligi tekseriledi'
                 },
                 allowed: {
                     icon: '✅',
                     title: 'NEKEGE RUQSAT',
-                    desc: 'Bul urıqlar arasında nekelew múmkin!'
+                    desc: 'Bul urıwlar arasında neke ruqsat etilgen.'
                 },
                 forbidden: {
                     icon: '❌',
-                    title: 'NEKE QADAǴAN!',
-                    desc: 'Bul urıqlar arasında nekelew qadaǵan! (incest)'
+                    title: 'NEKE QADAǴAN',
+                    desc: 'Bul urıwlar arasında neke qadaǵan — bul qan-qarındaslıq (qarımsaq) esaplanadı.'
                 },
-                warning: {
-                    icon: '✅',
-                    title: 'NEKEGE RUQSAT',
-                    desc: 'Bul urıqlar arasında nekelew múmkin!'
+                disputed: {
+                    icon: '❓',
+                    title: 'DAWLı JAǴDAY',
+                    desc: 'Derekler bir pikirge kelmeydi — urıw aqsaqallarınan sorap anıqlaw usınıs etiledi.'
                 }
             };
 
             const msg = messages[status];
             icon.textContent = msg.icon;
             title.textContent = msg.title;
-            desc.textContent = msg.desc;
+            desc.innerHTML = msg.desc;
 
             if (status !== 'pending') {
                 details.style.display = 'block';
                 let detailsHTML = '<h4>📋 Analiz:</h4><ul>';
-                
+
                 const groomPath = getNodePath(selections.groom);
                 const bridePath = getNodePath(selections.bride);
-                
-                detailsHTML += '<li><strong>Kúyew:</strong> ';
-                detailsHTML += groomPath.map(n => n.name).join(' → ');
-                detailsHTML += '</li>';
-                
-                detailsHTML += '<li><strong>Kelin:</strong> ';
-                detailsHTML += bridePath.map(n => n.name).join(' → ');
-                detailsHTML += '</li>';
 
-                const common = findCommonAncestor(groomPath, bridePath);
-                if (common && reason !== 'muyten_exception') {
-                    detailsHTML += '<li><strong>Ulıwma ata:</strong> ' + common.name + ' (' + common.type + ')</li>';
-                }
+                detailsHTML += '<li><strong>Kúyew:</strong> ' + groomPath.map(n => n.name).join(' → ') + '</li>';
+                detailsHTML += '<li><strong>Kelin:</strong> ' + bridePath.map(n => n.name).join(' → ') + '</li>';
+
+                const groomUruw = resolveUruw(groomPath);
+                const brideUruw = resolveUruw(bridePath);
+                if (groomUruw) detailsHTML += '<li><strong>Kúyewdiń urıwı:</strong> ' + groomUruw.name + '</li>';
+                if (brideUruw) detailsHTML += '<li><strong>Kelinniń urıwı:</strong> ' + brideUruw.name + '</li>';
 
                 const reasons = {
-                    same: 'Saylanǵan urıqlar birdey',
-                    koshe: 'Bir kósheniń ishinde (incest)',
-                    tiyre: 'Bir tiyreniń ishinde (incest)',
-                    uruu: 'Bir urıwnıń ishinde (incest)',
-                    bolim: 'Bir bólim ishinde (Shulıq/Jauınǵır)',
-                    arys: 'Bir arıs ishinde, biraq bólek qáwimler',
-                    different: 'Bútkenley bólek urıqlar',
-                    nation: 'Bir xalıq ishinde',
-                    muyten_exception: 'Múyten urıwınıń ayrıqsha jaǵdayı'
+                    same_node: 'Bir bahá urıw/tiyre/kóshe tańlanǵan.',
+                    same_uruw: 'Kúyew hám kelin bir urıwǵa tiyisli. Urıw ishindegi neke qadaǵanı buwın sanı menen sheklenbeydi (bel bala, aqlıq, shawlıq, kuwlıq, toqlıq, bawlıq, jatlıq hám t.b.).',
+                    endogamy_exception: data ? data.note : '',
+                    inter_clan_active: data ? data.note : '',
+                    inter_clan_disputed: data ? data.note : '',
+                    inter_clan_historic: (data ? data.note : '') + ' Búgingi kúnde bul qadaǵan ámelde esaplanbaydı, neke múmkin.',
+                    different_uruw: 'Urıwlar bólek — dástúr boyınsha neke ruqsat etilgen.',
+                    broad_selection: 'Keń kategoriya (arıs/bólim) tańlanǵan, anıq urıw emes. Anıq tekseriw ushın urıwdı tańlań.'
                 };
-                
-                if (reason) {
-                    detailsHTML += '<li><strong>Sebep:</strong> ' + reasons[reason] + '</li>';
-                }
 
-                if (reason === 'muyten_exception') {
-                    detailsHTML += '</ul>';
-                    detailsHTML += '<div class="exception-note">';
-                    detailsHTML += '<h4>💡 Múyten urıwı haqqındaǵı ayrıqsha jaǵday:</h4>';
-                    detailsHTML += '<p>Múyten urıwınıń ishinde Keńtanaw, Teli, Samat hám Abız tiyreleri arasındaǵı nekege ruxsat etiledi. Bul qaraqalpaq dástúrinde ayrıqsha jaǵday bolıp tabıladı.</p>';
-                    detailsHTML += '<p><strong>Qadaǵan:</strong> Bir tiyre ishinde (mısalı, Samat-Samat, Teli-Teli) neke qadaǵan.</p>';
-                    detailsHTML += '</div>';
-                    detailsHTML += '<h4>💡 Usınıs:</h4><ul>';
-                    detailsHTML += '<li>✅ Nekege ruxsat</li>';
-                    detailsHTML += '<li>ℹ️ Múyten urıwınıń tiyreleri arasında nekelew dástúr boyınsha qabıllanadı</li>';
-                } else {
-                    detailsHTML += '</ul><h4>💡 Usınıs:</h4><ul>';
-                    if (status === 'allowed') {
-                        detailsHTML += '<li>✅ Nekege ruxsat</li>';
-                        if (reason === 'arys') {
-                            detailsHTML += '<li>ℹ️ Dástúr boyınsha eki bólek arıstan nekeleniw jaqsı</li>';
-                        }
-                    } else if (status === 'forbidden') {
-                        detailsHTML += '<li>❌ Bul neke islam hám dástúr boyınsha qadaǵan</li>';
-                        detailsHTML += '<li>⚠️ Basqa urıqtan jup izlew kerek</li>';
-                    } else if (status === 'warning') {
-                        detailsHTML += '<li>✅  Neke múmkin.</li>';
-                        detailsHTML += '<li>💭 Hár qıylı arıslardan yamasa úlken urıwlardan tańlaǵan jaqsıraq</li>';
-                    }
-                }
                 detailsHTML += '</ul>';
+                if (reason && reasons[reason]) {
+                    detailsHTML += '<div class="exception-note"><h4>' +
+                        (status === 'forbidden' ? '❌' : status === 'disputed' ? '❓' : 'ℹ️') +
+                        ' Sebebi:</h4><p>' + reasons[reason] + '</p>';
+                    if (data && data.source) {
+                        detailsHTML += '<p><em>Deregi: ' + data.source + '</em></p>';
+                    }
+                    detailsHTML += '</div>';
+                }
 
                 details.innerHTML = detailsHTML;
             } else {
@@ -1451,14 +3293,21 @@
                     toggleIcon = '<span style="width:20px;"></span>';
                 }
                 
-                const levelBadges = ['Xalıq', 'Arıs', 'Bólim', 'Uruw', 'Tiyre', 'Ko\'she'];
-                const badge = level > 0 ? '<span class="level-badge">' + levelBadges[level] + '</span>' : '';
-                
+                // Dárejeni belgilew — túyin maǵlıwmatınan alamız, sebebi sanlıq level
+                // aǵashtıń hár qıylı tarawlarında sáykes kelmeydi (resolveUruw-di qараń')
+                const badge = node.type ? '<span class="level-badge">' + node.type + '</span>' : '';
+
+                // Ekzogamiya boyınsha ayrıqsha statustaǵı urıwlardı belgilew
                 let specialMark = '';
-                if (isMuytenException(node.id)) {
-                    specialMark = ' 💡';
+                if (exogamyRules.endogamyAllowed.some(e => e.id === node.id)) {
+                    specialMark = ' ⭐';
+                } else {
+                    const ban = exogamyRules.interClanBans.find(b => !b.notInTree && (b.a === node.id || b.b === node.id));
+                    if (ban) {
+                        specialMark = ban.status === 'disputed' ? ' ❓' : ban.status === 'active' ? ' ⛔' : ' 🕰️';
+                    }
                 }
-                
+
                 item.innerHTML = toggleIcon + badge + node.name + specialMark;
                 
                 item.onclick = function(e) {
@@ -1505,9 +3354,6 @@
             
             const display = document.getElementById(type + 'Display');
             let displayText = node.name + ' (' + node.type + ')';
-            if (isMuytenException(node.id)) {
-                displayText += ' [Múyten tiyre]';
-            }
             display.textContent = displayText;
             display.classList.remove('empty');
             
@@ -1595,200 +3441,204 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <!-- Информационный блок об экзогамии -->
+    <!-- Ekzogamiya haqqında maǵlıwmat bloki -->
     <div class="info-section" style="margin-top: 40px; background: linear-gradient(135deg, rgba(26,31,46,0.9) 0%, rgba(15,20,29,0.95) 100%); border: 2px solid var(--accent-cyan);">
         <h3 style="color: var(--accent-cyan); font-size: 1.4em; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-            <span>📖</span> 
-            <span id="exogamyInfoTitle">Неге ру ішінде некеге болмайды?</span>
+            <span>📖</span>
+            <span>Qaraqalpaq urıwlıq ekzogamiyası (qız alıspaw)</span>
         </h3>
-        
+
         <div style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05em;">
+
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">1. Ekzogamiya / qız alıspaw degenimiz ne</h4>
             <p style="margin-bottom: 15px;">
-                <span id="exogamyIntro">Бұл дәстүрлі рулық экзогамиямен байланысты — қарақалпақ этникалық мәдениеті мен әлеуметтік ұйымдастыруының маңызды элементтерінің бірі.</span>
+                Urıwlıq ekzogamiya — bir urıw ishinde neke qıyıwǵa qadaǵan — Xorezm qaraqalpaqlarınıń dástúrli
+                áleumettik dúzimindegi tiykarǵı principlerdiń biri. Kúndelikli tilde bul qadaǵan hám onıń menen
+                baylanıslı urıwlar aralıq kelin almasıw dástúri <strong>qız alıspaw</strong> dep ataladı ("qızlardı
+                almasıw" — neke óz urıwınıń ishinde emes, basqa urıwdıń ókili menen dúzıledi). Qadaǵandı buzıw
+                dástúrde qan-qarındaslıq — <em>qarımsaq</em> — dep esaplanǵan.
             </p>
-            
-            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
-                <span id="reason1Title">1. Инцест және генетикалық қауіптерді болдырмау</span>
-            </h4>
-            <ul style="margin-left: 20px; margin-bottom: 15px;">
-                <li id="reason1Item1">Бір рудың ішіндегі неке инцест (қарымсақ) деп есептелді</li>
-                <li id="reason1Item2">Бұл ұрпақ үшін биологиялық қауіптер тудырды</li>
-                <li id="reason1Item3">Тіпті 7 буын қашықтықта туысқандар арасында неке тыйым салынды</li>
-            </ul>
-            
-            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
-                <span id="reason2Title">2. Әлеуметтік-саяси құрылым</span>
-            </h4>
+
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">2. Tiykarǵı erekshelik: qadaǵan buwın sanı menen sheklenbeydi</h4>
+            <p style="margin-bottom: 10px;">
+                Qazaq hám qırǵız xalıqlarınıń «jeti ata» dástúrinen parqlı — onda qadaǵan tek áke tárepinen jeti
+                buwın aralıǵında ámel etip, sonnan soń uzaq tuwısqanlar arasında neke ruqsat etiledi — Xorezm
+                qaraqalpaqlarında bir urıw ishindegi nekege qadaǵannıń <strong>waqıt yamasa buwın sheki joq</strong>:
+                bir urıwǵa tiyisliligi esletilip turǵan waqıtqa shekem neke qadaǵan — jup arasında qansha buwın
+                bolsa da.
+            </p>
+            <p style="margin-bottom: 10px;">Urıw ishindegi tuwısqanlıq dástúrde buwın atamaları tizbegi arqalı esaplanǵan:</p>
             <div style="overflow-x: auto; margin-bottom: 15px;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.95em; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden;">
                     <thead>
                         <tr style="background: var(--accent-blue); color: white;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);" id="tableLevel">Деңгей</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);" id="tableName">Атауы</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 2px solid var(--border-color);" id="tableMarriage">Неке ішінде</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);">№</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);">Termin</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <td style="padding: 8px 10px;">1</td>
-                            <td style="padding: 8px 10px;">Ko'she </td>
-                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-red); font-weight: bold;">❌ Qadaǵan</td>
+                        <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 8px 10px;">1</td><td style="padding: 8px 10px;">bel bala</td></tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 8px 10px;">2</td><td style="padding: 8px 10px;">aqlıq</td></tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 8px 10px;">3</td><td style="padding: 8px 10px;">shawlıq</td></tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 8px 10px;">4</td><td style="padding: 8px 10px;">kuwlıq</td></tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 8px 10px;">5</td><td style="padding: 8px 10px;">toqlıq</td></tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);"><td style="padding: 8px 10px;">6</td><td style="padding: 8px 10px;">bawlıq</td></tr>
+                        <tr><td style="padding: 8px 10px;">7</td><td style="padding: 8px 10px;">jatlıq</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-bottom: 15px;">
+                Bul qatar tuwısqanlıqtı jetinshi basqıshta «jappaydı» — ol tek basqıshlardıń atların ataydı; ortaq
+                urıwǵa tiyisliligi esapta turǵanınsha qadaǵan odan ári de kúshinde qaladı.
+            </p>
+
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">3. Qanday nekelerge ruqsat etilgen</h4>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li>Sol arıstıń ishindegi hár qıylı urıwlar arasında;</li>
+                <li>Hár qıylı arıslar / taypalar arasında;</li>
+                <li>Ana tárepi boyınsha — nagashı tuwısqanlar hám odan da alıs tuwısqanlar menen neke ruqsat
+                    etilgen hám dástúrde hátte qollap-quwatlanǵan, sebebi olar hár qıylı urıwlar arasındaǵı
+                    baylanıslardı nıǵaytqan.</li>
+            </ul>
+
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">4. Ayırım urıw hám taypalardıń ayriqsha jaǵdayları</h4>
+            <div style="background: rgba(52, 152, 219, 0.15); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="margin-bottom: 8px;"><strong>Qıtay — Qayshılı:</strong> Qayshılı urıwınıń ishinde (9 bólim/tiyre) ayriqsha jaǵday sıpatında ishki neke dástúrde ruqsat etilgen.</p>
+                <p style="margin-bottom: 0;"><strong>Qıtay — Bessarı:</strong> Júnli hám Qoylı tiyreleri bolsa, kerisinshe, hesh qanday jeńillik joq ayrıqsha qattı qadaǵanǵa iye.</p>
+            </div>
+            <div style="background: rgba(52, 152, 219, 0.15); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="margin-bottom: 8px;"><strong>Qıpshaq — Qańlı:</strong> Qańlı urıwı, Qayshılı sıyaqlı, ayriqsha jaǵday — ishki neke ruqsat etilgen edi.</p>
+                <p style="margin-bottom: 8px;"><strong>Qıpshaq — Tolıq ↔ Basar (⛔):</strong> bul urıwlar arasındaǵı ámeldegi urıwlar aralıq qadaǵan.</p>
+                <p style="margin-bottom: 8px;"><strong>Qıpshaq — Jadik ↔ Saltır (🕰️)</strong> hám <strong>Baǵanalı ↔ Jaǵaltay (🕰️):</strong> tariyxıy qadaǵanlar; házirgi dala maǵlıwmatları olardıń búgin de saqlanıp atırǵanın tastıyıqlamaydı.</p>
+                <p style="margin-bottom: 8px;">Sonday-aq, tariyxıy túrde <strong>Tańke</strong> dep atalatuǵın 4 urıwlıq top ishinde hám <strong>Manjulı</strong> menen <strong>Boqlı-Qıtay</strong> arasında qadaǵanlar bolǵanı belgili — bul urıwlar saittiń shejiresinde bólek kórsetilmegen, sonlıqtan olardı vidjette tekseriw múmkin emes.</p>
+                <p style="margin-bottom: 0;">Bólek atap ótiw kerek — <strong>dawlı jaǵday Sańmúrin ↔ Estek (❓):</strong> izertlewshiler hám dala maǵlıwmatları bul qadaǵannıń hámme jerde saqlanǵanı haqqında bir pikirge kelmeydi.</p>
+            </div>
+            <div style="background: rgba(52, 152, 219, 0.15); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="margin-bottom: 8px;"><strong>Qońırat — Shulıq:</strong> Shulıq bólimindegi urıwlar (Ashamaylı, Múyten, Qoldawlı hám t.b.) ushın ulıwma qaǵıyda ámel etedi — Shulıq ishinde qálegen hár qıylı urıwlar arasında neke ruqsat etilgen, tek bir urıwdıń ishinde qadaǵan.</p>
+                <p style="margin-bottom: 0;"><strong>Múyten — Samat, Teli, Abız, Keńtanaw:</strong> Múyten urıwında bul tórt tarmaq — óz aldına ǵárezsiz urıw (bir urıwdıń tiyresi emes), sonlıqtan olar arasındaǵı nekeler «hár qıylı urıw — neke ruqsat» degen ulıwma qaǵıydanıń ádettegi qollanılıwı, bólek ayriqsha jaǵday emes. Urıwdıń wákilleri (Keńtanaw tarmaǵı) tastıyıqlaydı.</p>
+            </div>
+
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">5. Jaza hám qadaǵandı saqlaw ústinen baqlaw</h4>
+            <p style="margin-bottom: 10px;">
+                Ekzogamiyanı buzıw dástúrde qattı áleumettik ayıptawǵa, tipti urıwdan quwıp shıǵarıwǵa (óshiriliwge)
+                sebep bolǵan. Qadaǵandı saqlaw aqsaqallar tárepinen baqlanıp, bul keń kólemde ashıq talqılanatuǵın
+                edi. 1928-jılı Shımbayda bolǵan jaǵday belgili — bir urıw ishinde dúzilgen neke ashılǵanda, ol
+                jámiyettiń ayıptawı astında urıwdıń qararı menen buzılǵan.
+            </p>
+
+            <h4 id="adat-shariat" style="color: var(--accent-yellow); margin: 24px 0 10px 0; font-size: 1.1em; scroll-margin-top: 115px;">6. Ádet hám shariyat: eki tıyım aylanası</h4>
+            <p style="margin-bottom: 15px;">
+                Qaraqalpaq rulıq ekzogamiyası — ıslamǵa shekemgi rulıq dúzimnen tamır alatuǵın ádet huqıqınıń (ádettiń)
+                normasi. Qaraqalpaqlar qabıl etken islam bolsa, Qur'anda («An-Nisa» súresi, 4:22–23) belgilengen óz
+                aldına derbes neke tıyımları dógeregine iye. Bul eki sistema bir waqıtta ámel etken, biraq olar hár
+                qıylı zatlardı qadaǵan etedi: shariyat eki tárepten de jaqın tuwısqanlardıń tar dógeregin belgileydi,
+                al ádet onıń ústine áke tárepi boyınsha áwladlar sanı menen sheklenbegen tıyımdı qosadı.
+            </p>
+
+            <p style="margin-bottom: 8px;"><strong style="color: var(--accent-cyan);">Islam nelerdi qadaǵan etedi</strong></p>
+            <p style="margin-bottom: 15px;">
+                Islam boyınsha nekege qadaǵan (máhrem): ana hám úlken analar; qızlar hám qız nemereler; tuwǵan, áke
+                bir hám sheshe bir apa-qarındaslar; áke tárepindegi hám sheshe tárepindegi tәte-apalar; aǵa-inisiniń
+                qızları hám apa-qarındastıń qızları. Qan tuwısqanlıqqa qosımsha: sút tuwısqanlıq (sút ana, sút
+                apa-qarındas — bir ayaldıń emizgen balaları óz ara neke qıya almaydı) hám qudalıq tuwısqanlıq (qayın
+                ana, ógey qız, kelin; eki apa-qarındasqa bir waqıtta úylenıw qadaǵan). Barlıq túrdegi tuwısqan
+                qızlar — sonıń ishinde ákeniń aǵa-inisiniń qızı da — islam boyınsha RUQSAT ETILGEN; taǵa hám
+                tәte-apalardıń qızları Qur'anda («Al-Ahzab» súresi, 33:50) ashıq túrde ruqsat etilgen dep aytılǵan.
+            </p>
+
+            <div style="overflow-x: auto; margin-bottom: 15px;">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Kim</th>
+                            <th>Qaraqalpaq ádeti</th>
+                            <th>Shariyat</th>
                         </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <td style="padding: 8px 10px;">2</td>
-                            <td style="padding: 8px 10px;">Tiyre</td>
-                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-red); font-weight: bold;">❌ Qadaǵan</td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Kim">Óz urıwınıń qızı, 7 áwladtan uzaq bolsa da</td>
+                            <td data-label="Qaraqalpaq ádeti">Qadaǵan</td>
+                            <td data-label="Shariyat">Jaqın qan tuwısqanlıq bolmasa, ruqsat</td>
                         </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <td style="padding: 8px 10px;">3</td>
-                            <td style="padding: 8px 10px;">Uruw (Úlken urıw)</td>
-                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-red); font-weight: bold;">❌ Qadaǵan</td>
+                        <tr>
+                            <td data-label="Kim">Áke aǵa-inisiniń qızı (áke tárepinen ámi qızı)</td>
+                            <td data-label="Qaraqalpaq ádeti">Qadaǵan — sol urıw</td>
+                            <td data-label="Shariyat">Ruqsat</td>
                         </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <td style="padding: 8px 10px;">4</td>
-                            <td style="padding: 8px 10px;">Arıs</td>
-                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-green);font-weight: bold;">✅ Ruqsat</td>
+                        <tr>
+                            <td data-label="Kim">Sheshe aǵa-inisiniń qızı (nagashı ámi qızı)</td>
+                            <td data-label="Qaraqalpaq ádeti">Ruqsat hám qollap-quwatlanǵan</td>
+                            <td data-label="Shariyat">Ruqsat</td>
                         </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <td style="padding: 8px 10px;">5</td>
-                            <td style="padding: 8px 10px;">Bólim</td>
-                            <td style="padding: 8px 10px; text-align: center; color: var(--accent-green); font-weight: bold;">✅ Ruqsat</td>
+                        <tr>
+                            <td data-label="Kim">Tuwǵan apa-qarındaslardıń balaları óz ara (bóle)</td>
+                            <td data-label="Qaraqalpaq ádeti">Ruqsat, qálegen (ákeleri basqa urıwdan bolsa)</td>
+                            <td data-label="Shariyat">Ruqsat</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Kim">Sheshe tárepinen tәte-apa, apa-qarındastıń qızı</td>
+                            <td data-label="Qaraqalpaq ádeti">Qadaǵan</td>
+                            <td data-label="Shariyat">Qadaǵan (máhrem)</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Kim">Sút apa-qarındas</td>
+                            <td data-label="Qaraqalpaq ádeti">— (shariyat tárepinen tártipke salınǵan)</td>
+                            <td data-label="Shariyat">Qadaǵan</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Kim">Sol arıstıń basqa urıwınan qız</td>
+                            <td data-label="Qaraqalpaq ádeti">Ruqsat</td>
+                            <td data-label="Shariyat">Ruqsat</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
-            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
-                <span id="reason3Title">3. Әлеуметтік байланыстарды сақтау</span>
-            </h4>
-            <ul style="margin-left: 20px; margin-bottom: 15px;">
-                <li id="reason3Item1">Экзогамия <strong>әлеуметтік желіні кеңейтті</strong> — рулар арасында одақтар құрды</li>
-                <li id="reason3Item2">Некелік альянстар арқылы ру ішіндегі бітімді нығайтты</li>
-                <li id="reason3Item3">Бір ру ішіндегі ресурстар үшін дауларды болдырмады</li>
-            </ul>
-            
-            <!-- <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
-                <span id="reason4Title">4. Ерекше жағдай: Мүйтен руы</span>
-            </h4>
-            <div style="background: rgba(52, 152, 219, 0.15); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <p style="margin-bottom: 10px;" id="exceptionText">
-                    Бірегей ерекше жағдай — <strong>арыс Қоңырат ішіндегі Мүйтен руы</strong>:
+
+            <p style="margin-bottom: 8px;">
+                Sonday etip, sheshe tárepi boyınsha ádet hám shariyat sáykes keledi, al áke tárepi boyınsha ádet
+                ansha qattı: islam rulıq ekzogamiyanı talap etpeydi hám «pútkil urıwǵa áwladlar sanı sheklenbegen»
+                tıyımdı bilmeydi — bul tıyım ıslamǵa shekemgi, rulıq shıǵısqa iye. Sonıń ushın etnograflar
+                qaraqalpaq ekzogamiyasın islam menen birge jasap kelgen, onnan kelip shıqpaǵan qadimgi ádet dep
+                sıpatlaǵan [Jdanko 1950; Orta Aziya xalıqları 1962]. Xalıq institutı bolǵan kindik sheshe de
+                shariyatqa qarama-qarsı kelmeydi: eger urıw-tuwısqanlar arasında haqıyqıy qan tuwısqanlıq bolmasa,
+                olardıń arasında qız alıspaw múmkin.
+            </p>
+
+            <p style="font-size: 0.85em; color: var(--text-secondary); opacity: 0.75; font-style: italic; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+                Bul bólim mádeniy-aǵartıwshılıq xarakterge iye hám fiqhtiń klassikalıq qaǵıydaların ulıwma túrde
+                bayan etedi; ol dіniy juwmaq (fәtiwa) esaplanbaydı. Anıq sorawlar boyınsha imamǵa yamasa
+                muftiyatqa jolıǵıń.
+            </p>
+
+            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">7. Házirgi zamandaǵı jaǵdayı</h4>
+            <div style="background: rgba(241, 196, 15, 0.1); border: 1px solid var(--accent-yellow); border-radius: 10px; padding: 15px; margin-top: 10px;">
+                <p style="margin-bottom: 8px;">
+                    2007–2017-jıllardaǵı dala maǵlıwmatları boyınsha, sorastırılǵan qaraqalpaqlardıń shama menen
+                    98%-i óz urıwın biledi, hám urıw ishindegi nekege qadaǵan ulıwma alǵanda mádeniy norma sıpatında
+                    házirge shekem saqlanıp atır.
                 </p>
-                <ul style="margin-left: 20px;">
-                    <li id="exceptionItem1"><strong>Кеңтанау, Тели, Самат, Абыз</strong> тийрелері бір-бірімен некелесе алады</li>
-                    <li id="exceptionItem2">Бұл олардың тарихи шығу тегі және санына байланысты</li>
-                    <li id="exceptionItem3">Бірақ <strong>бір тийре ішінде</strong> (мысалы, Самат-Самат) неке әлі де <span style="color: var(--accent-red);">тыйым салынған</span></li>
-                </ul>
-            </div> -->
-            
-            <h4 style="color: var(--accent-yellow); margin: 20px 0 10px 0; font-size: 1.1em;">
-                <span id="reason5Title">4. Діни-құқықтық нормалар</span>
-            </h4>
-            <ul style="margin-left: 20px; margin-bottom: 15px;">
-                <li id="reason5Item1">Ислам да жақын туысқандармен некені тыйым салады</li>
-                <li id="reason5Item2">Қарақалпақ әдеттік құқығы (<em>қасиет</em>) бұл нормаларды бекітті</li>
-                <li id="reason5Item3">Бұзушылық әлеуметтік жылауға (өшірілуге) әкелді</li>
-            </ul>
-            
-            <div style="background: rgba(241, 196, 15, 0.1); border: 1px solid var(--accent-yellow); border-radius: 10px; padding: 15px; margin-top: 20px;">
-                <h4 style="color: var(--accent-yellow); margin-bottom: 10px; font-size: 1.05em;">
-                    <span id="modernTitle">Қазіргі заманғы маңызы</span>
-                </h4>
-                <p id="modernText">
-                    Қазіргі қарақалпақтар жиі осы сайт сияқты құралдарды қолданады:
+                <p style="margin-bottom: 0;">
+                    <strong>Itibar beriń:</strong> búgingi kúnde bul — mádeniy dástúr, huqıqıy norma emes; ol
+                    nızamda bekitilgen emes. Bul sayt urıwlıq tiyislilikti anıqlaw ushın anıqtama maqsetinde
+                    járdem beredi hám urıwdıń úlken adamları menen keńesiwdi almastırmaydı.
                 </p>
-                <ul style="margin-left: 20px; margin-top: 8px;">
-                    <li id="modernItem1">Потенциалды серіктестің рулық тегін тексеру үшін</li>
-                    <li id="modernItem2">Қасақана инцестті болдырмау үшін</li>
-                    <li id="modernItem3">Мәдени идентитетті сақтау үшін</li>
-                </ul>
             </div>
+
+            <h4 style="color: var(--accent-yellow); margin: 24px 0 10px 0; font-size: 1.1em;">8. Derekler</h4>
+            <ul style="margin-left: 20px; margin-bottom: 5px;">
+                <li>Jdanko T.A. Qaraqalpaqlardıń tariyxıy etnografiyası boyınsha ocherkler. — M.-L., 1950.</li>
+                <li>Tolstova L.S. Xorezm oazisinen tısqarı qaraqalpaqlar. — Nókis, 1963.</li>
+                <li>Esbergenov X., Atamuratov T. Qaraqalpaqlardıń mádeniyatı hám turmısındaǵı dástúrler hám olardıń ózgeriwi. — Nókis, 1970.</li>
+                <li>Davletiyarov. Qaraqalpaqlardıń urıw-taypalıq dúzimi: dala materialları, 2022.</li>
+                <li>Dala etnografiyalıq maǵlıwmatları, 2007–2017-jj.</li>
+                <li>Múyten urıwınıń (Keńtanaw tarmaǵı) wákiliniń dala gúwalıǵı, 2026.</li>
+                <li>Qur'an, «An-Nisa» súresi, 4:22–23; «Al-Ahzab» súresi, 33:50.</li>
+                <li>Orta Aziya hám Qazaqstan xalıqları. I tom. — M., 1962.</li>
+            </ul>
         </div>
     </div>
 
-    <script>
-        // Переводы для разных языковых версий
-        const exogamyTranslations = {
-            kz: {
-                exogamyInfoTitle: "Неге ру ішінде некеге болмайды?",
-                exogamyIntro: "Бұл дәстүрлі рулық экзогамиямен байланысты — қарақалпақ этникалық мәдениеті мен әлеуметтік ұйымдастыруының маңызды элементтерінің бірі.",
-                reason1Title: "1. Инцест және генетикалық қауіптерді болдырмау",
-                reason1Item1: "Бір рудың ішіндегі неке инцест (қарымсақ) деп есептелді",
-                reason1Item2: "Бұл ұрпақ үшін биологиялық қауіптер тудырды",
-                reason1Item3: "Тіпті 7 буын қашықтықта туысқандар арасында неке тыйым салынды",
-                reason2Title: "2. Әлеуметтік-саяси құрылым",
-                tableLevel: "Деңгей",
-                tableName: "Атауы",
-                tableMarriage: "Неке ішінде",
-                reason3Title: "3. Әлеуметтік байланыстарды сақтау",
-                reason3Item1: "Экзогамия <strong>әлеуметтік желіні кеңейтті</strong> — рулар арасында одақтар құрды",
-                reason3Item2: "Некелік альянстар арқылы ру ішіндегі бітімді нығайтты",
-                reason3Item3: "Бір ру ішіндегі ресурстар үшін дауларды болдырмады",
-                reason4Title: "4. Ерекше жағдай: Мүйтен руы",
-                exceptionText: "Бірегей ерекше жағдай — <strong>арыс Қоңырат ішіндегі Мүйтен руы</strong>:",
-                exceptionItem1: "<strong>Кеңтанау, Тели, Самат, Абыз</strong> тийрелері бір-бірімен некелесе алады",
-                exceptionItem2: "Бұл олардың тарихи шығу тегі және санына байланысты",
-                exceptionItem3: "Бірақ <strong>бір тийре ішінде</strong> (мысалы, Самат-Самат) неке әлі де <span style=\"color: var(--accent-red);\">тыйым салынған</span>",
-                reason5Title: "4. Діни-құқықтық нормалар",
-                reason5Item1: "Ислам да жақын туысқандармен некені тыйым салады",
-                reason5Item2: "Қарақалпақ әдеттік құқығы (<em>қасиет</em>) бұл нормаларды бекітті",
-                reason5Item3: "Бұзушылық әлеуметтік жылауға (өшірілуге) әкелді",
-                modernTitle: "Қазіргі заманғы маңызы",
-                modernText: "Қазіргі қарақалпақтар жиі осы сайт сияқты құралдарды қолданады:",
-                modernItem1: "Потенциалды серіктестің рулық тегін тексеру үшін",
-                modernItem2: "Қасақана инцестті болдырмау үшін",
-                modernItem3: "Мәдени идентитетті сақтау үшін"
-            },
-            qq: {
-                exogamyInfoTitle: "Negе urıw ishinde nekege bolmaydı?",
-                exogamyIntro: "Bul dástúrli urıwlıq ekzogamiyamen baylanıslı — qaraqalpaq etnikalıq mádeniyati hám áleumettik uıymdastırıwınıń mańızlı elementleriniń biri.",
-                reason1Title: "1. Incest hám genetikalıq qáwiptlerdi bolıdırıw",
-                reason1Item1: "Bir urıwnıń ishindegi neke incest (qarımsaq) dep esaplandı",
-                reason1Item2: "Bul urpaq ushın biologiyalıq qáwiptler tuıdırdı",
-                reason1Item3: "Tiykim 7 buın qashıqtıqta tuısqandar arasında neke tiyım salındı",
-                reason2Title: "2. Áleumettik-sayasi qurlım",
-                tableLevel: "Deńgey",
-                tableName: "Atawı",
-                tableMarriage: "Neke ishinde",
-                reason3Title: "3. Áleumettik baylanıslardı saqtaw",
-                reason3Item1: "Ekzogamiya <strong>áleumettik jelinı keńeytti</strong> — urıwlar arasında odaqtar qurdı",
-                reason3Item2: "Nekelek alıyanslar arqalı urıw ishindegi bitimdi nıǵayttı",
-                reason3Item3: "Bir urıw ishindegi resurslar ushın dawılardı bolıdırmaq",
-                reason4Title: "4. Ayriqsha jaǵday: Múyten urıwı",
-                exceptionText: "Biregey ayriqsha jaǵday — <strong>arıs Qońırat ishindegi Múyten urıwı</strong>:",
-                exceptionItem1: "<strong>Keńtańaw, Teli, Samat, Abız</strong> tiyreleri bir-biri menen nekelese aladı",
-                exceptionItem2: "Bul olardıń tarıxı shıǵuw tegi hám sanına baylanıslı",
-                exceptionItem3: "Biraq <strong>bir tiyre ishinde</strong> (mısalı, Samat-Samat) neke áli de <span style=\"color: var(--accent-red);\">tiyım salınǵan</span>",
-                reason5Title: "5. Dini-ququqtıq normalar",
-                reason5Item1: "Islam da jaqın tuısqandar menen nekeni tiyım saladı",
-                reason5Item2: "Qaraqalpaq ádetlik quqıǵı (<em>qasiyet</em>) bul normalardi bekittti",
-                reason5Item3: "Buzuwshılıq áleumettik jılawǵa (óshirilwge) ákeldi",
-                modernTitle: "Qazirgi zamanǵı mańızı",
-                modernText: "Qazirgi qaraqalpaqtar jiyne usı sayt siyaqtı quralardı qoldanadı:",
-                modernItem1: "Potencialdı seriktestiń urıwlıq tegin tekseriw ushın",
-                modernItem2: "Qasqana incestti bolıdırmaq ushın",
-                modernItem3: "Mádeniy identitetti saqtaw ushın"
-            }
-        };
-
-        // Определяем язык по URL и применяем перевод
-        function applyExogamyTranslations() {
-            const currentUrl = window.location.href;
-            const lang = currentUrl.includes('QQ') ? 'qq' : 'kz';
-            const texts = exogamyTranslations[lang];
-            
-            if (texts) {
-                Object.keys(texts).forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.innerHTML = texts[id];
-                    }
-                });
-            }
-        }
-
-        // Применяем переводы при загрузке
-        document.addEventListener('DOMContentLoaded', applyExogamyTranslations);
-    </script>
     <script src="js/shared-features.js"></script>
 </body>
 </html>
